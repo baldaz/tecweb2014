@@ -1,0 +1,94 @@
+* {
+    border: 0 none;
+    padding: 0;
+    margin: 0;
+    font-family:sans, Comic Sans MS;
+}
+html,body{
+	height:100%;
+	margin-left:5%;
+	margin-right:5%;
+}
+
+#container{
+	width:100%;
+	height:100%;
+}
+
+#header
+{
+	min-height:6em;
+	width:100%;
+	background-color:#0000ff;
+	color:#FFDA47;
+	text-align:center;
+	padding-top:20px;
+}
+#header h1
+{
+	text-align:center;
+}
+#path
+{
+	min-height:2.0em;	
+	background-color:#2F2F40;
+	color:#FFDA47;
+}
+#path p
+{
+	padding:10px;
+}	
+
+.navbox
+{
+	float:left;
+	width:20%;
+	border-color:#000000;
+	height:100%;
+}
+/*******************/
+ul.nav {
+	list-style: none;
+	display: block;
+/*	position: relative;*/
+	padding: 60px 0 60px 0;
+	background: url(../images/shad2.png) no-repeat;
+	-webkit-background-size: 50% 100%;
+}
+
+li {
+	margin: 5px 0 0 0;
+}
+
+ul.nav li a {
+	-webkit-transition: all 0.3s ease-out;
+	background: #0000ff url(../images/border.png) no-repeat;
+	color: #FFDA47;
+	padding: 7px 15px 7px 15px;
+	-webkit-border-top-right-radius: 10px;
+ 	-webkit-border-bottom-right-radius: 10px;
+	width: 100px;
+	display: block;
+	text-decoration: none;
+	-webkit-box-shadow: 2px 2px 4px #888;
+}
+
+ul.nav li a:hover {
+	background: #ebebeb url(../images/border.png) no-repeat;
+	color: #67a5cd;
+	padding: 7px 15px 7px 30px;
+}
+/**********************/
+#content{
+	border-style: dashed;
+	border-width:1px;
+	width:60%;
+	float:right;
+}
+#news
+{
+	float: right;
+    height:100%;
+    background: #ff0000 url(../images/shad2.png) no-repeat;
+    background-size: 30% 100%;
+}
