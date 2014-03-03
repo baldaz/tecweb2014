@@ -10,16 +10,19 @@ html,body{
 	margin-right:5%;
 }
 
-#container{
-	width:100%;
-	height:100%;
+#container {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -4em;
 }
 
 #header
 {
-	min-height:6em;
+	height:15%;
 	width:100%;
-	background-color:#0000ff;
+	background: #228833 url("../images/headerbackground.jpg") no-repeat;
+	background-size:100%;
 	color:#FFDA47;
 	text-align:center;
 	padding-top:20px;
@@ -39,20 +42,18 @@ html,body{
 	padding:10px;
 }	
 
-.navbox
-{
-	float:left;
-	width:20%;
-	border-color:#000000;
-	height:100%;
+#nav {
+  	float: left;
+	width: 20%;
+	height: 85%;
+	background: url(../images/shad2.png) no-repeat;
 }
-/*******************/
-ul.nav {
+
+#nav ul {
 	list-style: none;
 	display: block;
-/*	position: relative;*/
-	padding: 60px 0 60px 0;
-	background: url(../images/shad2.png) no-repeat;
+	position: relative;
+	padding: 10px 0 60px 0;
 	-webkit-background-size: 50% 100%;
 }
 
@@ -60,35 +61,47 @@ li {
 	margin: 5px 0 0 0;
 }
 
-ul.nav li a {
+#nav ul li {
 	-webkit-transition: all 0.3s ease-out;
-	background: #0000ff url(../images/border.png) no-repeat;
+	background: #228833 url(../images/border.png) no-repeat;
 	color: #FFDA47;
 	padding: 7px 15px 7px 15px;
 	-webkit-border-top-right-radius: 10px;
  	-webkit-border-bottom-right-radius: 10px;
-	width: 100px;
+	width: 9em; 
 	display: block;
 	text-decoration: none;
 	-webkit-box-shadow: 2px 2px 4px #888;
 }
 
-ul.nav li a:hover {
-	background: #ebebeb url(../images/border.png) no-repeat;
-	color: #67a5cd;
+#nav ul li:hover:not(#active){
+	background: #ffda47 url(../images/border.png) no-repeat;
+	color: #228833;
 	padding: 7px 15px 7px 30px;
 }
-/**********************/
-#content{
-	border-style: dashed;
-	border-width:1px;
-	width:60%;
-	float:right;
+
+#nav a{
+	color: #FFDA47;
+	text-decoration:none;
 }
+
+#active {
+	background: #FFDA47 url(../images/border.png) no-repeat !important;
+	color: #228833 !important;
+	padding: 7px 15px 7px 30px !important;
+}
+
 #news
 {
-	float: right;
-    height:100%;
-    background: #ff0000 url(../images/shad2.png) no-repeat;
-    background-size: 30% 100%;
+	margin-left: 80%;
+	height:85%;
+	background: #ff0000 url(../images/shad2.png) no-repeat;
+	background-size: 30% 100%;
+}
+
+#content{
+	width:60%;
+	float:left;
+	height:85%;
+	background: #336633;
 }
