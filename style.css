@@ -10,6 +10,7 @@ html,body{
 }
 p {
 	font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+    font-size:0.8em;
 }
 
 body{
@@ -49,7 +50,7 @@ body{
 	height:30%;
     width:100%;
     bottom:0;
-	opacity:0.75;
+	opacity:0.70;
 	background-color:#ffda47;
 	color:#FFDA47;
 	/*border-bottom-left-radius:20px;*/
@@ -91,7 +92,7 @@ li {
 	padding: 7px 15px 7px 15px;
 	-webkit-border-top-right-radius: 10px;
  	-webkit-border-bottom-right-radius: 10px;
-	width: 9em; 
+	width: 8.5em; 
 	display: block;
 	text-decoration: none;
 	-webkit-box-shadow: 2px 2px 4px #888;
@@ -164,6 +165,7 @@ li {
 }
 
 #footer{
+    margin-top:0.6em;
 	width:100%;
 	height:10%;
 	clear: both;
@@ -173,4 +175,3 @@ li {
 	border-top-right-radius: 20px;
 	-webkit-box-shadow: 4px 4px 8px #888;
 }
-
