@@ -36,6 +36,7 @@ body{
 	box-shadow: 4px 4px 8px #888;
 	border-bottom-right-radius:20px;
 	margin-bottom:0.6em;
+    position:relative;
 }
 #header h1
 {
@@ -44,8 +45,10 @@ body{
 }
 #path
 {
+    position:absolute;
 	height:30%;
-	margin-top:3.35%;
+    width:100%;
+    bottom:0;
 	opacity:0.75;
 	background-color:#ffda47;
 	color:#FFDA47;
@@ -99,7 +102,7 @@ li {
 	color: #228833;
 	padding: 7px 15px 7px 30px;
 }
-	
+
 #nav ul a{
 	display:none;
 }
@@ -170,5 +173,4 @@ li {
 	border-top-right-radius: 20px;
 	-webkit-box-shadow: 4px 4px 8px #888;
 }
-
 
