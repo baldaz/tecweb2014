@@ -2,11 +2,14 @@
     border: 0 none;
     padding: 0;
     margin: 0;
-    font-family:"Arial Black", Gadget, sans-serif;
-	text-decoration:none;
+    font-family: Copperplate, "Copperplate Gothic Light", fantasy;
 }
 html,body{
 	height:100%;
+	font-size:100%;
+}
+p {
+	font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
 }
 
 body{
@@ -37,11 +40,12 @@ body{
 #header h1
 {
 	text-align:center;
+	font-weight: bold;
 }
 #path
 {
 	height:30%;
-	margin-top:2.7%;
+	margin-top:3.35%;
 	opacity:0.75;
 	background-color:#ffda47;
 	color:#FFDA47;
@@ -53,7 +57,6 @@ body{
 {
 	padding:10px;
 	padding-left: 1em;
-	font-weight: normal;
 }
 
 #nav {
@@ -144,11 +147,11 @@ li {
 	width:60%;
 	float:left;
 	height:65%;
-	background: #FFFFFF /*url(../images/shad2reverse.png)*/ ;
+	background: #d5d595 /*url(../images/shad2reverse.png)*/ ;
 	background-repeat: repeat-y;
 	background-size: 10% 100%;
-	border-top-right-radius:20px;
-	border-top-left-radius:20px;
+	border-radius:20px;
+	border-radius:20px;
 }
 #content h1{
 	text-align:center;
