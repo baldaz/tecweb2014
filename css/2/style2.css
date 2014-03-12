@@ -15,17 +15,14 @@ p {
 }
 
 body{
-/*	background: #EEE8AA;*/
-    background-color:#ffda47;
-    background-image: linear-gradient(to top, #ffda47 0%, #ffffff 80%);
-    background-image: -webkit-linear-gradient(to top, #ffda47 0%, #ffffff 80%);
-    background-image: -moz-linear-gradient(to top, #ffda47 0%, #ffffff 80%);
-    background-image: -o-linear-gradient(to top, #ffda47 0%, #ffffff 80%);
-    background-image: -ms-linear-gradient(to top, #ffda47 0%, #ffffff 80%);
-    background-image: -khtml-linear-gradient(to top, #ffda47 0%, #ffffff 80%);
-    background-image: linear-gradient(to top, #ffda47 0%, #ffffff 80%);
-	background-size:100%;
-    background-repeat:no-repeat
+   /* background-color:#ffda47;*/
+    background: #EEE8AA;
+    background: -webkit-linear-gradient(to top, #ffda47 0%, #ffffff 80%) fixed;
+    background: -moz-linear-gradient(to top, #ffda47 0%, #ffffff 80%) fixed;
+    background: -o-linear-gradient(to top, #ffda47 0%, #ffffff 80%) fixed;
+    background: -ms-linear-gradient(to top, #ffda47 0%, #ffffff 80%) fixed;
+    background: -khtml-linear-gradient(to top, #ffda47 0%, #ffffff 80%) fixed;
+    background: linear-gradient(to top, #ffda47 0%, #ffffff 80%) fixed;
 }
 
 form{
@@ -218,10 +215,6 @@ input:focus, select:focus, input:hover, select:hover{
 {
 	max-width: 18%;
 	margin-left: 82%;
-  /*  background-image: linear-gradient(to right, #228833 0%, #ffffff 100%);*/
-/*	background:linear-gradient(to right,rgba(34,136,51,0.8), rgba(255,255,255, 0.2));*/
-	/*background-repeat: repeat-y;*/
-/*	background-size: 10% 100%;*/
     background:rgba(0,0,0,0.3);
     -webkit-border-radius:20px;
     -moz-border-radius:20px;
