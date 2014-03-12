@@ -22,7 +22,7 @@
 
 	<div id="nav">
 		<ul>
-		<li><a id="active">Home</a></li>
+		<li><a href="./index.html">Home</a></li>
 		<li><a href="./calcetto.html">Calcio a 5</a></li>
 		<li><a href="./calciotto.html">Calciotto</a></li>
 		<li><a href="./tennis.html">Tennis</a></li>
@@ -31,43 +31,51 @@
 		<li><a href="./artimarziali.html">Arti Marziali</a></li>
 		<li><a href="./fitness.html">Fitness</a></li>
 		<li><a href="./ristoro.html">Ristoro</a></li>
-		<li><a href="./contatti.html">contatti</a></li>
+		<li><a href="./contatti.html">Contatti</a></li>
+        <li><a id="active">Prenota</a></li>
 		</ul>
 	</div>
 
 	<div id="content">
-		<form method="POST" action="checkform.pl">
+		<form method="POST" action="/cgi-bin/checkform.cgi">
 			<fieldset>
-	<legend>Informazioni generali</legend>
-	<label for="nome">Nome: </label>
-	<input type="text" name="nome" id="nome" value="" /><span id="namecheck"></span><br />
-	
-	<label for="colore">Colore: </label>
-	<input type="text" name="colore" id="colore" value="" /><span id="colorcheck"></span><br />
-	
-	<label for="peso">Peso: </label> 
-	<input type="text" name="peso" id="peso" value="" /><span id="weightcheck"></span><br />
-	
-	<label for="potenza">Potenza</label>
-	<select name="potenza" id="potenza"><option value="Bassa">Bassa</option><option value="Media">Media</option><option value="Alta">Alta</option></select> <br />
-	</fieldset>
-	
-	<fieldset>
-	<legend>Descrizione dettagliata</legend>
-	<label for="descrizione">Descrizione: </label>
-	<textarea id="descrizione" name="descrizione"></textarea>
-	</fieldset>
-	
-	<fieldset>
-	<legend>Bottoni</legend>
-	<input type="submit" id="submit" name="submit" class="margineSinistro" value="Inserisci personaggio" />
-	<input type="reset" id="reset" class="margineSinistro" value="Cancella tutto" />
-	</fieldset>
-		</form>
+				<legend><h2>PRENOTAZIONE</h2></legend>
+				<label>Nome:
+				    <input type="text" name="nome" id="nome" value="" />
+                </label>
+				<label>Cognome: 
+				    <input type="text" name="cognome" id="cognome" value="" />
+                </label>    
+				<label>Telefono: 
+				    <input type="text" name="telefono" id="telefono" value="" />
+                </label>    
+				<label >Email:
+				    <input type="text" name="email" id="email" value="" />
+                 </label>    
+				<label> Disciplina:
+				    <select name="disciplina" id="disciplina"><option value="Calcetto">Calcetto</option><option value="Calciotto">Calciotto</option><option value="Pallavolo">Pallavolo</option></select> 
+                 </label>
+				<!--
+				<label for="giorno"> Giorno: </label>
+				<select name="giorno" id="giorno"><option value="01">01</option><option value="02">02</option><option value="03">03</option></select>
+				<label for="mese"> Mese: </label>
+				<select name="mese" id="mese"><option value="Calcetto">Calcetto</option><option value="Calciotto">Calciotto</option><option value="Pallavolo">Pallavolo</option></select> 
+				<label for="anno"> Anno: </label>
+				<select name="anno" id="anno"><option value="Calcetto">Calcetto</option><option value="Calciotto">Calciotto</option><option value="Pallavolo">Pallavolo</option></select>  
+			-->
+				<label>Giorno: 
+   				<input type="datetime-local" name="mydatetime" id="date" >
+  				</label>
+            </fieldset>
+            <fieldset>
+  		        <input type="reset"  value="Resetta il form" class="button">
+  		        <input type="submit" value="Invia" class="button">
+            </fieldset>
+	</form>
 	</div>
 	<div id="news_container">
 	<div id="news">
-			<h1> NEWS lunghissimo </h1>
+			<h2>NEWS</h2>
 		<ul>
 		      <li>NEW1</li>
 		      <li>NEW2</li>
