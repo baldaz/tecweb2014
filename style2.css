@@ -28,6 +28,53 @@ body{
     background-repeat:no-repeat
 }
 
+form{
+    width:95%;
+    margin:2.5% 2.5%;
+}
+label{
+    display:block;
+    text-align: justify;
+    float:left;
+    width:50%;
+    font-size: 0.9em;
+    line-height:2.2em
+}
+input, select{
+    background:rgba(0,0,0,0.2);
+    border-radius:5px;
+    height:2em;
+    margin:0.3em;
+    padding:0.1em;
+    width:70%;
+    -webkit-box-shadow: 0px 0px 4px #888;
+    -moz-box-shadow: 0px 0px 4px #888;
+    -o-box-shadow: 0px 0px 4px #888;
+    -ms-box-shadow: 0px 0px 4px #888;
+    box-shadow: 0px 0px 4px #888;
+}
+
+input:focus, select:focus, input:hover, select:hover{
+    -webkit-box-shadow: 0px 0px 8px #228833;
+    -moz-box-shadow: 0px 0px 8px #228833;
+    -o-box-shadow: 0px 0px 8px #228833;
+    -ms-box-shadow: 0px 0px 8px #228833;
+    box-shadow: 0px 0px 8px #228833;
+    outline: none;
+}
+
+#nome, #cognome, #telefono, #email, #disciplina, #date{
+    float:right
+}
+.button{
+    background-color:#228833;
+	color: #ffda47;
+    cursor:crosshair
+}
+.button:hover{
+    background-color:#ffda47;
+	color: #228833;
+}
 #container {
 	height: 100%;
 	margin: 0 5% 0;
@@ -156,7 +203,6 @@ body{
 }
 
 #active {
-	/*background: #FFDA47 !important;*/
     background-image: -webkit-linear-gradient(to right, #ffda47 0%, #ffffff 150%) !important;
     background-image: -moz-linear-gradient(to right, #ffda47 0%, #ffffff 150%) !important;
     background-image: -o-linear-gradient(to right, #ffda47 0%, #ffffff 150%) !important;
