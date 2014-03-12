@@ -18,6 +18,12 @@ body{
 /*	background: #EEE8AA;*/
     background-color:#ffda47;
     background-image: linear-gradient(to top, #ffda47 0%, #ffffff 80%);
+    background-image: -webkit-linear-gradient(to top, #ffda47 0%, #ffffff 80%);
+    background-image: -moz-linear-gradient(to top, #ffda47 0%, #ffffff 80%);
+    background-image: -o-linear-gradient(to top, #ffda47 0%, #ffffff 80%);
+    background-image: -ms-linear-gradient(to top, #ffda47 0%, #ffffff 80%);
+    background-image: -khtml-linear-gradient(to top, #ffda47 0%, #ffffff 80%);
+    background-image: linear-gradient(to top, #ffda47 0%, #ffffff 80%);
 	background-size:100%;
     background-repeat:no-repeat
 }
@@ -35,13 +41,24 @@ body{
 	background-size:100%;
 	color:#FFDA47;
 	padding-top:20px;
-	border-top-right-radius:20px;
+	-webkit-border-top-right-radius:20px;
 	-moz-border-top-right-radius:20px;
-	border-bottom-right-radius:20px;
+    -o-border-top-right-radius:20px;
+    -ms-border-top-right-radius:20px;
+    -khtml-border-top-right-radius:20px;
+    border-top-right-radius:20px;
+	-webkit-border-bottom-right-radius:20px;
 	-moz-border-bottom-right-radius:20px;
-	box-shadow: 4px 4px 8px #888;
-	-moz-box-shadow: 4px 4px 8px #888;
+    -o-border-bottom-right-radius:20px;
+    -ms-border-bottom-right-radius:20px;
+    -khtml-border-bottom-right-radius:20px;
+    border-bottom-right-radius:20px;
 	-webkit-box-shadow: 4px 4px 8px #888;
+	-moz-box-shadow: 4px 4px 8px #888;
+    -o-box-shadow: 4px 4px 8px #888;
+    -ms-box-shadow: 4px 4px 8px #888;
+    -khtml-box-shadow: 4px 4px 8px #888;
+    box-shadow: 4px 4px 8px #888;
 	margin-bottom:0.6em;
    	position:relative;
 }
@@ -57,12 +74,21 @@ body{
 	width:100%;
     bottom:0;
 	opacity:0.7;
-	/*background-color:#ffda47;*/
+	background-color:#ffda47;
+    background-image: -webkit-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
+    background-image: -moz-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
+    background-image: -o-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
+    background-image: -ms-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
+    background-image: -khtml-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
     background-image: linear-gradient(to right, #ffda47 0%, #ffffff 150%);
 	color:#FFDA47;
 	/*border-bottom-left-radius:20px;*/
-	border-bottom-right-radius:20px;
-
+	-webkit-border-bottom-right-radius:20px;
+    -moz-border-bottom-right-radius:20px;
+    -o-border-bottom-right-radius:20px;
+    -ms-border-bottom-right-radius:20px;
+    -khtml-border-bottom-right-radius:20px;
+    border-bottom-right-radius:20px;
 }
 #nav {
   	float: left;
@@ -74,7 +100,7 @@ body{
 	list-style: none;
 	display: block;
 	position: relative;
-	-webkit-background-size: 50% 100%;
+	background-size: 50% 100%;
 }
 
 #nav ul li{
@@ -85,18 +111,32 @@ body{
 	-webkit-transition: all 0.3s ease-out;
 	-moz-transition: all 0.3s ease-out;
 	-o-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -khtml-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
 	background: #228833;
 	color: #FFDA47;
 	padding: 0.437em 0.937em 0.437em 0.937em;
 	-webkit-border-top-right-radius: 10px;
+    -moz-border-top-right-radius: 10px;
+    -o-border-top-right-radius: 10px;
+    -ms-border-top-right-radius: 10px;
+    -khtml-border-top-right-radius: 10px;
+    border-top-right-radius: 10px;
  	-webkit-border-bottom-right-radius: 10px;
-	border-top-right-radius: 10px;
-	border-bottom-right-radius: 10px;
+    -moz-border-bottom-right-radius: 10px;
+    -o-border-bottom-right-radius: 10px;
+    -ms-border-bottom-right-radius: 10px;
+    -khtml-border-bottom-right-radius: 10px;
+    border-bottom-right-radius: 10px;
 	width: 65%; 
 	display: block;
 	text-decoration: none;
 	-webkit-box-shadow: 2px 2px 4px #888;
+    -moz-box-shadow: 2px 2px 4px #888;
+    -o-box-shadow: 2px 2px 4px #888;
 	-ms-box-shadow: 2px 2px 4px #888;
+    -khtml-box-shadow: 2px 2px 4px #888;
 	box-shadow: 2px 2px 4px #888;
 	text-decoration:none;
 }
@@ -104,6 +144,12 @@ body{
 
 #nav ul li a:hover{
 	/*background: #ffda47;*/
+    background-color:#ffda47;
+    background-image: -webkit-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
+    background-image: -moz-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
+    background-image: -o-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
+    background-image: -ms-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
+    background-image: -khtml-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
     background-image: linear-gradient(to right, #ffda47 0%, #ffffff 150%);
 	color: #228833;
 	padding: 0.437em 0.937em 0.437em 1.875em;
@@ -111,7 +157,13 @@ body{
 
 #active {
 	/*background: #FFDA47 !important;*/
+    background-image: -webkit-linear-gradient(to right, #ffda47 0%, #ffffff 150%) !important;
+    background-image: -moz-linear-gradient(to right, #ffda47 0%, #ffffff 150%) !important;
+    background-image: -o-linear-gradient(to right, #ffda47 0%, #ffffff 150%) !important;
+    background-image: -ms-linear-gradient(to right, #ffda47 0%, #ffffff 150%) !important;
+    background-image: -khtml-linear-gradient(to right, #ffda47 0%, #ffffff 150%) !important;
     background-image: linear-gradient(to right, #ffda47 0%, #ffffff 150%) !important;
+    background-color:#ffda47 !important;
 	color: #228833 !important;
 	padding: 0.437em 0.937em 0.437em 1.875em !important;
 }
@@ -120,15 +172,23 @@ body{
 {
 	max-width: 18%;
 	margin-left: 82%;
-	height:65%;
   /*  background-image: linear-gradient(to right, #228833 0%, #ffffff 100%);*/
 /*	background:linear-gradient(to right,rgba(34,136,51,0.8), rgba(255,255,255, 0.2));*/
 	/*background-repeat: repeat-y;*/
 /*	background-size: 10% 100%;*/
     background:rgba(0,0,0,0.3);
-	border-radius:20px;
+    -webkit-border-radius:20px;
+    -moz-border-radius:20px;
+    -o-border-radius:20px;
+    -ms-border-radius:20px;
+    -khtml-border-radius:20px;
 	border-radius:20px;
 	text-align:center;
+    -webkit-box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;
+    -moz-box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;
+    -o-box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;
+    -ms-box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;
+    -khtml-box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;
 	box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;	
 	margin-bottom: 0.6em;
 	padding-bottom:1em;
@@ -153,6 +213,11 @@ body{
     margin-right:0.5em;
     border-style:dotted;
     border-width: 1px;
+    -webkit-border-radius:2px;
+    -moz-border-radius:2px;
+    -o-border-radius:2px;
+    -ms-border-radius:2px;
+    -khtml-border-radius:2px;
     border-radius:2px;
 }
 
@@ -160,12 +225,19 @@ body{
 	width:60%;
 	float:left;
 	min-height:65%;
-	 background:rgba(0,0,0,0.3);
-	background-repeat: repeat-y;
-	background-size: 10% 100%;
-	border-radius:20px;
+    background:rgba(0,0,0,0.3);
+    -webkit-border-radius:20px;
+    -moz-border-radius:20px;
+    -o-border-radius:20px;
+    -ms-border-radius:20px;
+	-khtml-border-radius:20px;
 	border-radius:20px;
 	text-align:center;
+    -webkit-box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;
+    -moz-box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;
+    -o-box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;
+    -ms-box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;
+    -khtml-box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;
 	box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;	
 	margin-bottom: 0.6em;
 	padding-bottom:1em;
@@ -192,9 +264,24 @@ body{
 	clear: both;
 	background: #13c26e url("../images/footerbackground.jpg") no-repeat;
 	background-size:100%;
+    -webkit-border-bottom-right-radius: 20px;
+    -moz-border-bottom-right-radius: 20px;
+    -o-border-bottom-right-radius: 20px;
+    -ms-border-bottom-right-radius: 20px;
+    -khtml-border-bottom-right-radius: 20px;
 	border-bottom-right-radius: 20px;
+    -webkit-border-top-right-radius: 20px;
+    -moz-border-top-right-radius: 20px;
+    -o-border-top-right-radius: 20px;
+    -ms-border-top-right-radius: 20px;
+    -khtml-border-top-right-radius: 20px;
 	border-top-right-radius: 20px;
 	-webkit-box-shadow: 4px 4px 8px  #888;
+    -moz-box-shadow: 4px 4px 8px  #888;
+    -o-box-shadow: 4px 4px 8px  #888;
+    -ms-box-shadow: 4px 4px 8px  #888;
+    -khtml-box-shadow: 4px 4px 8px  #888;
+    box-shadow: 4px 4px 8px  #888;
 	color: #ffda47;
 	text-align: center;	
 }
