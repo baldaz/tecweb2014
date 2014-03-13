@@ -1,29 +1,47 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -w
 
-local ($buffer, @pairs, $pair, $name, $value, %FORM);
-    # Read in text
-read(STDIN, $buffer, $ENV{'CONTENT_LENGTH'});
-    # Split information into name/value pairs
-    @pairs = split(/&/, $buffer);
-    
-    foreach $pair (@pairs)
-    {
-	($name, $value) = split(/=/, $pair);
-	$value =~ tr/+/ /;
-	$value =~ s/%(..)/pack("C", hex($1))/eg;
-	$FORM{$name} = $value;
-    }
-    $first_name = $FORM{nome};
-    $last_name  = $FORM{colore};
+use CGI;
+use XML::LibXML;
+use CGI::Carp 'fatalsToBrowser';
 
-print "Content-type:text/html\r\n\r\n";
-print "<html>";
-print "<head>";
-print "<title>Hello - Second CGI Program</title>";
-print "</head>";
-print "<body>";
-print "<h2>Hello $first_name $last_name - Second CGI Program</h2>";
-print "</body>";
-print "</html>";
+my $page=new CGI;
 
-1;
+my $file = '../data/prenotazioni.xml' or die "problema apertura";
+
+my $parser = XML::LibXML->new();
+
+#apertura file e lettura input
+my $doc = $parser->parse_file($file) or die "problema parser";
+
+#estrazione elemento radice
+my $radice= $doc->getDocumentElement or die "problema getDoc";
+my @prenotazioni = $radice->getElementsByTagName('prenotazioni') or die "problema getDoc2!!";
+
+#dati form
+
+my $name=$page->param('nome');
+my $surname=$page->param('cognome');
+my $tel=$page->param('telefono');
+my $email=$page->param('email');
+
+my $new_element = 
+    "
+      <prenotante>
+        <nome>".$name."</nome>
+        <cognome>".$surname."</cognome>
+        <telefono>".$tel."</telefono>
+        <email>".$email."</email>
+    	</prenotante>
+      ";
+
+my $frammento = $parser->parse_balanced_chunk($new_element) or die"problema parse_balanced_chunk";
+    #appendo il nuovo appena creato
+$prenotazioni[0]->appendChild($frammento);
+
+    #definisco il file xml su cui scrivere e lo apro
+my $fileDestinazione = "../data/prenotazioni.xml";
+open(OUT, ">$fileDestinazione") or die("Non riesco ad aprire il file in scrittura");
+    #scrivo effettivamente sul file
+print OUT $doc->toString or die "problema finale"; 
+    #chiudo file
+close (OUT);      
