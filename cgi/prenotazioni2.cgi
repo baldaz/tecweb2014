@@ -70,6 +70,9 @@ print'
   		        <input type="submit" value="Invia" class="button">
             </fieldset>
 	</form>
+	';
+	&print_table($page);
+	print '
 	</div>
 	<div id="news_container">
 	<div id="news">
@@ -82,16 +85,7 @@ print'
 		</ul>
 	</div>
 	</div>
-	<div id="footer">
-		<p>
-		    <span xml:lang="en">Copyright</span>© 2014 CiccipanzeSulWeb
-		    <a href="http://validator.w3.org/check?uri=referer">
-			<img src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0 Strict" height="31" width="88" />
-		    </a>
-		</p>
-	</div>
-
-</div>
+	
 ';
-
+&footer($page);
 print $page->end_html;
