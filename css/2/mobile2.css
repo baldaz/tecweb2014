@@ -26,14 +26,15 @@ body{
 
 #container {
 	height: 100%;
-	min-width:20em;
-	margin: 0 5% 0;
+	width:94%;
+	min-width: 280px;
+	margin: 0 0 0 0;
 }
 
 #header
 {
 	height:15%;
-	width:100%;
+	width:106%;
 	background: #228833 url("../images/headerbackground.jpg") no-repeat;
 	background-size:100%;
 	color:#FFDA47;
@@ -98,7 +99,6 @@ body{
 
 #nav ul{
 	width:100%;
-	margin-left:6%;
 	padding:0;
 	height:100%;
 }
@@ -106,6 +106,7 @@ body{
 	display:inline-block;
 	width:45%;
 	margin-top:0.5%;
+	margin-left:3%;
 	padding:0;
 	float:left;
 	height:20%;
@@ -115,7 +116,7 @@ body{
 	background: #228833 /*url(../images/border.png) no-repeat*/;
 	color: #FFDA47;
 	padding: 2.5% 0%; 
-	margin-right: 5%;
+	/*margin-right: 5%;*/
 	display: block;
 	text-decoration: none;
 	text-align: center;
