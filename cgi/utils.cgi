@@ -36,6 +36,14 @@ sub footer($){
 			$page->end_div;
 }
 
+sub parseXML($){
+	my($xml, $parser)=@_;
+	my @nomi=$xml->getElementsByTagName('nome');
+	foreach $nome(@nomi){
+		print $nome->toString().' ';
+	}
+}
+
 sub print_table($){
 
 	my $page=shift;
