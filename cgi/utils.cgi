@@ -38,25 +38,78 @@ sub footer($){
 
 sub parseXML($){
 	my($xml, $parser)=@_;
-	my @nomi=$xml->getElementsByTagName('nome');
-	foreach $nome(@nomi){
-		print $nome->toString().' ';
+	my @date=$xml->getElementsByTagName('data');
+	my @ore=$xml->getElementsByTagName('ora');
+	
+	foreach $data(@date){
+		print $data->toString().' ';
 	}
+
+	foreach $ora(@ore){
+		print $ora->toString().' ';
+	}
+
+	my $parser = XML::LibXML->new();
+	
+	my $root = XML::LibXML::XPathContext->new($xml->documentElement());
+
+	foreach my $node ($root->findnodes(q{/*/dati/indicator[@id = 'SP.DYN.CDRT.IN']/following-sibling::*})) {
+   		say $_->toString for $node->childNodes;
+}
+}
+exit;
 }
 
 sub print_table($){
 
-	my $page=shift;
-	print $page->table(
-			$page->Tr({ -align => "CENTER", -valign => "TOP" },
-    			[
-    				$page->th( [ 'Giorno', 'Ora', 'Disciplina' ] ),
-              		$page->td(['Lunedi' , '12:00', 'Pallavolo']),
-              		$page->td(['Mercoledi' , '14:00', 'Calcetto']),
-              		$page->td(['Giovedi'   , '16:57','Seagal'])
-              	]
-			)
-		);
+	$class="prenotato";
+
+
+	print '
+		<table summary="">
+		<caption>Prenotazioni</caption>
+		<thead>
+			<tr>
+				<th>ORARIO</th>
+				<th>Lunedi</th>
+				<th>Martedi</th>
+				<th>Mercoledi</th>
+				<th>Giovedi</th>
+				<th>Venerdi</th>
+				<th>Sabato</th>
+			</tr>
+			<tr>
+				<th>16:00</th>
+					<td class="prenotato">X</td>
+			</tr>	
+			<tr>
+				<th>17:00</th>
+			</tr>
+			<tr>	
+				<th>18:00</th>
+			</tr>
+			<tr>	
+				<th>19:00</th>
+			</tr>
+			<tr>	
+				<th>20:00</th>
+			</tr>
+			<tr>	
+				<th>21:00</th>
+			</tr>
+			<tr>	
+				<th>22:00</th>
+			</tr>
+			<tr>	
+				<th>23:00</th>
+			</tr>	
+		</thead>
+		<tfoot>
+		</tfoot>
+		<tbody>
+		</tbody>
+		</table>
+		';
 
 }
 
