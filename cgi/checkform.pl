@@ -23,6 +23,9 @@ my $name=$page->param('nome');
 my $surname=$page->param('cognome');
 my $tel=$page->param('telefono');
 my $email=$page->param('email');
+my $disciplina=$page->param('disciplina');
+my $data=$page->param('data');
+my $ora=$page->param('ora');
 
 my $new_element = 
     "
@@ -31,7 +34,10 @@ my $new_element =
         <cognome>".$surname."</cognome>
         <telefono>".$tel."</telefono>
         <email>".$email."</email>
-    	</prenotante>
+        <disciplina>".$disciplina."</disciplina>
+        <data>".$data."</data>
+        <ora>".$ora."</ora>
+        </prenotante>
       ";
 
 my $frammento = $parser->parse_balanced_chunk($new_element) or die"problema parse_balanced_chunk";
