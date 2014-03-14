@@ -11,6 +11,7 @@ $title="prenotazioni";
 
 &init($page, $title);
 if(defined($page->param('disciplina'))){
+	$disc=$page->param('disciplina');
 print'
 <div id="container">
 	<div id="header">
@@ -37,7 +38,7 @@ print'
 	</div>
 
 	<div id="content">
-		<form method="POST" action="./cgi-bin/checkform.pl">
+		<form method="POST" action="./checkform.pl">
 			<fieldset>
 				<legend><h2>PRENOTAZIONE</h2></legend>
 				<label>Nome:
@@ -52,9 +53,14 @@ print'
 				<label >Email:
 				    <input type="email" name="email" id="email" value="" />
                  </label>    
-				<label> Disciplina:
-				    <select name="disciplina" id="disciplina"><option value="Calcetto">Calcetto</option><option value="Calciotto">Calciotto</option><option value="Pallavolo">Pallavolo</option></select> 
+				<label> Ora:
+				    <select name="ora" id="ora">
+				    	<option value="16:00">16:00</option>
+				    	<option value="17:00">17:00</option>
+				    	<option value="18:00">18:00</option>
+				    </select> 
                  </label>
+                 <input type="hidden" name="disciplina" id="disciplina" value="'.$disc.'" />
 				<!--
 				<label for="giorno"> Giorno: </label>
 				<select name="giorno" id="giorno"><option value="01">01</option><option value="02">02</option><option value="03">03</option></select>
@@ -64,7 +70,7 @@ print'
 				<select name="anno" id="anno"><option value="Calcetto">Calcetto</option><option value="Calciotto">Calciotto</option><option value="Pallavolo">Pallavolo</option></select>  
 			-->
 				<label>Giorno: 
-   				<input type="date" name="mydatetime" id="date" >
+   				<input type="date" name="data" id="data" >
   				</label>
             </fieldset>
             <fieldset>
@@ -74,8 +80,8 @@ print'
 	</form>
 	';
 	$parser=new XML::LibXML;
-	$xmldog=$parser->parse_file('../data/prenotazioni.xml');
-	&parseXML($xmldog, $parser);
+	#$xmldog=$parser->parse_file('../data/prenotazioni.xml');
+	#&parseXML($xmldog, $parser);
 
 	#&print_table($page);
 	print '
