@@ -80,8 +80,8 @@ print'
 	</form>
 	';
 	$parser=new XML::LibXML;
-	#$xmldog=$parser->parse_file('../data/prenotazioni.xml');
-	#&parseXML($xmldog, $parser);
+	$doc=$parser->parse_file('../data/prenotazioni.xml');
+	&parseXML($doc, $parser);
 
 	#&print_table($page);
 	print '
