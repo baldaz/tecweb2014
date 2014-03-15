@@ -37,27 +37,17 @@ sub footer($){
 }
 
 sub parseXML($){
-	my($xml, $parser)=@_;
-	my @date=$xml->getElementsByTagName('data');
-	my @ore=$xml->getElementsByTagName('ora');
+	my($xmldoc, $parser)=@_;
+#	my @date=$xml->getElementsByTagName('data');
+#	my @ore=$xml->getElementsByTagName('ora');
+	my $root=$xmldoc->getDocumentElement;
+	$xmldoc->documentElement->setNamespace("www.prenotazioni.it", "p");
+	my $date=$root->findnodes("//p:prenotante[p:disciplina='Calcetto']/p:data");
+	my $time=$root->findnodes("//p:prenotante[p:disciplina='Calcetto']/p:ora");
 	
-	foreach $data(@date){
-		print $data->toString().' ';
-	}
-
-	foreach $ora(@ore){
-		print $ora->toString().' ';
-	}
-
-	my $parser = XML::LibXML->new();
+#	substr($date, 10, 0)=' ';
+	print $date;
 	
-	my $root = XML::LibXML::XPathContext->new($xml->documentElement());
-
-	foreach my $node ($root->findnodes(q{/*/dati/indicator[@id = 'SP.DYN.CDRT.IN']/following-sibling::*})) {
-   		say $_->toString for $node->childNodes;
-}
-}
-exit;
 }
 
 sub print_table($){
