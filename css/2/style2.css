@@ -34,7 +34,7 @@ label{
     text-align: justify;
     float:left;
     width:50%;
-    font-size: 0.9em;
+    font-size: 0.8em;
     line-height:2.2em
 }
 input, select{
@@ -43,7 +43,7 @@ input, select{
     height:2em;
     margin:0.3em;
     padding:0.1em;
-    width:70%;
+    width:65%;
     -webkit-box-shadow: 0px 0px 4px #888;
     -moz-box-shadow: 0px 0px 4px #888;
     -o-box-shadow: 0px 0px 4px #888;
@@ -60,7 +60,23 @@ input:focus, select:focus, input:hover, select:hover{
     outline: none;
 }
 
-#nome, #cognome, #telefono, #email, #disciplina, #date{
+table{
+    width:90%;
+    border-collapse:collapse;
+    margin-left:5%
+}
+
+table, th, td{
+    border: 1px dotted black;
+    font-size:12px;
+    padding:6px;
+}
+
+.red{
+    background-color:#f00;
+}
+
+#nome, #cognome, #telefono, #email, #ora, #data{
     float:right
 }
 .button{
