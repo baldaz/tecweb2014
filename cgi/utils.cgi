@@ -1,107 +1,155 @@
 #!/usr/bin/perl -w
 
-sub init($){
+use CGI;
+use CGI::Carp 'fatalsToBrowser';
+use XML::LibXML;
+
+require "utils.cgi";
+
+$page=new CGI;
+$title="prenotazioni";
+
+&init($page, $title);
+if(defined($page->param('disciplina'))){
+	$disc=$page->param('disciplina');
+print'
+<div id="container">
+	<div id="header">
+		<h1>Centro Sportivo</h1>
+
+		<div id="path">
+
+		</div>
+	</div>
+
+	<div id="nav">
+		<ul>
+		<li><a href="./index.html">Home</a></li>
+		<li><a href="./calcetto.html">Calcio a 5</a></li>
+		<li><a href="./calciotto.html">Calciotto</a></li>
+		<li><a href="./tennis.html">Tennis</a></li>
+		<li><a href="./beachvolley.html"> <span xml:lang="en">Beach Volley</span></a></li>
+		<li><a href="./pallavolo.html">Pallavolo</a></li>
+		<li><a href="./artimarziali.html">Arti Marziali</a></li>
+		<li><a href="./fitness.html">Fitness</a></li>
+		<li><a href="./contatti.html">Contatti</a></li>
+        <li><a id="active">Prenota</a></li>
+		</ul>
+	</div>
+
+	<div id="content">
+		<form method="POST" action="./checkform.pl">
+			<fieldset>
+				<legend><h2>PRENOTAZIONE</h2></legend>
+				<label>Nome:
+				    <input type="text" name="nome" id="nome" value="" />
+                </label>
+				<label>Cognome: 
+				    <input type="text" name="cognome" id="cognome" value="" />
+                </label>    
+				<label>Telefono: 
+				    <input type="text" name="telefono" id="telefono" value="" />
+                </label>    
+				<label >Email:
+				    <input type="email" name="email" id="email" value="" />
+                 </label>    
+				<label> Ora:
+				    <select name="ora" id="ora">
+				    	<option value="16:00">16:00</option>
+				    	<option value="17:00">17:00</option>
+				    	<option value="18:00">18:00</option>
+				    </select> 
+                 </label>
+                 <input type="hidden" name="disciplina" id="disciplina" value="'.$disc.'" />
+				<!--
+				<label for="giorno"> Giorno: </label>
+				<select name="giorno" id="giorno"><option value="01">01</option><option value="02">02</option><option value="03">03</option></select>
+				<label for="mese"> Mese: </label>
+				<select name="mese" id="mese"><option value="Calcetto">Calcetto</option><option value="Calciotto">Calciotto</option><option value="Pallavolo">Pallavolo</option></select> 
+				<label for="anno"> Anno: </label>
+				<select name="anno" id="anno"><option value="Calcetto">Calcetto</option><option value="Calciotto">Calciotto</option><option value="Pallavolo">Pallavolo</option></select>  
+			-->
+				<label>Giorno: 
+   				<input type="date" name="data" id="data" >
+  				</label>
+            </fieldset>
+            <fieldset>
+  		        <input type="reset"  value="Resetta il form" class="button" />
+  		        <input type="submit" value="Invia" class="button" />
+            </fieldset>
+	</form>
+	';
+
+	$parser=new XML::LibXML;
+	$doc=$parser->parse_file('../data/prenotazioni.xml');
+#	&parseXML($doc, $parser);
+	&get_week($doc, $parser, "2014-04-03");
+	#&print_table($page);
+	print '
+	</div>
+	<div id="news_container">
+	<div id="news">
+			<h2>NEWS</h2>
+		<ul>
+		      <li>NEW1</li>
+		      <li>NEW2</li>
+		      <li>ew3New3NewNew3New3New3New3NewNew3New3New3NewNew3New3New3</li>
+		      <li>New4</li>
+		</ul>
+	</div>
+	</div>
 	
-	my ($page,$title)=@_;
-	print $page->header(-charset=>"UTF-8"),
-		$page->start_html(	-meta=>{"content"=>"width=device-width"},
-							-title=>$title,
-							-dtd=>['-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'],
-							-style=>[{-src=>'../css/style.css', -media=>'only screen and (min-width: 768px)'},
-									{-src=>'../css/mobile.css', -media=>'only screen and (max-width: 480px)'},
-									{-src=>'../css/tablet.css', -media=>'only screen and (min-width: 481px) and (max-width: 767px)'}],
-							-lang=>it
-							);
+';
+
 }
-
-sub footer($){
-
-	my $page=shift;
-	print $page->div({id=>'footer'},
-						"\n",
-						$page->p("\n",
-							$page->span({lang=>en}, 'Copyright'), '© 2014 CiccipanzeSulWeb',
-							"\n",
-								$page->a({href=>"http://validator.w3.org/check?uri=referer"},
-									"\n",
-									$page->img({-src=>"http://www.w3.org/Icons/valid-xhtml10", -alt=>"Valid XHTML 1.0 Strict",
-											-height=>"31", -width=>"88"}),
-									"\n",
-										),
-								"\n",
-								),
-						"\n",
-					),
-				"\n",
-			$page->end_div;
-}
-
-sub parseXML($){
-	my($xmldoc, $parser)=@_;
-#	my @date=$xml->getElementsByTagName('data');
-#	my @ore=$xml->getElementsByTagName('ora');
-	my $root=$xmldoc->getDocumentElement;
-	$xmldoc->documentElement->setNamespace("www.prenotazioni.it", "p");
-	my $date=$root->findnodes("//p:prenotante[p:disciplina='Calcetto']/p:data");
-	my $time=$root->findnodes("//p:prenotante[p:disciplina='Calcetto']/p:ora");
-	
-#	substr($date, 10, 0)=' ';
-	print $date;
-	
-}
-
-sub print_table($){
-
-	$class="prenotato";
-
+else{
 
 	print '
-		<table summary="">
-		<caption>Prenotazioni</caption>
-		<thead>
-			<tr>
-				<th>ORARIO</th>
-				<th>Lunedi</th>
-				<th>Martedi</th>
-				<th>Mercoledi</th>
-				<th>Giovedi</th>
-				<th>Venerdi</th>
-				<th>Sabato</th>
-			</tr>
-			<tr>
-				<th>16:00</th>
-					<td class="prenotato">X</td>
-			</tr>	
-			<tr>
-				<th>17:00</th>
-			</tr>
-			<tr>	
-				<th>18:00</th>
-			</tr>
-			<tr>	
-				<th>19:00</th>
-			</tr>
-			<tr>	
-				<th>20:00</th>
-			</tr>
-			<tr>	
-				<th>21:00</th>
-			</tr>
-			<tr>	
-				<th>22:00</th>
-			</tr>
-			<tr>	
-				<th>23:00</th>
-			</tr>	
-		</thead>
-		<tfoot>
-		</tfoot>
-		<tbody>
-		</tbody>
-		</table>
-		';
 
+	<div id="container">
+	<div id="header">
+		<h1>Centro Sportivo</h1>
+
+		<div id="path">
+
+		</div>
+	</div>
+
+	<div id="nav">
+		<ul>
+		<li><a href="./index.html">Home</a></li>
+		<li><a href="./calcetto.html">Calcio a 5</a></li>
+		<li><a href="./calciotto.html">Calciotto</a></li>
+		<li><a href="./tennis.html">Tennis</a></li>
+		<li><a href="./beachvolley.html"> <span xml:lang="en">Beach Volley</span></a></li>
+		<li><a href="./pallavolo.html">Pallavolo</a></li>
+		<li><a href="./artimarziali.html">Arti Marziali</a></li>
+		<li><a href="./fitness.html">Fitness</a></li>
+		<li><a href="./contatti.html">Contatti</a></li>
+        <li><a id="active">Prenota</a></li>
+		</ul>
+	</div>
+
+	<div id="content">
+		<form action="" method="GET">
+				<label> Disciplina:
+				    <select name="disciplina" id="disciplina"><option value="Calcetto">Calcetto</option><option value="Calciotto">Calciotto</option><option value="Pallavolo">Pallavolo</option></select> 
+                 </label>
+                 <input type="submit" value="Invia" class="button" />
+		</form>
+	</div>
+	<div id="news_container">
+	<div id="news">
+			<h2>NEWS</h2>
+		<ul>
+		      <li>NEW1</li>
+		      <li>NEW2</li>
+		      <li>ew3New3NewNew3New3New3New3NewNew3New3New3NewNew3New3New3</li>
+		      <li>New4</li>
+		</ul>
+	</div>
+	</div>		
+	';
 }
-
-
-1;
+&footer($page);
+print $page->end_html;
