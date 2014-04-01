@@ -79,10 +79,11 @@ print'
             </fieldset>
 	</form>
 	';
+
 	$parser=new XML::LibXML;
 	$doc=$parser->parse_file('../data/prenotazioni.xml');
-	&parseXML($doc, $parser);
-
+#	&parseXML($doc, $parser);
+	&get_week($doc, $parser, "2014-04-03");
 	#&print_table($page);
 	print '
 	</div>
