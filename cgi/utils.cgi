@@ -65,10 +65,10 @@ sub get_week{
 	my @split_pdate=split('-', $p_date);
 	
 	my $dt=new DateTime(
-						year=>$split_pdate[0],
-						month=>$split_pdate[1],
-						day=>$split_pdate[2]
-						);
+	    year=>$split_pdate[0],
+	    month=>$split_pdate[1],
+	    day=>$split_pdate[2]
+	    );
 
 	my $dow=$dt->day_of_week; #giorno della settimana int
 
@@ -89,24 +89,30 @@ sub get_week{
 	    $dt->add(days=>1);
 	}
 
-	#pulire ret_date, cardinalia' delle date
+	my %seen;
+	$seen{$_}++ for @ret_date;
+	@ret_date=keys %seen; #trova le chiavi uniche nell'array
 
-	my @hash=();
+	my @hash;
 	my @time;
-	my %fill=();
+	my %fill;
 
-	for my $i(0..$#ret_date){
-	    @time=$root->findnodes("//p:prenotante[p:disciplina='Calcetto' and p:data='".$ret_date[$i]."']/p:ora");
-	    $fill{date}=$ret_date[$i];
+	foreach(@ret_date){
+	    @time=$root->findnodes("//p:prenotante[p:disciplina='Calcetto' and p:data='".$_."']/p:ora");
+	    $fill{date}=$_;
 	    my @gh=toText(@time);
-	    push @{$fill{time}}, $_ foreach(@gh);
-#	    foreach(@gh){
-#		$fill{time}=$_;
-#	    }
-	 #   print $fill{time};
-	    push(@hash, %fill);
+	    push @{$fill{time}}, $_ foreach @gh;
+	    push(@hash, @{$fill}); # considerare $hash[$i]{date}=$_
+	}                          # e push @{$hash[$i]{time}}, $_ foreach @gh;
+
+	for $i ( 0 .. $#hash ) {
+	    print "$i is { ";
+	    for $role ( keys %{ $hash[$i] } ) {
+		print "$role=$AoH[$i]{$role} ";
+	    }
+	    print "}\n";
 	}
-#	print $fill{time};
+
 	foreach(@{$fill{time}}){
 	    print $_;
 	}
@@ -115,28 +121,24 @@ sub get_week{
 
 sub print_table{
     my $p_day=shift;
-    print '
-		<table summary="">
-		<caption>Prenotazioni</caption>
-		<thead>
-			<tr>
-				<th>ORARIO</th>
-				<th>'.$p_day->day_name().'</th>
-				<th>'.$p_day->add(days=>1)->day_name.'</th>
-				<th>'.$p_day->add(days=>1)->day_name.'</th>
-				<th>'.$p_day->add(days=>1)->day_name.'</th>
-				<th>'.$p_day->add(days=>1)->day_name.'</th>
-				<th>'.$p_day->add(days=>1)->day_name.'</th>
-                                <th>'.$p_day->add(days=>1)->day_name.'</th>
-			</tr>
+    print '<table summary="">
+             <caption>Prenotazioni</caption>
+	     <thead>
+	       <tr>
+                  <th>ORARIO</th>
+	      	  <th>'.$p_day->day_name().'</th>';
+    for(0..5){
+	print '<th>'.$p_day->add(days=>1)->day_name.'</th>';
+    }
+    print '</tr>
                </thead>
                <tbody>';
 
     for my $i(16..23){
 	print ' <tr>
       		<th>'.$i.':00</th>';
-	for my $j (0..6){
-	    print '<td>X</td>';
+	for(0..6){
+	    print '<td class="red"></td>';
 	}
 	print '</tr>';
     }	
