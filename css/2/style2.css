@@ -61,6 +61,7 @@ input:focus, select:focus, input:hover, select:hover{
 }
 
 table{
+    table-layout:fixed;
     width:90%;
     border-collapse:collapse;
     margin-left:5%
@@ -68,12 +69,12 @@ table{
 
 table, th, td{
     border: 1px dotted black;
-    font-size:12px;
-    padding:6px;
+    font-size:10px;
+    padding:5px;
 }
 
 .red{
-    background-color:#f00;
+    background:rgba(255,0,0,0.5);
 }
 
 #nome, #cognome, #telefono, #email, #ora, #data{
