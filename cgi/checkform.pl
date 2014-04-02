@@ -28,26 +28,23 @@ my $data=$page->param('data');
 my $ora=$page->param('ora');
 
 my $new_element = 
-    "
-      <prenotante>
-        <nome>".$name."</nome>
-        <cognome>".$surname."</cognome>
-        <telefono>".$tel."</telefono>
-        <email>".$email."</email>
-        <disciplina>".$disciplina."</disciplina>
-        <data>".$data."</data>
-        <ora>".$ora."</ora>
-        </prenotante>
+    "<prenotante>
+          <nome>".$name."</nome>
+          <cognome>".$surname."</cognome>
+          <telefono>".$tel."</telefono>
+          <email>".$email."</email>
+          <disciplina>".$disciplina."</disciplina>
+          <data>".$data."</data>
+          <ora>".$ora."</ora>
+     </prenotante>
       ";
 
-my $frammento = $parser->parse_balanced_chunk($new_element) or die"problema parse_balanced_chunk";
-    #appendo il nuovo appena creato
-$prenotazioni[0]->appendChild($frammento);
+my $chunk = $parser->parse_balanced_chunk($new_element) or die "problema parse_balanced_chunk";
+#appendo il nuovo appena creato
+$prenotazioni[0]->appendChild($chunk);
 
-    #definisco il file xml su cui scrivere e lo apro
-my $fileDestinazione = "../data/prenotazioni.xml";
-open(OUT, ">$fileDestinazione") or die("Non riesco ad aprire il file in scrittura");
-    #scrivo effettivamente sul file
+open(OUT, ">$file") or die("Non riesco ad aprire il file in scrittura");
+#scrivo effettivamente sul file
 print OUT $doc->toString or die "problema finale"; 
-    #chiudo file
+#chiudo file
 close (OUT);      
