@@ -4,20 +4,20 @@ use CGI;
 use CGI::Carp 'fatalsToBrowser';
 use XML::LibXML;
 
-require "utils.cgi";
+require "utils.pl";
 
 $page=new CGI;
 my $test;
-my $file = '../data/prenotazioni.xml' or die "problema apertura";
+my $file='../data/prenotazioni.xml' or die "problema apertura";
 
-my $parser = XML::LibXML->new();
+my $parser=XML::LibXML->new();
 
 #apertura file e lettura input
-my $doc = $parser->parse_file($file) or die "problema parser";
+my $doc=$parser->parse_file($file) or die "problema parser";
 
 #estrazione elemento radice
-my $radice= $doc->getDocumentElement or die "problema getDoc";
-my @prenotazioni = $radice->getElementsByTagName('prenotazioni') or die "problema getDoc2!!";
+my $radice=$doc->getDocumentElement or die "problema getDoc";
+my @prenotazioni=$radice->getElementsByTagName('prenotazioni') or die "problema getDoc2!!";
 
 #dati form
 
@@ -29,13 +29,13 @@ my $disciplina=$page->param('disciplina');
 my $data=$page->param('data');
 my $ora=$page->param('ora');
 
-if ($name eq ''){
+if ($name eq ''){		# fallimento, campi vuoti caso base primo ingresso
     $test=0;
 }
-elsif(&checkform($doc, $parser, $disciplina, $data, $ora)){
+elsif(&checkform($doc, $parser, $disciplina, $data, $ora)){ # fallimento, prenotazione già presente nell'xml
     $test=-1;
 }
-else{ $test=1;}
+else{ $test=1;}			# successo
 
 my $new_element = 
     "
@@ -50,20 +50,18 @@ my $new_element =
         </prenotante>
       ";
 
-my $frammento = $parser->parse_balanced_chunk($new_element) or die"problema parse_balanced_chunk";
+my $chunk=$parser->parse_balanced_chunk($new_element) or die"problema parse_balanced_chunk";
     #appendo il nuovo appena creato
-$prenotazioni[0]->appendChild($frammento);
+$prenotazioni[0]->appendChild($chunk);
 
-    #definisco il file xml su cui scrivere e lo apro
-my $fileDestinazione = "../data/prenotazioni.xml";
-open(OUT, ">$fileDestinazione") or die("Non riesco ad aprire il file in scrittura");
+open(OUT, ">$file") or die("Non riesco ad aprire il file in scrittura");
     #scrivo effettivamente sul file
 print OUT $doc->toString or die "problema finale"; 
     #chiudo file
 close (OUT); 
 
 
-$title="prenotazioni";
+$title="Prenotazioni";
 &init($page, $title);
 
 if(defined($page->param('disciplina'))){
