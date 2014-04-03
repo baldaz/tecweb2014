@@ -37,26 +37,22 @@ sub footer{
 	$page->end_div;
 }
 
-sub parseXML{		   
-    my($xmldoc, $parser)=@_;
-#	my @date=$xml->getElementsByTagName('data');
-#	my @ore=$xml->getElementsByTagName('ora');
+sub checkform{
+    my($xmldoc, $parser, $disciplina, $data, $ora)=@_;
     my $root=$xmldoc->getDocumentElement;
     $xmldoc->documentElement->setNamespace("www.prenotazioni.it", "p");
-    my $date=$root->findnodes("//p:prenotante[p:disciplina='Calcetto']/p:data");
-#	my $time=$root->findnodes("//p:prenotante[p:disciplina='Calcetto']/p:ora");
-
-#	substr($date, 10, 0)=' ';
-    print $date;
-
+    #controllo se esiste un match (prenotazione gia' presa)
+#    my $ret=$root->findnodes("//p:prenotante[p:disciplina='".$disciplina."' and p:data='".$data."' and p:ora='".$ora."']/p:nome");
+    my $ret=$root->exists("//p:prenotante[p:disciplina='".$disciplina."' and p:data='".$data."' and p:ora='".$ora."']/p:nome");
+    return $ret;
 }
 
 sub get_week{
-    my ($xmldoc, $parser, $p_date)=@_;
+    my ($xmldoc, $parser, $discipline, $p_date)=@_;
     my $root=$xmldoc->getDocumentElement;
     $xmldoc->documentElement->setNamespace("www.prenotazioni.it", "p");
-    my @date=$root->findnodes("//p:prenotante[p:disciplina='Calcetto']/p:data");
-    my @time=$root->findnodes("//p:prenotante[p:disciplina='Calcetto']/p:ora");
+    my @date=$root->findnodes("//p:prenotante[p:disciplina='".$discipline."']/p:data");
+    my @time=$root->findnodes("//p:prenotante[p:disciplina='".$discipline."']/p:ora");
 
     my @dates=toText(@date);
 
@@ -94,10 +90,9 @@ sub get_week{
 
     my @hash;
     my @time;
-    my %fill;
 
     for my $i (0..$#ret_date){
-	@time=$root->findnodes("//p:prenotante[p:disciplina='Calcetto' and p:data='".$ret_date[$i]."']/p:ora");
+	@time=$root->findnodes("//p:prenotante[p:disciplina='".$discipline."' and p:data='".$ret_date[$i]."']/p:ora");
 	$hash[$i]{date}=$ret_date[$i];
 	my @txt_time=toText(@time);
 	my $time_str=join(" - ", @txt_time);
@@ -114,19 +109,22 @@ sub get_week{
 	}
 	print "}<br />";
     }
-    &print_table($dt);
+    &print_table($dt, @hash);
 }
 
 sub print_table{
-    my $p_day=shift;
+    my ($p_day, @hash)=@_;
+    my $builder=$p_day->clone();
+    my $class;
+    $class='green' if not defined(@hash);
     print '<table summary="">
              <caption>Prenotazioni</caption>
 	     <thead>
 	       <tr>
                   <th>ORARIO</th>
-	      	  <th>'.$p_day->day_name().'</th>';
+	      	  <th>'.$builder->day_name().'</th>';
     for(0..5){
-	print '<th>'.$p_day->add(days=>1)->day_name.'</th>';
+	print '<th>'.$builder->add(days=>1)->day_name.'</th>';
     }
     print '</tr>
                </thead>
@@ -135,8 +133,24 @@ sub print_table{
     for my $i(16..23){
 	print ' <tr>
       		<th>'.$i.':00</th>';
+	my $control=$p_day->clone();
 	for(0..6){
-	    print '<td class="red"></td>';
+	    for my $j (0..$#hash){
+	#	for(keys%{$hash[$j]}){
+		    my $d_control=substr $control, 0, 10;
+		    if($hash[$j]{date}=~ m/$d_control/){
+			if($hash[$j]{time}=~ m/$i:00/){
+			    $class='red';
+			    print $i.':00';
+			    last; 
+			}
+			else{ $class='green';}
+		    }
+		    else{ $class='green';}
+	#	}
+	    }
+	    print '<td class="'.$class.'"></td>';
+	    $control->add(days=>1);
 	}
 	print '</tr>';
     }	
