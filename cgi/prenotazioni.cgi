@@ -2,24 +2,73 @@
 
 use CGI;
 use CGI::Carp 'fatalsToBrowser';
+use XML::LibXML;
+
+require "utils.cgi";
+
 $page=new CGI;
-print "Content-type: text/html\n\n";
+my $test;
+my $file = '../data/prenotazioni.xml' or die "problema apertura";
 
-print<<EOF
+my $parser = XML::LibXML->new();
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"  xml:lang="it" lang="it">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<meta name="viewport" content="width=device-width">
-<title>Centro Sportivo</title>
-<link rel="stylesheet" type="text/css" media="only screen and (min-width: 768px)" href="css/style.css" />
-<link rel="stylesheet" media="only screen and (min-width: 481px) and (max-width: 767px)" href="css/tablet.css" />
-<link rel="stylesheet" media="only screen and (max-width: 480px)" href="css/mobile.css" />
+#apertura file e lettura input
+my $doc = $parser->parse_file($file) or die "problema parser";
 
-</head>
-<body>
+#estrazione elemento radice
+my $radice= $doc->getDocumentElement or die "problema getDoc";
+my @prenotazioni = $radice->getElementsByTagName('prenotazioni') or die "problema getDoc2!!";
+
+#dati form
+
+my $name=$page->param('nome');
+my $surname=$page->param('cognome');
+my $tel=$page->param('telefono');
+my $email=$page->param('email');
+my $disciplina=$page->param('disciplina');
+my $data=$page->param('data');
+my $ora=$page->param('ora');
+
+if ($name eq ''){
+    $test=0;
+}
+elsif(&checkform($doc, $parser, $disciplina, $data, $ora)){
+    $test=-1;
+}
+else{ $test=1;}
+
+my $new_element = 
+    "
+      <prenotante>
+        <nome>".$name."</nome>
+        <cognome>".$surname."</cognome>
+        <telefono>".$tel."</telefono>
+        <email>".$email."</email>
+        <disciplina>".$disciplina."</disciplina>
+        <data>".$data."</data>
+        <ora>".$ora."</ora>
+        </prenotante>
+      ";
+
+my $frammento = $parser->parse_balanced_chunk($new_element) or die"problema parse_balanced_chunk";
+    #appendo il nuovo appena creato
+$prenotazioni[0]->appendChild($frammento);
+
+    #definisco il file xml su cui scrivere e lo apro
+my $fileDestinazione = "../data/prenotazioni.xml";
+open(OUT, ">$fileDestinazione") or die("Non riesco ad aprire il file in scrittura");
+    #scrivo effettivamente sul file
+print OUT $doc->toString or die "problema finale"; 
+    #chiudo file
+close (OUT); 
+
+
+$title="prenotazioni";
+&init($page, $title);
+
+if(defined($page->param('disciplina'))){
+	$disc=$page->param('disciplina');
+print'
 <div id="container">
 	<div id="header">
 		<h1>Centro Sportivo</h1>
@@ -45,7 +94,7 @@ print<<EOF
 	</div>
 
 	<div id="content">
-		<form method="POST" action="./cgi-bin/checkform.pl">
+		<form method="POST" action="">
 			<fieldset>
 				<legend><h2>PRENOTAZIONE</h2></legend>
 				<label>Nome:
@@ -60,9 +109,15 @@ print<<EOF
 				<label >Email:
 				    <input type="email" name="email" id="email" value="" />
                  </label>    
-				<label> Disciplina:
-				    <select name="disciplina" id="disciplina"><option value="Calcetto">Calcetto</option><option value="Calciotto">Calciotto</option><option value="Pallavolo">Pallavolo</option></select> 
+				<label> Ora:
+				    <select name="ora" id="ora">
+				    	<option value="16:00">16:00</option>
+				    	<option value="17:00">17:00</option>
+				    	<option value="18:00">18:00</option>
+				    </select> 
                  </label>
+                 <input type="hidden" name="disciplina" id="disciplina" value="'.$disc.'" />
+                 <input type="hidden" name="test" id="test" value="0" />
 				<!--
 				<label for="giorno"> Giorno: </label>
 				<select name="giorno" id="giorno"><option value="01">01</option><option value="02">02</option><option value="03">03</option></select>
@@ -72,14 +127,20 @@ print<<EOF
 				<select name="anno" id="anno"><option value="Calcetto">Calcetto</option><option value="Calciotto">Calciotto</option><option value="Pallavolo">Pallavolo</option></select>  
 			-->
 				<label>Giorno: 
-   				<input type="date" name="mydatetime" id="date" >
+   				<input type="date" name="data" id="data" >
   				</label>
             </fieldset>
             <fieldset>
-  		        <input type="reset"  value="Resetta il form" class="button">
-  		        <input type="submit" value="Invia" class="button">
+  		        <input type="reset"  value="Resetta il form" class="button" />
+  		        <input type="submit" value="Invia" class="button" />
             </fieldset>
 	</form>
+	';
+
+	if($test==-1){print 'FALLIMENDOG'; &get_week($doc, $parser, $disc, $data)}
+	elsif($test==1){print 'SUCCESDOG';}  
+	
+	print '
 	</div>
 	<div id="news_container">
 	<div id="news">
@@ -92,17 +153,58 @@ print<<EOF
 		</ul>
 	</div>
 	</div>
-	<div id="footer">
-		<p>
-		    <span xml:lang="en">Copyright</span>© 2014 CiccipanzeSulWeb
-		    <a href="http://validator.w3.org/check?uri=referer">
-			<img src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0 Strict" height="31" width="88" />
-		    </a>
-		</p>
+	
+';
+
+}
+else{
+
+	print '
+
+	<div id="container">
+	<div id="header">
+		<h1>Centro Sportivo</h1>
+
+		<div id="path">
+
+		</div>
 	</div>
 
-</div>
-</body>
-</html>
+	<div id="nav">
+		<ul>
+		<li><a href="./index.html">Home</a></li>
+		<li><a href="./calcetto.html">Calcio a 5</a></li>
+		<li><a href="./calciotto.html">Calciotto</a></li>
+		<li><a href="./tennis.html">Tennis</a></li>
+		<li><a href="./beachvolley.html"> <span xml:lang="en">Beach Volley</span></a></li>
+		<li><a href="./pallavolo.html">Pallavolo</a></li>
+		<li><a href="./artimarziali.html">Arti Marziali</a></li>
+		<li><a href="./fitness.html">Fitness</a></li>
+		<li><a href="./contatti.html">Contatti</a></li>
+        <li><a id="active">Prenota</a></li>
+		</ul>
+	</div>
 
-EOF
+	<div id="content">
+		<form action="" method="GET">
+				<label> Disciplina:
+				    <select name="disciplina" id="disciplina"><option value="Calcetto">Calcetto</option><option value="Calciotto">Calciotto</option><option value="Pallavolo">Pallavolo</option></select> 
+                 </label>
+                 <input type="submit" value="Invia" class="button" />
+		</form>
+	</div>
+	<div id="news_container">
+	<div id="news">
+			<h2>NEWS</h2>
+		<ul>
+		      <li>NEW1</li>
+		      <li>NEW2</li>
+		      <li>ew3New3NewNew3New3New3New3NewNew3New3New3NewNew3New3New3</li>
+		      <li>New4</li>
+		</ul>
+	</div>
+	</div>		
+	';
+}
+&footer($page);
+print $page->end_html;
