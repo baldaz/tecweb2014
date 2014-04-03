@@ -114,6 +114,7 @@ sub get_week{
 
 sub print_table{
     my ($p_day, @hash)=@_;
+    $p_day->subtract(days=>3);
     my $builder=$p_day->clone();
     my $class;
     $class='green' if not defined(@hash);
@@ -122,9 +123,13 @@ sub print_table{
 	     <thead>
 	       <tr>
                   <th>ORARIO</th>
-	      	  <th>'.$builder->day_name().'</th>';
-    for(0..5){
-	print '<th>'.$builder->add(days=>1)->day_name.'</th>';
+	      	  <th>'.$builder->day_name()." ".$builder->day().'</th>';
+    for(0..1){
+	print '<th>'.$builder->add(days=>1)->day_name." ".$builder->day().'</th>';
+    }
+    print '<th class="selected">'.$builder->add(days=>1)->day_name." ".$builder->day().'</th>';
+    for(0..2){
+	print '<th>'.$builder->add(days=>1)->day_name." ".$builder->day().'</th>';
     }
     print '</tr>
                </thead>
@@ -136,18 +141,18 @@ sub print_table{
 	my $control=$p_day->clone();
 	for(0..6){
 	    for my $j (0..$#hash){
-	#	for(keys%{$hash[$j]}){
-		    my $d_control=substr $control, 0, 10;
-		    if($hash[$j]{date}=~ m/$d_control/){
-			if($hash[$j]{time}=~ m/$i:00/){
-			    $class='red';
-			    print $i.':00';
-			    last; 
-			}
-			else{ $class='green';}
+		#	for(keys%{$hash[$j]}){
+		my $d_control=substr $control, 0, 10;
+		if($hash[$j]{date}=~ m/$d_control/){
+		    if($hash[$j]{time}=~ m/$i:00/){
+			$class='red';
+			print $i.':00';
+			last; 
 		    }
 		    else{ $class='green';}
-	#	}
+		}
+		else{ $class='green';}
+		#	}
 	    }
 	    print '<td class="'.$class.'"></td>';
 	    $control->add(days=>1);
