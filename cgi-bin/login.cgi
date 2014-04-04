@@ -20,3 +20,4 @@ $session->param("user", $username);
 # - controllare se già loggato, sessione aperta
 # - controllare dati di login, se prensenti su DB
 # - redirect ad area personale / pagina di registrazione
+# - notifica di login
