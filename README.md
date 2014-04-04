@@ -10,6 +10,7 @@ TODO:
 - css per aural
 - css per stampa
 - css mobile prenotazioni
+- accessibilità tabelle
 - margin collapsing (per margini che entrano in contatto)
 - Sessioni
 - Eliminazione prenotazione
