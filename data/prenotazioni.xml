@@ -83,5 +83,28 @@
         <data>2014-03-13</data>
         <ora>17:00</ora>
         </prenotante>
-	</prenotazioni>		
+	</prenotazioni>
+
+	<news>
+	  <new>
+	    <titolo>So Good</titolo>
+	    <data>2014-04-12</data>
+	    <contenuto>for 2 bucks</contenuto>
+	  </new>
+	  <new>
+	    <titolo>So Tasty</titolo>
+	    <data>2014-04-12</data>
+	    <contenuto>for 2 bucks</contenuto>
+	  </new>
+	  <new>
+	    <titolo>So Delicious</titolo>
+	    <data>2014-04-12</data>
+	    <contenuto>for 2 bucks</contenuto>
+	  </new>
+	  <new>
+	    <titolo>So Spicy</titolo>
+	    <data>2014-04-12</data>
+	    <contenuto>for 2 bucks</contenuto>
+	  </new>
+	</news>
 </dati>

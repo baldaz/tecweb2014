@@ -61,7 +61,7 @@
 		<option value="23:00">23:00</option>
 	      </select> 
             </label>
-            <input type="hidden" name="disciplina" id="disciplina" value="Calcetto" />
+            <input type="hidden" name="disciplina" id="disciplina" value="<TMPL_VAR ESCAPE=HTML NAME=DISCIPLINA DEFAULT=Calcetto>" />
 	    <label>Giorno: 
    	      <input type="date" name="data" id="data" >
   	      </label>
@@ -84,10 +84,14 @@
 	  <div id="news">
 	    <h2>NEWS</h2>
 	    <ul>
-	      <li>NEW1</li>
-	      <li>NEW2</li>
-	      <li>ew3New3NewNew3New3New3New3NewNew3New3New3</li>
-	      <li>New4</li>
+	      <TMPL_LOOP NAME=NEWS>
+		<li>
+		  <TMPL_VAR NAME=N_TITLE>
+		    <p>
+		      <TMPL_VAR NAME=N_CONTENT>
+		    </p>
+		</li>
+              </TMPL_LOOP>
 	    </ul>
 	  </div>
 	</div>

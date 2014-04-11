@@ -16,6 +16,20 @@ my $file='../data/prenotazioni.xml';
 my $parser=XML::LibXML->new();
 my $xml=$parser->parse_file($file);
 
+my ($news_title, $news_content)=&get_news($xml, $parser);     # genero le news da xml
+my @loop_data=();
+
+# scorro i risultati dell'estrazione e li inserisco in un hash
+
+while(@$news_title and @$news_content){
+    my %row_data;
+    $row_data{N_TITLE}=shift @$news_title;
+    $row_data{N_CONTENT}=shift @$news_content;
+    push(@loop_data, \%row_data);
+}
+
+$template->param(NEWS=>\@loop_data);
+
 #dati form
 
 my $name=$page->param('nome');
@@ -59,6 +73,8 @@ open(OUT, ">$file");
 print OUT $xml->toString; 
     #chiudo file
 close (OUT);
+
+$template->param(DISCIPLINA=>$disciplina); # aggiorno il campo hidden disciplina, che fallbacka a Calcetto se lasciato undef
 
 if($test!=0){
     if($test==-1){$test=0}
