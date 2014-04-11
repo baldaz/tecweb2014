@@ -14,3 +14,5 @@ TODO:
 - margin collapsing (per margini che entrano in contatto)
 - Sessioni
 - Eliminazione prenotazione
+- Area amministrativa
+- Index dinamico
