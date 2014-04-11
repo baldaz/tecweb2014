@@ -5,6 +5,8 @@ Progetto Tecweb
 
 TODO:
 
+	+++++ LAYOUT +++++
+
 - transition su Opera
 - media="handheld, screen and (max-width:480px), only screen and (max-device-width:480px)" per i dispositivi mobile
 - css per aural
@@ -12,7 +14,10 @@ TODO:
 - css mobile prenotazioni
 - accessibilità tabelle
 - margin collapsing (per margini che entrano in contatto)
-- Sessioni
-- Eliminazione prenotazione
-- Area amministrativa
-- Index dinamico
+
+  	+++++ PERL +++++
+
+- HTML::Template su index.cgi
+- Sessioni, login etc.
+- Eliminazione prenotazione.
+- Area amministrativa.

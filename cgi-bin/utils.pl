@@ -37,6 +37,8 @@ sub footer{
 	$page->end_div;
 }
 
+# controllo prenotazione su file xml
+
 sub checkform{
     my($xmldoc, $parser, $disciplina, $data, $ora)=@_;
     my $root=$xmldoc->getDocumentElement;
@@ -45,6 +47,16 @@ sub checkform{
 #    my $ret=$root->findnodes("//p:prenotante[p:disciplina='".$disciplina."' and p:data='".$data."' and p:ora='".$ora."']/p:nome");
     my $ret=$root->exists("//p:prenotante[p:disciplina='".$disciplina."' and p:data='".$data."' and p:ora='".$ora."']/p:nome");
     return $ret;
+}
+
+# controllo numero telefonico
+
+sub check_tel{
+    my $number=shift;
+    if($number=~/^(\d)+$/){
+	return 0;
+    }
+    else{ return 1;}
 }
 
 sub get_week{
