@@ -142,19 +142,8 @@ print'
 	
 	print '
 	</div>
-	<div id="news_container">
-	<div id="news">
-			<h2>NEWS</h2>
-		<ul>
-		      <li>NEW1</li>
-		      <li>NEW2</li>
-		      <li>ew3New3NewNew3New3New3New3NewNew3New3New3NewNew3New3New3</li>
-		      <li>New4</li>
-		</ul>
-	</div>
-	</div>
-	
-';
+	';
+	&print_news($page);
 
 }
 else{
