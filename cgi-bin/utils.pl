@@ -64,16 +64,16 @@ sub get_week{
 	day=>$split_pdate[2]
 	);
 
-    my $dow=$dt->day_of_week;	#giorno della settimana int
+#    my $dow=$dt->day_of_week;	#giorno della settimana int
 
     my @sorted_dates = sort {str2time($a) <=> str2time($b)} @dates;
 
-#	print $_,"\n" for @sorted_dates;
     my @ret_date;
     my $dt_tmp=$dt->clone();
     my $dt_loop=$dt->clone();
-
-    $dt_tmp->add(days=>6); # add aumenta i giorni
+    
+    $dt_loop->subtract(days=>3); #sottraggo 3 giorni
+    $dt_tmp->add(days=>3); # add aumenta 3 giorni
 
     while($dt_loop <= $dt_tmp){
 	for(@dates){

@@ -50,9 +50,11 @@ my $new_element =
         </prenotante>
       ";
 
+my $pren=$xml->getElementsByTagName('prenotazioni')->[0];
 my $chunk=$parser->parse_balanced_chunk($new_element) or die"problema parse_balanced_chunk";
     #appendo il nuovo appena creato
-$prenotazioni[0]->appendChild($chunk);
+$pren->appendChild($chunk);
+#$prenotazioni[0]->appendChild($chunk);
 
 open(OUT, ">$file") or die("Non riesco ad aprire il file in scrittura");
     #scrivo effettivamente sul file
