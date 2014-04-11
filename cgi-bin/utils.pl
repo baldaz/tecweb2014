@@ -171,4 +171,24 @@ sub toText{
     }
     return @ret;
 }
+
+sub print_news{
+    $cgi=shift;
+    print "\n\t";
+    print $cgi->start_div({-id=>'news_container'})."\n\t\t";
+    print $cgi->start_div({-id=>'news'})."\n\t\t\t";
+    print '<h2>NEWS</h2>
+		<ul>
+		      <li>NEW1</li>
+		      <li>NEW2</li>
+		      <li>ew3New3NewNew3New3New3New3NewNew3New3New3NewNew3New3New3</li>
+		      <li>New4</li>
+		      </ul>';
+    print "\n\t\t";
+    print $cgi->end_div;
+    print "\n\t";
+    print $cgi->end_div;
+    print "\n";
+}
+
 1;
