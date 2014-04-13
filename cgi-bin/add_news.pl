@@ -10,7 +10,7 @@ use CGI qw (fatalsToBrowser);
 #                                                             #
 ###############################################################
 
-my $file='../data/news.xml';
+my $file='../data/news.xml';	# inserire in prenotazioni.xml
 
 my $parser=XML::LibXML->new();
 my $xml=$parser->parse_file($file);

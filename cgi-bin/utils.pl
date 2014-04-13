@@ -276,7 +276,7 @@ sub printTable{
 
     $ret='<input type="number" id="field" name="field" min="1" max="3" value="1" onchange="reload_table()">';
     $ret.='<table summary="">
-             <caption>Prenotazioni per il campo '.$campo.' </caption>
+             <caption><h3>Prenotazioni per il campo '.$campo.' </h3></caption>
 	     <thead>
 	       <tr>
                   <th>ORARIO</th>
