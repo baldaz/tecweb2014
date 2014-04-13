@@ -85,9 +85,15 @@ table, th, td{
     background:rgba(255,255,255,0.3)
 }
 
-#nome, #cognome, #telefono, #email, #ora, #data{
+#nome, #cognome, #telefono, #email, #ora, #campo,#data{
     float:right
 }
+
+#field{
+ width:5%;
+ clear:both
+}
+
 .button{
     background-color:#228833;
 	color: #ffda47;

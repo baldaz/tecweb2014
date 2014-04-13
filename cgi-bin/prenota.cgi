@@ -39,46 +39,47 @@ my $email=$page->param('email');
 my $disciplina=$page->param('disciplina');
 my $data=$page->param('data');
 my $ora=$page->param('ora');
+my $campo=$page->param('campo');
 
 if ($name eq ''){		# fallimento, campi vuoti primo ingresso
     $test=0;
 }
-elsif(&checkform($xml, $parser, $disciplina, $data, $ora)){ # fallimento, prenotazione già presente nell'xml
+elsif(&checkform($xml, $parser, $disciplina, $campo, $data, $ora)){ # fallimento, prenotazione già presente nell'xml
     $test=-1;
 }
 else{ $test=1;}			# successo
 
-
-my $new_element = 
+if($test==1){			# inserisco solo se non c'è stato un match di prenotazione
+    my $new_element = 
     "
-      <prenotante>
-        <nome>".$name."</nome>
-        <cognome>".$surname."</cognome>
-        <telefono>".$tel."</telefono>
-        <email>".$email."</email>
-        <disciplina>".$disciplina."</disciplina>
-        <data>".$data."</data>
-        <ora>".$ora."</ora>
-        </prenotante>
-      ";
+    <prenotante>
+      <nome>".$name."</nome>
+      <cognome>".$surname."</cognome>
+      <telefono>".$tel."</telefono>
+      <email>".$email."</email>
+      <disciplina>".$disciplina."</disciplina>
+      <campo>".$campo."</campo>
+      <data>".$data."</data>
+      <ora>".$ora."</ora>
+    </prenotante>
+    ";
 
-my $pren=$xml->getElementsByTagName('prenotazioni')->[0];
-my $chunk=$parser->parse_balanced_chunk($new_element);
-    #appendo il nuovo appena creato
-$pren->appendChild($chunk);
-#$prenotazioni[0]->appendChild($chunk);
+    my $pren=$xml->getElementsByTagName('prenotazioni')->[0];
+    my $chunk=$parser->parse_balanced_chunk($new_element);
+    
+    $pren->appendChild($chunk);	# appendo il nuovo appena creato
+    # $prenotazioni[0]->appendChild($chunk);
 
-open(OUT, ">$file");
-    #scrivo effettivamente sul file
-print OUT $xml->toString; 
-    #chiudo file
-close (OUT);
+    open(OUT, ">$file");
+    print OUT $xml->toString; 
+    close OUT;
+}
 
 $template->param(DISCIPLINA=>$disciplina); # aggiorno il campo hidden disciplina, che fallbacka a Calcetto se lasciato undef
 
 if($test!=0){
     if($test==-1){$test=0}
-    my $table=&getWeek($xml, $parser, $disciplina, $data);
+    my $table=&getWeek($xml, $parser, $disciplina, $campo, $data);
     $template->param(TBL=>1);
     $template->param(TEST=>$test);
     $template->param(TABLE=>$table);

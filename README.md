@@ -18,6 +18,7 @@ TODO:
   	+++++ PERL +++++
 
 - HTML::Template su index.cgi
+- Settare tutti i campi per le discipline a 3
 - Sessioni, login etc.
 - Eliminazione prenotazione.
 - Area amministrativa.

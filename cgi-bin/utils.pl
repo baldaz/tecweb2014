@@ -40,12 +40,11 @@ sub footer{
 # controllo prenotazione su file xml
 
 sub checkform{
-    my($xmldoc, $parser, $disciplina, $data, $ora)=@_;
+    my($xmldoc, $parser, $disciplina, $campo, $data, $ora)=@_;
     my $root=$xmldoc->getDocumentElement;
     $xmldoc->documentElement->setNamespace("www.prenotazioni.it", "p");
     #controllo se esiste un match (prenotazione gia' presa)
-#    my $ret=$root->findnodes("//p:prenotante[p:disciplina='".$disciplina."' and p:data='".$data."' and p:ora='".$ora."']/p:nome");
-    my $ret=$root->exists("//p:prenotante[p:disciplina='".$disciplina."' and p:data='".$data."' and p:ora='".$ora."']/p:nome");
+    my $ret=$root->exists("//p:prenotante[p:disciplina='$disciplina' and p:data='$data' and p:ora='$ora' and p:campo='$campo']/p:nome");
     return $ret;
 }
 
@@ -206,11 +205,11 @@ sub get_news{
 #################################################
 
 sub getWeek{
-    my ($xmldoc, $parser, $discipline, $p_date)=@_;
+    my ($xmldoc, $parser, $discipline, $campo, $p_date)=@_;
     my $root=$xmldoc->getDocumentElement;
     $xmldoc->documentElement->setNamespace("www.prenotazioni.it", "p");
-    my @date=$root->findnodes("//p:prenotante[p:disciplina='".$discipline."']/p:data");
-    my @time=$root->findnodes("//p:prenotante[p:disciplina='".$discipline."']/p:ora");
+    my @date=$root->findnodes("//p:prenotante[p:disciplina='".$discipline."' and p:campo='".$campo."']/p:data");
+    my @time=$root->findnodes("//p:prenotante[p:disciplina='".$discipline."' and p:campo='".$campo."']/p:ora");
 
     my @dates=toText(@date);
 
@@ -247,7 +246,7 @@ sub getWeek{
     my @time;
 
     for my $i (0..$#ret_date){
-	@time=$root->findnodes("//p:prenotante[p:disciplina='".$discipline."' and p:data='".$ret_date[$i]."']/p:ora");
+	@time=$root->findnodes("//p:prenotante[p:disciplina='".$discipline."' and p:campo='".$campo."' and p:data='".$ret_date[$i]."']/p:ora");
 	$hash[$i]{date}=$ret_date[$i];
 	my @txt_time=toText(@time);
 	my $time_str=join(" - ", @txt_time);
@@ -260,32 +259,34 @@ sub getWeek{
     for my $i (0..$#hash){
 	print "$i is { ";
 	for my $role (keys%{$hash[$i]}){
-	    print "$role=$hash[$i]{$role} ";
+	    print "$role=$hash[$i]{$role}";
 	}
 	print "}<br />";
     }
-    return &printTable($dt, @hash);
+    return &printTable($dt, $campo, @hash);
 }
 
 sub printTable{
-    my ($p_day, @hash)=@_;
+    my ($p_day, $campo, @hash)=@_;
     $p_day->subtract(days=>3);
     my $builder=$p_day->clone();
     my $class;
     my $ret;
     $class='green' if not defined(@hash);
-    $ret='<table summary="">
-             <caption>Prenotazioni</caption>
+
+    $ret='<input type="number" id="field" name="field" min="1" max="3" value="1" onchange="reload_table()">';
+    $ret.='<table summary="">
+             <caption>Prenotazioni per il campo '.$campo.' </caption>
 	     <thead>
 	       <tr>
                   <th>ORARIO</th>
-	      	  <th>'.$builder->day_name()." ".$builder->day().'</th>';
+	      	  <th>'.$builder->day_name().' '.$builder->day().'</th>';
     for(0..1){
-	$ret.=' <th>'.$builder->add(days=>1)->day_name." ".$builder->day().'</th>';
+	$ret.=' <th>'.$builder->add(days=>1)->day_name.' '.$builder->day().'</th>';
     }
-    $ret.=' <th class="selected">'.$builder->add(days=>1)->day_name." ".$builder->day().'</th>';
+    $ret.=' <th class="selected">'.$builder->add(days=>1)->day_name.' '.$builder->day().'</th>';
     for(0..2){
-	$ret.=' <th>'.$builder->add(days=>1)->day_name." ".$builder->day().'</th>';
+	$ret.=' <th>'.$builder->add(days=>1)->day_name.' '.$builder->day().'</th>';
     }
     $ret.=' </tr>
                </thead>

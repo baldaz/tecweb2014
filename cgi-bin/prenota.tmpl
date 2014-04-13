@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../css/mobile.css" media="only screen and (max-width: 480px)"/>
     <link rel="stylesheet" type="text/css" href="../css/tablet.css" media="only screen and (min-width: 481px) and (max-width: 767px)"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script language="javascript" type="text/javascript" src="../js/script.js"></script>
   </head>
   <body>
     
@@ -62,6 +63,9 @@
 	      </select> 
             </label>
             <input type="hidden" name="disciplina" id="disciplina" value="<TMPL_VAR ESCAPE=HTML NAME=DISCIPLINA DEFAULT=Calcetto>" />
+	    <label>Campo:
+	      <input type="number" name="campo" id="campo" min="1" max="3" value="1">
+	    </label>
 	    <label>Giorno: 
    	      <input type="date" name="data" id="data" >
   	      </label>

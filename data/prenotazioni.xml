@@ -1,110 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dati xmlns="www.prenotazioni.it"
-	xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance"
-	xs:schemaLocation="www.prenotazioni.it prenotanti_schema.xs">
-	<prenotazioni>
-		<prenotante>	
-			<nome>Ombretta</nome>
-			<cognome>Roia</cognome>
-			<telefono>012345678</telefono>
-			<email>ombretta@putana.it</email>
-			<data>12-12-1985</data>
-			<ora>13:23</ora>
-		</prenotante>
-	<prenotante>
-        <nome>Andrea</nome>
-        <cognome>Baldan</cognome>
-        <telefono>3123123</telefono>
-        <email>sdad@asdd</email>
-        <disciplina>Calcetto</disciplina>
-        <data>2014-04-08</data>
-        <ora>17:00</ora>
-        </prenotante>
-      <prenotante>
-        <nome>Andrea</nome>
-        <cognome>Baldan</cognome>
-        <telefono>3123123</telefono>
-        <email>sdad@asdd</email>
-        <disciplina>Calcetto</disciplina>
-        <data>2014-04-05</data>
-        <ora>17:00</ora>
-        </prenotante>
-      <prenotante>
-        <nome>giul</nome>
-        <cognome>sad</cognome>
-        <telefono>13123</telefono>
-        <email>sdad@asdd</email>
-        <disciplina>Calcetto</disciplina>
-        <data>2014-04-08</data>
-        <ora>21:00</ora>
-        </prenotante>
-      <prenotante>
-        <nome>giul</nome>
-        <cognome>sad</cognome>
-        <telefono>13123</telefono>
-        <email>sdad@asdd</email>
-        <disciplina>Calcetto</disciplina>
-        <data>2014-04-08</data>
-        <ora>22:00</ora>
-        </prenotante>
-      <prenotante>
-        <nome>giul</nome>
-        <cognome>sad</cognome>
-        <telefono>13123</telefono>
-        <email>sdad@asdd</email>
-        <disciplina>Calcetto</disciplina>
-        <data>2014-04-08</data>
-        <ora>16:00</ora>
-      </prenotante>
-      <prenotante>
-        <nome>giul</nome>
-        <cognome>sad</cognome>
-        <telefono>13123</telefono>
-        <email>sdad@asdd</email>
-        <disciplina>Calcetto</disciplina>
-        <data>2014-04-05</data>
-        <ora>21:00</ora>
-      </prenotante>
-      <prenotante>
-        <nome>giul</nome>
-        <cognome>sad</cognome>
-        <telefono>13123</telefono>
-        <email>sdad@asdd</email>
-        <disciplina>Calcetto</disciplina>
-        <data>2014-04-06</data>
-        <ora>17:00</ora>
-      </prenotante>
-      <prenotante>
-        <nome>giuwwe</nome>
-        <cognome>sadfsdf</cognome>
-        <telefono>13123322</telefono>
-        <email>sdad@asdd</email>
-        <disciplina>Calcetto</disciplina>
-        <data>2014-03-13</data>
-        <ora>17:00</ora>
-        </prenotante>
-	</prenotazioni>
-
-	<news>
-	  <new>
-	    <titolo>So Good</titolo>
-	    <data>2014-04-12</data>
-	    <contenuto>for 2 bucks</contenuto>
-	  </new>
-	  <new>
-	    <titolo>So Tasty</titolo>
-	    <data>2014-04-12</data>
-	    <contenuto>for 2 bucks</contenuto>
-	  </new>
-	  <new>
-	    <titolo>So Delicious</titolo>
-	    <data>2014-04-12</data>
-	    <contenuto>for 2 bucks</contenuto>
-	  </new>
-	  <new>
-	    <titolo>So Spicy</titolo>
-	    <data>2014-04-12</data>
-	    <contenuto>for 2 bucks</contenuto>
-	  </new>
-	</news>
-</dati>
+<p:dati xmlns="www.prenotazioni.it" xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance" xmlns:p="www.prenotazioni.it" xs:schemaLocation="www.prenotazioni.it prenotanti_schema.xs">
+  <prenotazioni>
+  
+    <prenotante>
+      <nome>Andrea</nome>
+      <cognome>Baldan</cognome>
+      <telefono>049502628</telefono>
+      <email>a.g.baldan@gmail.com</email>
+      <disciplina>Calcetto</disciplina>
+      <campo>1</campo>
+      <data>2014-04-18</data>
+      <ora>16:00</ora>
+    </prenotante>
+  
+    <prenotante>
+      <nome>Andrea</nome>
+      <cognome>dog65</cognome>
+      <telefono>0232345621</telefono>
+      <email>sadad@asd.com</email>
+      <disciplina>Calcetto</disciplina>
+      <campo>1</campo>
+      <data>2014-04-18</data>
+      <ora>19:00</ora>
+    </prenotante>
+  
+    <prenotante>
+      <nome>Alberto</nome>
+      <cognome>sdaas</cognome>
+      <telefono>313233</telefono>
+      <email>a.g.baldan@gmail.com</email>
+      <disciplina>Calcetto</disciplina>
+      <campo>3</campo>
+      <data>2014-04-17</data>
+      <ora>22:00</ora>
+    </prenotante>
+    </prenotazioni>	
+  <news>
+    <new>
+      <titolo>So Good</titolo>
+      <data>2014-04-12</data>
+      <contenuto>for 2 bucks</contenuto>
+    </new>
+    <new>
+      <titolo>So Tasty</titolo>
+      <data>2014-04-12</data>
+      <contenuto>for 2 bucks</contenuto>
+    </new>
+    <new>
+      <titolo>So Delicious</titolo>
+      <data>2014-04-12</data>
+      <contenuto>for 2 bucks</contenuto>
+    </new>
+    <new>
+      <titolo>So Spicy</titolo>
+      <data>2014-04-12</data>
+      <contenuto>for 2 bucks</contenuto>
+    </new>
+  </news>
+</p:dati>
