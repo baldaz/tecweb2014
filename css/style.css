@@ -49,7 +49,7 @@ body{
 
 .frm-style{
     text-align:left;
-    width: 60%;
+    width: 75%;
     margin-right: auto;
     margin-left: auto;
     padding: 20px 30px 20px 30px;
@@ -63,7 +63,8 @@ form legend{
 }
 
 form legend h2{
-    padding:1em 1em;
+    padding-bottom:1em;
+    color:#ffda47
 }
  
 label{
@@ -148,7 +149,7 @@ table, th, td{
 .button{
     background-color:#228833;
     color: #ffda47;
-    width:25%;
+    width:30%;
     margin:1em 1em;
     cursor:pointer
 }
@@ -270,7 +271,6 @@ table, th, td{
 	box-shadow: 2px 2px 4px #888;
 	text-decoration:none;
 }
-
 
 #nav ul li a:hover{
 	/*background: #ffda47;*/
