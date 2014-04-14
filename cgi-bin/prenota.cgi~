@@ -1,0 +1,14 @@
+#!/usr/bin/perl -w
+
+use strict;
+use HTML::Template;
+require 'utils.pl';
+
+my $template=HTML::Template->new(filename=>'prenota.tmpl');
+
+my $parser=XML::LibXML->new();
+my $doc=$parser->parse_file($file) or die "problema parser";
+
+my $table=&get_week($doc, $parser, 'calcetto', '2014-04-16');
+$template->param(BOOL=>1);
+$template->param(TABLE=>

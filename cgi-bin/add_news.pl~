@@ -1,0 +1,23 @@
+#!/usr/bin/perl -w
+
+use strict;
+use XML::LibXML;
+use CGI qw (fatalsToBrowser);
+
+my $file='../data/news.xml';
+
+my $parser=XML::LibXML->new();
+my $xml=$parser->parse_file($file);
+
+my $root=$xml->getDocumentElement;
+
+$xml->documentElement->setNamespace("www.news.it","n");
+
+my $new=
+    "
+     <new>
+       <titolo></titolo>
+       <data></data>
+       <contenuto></contenuto>
+     </new>
+";

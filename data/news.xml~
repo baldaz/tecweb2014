@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dati xmlns="www.news.it" xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance">
+
+<news>
+  <new>
+    <titolo></titolo>
+    <data></data>
+  </new>
+</news>
