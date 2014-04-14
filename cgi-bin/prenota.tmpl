@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../css/mobile.css" media="only screen and (max-width: 480px)"/>
     <link rel="stylesheet" type="text/css" href="../css/tablet.css" media="only screen and (min-width: 481px) and (max-width: 767px)"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--    <script src="//code.jquery.com/jquery-1.10.2.js"></script>-->
     <script language="javascript" type="text/javascript" src="../js/script.js"></script>
   </head>
   <body>
@@ -35,18 +36,18 @@
 	</ul>
       </div>
       <div id="content">
-	<form method="POST" action="">
+	<form method="POST" action="" class="frm-style" onsubmit="return validate()" name="form" >
 	  <fieldset>
 	    <legend><h2>PRENOTAZIONE</h2></legend>
-	    <label for="nome">Nome:</label>
-	      <input type="text" name="nome" id="nome" value="" />
-	    <label for="cognome">Cognome:</label> 
-	      <input type="text" name="cognome" id="cognome" value="" />    
-	    <label for="telefono">Telefono:</label> 
-	      <input type="text" name="telefono" id="telefono" value="" />    
-	    <label for="email">Email:</email>
-	      <input type="email" name="email" id="email" value="" />    
-	    <label for="ora"> Ora:</label>
+	    <label for="nome"><span>Nome:</span></label>
+	      <input type="text" name="nome" id="nome" value=""><span id="err_nome"></span>
+	    <label for="cognome"><span>Cognome:</span></label> 
+	      <input type="text" name="cognome" id="cognome" value=""><span id="err_cognome"></span>    
+	    <label for="telefono"><span>Telefono:</span></label> 
+	      <input type="text" name="telefono" id="telefono" value=""><span id="err_telefono"></span>    
+	    <label for="email"><span>Email:</span></label>
+	      <input type="email" name="email" id="email" value="" /><span id="err_email"></span>    
+	    <label for="ora"><span> Ora:</span></label>
 	      <select name="ora" id="ora">
 		<option value="16:00">16:00</option>
 		<option value="17:00">17:00</option>
@@ -58,14 +59,16 @@
 		<option value="23:00">23:00</option>
 	      </select> 
             <input type="hidden" name="disciplina" id="disciplina" value="<TMPL_VAR ESCAPE=HTML NAME=DISCIPLINA DEFAULT=Calcetto>" />
-	    <label for="campo">Campo:</label>
+	    <label for="campo"><span>Campo:</span></label>
 	      <input type="number" name="campo" id="campo" min="1" max="3" value="1">
-	    <label for="data">Giorno:</label> 
+	    <label for="data"><span>Giorno:</span></label> 
    	      <input type="date" name="data" id="data" >
             </fieldset>
             <fieldset>
-  	      <input type="reset"  value="Resetta il form" class="button" />
-  	      <input type="submit" value="Invia" class="button" />
+	      <div id="button_container">
+  		<input type="reset"  value="Resetta il form" class="button" />
+  		<input type="submit" value="Invia" class="button" />
+	      </div>
             </fieldset>
 	  </form>
 	  <TMPL_IF NAME="TBL">

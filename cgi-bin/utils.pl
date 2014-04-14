@@ -256,13 +256,13 @@ sub getWeek{
     }			  # e push @{$hash[$i]{time}}, $_ foreach @gh;
     # NO, per inserire array come chiavi di un hash serve una libreria, accetta solo stringhe
 
-    for my $i (0..$#hash){
-	print "$i is { ";
-	for my $role (keys%{$hash[$i]}){
-	    print "$role=$hash[$i]{$role}";
-	}
-	print "}<br />";
-    }
+#    for my $i (0..$#hash){
+#	print "$i is { ";
+#	for my $role (keys%{$hash[$i]}){
+#	    print "$role=$hash[$i]{$role}";
+#	}
+#	print "}<br />";
+ #   }
     return &printTable($dt, $campo, @hash);
 }
 

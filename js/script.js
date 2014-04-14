@@ -6,13 +6,44 @@ function reload_table(){
 
 function validate(){
     var count=0;
-    if(document.getElementById("nome").value==""){
+    var x=document.forms["form"]["nome"].value;
+    var y=document.forms["form"]["cognome"].value;
+    var z=document.forms["form"]["telefono"].value;
+    var mail=document.forms["form"]["email"].value;
+
+    if(x.length<1){
 	// messaggio nome mancante su div/span nel template
+	document.getElementById('err_nome').innerHTML='pirla pirla pirla pirla';
 	count++;
     }
-    else if(document.getElementById("cognome").value==""){
+    else{document.getElementById('err_nome').innerHTML='';}
+    if(y.length<1){
+	document.getElementById('err_cognome').innerHTML='pirla';
 	count++;
     }
-    // etc per tutti i campi
+    else{document.getElementById('err_cognome').innerHTML='';}
+    if(z.length<2 || isNaN(z)){
+	document.getElementById('err_telefono').innerHTML='pirdog';
+	count++;
+    }
+    else{document.getElementById('err_telefono').innerHTML='';}
+    
+    var patt=/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(!patt.test(mail)){
+	document.getElementById('err_email').innerHTML='fallimendog';
+	count++;
+    }
+    else{document.getElementById('err_email').innerHTML='';}
     return (count==0);
+    // etc per tutti i campi
 }
+
+$( "form" ).submit(function( event ) {
+  if ( $( "input:first" ).val() === "correct" ) {
+    $( "span" ).text( "Validated..." ).show();
+    return;
+  }
+ 
+  $( "span" ).text( "Not valid!" ).show().fadeOut( 1000 );
+  event.preventDefault();
+});
