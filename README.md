@@ -22,3 +22,4 @@ TODO:
 - Sessioni, login etc.
 - Eliminazione prenotazione.
 - Area amministrativa.
+- Templating
