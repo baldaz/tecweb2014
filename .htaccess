@@ -1,0 +1,4 @@
+RewriteEngine On
+RewriteRule ^calcetto$ calcetto.html
+RewriteRule ^prenota$ /cgi-bin/prenota.cgi
+ErrorDocument 403 "Sorry"
