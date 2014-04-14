@@ -48,6 +48,7 @@ body{
 
 
 .frm-style{
+    text-align:left;
     width: 95%;
     margin-right: auto;
     margin-left: auto;
@@ -124,12 +125,19 @@ table, th, td{
     background:rgba(255,255,255,0.3)
 }
 
-#nome, #cognome, #telefono, #email, #ora, #campo,#data{
+#err_nome, #err_cognome, #err_telefono, #err_email, #err_ora, #err_campo,#err_data{
+    vertical-align:middle;
+    margin-left:1em;
+    color:#f00
 }
 
 #field{
  width:5%;
  clear:both
+}
+
+#button_container{
+    text-align:center
 }
 
 .button{
