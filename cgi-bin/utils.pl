@@ -321,4 +321,14 @@ sub printTable{
     return $ret;
 }
 
+sub createMenu{
+    my($xml, $parser)=@_;
+    $xml->documentElement->setNamespace("www.prenotazioni.it","p");
+    my @names=$xml->findnodes("//p:disciplina/p:nome");
+    @names=toText(@names);
+    my @links=$xml->findnodes("//p:disciplina/p:link");
+    @links=toText(@links);
+    return (\@names, \@links);
+}
+
 1;
