@@ -272,10 +272,10 @@ sub printTable{
     my $builder=$p_day->clone();
     my $class;
     my $ret;
-    $class='green' if not defined(@hash);
+    $class='green' if not defined(@hash); # non definito
+    $class='green' if scalar(@hash)==0; # definizione hash con 0 elementi
 
-    $ret='<input type="number" id="field" name="field" min="1" max="3" value="1" onchange="reload_table()">';
-    $ret.='<table summary="">
+    $ret='<table summary="">
              <caption><h3>Prenotazioni per il campo '.$campo.' </h3></caption>
 	     <thead>
 	       <tr>
