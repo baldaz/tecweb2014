@@ -193,6 +193,13 @@ sub get_news{
     return (\@titles, \@contents);
 }
 
+sub getFields{
+    my ($xml, $disciplina)=@_;
+    $xml->documentElement->setNamespace("www.impianti.it","i");
+    my @ret_n=$xml->findnodes("//i:impianto[i:disciplina='$disciplina']/i:campi");
+    @ret_n=toText(@ret_n);
+    return $ret_n[0];
+}
 
 #################################################
 #                     #                         #
