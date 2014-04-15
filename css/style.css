@@ -347,25 +347,25 @@ table, th, td{
 }
 
 #content{
-	width:60%;
-	float:left;
-	min-height:65%;
+    width:60%;
+    float:left;
+    min-height:65%;
     background:rgba(0,0,0,0.3);
     -webkit-border-radius:20px;
     -moz-border-radius:20px;
     -o-border-radius:20px;
     -ms-border-radius:20px;
-	-khtml-border-radius:20px;
-	border-radius:20px;
-	text-align:center;
+    -khtml-border-radius:20px;
+    border-radius:20px;
+    text-align:center;
     -webkit-box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;
     -moz-box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;
     -o-box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;
     -ms-box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;
     -khtml-box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;
-	box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;	
-	margin-bottom: 0.6em;
-	padding-bottom:1em;
+    box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;	
+    margin-bottom: 0.6em;
+    padding-bottom:1em;
 }
 
 #content p,#content ul{
@@ -374,21 +374,30 @@ table, th, td{
 	margin-right: 2em;
 }
 #content p{
-	padding-top: 0.8em;
+	padding-top: 0.8em
 }
 #content ul{
-	margin-left:4em;
+	margin-left:3em;
 }
+
+#content ul li{
+    font-size:0.8em
+}
+
+span.bold{
+    font-weight:bold
+}
+
 #content img{
 	margin-top:1em;
 }
 
 #footer{
-	width:100%;
-	height:10%;
-	clear: both;
-	background: #13c26e url("../images/footerbackground.jpg") no-repeat;
-	background-size:100%;
+    width:100%;
+    height:10%;
+    clear: both;
+    background: #13c26e url("../images/footerbackground.jpg") no-repeat;
+    background-size:100%;
     -webkit-border-bottom-right-radius: 20px;
     -moz-border-bottom-right-radius: 20px;
     -o-border-bottom-right-radius: 20px;
