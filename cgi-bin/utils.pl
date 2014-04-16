@@ -201,6 +201,14 @@ sub getFields{
     return $ret_n[0];
 }
 
+sub getImg{
+    my $xml=shift;
+    $xml->documentElement->setNamespace("www.impianti.it","i");
+    my @ret_img=$xml->findnodes("//i:impianto/i:src");
+    @ret_img=toText(@ret_img);
+    return @ret_img;
+}
+
 #################################################
 #                     #                         #
 # TESTING SUBROUTINES # JUST FOR HTML::TEMPLATE #

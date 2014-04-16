@@ -30,6 +30,7 @@ while(@$news_title and @$news_content){
 }
 
 $template->param(NEWS=>\@loop_news);
+
 $xml=$parser->parse_file('../data/impianti.xml');
 # estraggo il numero di campi
 my $n_calcetto=&getFields($xml, 'Calcetto');
@@ -37,6 +38,16 @@ my $n_calciotto=&getFields($xml, 'Calciotto');
 my $n_tennis=&getFields($xml, 'Tennis');
 my $n_pallavolo=&getFields($xml, 'Pallavolo');
 my $n_bvolley=&getFields($xml, 'Beach Volley');
+my @img=&getImg($xml);
+my @loop_img=();
+
+foreach(@img){
+    my %row_data;
+    $row_data{src}=shift @img;
+    push(@loop_img, \%row_data);
+}
+
+$template->param(imm_campi=>\@loop_img);
 
 $template->param(n_calcetto=>$n_calcetto);
 $template->param(n_calciotto=>$n_calciotto);

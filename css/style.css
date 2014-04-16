@@ -47,6 +47,14 @@ body{
 	background: rgba(0,0,0,0.4); 
 }
 
+#separator{
+    width:90%;
+    margin-left:5%;
+    margin-top:2%;
+    border-style:dashed;
+    border-width:1px;
+}
+
 #form-container{
     border-style:none;
     background:rgba(34,136,51,0.2);
@@ -145,9 +153,9 @@ input:focus, select:focus, input:hover, select:hover{
 
 table{
     table-layout:fixed;
-    width:90%;
+    width:80%;
     border-collapse:collapse;
-    margin-left:5%
+    margin-left:10%
 }
 
 table, th, td{
