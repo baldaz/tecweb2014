@@ -24,18 +24,22 @@
 		<ul>
 		  <li><a href="../index.html">Home</a></li>
 		  <li><a id="active">Gli Impianti</a></li>
-		  <li><a href="./artimarziali.html">Arti Marziali</a></li>
-		  <li><a href="./fitness.html">Fitness</a></li>
-		  <li><a href="./contatti.html">Contatti</a></li>
-		  <li><a href="cgi-bin/viewB.cgi">Prenotazioni</a></li>
-		  <li><a href="prenota">Prenota</a></li>
+		  <li><a href="../artimarziali.html">Arti Marziali</a></li>
+		  <li><a href="../fitness.html">Fitness</a></li>
+		  <li><a href="../contatti.html">Contatti</a></li>
+		  <li><a href="viewB.cgi">Prenotazioni</a></li>
 		</ul>
 	</div>
 
 	<div id="content">
+	  <div id="images">
 	  <tmpl_loop name=imm_campi>
-	    <img src="<tmpl_var escape=html name=src>" alt="" class="imm_campi" />
+	    <span>
+	    <img src="<tmpl_var escape=html name=src>" alt="" />
+	    <div class="caption">Campo calcetto esterno</div>
+	    </span>
 	  </tmpl_loop>
+	  </div>
 	  <div id="separator">
 	  </div>
 	  <p>  Il nostro centro offre tutto quello di cui uno sportivo ha bisogno, con un'estensione di oltre <em>360000<abbr title="Metri quadri">mq</abbr></em>

@@ -18,7 +18,7 @@
   <impianto>
     <disciplina>Tennis</disciplina>
     <campi>6</campi>
-    <src>../images/campo_calcetto.jpg</src>
+    <src>../images/campo-tennis.jpg</src>
   </impianto>
   <impianto>
     <disciplina>Beach Volley</disciplina>

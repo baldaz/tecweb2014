@@ -55,7 +55,7 @@ body{
     border-width:1px;
 }
 
-#form-container{
+.form-container{
     border-style:none;
     background:rgba(34,136,51,0.2);
     border-radius:1em;
@@ -103,6 +103,17 @@ body{
     -moz-border-radius: 5px;
 }
 
+.frm-pren{
+    text-align:left;
+    width: 60%;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 20px 30px 20px 30px;
+    font: 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+
 form legend{
     text-align:center
 }
@@ -111,7 +122,11 @@ form legend h2{
     padding-bottom:1em;
     color:#ffda47
 }
- 
+
+h2{
+    color:#ffda47
+}
+
 label{
     display: block;
     margin: 0px 0px 5px;
@@ -174,6 +189,22 @@ table, th, td{
 
 .selected{
     background:rgba(255,255,255,0.3)
+}
+
+#images{
+    text-align:center;
+    margin:auto;
+}
+
+#images span{
+    display:inline-block;
+    width:30%;
+    margin:0 0.5em;
+    font-size:0.675em
+}
+
+#images img{
+    width:100%
 }
 
 #err_nome, #err_cognome, #err_telefono, #err_email, #err_ora, #err_campo,#err_data{

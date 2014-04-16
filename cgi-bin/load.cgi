@@ -38,12 +38,13 @@ my $n_calciotto=&getFields($xml, 'Calciotto');
 my $n_tennis=&getFields($xml, 'Tennis');
 my $n_pallavolo=&getFields($xml, 'Pallavolo');
 my $n_bvolley=&getFields($xml, 'Beach Volley');
+
 my @img=&getImg($xml);
 my @loop_img=();
 
 foreach(@img){
     my %row_data;
-    $row_data{src}=shift @img;
+    $row_data{src}=$_;
     push(@loop_img, \%row_data);
 }
 
