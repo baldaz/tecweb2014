@@ -23,3 +23,4 @@ TODO:
 - Eliminazione prenotazione.
 - Area amministrativa.
 - Templating
+- Considerare HTML::Restrict per il controllo URL/forms, strip html semplice
