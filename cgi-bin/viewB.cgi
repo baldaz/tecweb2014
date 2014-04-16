@@ -13,6 +13,8 @@ my $template=HTML::Template->new(filename=>'prenotazioni.tmpl');
 my $file='../data/prenotazioni.xml';
 my $parser=XML::LibXML->new();
 my $xml=$parser->parse_file($file);
+my $nr_campi;
+my $xml_campi=$parser->parse_file('../data/impianti.xml');
 
 my ($news_title, $news_content)=&get_news($xml, $parser);     # genero le news da xml
 my @loop_data=();
@@ -32,7 +34,8 @@ $template->param(CAMPO=>$disciplina);
 $template->param(NEWS=>\@loop_data);
 my $table;
 if(defined($disciplina)){
-    for(1..3){
+    $nr_campi=&getFields($xml_campi, $disciplina);
+    for(1..$nr_campi){
 	$table.=&getWeek($xml, $parser, $disciplina, $_, '2014-04-18');
     }
     $template->param(TABLE=>$table);

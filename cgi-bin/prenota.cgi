@@ -1,7 +1,5 @@
 #!/usr/bin/perl -w
 
-#print "Content-Type: text/html\n\n";
-
 use HTML::Template;
 use XML::LibXML;
 use CGI;
@@ -31,29 +29,60 @@ while(@$news_title and @$news_content){
 $template->param(NEWS=>\@loop_data);
 
 #dati form
+my($name, $surname, $tel, $email, $disciplina, $data, $ora, $campo, $test, $fase, $test_fase, $nr_campi, $xml_campi);
 
-my $name=$page->param('nome');
-my $surname=$page->param('cognome');
-my $tel=$page->param('telefono');
-my $email=$page->param('email');
-my $disciplina=$page->param('disciplina');
-my $data=$page->param('data');
-my $ora=$page->param('ora');
-my $campo=$page->param('campo');
+$fase=$page->param('fase');
 
-if ($name eq ''){		# fallimento, campi vuoti primo ingresso
-    $test=0;
+if($fase==1){			# FASE 1
+    $name=$page->param('nome');
+    $surname=$page->param('cognome');
+    $tel=$page->param('telefono');
+    $email=$page->param('email');
+    $disciplina=$page->param('disciplina');
 }
-elsif(&checkform($xml, $parser, $disciplina, $campo, $data, $ora)){ # fallimento, prenotazione già presente nell'xml
-    $test=-1;
+else{				# FASE 2
+    $name=$page->param('nome_h');
+    $surname=$page->param('cognome_h');
+    $tel=$page->param('numero_h');
+    $email=$page->param('email_h');
+    $disciplina=$page->param('disciplina_h');
+    $data=$page->param('data');
+    $ora=$page->param('ora');
+    $campo=$page->param('campo');
+    $test_fase=2;
 }
-else{ $test=1;}			# successo
 
-if($test==1){			# inserisco solo se non c'è stato un match di prenotazione
-    my $new_element = 
-    "
+$template->param(FORM1=>1);
+
+if ($name eq '' or ($fase==2 and $name eq '')){		# fallimento, campi vuoti primo ingresso
+    $test_fase=0;
+}
+else {
+    $template->param(fase=>2);
+    $template->param(FORM1=>0);
+    $template->param(button=>"Conferma");
+    $template->param(class_act=>"active");
+    $template->param(h_nome=>$name);
+    $template->param(h_cognome=>$surname);
+    $template->param(h_numero=>$tel);
+    $template->param(h_email=>$email);
+    $template->param(h_disciplina=>$disciplina);
+    $xml_campi=$parser->parse_file('../data/impianti.xml');
+    $template->param(NR_CAMPI=>&getFields($xml_campi, $disciplina));
+}
+
+if($test_fase==2){
+
+    if(&checkform($xml, $parser, $disciplina, $campo, $data, $ora)){ # fallimento, prenotazione già presente nell'xml
+	$test=-1;
+    }
+    else{ $test=1;}			# successo
+
+    if($test==1){			# inserisco solo se non c'è stato un match di prenotazione
+	my $new_element = 
+	    "
     <prenotante>
-      <nome>".$name."</nome>
+     <nome>".$name."</nome>
       <cognome>".$surname."</cognome>
       <telefono>".$tel."</telefono>
       <email>".$email."</email>
@@ -63,28 +92,35 @@ if($test==1){			# inserisco solo se non c'è stato un match di prenotazione
       <ora>".$ora."</ora>
     </prenotante>
     ";
-
-    my $pren=$xml->getElementsByTagName('prenotazioni')->[0];
-    my $chunk=$parser->parse_balanced_chunk($new_element);
+	
+	my $pren=$xml->getElementsByTagName('prenotazioni')->[0];
+	my $chunk=$parser->parse_balanced_chunk($new_element);
     
-    $pren->appendChild($chunk);	# appendo il nuovo appena creato
-    # $prenotazioni[0]->appendChild($chunk);
+	$pren->appendChild($chunk);	# appendo il nuovo appena creato
+	# $prenotazioni[0]->appendChild($chunk);
 
-    open(OUT, ">$file");
-    print OUT $xml->toString; 
-    close OUT;
+	open(OUT, ">$file");
+	print OUT $xml->toString; 
+	close OUT;
+    }
+
+#$template->param(DISCIPLINA=>$disciplina); # aggiorno il campo hidden disciplina, che fallbacka a Calcetto se lasciato undef
+
+
+    if($test==-1){
+	$template->param(SHOW_TBL=>1); 
+	$test=0;
+	my $table=&getWeek($xml, $parser, $disciplina, $campo, $data);
+	$template->param(TBL=>1);
+	$template->param(TEST=>$test);
+	$template->param(TABLE=>$table);
+	$template->param(fase=>2);
+	$template->param(FORM1=>0);
+	$template->param(class_act=>"active");
+	$template->param(c_val=>$campo);
+    }
+    else {$template->param(TBL=>0);}
 }
-
-$template->param(DISCIPLINA=>$disciplina); # aggiorno il campo hidden disciplina, che fallbacka a Calcetto se lasciato undef
-
-if($test!=0){
-    if($test==-1){$test=0}
-    my $table=&getWeek($xml, $parser, $disciplina, $campo, $data);
-    $template->param(TBL=>1);
-    $template->param(TEST=>$test);
-    $template->param(TABLE=>$table);
-}
-else {$template->param(TBL=>0);}
 
 print "Content-Type: text/html\n\n";
 print $template->output;
