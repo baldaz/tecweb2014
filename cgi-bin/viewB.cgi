@@ -31,13 +31,16 @@ while($a=shift @$news_title and $b=shift @$news_content){
 
 my $disciplina=$page->param('disciplina');
 $template->param(CAMPO=>$disciplina);
+my $data=$page->param('data');
+$data='2014-04-18' if not defined $data;
+$data='2014-04-18' if $data eq '';
 
 $template->param(NEWS=>\@loop_data);
 my $table;
 if(defined($disciplina)){
     $nr_campi=&getFields($xml_campi, $disciplina);
     for(1..$nr_campi){
-	$table.=&getWeek($xml, $parser, $disciplina, $_, '2014-04-18');
+	$table.=&getWeek($xml, $parser, $disciplina, $_, $data);
     }
     $template->param(TABLE=>$table);
 }

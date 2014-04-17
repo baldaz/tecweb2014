@@ -10,6 +10,7 @@ function validate(){
     var y=document.forms["form"]["cognome"].value;
     var z=document.forms["form"]["telefono"].value;
     var mail=document.forms["form"]["email"].value;
+    var data=document.forms["form"]["data"].value;
 
     if(x.length<1){
 	// messaggio nome mancante su div/span nel template
@@ -34,6 +35,11 @@ function validate(){
 	count++;
     }
     else{document.getElementById('err_email').innerHTML='';}
+    if(data eq ''){
+	document.getElementById('err_data').innerHTML='datadog';
+	count++;
+    }
+    else{document.getElementById('err_data').innerHTML='';}
     return (count==0);
     // etc per tutti i campi
 }
