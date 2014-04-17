@@ -209,6 +209,18 @@ sub getImg{
     return @ret_img;
 }
 
+sub getDesc{
+    my ($xml, $nome)=@_;
+    $xml->documentElement->setNamespace("www.sezioni.it","s");
+    my @ret_desc=$xml->findnodes("//s:sezione[\@nome='$nome']/s:contenuto");
+    @ret_desc=toText(@ret_desc);
+    my $ret_descr;
+    foreach(@ret_desc){
+	$ret_descr.=$_;
+    }
+    return $ret_descr;
+}
+
 #################################################
 #                     #                         #
 # TESTING SUBROUTINES # JUST FOR HTML::TEMPLATE #

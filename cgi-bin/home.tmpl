@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  xml:lang="it" lang="it">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width" />
+<title>Centro Sportivo</title>
+<link rel="stylesheet" type="text/css" media="only screen and (min-width: 768px)" href="../css/style.css" />
+<link rel="stylesheet" media="only screen and (min-width: 481px) and (max-width: 767px)" href="../css/tablet.css" />
+<link rel="stylesheet" media="only screen and (max-width: 480px)" href="../css/mobile.css" />
+
+</head>
+<body>
+<div id="container">
+	<div id="header">
+		<h1>Centro Sportivo</h1>
+
+		<div id="path">
+
+		</div>
+	</div>
+
+	<div id="nav">
+		<ul>
+		<li><a id="active">Home</a></li>
+		<li><a href="load.cgi?page=impianti">Gli Impianti</a></li>
+		<li><a href="load.cgi?page=arti_marziali">Arti Marziali</a></li>
+		<li><a href="load.cgi?page=fitness">Fitness</a></li>
+		<li><a href="../contatti.html">Contatti</a></li>
+		<li><a href="viewB.cgi">Prenotazioni</a></li>
+		</ul>
+	</div>
+
+	<div id="content">
+		<img src="../images/entrata_centro.jpg" alt="Entrata principale centro sportivo" width="70%"/>
+		<tmpl_var name=desc>
+	</div>
+	<div id="news_container">
+	<div id="news">
+	     <h2>NEWS</h2>
+	     <ul>
+	      <TMPL_LOOP NAME=NEWS>
+		<li>
+		  <TMPL_VAR NAME=N_TITLE>
+		    <p>
+		      <TMPL_VAR NAME=N_CONTENT>
+		    </p>
+		</li>
+              </TMPL_LOOP>
+	    </ul>
+	</div>
+	</div>
+	<div id="footer">
+		<p>
+		    <span xml:lang="en">Copyright</span>© 2014 CiccipanzeSulWeb
+		    <a href="http://validator.w3.org/check?uri=referer">
+			<img src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0 Strict" height="31" width="88" />
+		    </a>
+		</p>
+	</div>
+
+</div>
+</body>
+</html>

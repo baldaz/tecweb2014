@@ -23,10 +23,10 @@
       
       <div id="nav">
 	<ul>
-	  <li><a href="../index.html">Home</a></li>
-	  <li><a href="load.cgi">Gli impianti</a><li>
-	  <li><a href="../artimarziali.html">Arti Marziali</a></li>
-	  <li><a href="../fitness.html">Fitness</a></li>
+	  <li><a href="load.cgi?page=home">Home</a></li>
+	  <li><a href="load.cgi?page=impianti">Gli impianti</a><li>
+	  <li><a href="load.cgi?page=arti_marziali">Arti Marziali</a></li>
+	  <li><a href="load.cgi?page=fitness">Fitness</a></li>
 	  <li><a href="../contatti.html">Contatti</a></li>
 	  <li><a id="active">Prenotazioni</a></li>
 	</ul>
@@ -45,9 +45,9 @@
 				<option value="Tennis">Tennis</option>
 			</select>
 			<input type="submit" value="Visualizza" class="button" />
+			<a href="prenota.cgi"><input type="button" value="Nuova prenotazione" class="button" /></a>
 		</fieldset>
 	   </form>
-	   <a href="prenota.cgi"><input type="submit" value="Nuova prenotazione" class="button" /></a>
 	   </div>
 	   <TMPL_VAR NAME=TABLE>
 	</div>
