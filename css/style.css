@@ -204,7 +204,8 @@ table{
     table-layout:fixed;
     width:80%;
     border-collapse:collapse;
-    margin-left:10%
+    margin-left:10%;
+    background:url("../images/headerbackground_o.jpg")
 }
 
 table, th, td{
@@ -218,7 +219,7 @@ table, th, td{
 }
 
 .green{
-    background:rgba(0,255,0,0.3);
+    background:rgba(0,255,0,0.4);
 }
 
 .selected{
