@@ -67,6 +67,9 @@ given($page){
 	$template->param(n_pallavolo=>$n_pallavolo);
 	$template->param(n_bvolley=>$n_bvolley);
     }
+    when(/contatti/){
+	$template=HTML::Template->new(filename=>'contatti.tmpl');
+    }
     default{
 	$template=HTML::Template->new(filename=>'home.tmpl');
 	$xml=$parser->parse_file('../data/sezioni.xml');
