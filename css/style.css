@@ -60,6 +60,7 @@ body{
     margin-top:2%;
     border-style:dashed;
     border-width:1px;
+    border-color:#444444
 }
 
 .form-container{
@@ -166,7 +167,24 @@ input, select{
     box-shadow: 0px 0px 4px #888;
 }
 
-input:focus, select:focus, input:hover, select:hover{
+textarea{
+    background:rgba(0,0,0,0.2);
+    border-radius:5px;
+    margin-top:0.3em;
+    padding:0.1em;
+    text-indent:0.4em;
+    color:#333333;
+    width:70%;
+    height:18em;
+    resize:none;
+    -webkit-box-shadow: 0px 0px 4px #888;
+    -moz-box-shadow: 0px 0px 4px #888;
+    -o-box-shadow: 0px 0px 4px #888;
+    -ms-box-shadow: 0px 0px 4px #888;
+    box-shadow: 0px 0px 4px #888;
+}
+
+input:focus, select:focus, textarea:focus, input:hover, select:hover, textarea:hover{
     -webkit-box-shadow: 0px 0px 8px #228833;
     -moz-box-shadow: 0px 0px 8px #228833;
     -o-box-shadow: 0px 0px 8px #228833;
@@ -220,7 +238,7 @@ table, th, td{
 }
 
 #images img{
-    width:16em;
+    width:15em;
     height:10em
 }
 
