@@ -4,6 +4,7 @@ use HTML::Template;
 use XML::LibXML;
 use CGI;
 use CGI::Carp 'fatalsToBrowser';
+use Encode;
 
 require "utils.pl";
 
@@ -21,10 +22,10 @@ my @loop_data=();
 
 # scorro i risultati dell'estrazione e li inserisco in un hash
 
-while(@$news_title and @$news_content){
+while($a=shift @$news_title and $b=shift @$news_content){
     my %row_data;
-    $row_data{N_TITLE}=shift @$news_title;
-    $row_data{N_CONTENT}=shift @$news_content;
+    $row_data{N_TITLE}=encode('utf8', $a);
+    $row_data{N_CONTENT}=encode('utf8', $b);
     push(@loop_data, \%row_data);
 }
 
