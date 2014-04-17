@@ -23,15 +23,10 @@
       
       <div id="nav">
 	<ul>
-	  <li><a href="../index.html">Home</a></li>
-<!--	  <li><a href="./calcetto.html">Calcio a 5</a></li>
-	  <li><a href="./calciotto.html">Calciotto</a></li>
-	  <li><a href="./tennis.html">Tennis</a></li>
-	  <li><a href="./beachvolley.html"> <span xml:lang="en">Beach Volley</span></a></li>
-	  <li><a href="./pallavolo.html">Pallavolo</a></li> -->
-	  <li><a href="load.cgi">Gli impianti</a></li>
-	  <li><a href="../artimarziali.html">Arti Marziali</a></li>
-	  <li><a href="../fitness.html">Fitness</a></li>
+	  <li><a href="load.cgi?page=home">Home</a></li>
+	  <li><a href="load.cgi?page=impianti">Gli impianti</a></li>
+	  <li><a href="load.cgi?page=arti_marziali">Arti Marziali</a></li>
+	  <li><a href="load.cgi?page=fitness">Fitness</a></li>
 	  <li><a href="../contatti.html">Contatti</a></li>
 	  <li><a id="active">Prenotazioni</a></li>
 	</ul>
@@ -50,13 +45,13 @@
 	      <input type="hidden" id="fase" name="fase" value="<tmpl_var escape=html name=fase default=1>">
 	      <TMPL_IF NAME="FORM1">
 	      <label for="nome"><span>Nome:</span></label>
-	      <input type="text" name="nome" id="nome" value=""><span id="err_nome"></span>
+	      <input type="text" name="nome" id="nome" value="" placeholder="insert name"><span id="err_nome"></span>
 		<label for="cognome"><span>Cognome:</span></label> 
-		<input type="text" name="cognome" id="cognome" value=""><span id="err_cognome"></span>    
+		<input type="text" name="cognome" id="cognome" value="" placeholder="insert surname"><span id="err_cognome"></span>    
 		  <label for="telefono"><span>Telefono:</span></label> 
-		  <input type="text" name="telefono" id="telefono" value=""><span id="err_telefono"></span>    
+		  <input type="text" name="telefono" id="telefono" value="" placeholder="insert tel"><span id="err_telefono"></span>    
 		    <label for="email"><span>Email:</span></label>
-		    <input type="email" name="email" id="email" value="" /><span id="err_email"></span>
+		    <input type="email" name="email" id="email" value="" placeholder="insert email"><span id="err_email"></span>
 		    <label for="disciplina"><span>Disciplina:</span></label>
 		    <select name="disciplina" id="disciplina">
 		      <option value="Calcetto">Calcetto</option>

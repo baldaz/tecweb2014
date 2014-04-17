@@ -11,7 +11,7 @@ html,body{
 }
 p {
     font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
-    font-size:0.9em;
+    font-size:0.75em;
 }
 
 body{
@@ -23,6 +23,7 @@ body{
     background: -ms-linear-gradient(to top, #ffda47 0%, #ffffff 80%) fixed;
     background: -khtml-linear-gradient(to top, #ffda47 0%, #ffffff 80%) fixed;
     background: linear-gradient(to top, #ffda47 0%, #ffffff 80%) fixed;
+    color:#333333
 }
 
 ::-webkit-scrollbar {
@@ -45,6 +46,12 @@ body{
 }
 ::-webkit-scrollbar-thumb:window-inactive {
 	background: rgba(0,0,0,0.4); 
+}
+
+::-webkit-input-placeholder {
+   font-size:0.9em;
+   padding-left:5px;
+   font-style:italic
 }
 
 #separator{
@@ -133,11 +140,11 @@ label{
 }
 
 label>span{
-    float: left;
+    float:left;
     width:20%;
-    text-align: right;
+    text-align:right;
     padding-right: 10px;
-    margin-top: 10px;
+    margin-top: 12px;
     color: #333;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: bold;
@@ -150,6 +157,8 @@ input, select{
     margin-top:0.3em;
     padding:0.1em;
     width:40%;
+    text-indent:0.4em;
+    color:#333333;
     -webkit-box-shadow: 0px 0px 4px #888;
     -moz-box-shadow: 0px 0px 4px #888;
     -o-box-shadow: 0px 0px 4px #888;
@@ -164,6 +173,13 @@ input:focus, select:focus, input:hover, select:hover{
     -ms-box-shadow: 0px 0px 8px #228833;
     box-shadow: 0px 0px 8px #228833;
     outline: none;
+    color:#333333
+}
+
+input:focus::-webkit-input-placeholder { color:transparent; }
+
+input:focus{
+    text-indent:0.4em
 }
 
 table{
@@ -377,29 +393,29 @@ table, th, td{
 
 #news_container
 {
-	max-width: 18%;
-	margin-left: 82%;
+    max-width: 18%;
+    margin-left: 82%;
     background:rgba(0,0,0,0.3);
     -webkit-border-radius:20px;
     -moz-border-radius:20px;
     -o-border-radius:20px;
     -ms-border-radius:20px;
     -khtml-border-radius:20px;
-	border-radius:20px;
-	text-align:center;
+    border-radius:20px;
+    text-align:center;
     -webkit-box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;
     -moz-box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;
     -o-box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;
     -ms-box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;
     -khtml-box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;
-	box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;	
-	margin-bottom: 0.6em;
-	padding-bottom:1em;
+    box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;	
+    margin-bottom: 0.6em;
+    padding-bottom:1em;
 }
 
 #news{
-	width:100%;
-	text-align: center;
+    width:100%;
+    text-align: center;
 }
 
 #news h2{
@@ -411,17 +427,18 @@ table, th, td{
 }
 
 #news ul li{
-	margin-bottom:0.437em;
+    margin-bottom:0.437em;
     margin-left:0.5em;
     margin-right:0.5em;
-    border-style:dotted;
-    border-width: 1px;
-    -webkit-border-radius:2px;
-    -moz-border-radius:2px;
-    -o-border-radius:2px;
-    -ms-border-radius:2px;
-    -khtml-border-radius:2px;
-    border-radius:2px;
+    padding:0.2em 0;
+    border-style:none;
+    background:rgba(34,136,51,0.2);
+    -webkit-border-radius:0.8em;
+    -moz-border-radius:0.8em;
+    -o-border-radius:0.8em;
+    -ms-border-radius:0.8em;
+    -khtml-border-radius:0.8em;
+    border-radius:0.8em
 }
 
 #content{

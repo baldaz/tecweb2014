@@ -19,10 +19,10 @@ my @loop_data=();
 
 # scorro i risultati dell'estrazione e li inserisco in un hash
 
-while(@$news_title and @$news_content){
+while($a=shift @$news_title and $b=shift @$news_content){
     my %row_data;
-    $row_data{N_TITLE}=shift @$news_title;
-    $row_data{N_CONTENT}=shift @$news_content;
+    $row_data{N_TITLE}=Encode::encode('utf8',$a);
+    $row_data{N_CONTENT}=Encode::encode('utf8',$b);
     push(@loop_data, \%row_data);
 }
 
