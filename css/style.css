@@ -204,7 +204,8 @@ table, th, td{
 }
 
 #images img{
-    width:100%
+    width:16em;
+    height:10em
 }
 
 #err_nome, #err_cognome, #err_telefono, #err_email, #err_ora, #err_campo,#err_data{
