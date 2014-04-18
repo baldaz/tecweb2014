@@ -126,6 +126,7 @@ form legend h2{
 
 h2{
     color:#ffda47;
+    margin-top:0.8em;
     letter-spacing:1px
 }
 
@@ -304,7 +305,7 @@ td{
 
 .floated{
     float:left;
-    width:35%;
+    width:30%;
     margin:1em;
     border-radius:1em;
     border-style:solid;
