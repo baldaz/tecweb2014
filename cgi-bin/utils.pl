@@ -62,6 +62,15 @@ sub footer{
 	$page->end_div;
 }
 
+# loader xml globale
+
+sub loadXml{
+    my $path=shift;
+    my $parser=XML::LibXML->new("1.0", "UTF-8");
+    my $ret=$parser->parse_file($path);
+    return $ret;
+}
+
 # controllo prenotazione su file xml
 
 sub checkform{
@@ -83,6 +92,8 @@ sub check_tel{
     else{ return 1;}
 }
 
+# estrae il contenuto di un nodo, analogo a text(), ma piu utile nei casi di html e CDATA nel file XML
+
 sub toText{
     my @data=@_;
     my @ret;
@@ -91,6 +102,8 @@ sub toText{
     }
     return @ret;
 }
+
+# estrae le news dal file xml
 
 sub get_news{
     my($xml, $parser)=@_;
@@ -102,6 +115,8 @@ sub get_news{
     return (\@titles, \@contents);
 }
 
+# estrae il numero di campi di una data disciplina dal file xml
+
 sub getFields{
     my ($xml, $disciplina)=@_;
     $xml->documentElement->setNamespace("www.impianti.it","i");
@@ -110,6 +125,8 @@ sub getFields{
     return $ret_n[0];
 }
 
+# estrae il perscorsi delle immagini degli impianti dal file xml
+
 sub getImg{
     my $xml=shift;
     $xml->documentElement->setNamespace("www.impianti.it","i");
@@ -117,6 +134,8 @@ sub getImg{
     return @ret_img;
 }
 
+# estrae la descrizione di una data sezione dal file xml
+ 
 sub getDesc{
     my ($xml, $nome)=@_;
     $xml->documentElement->setNamespace("www.sezioni.it","s");

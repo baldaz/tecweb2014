@@ -70,6 +70,9 @@ given($page){
     when(/contatti/){
 	$template=HTML::Template->new(filename=>'contatti.tmpl');
     }
+    when(/prenotazioni/){
+	$template=HTML::Template->new(filename=>'prenotazioni.tmpl');
+    }
     default{
 	$template=HTML::Template->new(filename=>'home.tmpl');
 	$xml=$parser->parse_file('../data/sezioni.xml');
