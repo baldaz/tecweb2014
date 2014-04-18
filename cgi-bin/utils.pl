@@ -308,6 +308,7 @@ sub getCorsi{
 sub printTblCorsi{
     my ($corsi, $prezzi)=@_;
     my $ret;
+    my $class;
     $ret="<table id=\"corsi_tbl\">
 	    <thead>
               <tr>
@@ -323,15 +324,17 @@ sub printTblCorsi{
             <tbody>
             ";
 
-    for my $i(0..scalar(@{$corsi})){ # accesso per riferimento
-	$ret.="<tr>
+    for my $i(0..@{$corsi}-1){ # accesso per riferimento
+	if($i%2){$class='odd';}
+	else{$class='';}
+	$ret.="<tr class='$class'>
                  <td>$corsi->[$i]</td>
                  ";
-	$ret.="<td>$prezzi->[$i]{mensile}</td>".
-	    "<td>$prezzi->[$i]{trimestrale}</td>".
-	    "<td>$prezzi->[$i]{semestrale}</td>".
-	    "<td>$prezzi->[$i]{annuale}</td>";
-	$ret.="</tr>";
+	$ret.="<td>$prezzi->[$i]{mensile}</td>\n\t\t".
+	    "<td>$prezzi->[$i]{trimestrale}</td>\n\t\t".
+	    "<td>$prezzi->[$i]{semestrale}</td>\n\t\t".
+	    "<td>$prezzi->[$i]{annuale}</td>\n\t\t";
+	$ret.="</tr>\n\t\t";
     }
     $ret.="</tbody>
          </table>";
