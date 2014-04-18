@@ -1,0 +1,24 @@
+<!DOCTYPE html
+	  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+	  "">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+  <head>
+    <title>Prenotazioni</title>
+    <meta name="content" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script language="javascript" type="text/javascript" src="../js/script.js"></script>
+  </head>
+  <body>
+  <tmpl_if name=form1>
+  <form id="admin-frm" name="admin-frm" method="POST" action="">
+  	<label for="username">Username</label>
+	<input type="text" id="username" name="username" value="">
+	<label for="passwd">Password</label>
+	<input type="password" id="passwd" name="passwd" value="">
+	<input type="submit" value="sign in" >
+  </form>
+  <tmpl_else>
+  Ciao <tmpl_var name=user>
+  </tmpl_if>
+  </body>
+</html>

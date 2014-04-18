@@ -66,6 +66,7 @@ body{
 .form-container{
     border-style:none;
     background:rgba(34,136,51,0.2);
+/*    background:url("../images/headerbackground_o.jpg");*/
     border-radius:1em;
     width:95%;
     margin:1em 2.5%;
@@ -205,6 +206,7 @@ table{
     width:80%;
     border-collapse:collapse;
     margin-left:10%;
+    margin-top:5%;
     background:url("../images/headerbackground_o.jpg")
 }
 
@@ -212,6 +214,10 @@ table, th, td{
     border: 1px dotted black;
     font-size:10px;
     padding:5px;
+}
+
+td{
+    font-size:9px
 }
 
 .red{

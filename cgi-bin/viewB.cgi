@@ -39,6 +39,7 @@ $template->param(NEWS=>\@loop_data);
 my $table;
 if(defined($disciplina)){
     $nr_campi=&getFields($xml_campi, $disciplina);
+    $nr_campi=2 if not defined $nr_campi;
     for(1..$nr_campi){
 	$table.=&getWeek($xml, $parser, $disciplina, $_, $data);
     }
