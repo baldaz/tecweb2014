@@ -224,7 +224,7 @@ sub printTable{
     $class='green' unless @hash; # non definito
     $class='green' if scalar(@hash)==0; # definizione hash con 0 elementi
 
-    $ret='<table summary="">
+    $ret='<table id="prenotazioni_tbl" summary="">
              <caption><h3>Prenotazioni per il campo '.$campo.' </h3></caption>
 	     <thead>
 	       <tr>
@@ -265,6 +265,76 @@ sub printTable{
     }	
     $ret.=' </tbody>
            </table>';
+    return $ret;
+}
+
+# ausiliaria ottenere valore nodo
+
+sub get {
+  my ($node, $name) = @_;
+
+  my $value = "(Element $name not found)";
+  my @targets = $node->getElementsByTagName($name);
+
+  if (@targets) {
+    my $target = $targets[0];
+    $value = $target->textContent;
+  }
+
+  return $value;
+}
+
+sub getCorsi{
+    my $xmldoc=shift;
+    my @corsi;
+    my @prezzi;
+    my $root=$xmldoc->getDocumentElement;
+    $xmldoc->documentElement->setNamespace("www.corsi.it", "c");
+    my @corsi_global=$xmldoc->getElementsByTagName('corso');
+    my $i=0;
+    
+    for my $item(@corsi_global){
+	$corsi[$i]=&get($item, 'nome');
+	$prezzi[$i]{mensile}=&get($item, 'mensile');
+	$prezzi[$i]{trimestrale}=&get($item, 'trimestrale');
+	$prezzi[$i]{semestrale}=&get($item, 'semestrale');
+	$prezzi[$i]{annuale}=&get($item, 'annuale');
+	$i++;
+    }
+
+    return &printTblCorsi(\@corsi, \@prezzi); # 2 array bisogna usare i riferimenti
+}
+
+sub printTblCorsi{
+    my ($corsi, $prezzi)=@_;
+    my $ret;
+    $ret="<table id=\"corsi_tbl\">
+	    <thead>
+              <tr>
+                <th>Corso</th>
+                <th>Mensile</th>
+                <th>Trimestrale</th>
+                <th>Semestrale</th>
+                <th>Annuale</th>
+              </tr>
+            </thead>
+            <tfoot>
+            </tfoot>
+            <tbody>
+            ";
+
+    for my $i(0..scalar(@{$corsi})){ # accesso per riferimento
+	$ret.="<tr>
+                 <td>$corsi->[$i]</td>
+                 ";
+	$ret.="<td>$prezzi->[$i]{mensile}</td>".
+	    "<td>$prezzi->[$i]{trimestrale}</td>".
+	    "<td>$prezzi->[$i]{semestrale}</td>".
+	    "<td>$prezzi->[$i]{annuale}</td>";
+	$ret.="</tr>";
+    }
+    $ret.="</tbody>
+         </table>";
     return $ret;
 }
 1;

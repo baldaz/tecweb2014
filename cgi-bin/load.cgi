@@ -70,8 +70,11 @@ given($page){
     when(/contatti/){
 	$template=HTML::Template->new(filename=>'contatti.tmpl');
     }
-    when(/prenotazioni/){
-	$template=HTML::Template->new(filename=>'prenotazioni.tmpl');
+    when(/corsi/){
+	$template=HTML::Template->new(filename=>'corsi.tmpl');
+	my $xml=$parser->parse_file('../data/corsi.xml');
+	my $table=&getCorsi($xml); 
+	$template->param(tbl=>$table);
     }
     default{
 	$template=HTML::Template->new(filename=>'home.tmpl');
