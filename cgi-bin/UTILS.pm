@@ -1,5 +1,13 @@
 #!/usr/bin/perl -w
 
+package UTILS;
+
+use strict;
+use warnings;
+use XML::LibXML;
+use CGI;
+use CGI::Carp qw(warningsToBrowser fatalsToBrowser);
+use CGI::Session;
 use DateTime;
 use Date::Parse;
 
@@ -95,7 +103,7 @@ sub check_tel{
 # estrae il contenuto di un nodo, analogo a text(), ma piu utile nei casi di html e CDATA nel file XML
 
 sub toText{
-    my @data=@_;
+    my (@data)=@_;
     my @ret;
     for(@data){
 	push(@ret ,$_->textContent);

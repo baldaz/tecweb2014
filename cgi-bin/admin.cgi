@@ -1,12 +1,15 @@
 #!/usr/bin/perl -w
 
+use strict;
+use warnings;
 use CGI;
 use CGI::Carp 'fatalsToBrowser';
 use CGI::Session;
 use HTML::Template;
 use XML::LibXML;
+use UTILS;
 
-require 'utils.pl';
+#require 'utils.pl';
 
 my $cgi=CGI->new();
 my $session=CGI::Session->new();
@@ -14,7 +17,7 @@ my $template=HTML::Template->new(filename=>'admin.tmpl');
 my $parser=XML::LibXML->new();
 my $p_xml=$parser->parse_file('../data/profili.xml');
 
-init($session, $cgi, $p_xml);
+UTILS::init($session, $cgi, $p_xml);
 
 my $profile = $session->param("~profile");
 

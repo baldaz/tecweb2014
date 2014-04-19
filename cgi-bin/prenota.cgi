@@ -4,8 +4,9 @@ use HTML::Template;
 use XML::LibXML;
 use CGI;
 use CGI::Carp 'fatalsToBrowser';
+use UTILS;
 
-require "utils.pl";
+#require "utils.pl";
 
 my $page=CGI->new();
 my $test;
@@ -14,7 +15,7 @@ my $file='../data/prenotazioni.xml';
 my $parser=XML::LibXML->new();
 my $xml=$parser->parse_file($file);
 
-my ($news_title, $news_content)=&get_news($xml, $parser);     # genero le news da xml
+my ($news_title, $news_content)=UTILS::get_news($xml, $parser);     # genero le news da xml
 my @loop_data=();
 
 # scorro i risultati dell'estrazione e li inserisco in un hash
@@ -68,12 +69,12 @@ else {
     $template->param(h_email=>$email);
     $template->param(h_disciplina=>$disciplina);
     $xml_campi=$parser->parse_file('../data/impianti.xml');
-    $template->param(NR_CAMPI=>&getFields($xml_campi, $disciplina));
+    $template->param(NR_CAMPI=>UTILS::getFields($xml_campi, $disciplina));
 }
 
 if($test_fase==2){
 
-    if(&checkform($xml, $parser, $disciplina, $campo, $data, $ora)){ # fallimento, prenotazione già presente nell'xml
+    if(UTILS::checkform($xml, $parser, $disciplina, $campo, $data, $ora)){ # fallimento, prenotazione già presente nell'xml
 	$test=-1;
     }
     else{ $test=1;}			# successo
@@ -110,7 +111,7 @@ if($test_fase==2){
     if($test==-1){
 	$template->param(SHOW_TBL=>1); 
 	$test=0;
-	my $table=&getWeek($xml, $parser, $disciplina, $campo, $data);
+	my $table=UTILS::getWeek($xml, $parser, $disciplina, $campo, $data);
 	$template->param(TBL=>1);
 	$template->param(TEST=>$test);
 	$template->param(TABLE=>$table);
