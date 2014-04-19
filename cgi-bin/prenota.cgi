@@ -9,7 +9,6 @@ use CGI::Carp qw(fatalsToBrowser warningsToBrowser);
 use UTILS;
 
 my $page=CGI->new();
-my $test;
 my $template=HTML::Template->new(filename=>'prenota.tmpl');
 my $file='../data/prenotazioni.xml';
 my $parser=XML::LibXML->new();
