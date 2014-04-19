@@ -1,12 +1,13 @@
 #!/usr/bin/perl -w
 
+use strict;
+use warnings;
 use HTML::Template;
 use XML::LibXML;
 use CGI;
 use CGI::Carp 'fatalsToBrowser';
 use Encode;
 use UTILS;
-#require "utils.pl";
 
 my $page=CGI->new();
 my $test;

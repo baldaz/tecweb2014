@@ -9,8 +9,6 @@ use XML::LibXML;
 use feature 'switch';
 use UTILS;
 
-#require 'utils.pl';
-
 my $cgi=CGI->new();
 
 my $page=$cgi->param('page');

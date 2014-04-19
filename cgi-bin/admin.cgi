@@ -9,8 +9,6 @@ use HTML::Template;
 use XML::LibXML;
 use UTILS;
 
-#require 'utils.pl';
-
 my $cgi=CGI->new();
 my $session=CGI::Session->new();
 my $template=HTML::Template->new(filename=>'admin.tmpl');
