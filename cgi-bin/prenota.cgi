@@ -15,19 +15,9 @@ my $file='../data/prenotazioni.xml';
 my $parser=XML::LibXML->new();
 my $xml=$parser->parse_file($file);
 
-my ($news_title, $news_content)=UTILS::get_news($xml, $parser);     # genero le news da xml
-my @loop_data=();
+my @loop_news=UTILS::getNews($xml);
 
-# scorro i risultati dell'estrazione e li inserisco in un hash
-
-while($a=shift @$news_title and $b=shift @$news_content){
-    my %row_data;
-    $row_data{N_TITLE}=Encode::encode('utf8',$a);
-    $row_data{N_CONTENT}=Encode::encode('utf8',$b);
-    push(@loop_data, \%row_data);
-}
-
-$template->param(NEWS=>\@loop_data);
+$template->param(NEWS=>\@loop_news);
 
 #dati form
 my($name, $surname, $tel, $email, $disciplina, $data, $ora, $campo, $test, $fase, $test_fase, $nr_campi, $xml_campi);

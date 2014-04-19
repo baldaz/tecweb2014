@@ -113,14 +113,30 @@ sub toText{
 
 # estrae le news dal file xml
 
-sub get_news{
-    my($xml, $parser)=@_;
+sub loadNews{
+    my $xml=shift;
     $xml->documentElement->setNamespace("www.prenotazioni.it","p");
     my @titles=$xml->findnodes("//p:new/p:titolo");
     @titles=toText(@titles);
     my @contents=$xml->findnodes("//p:new/p:contenuto");
     @contents=toText(@contents);
     return (\@titles, \@contents);
+}
+
+sub getNews{
+    my $xml=shift;
+    my ($news_title, $news_content)=&loadNews($xml);     # genero le news da xml
+    my @loop_news=();
+
+# scorro i risultati dell'estrazione e li inserisco in un hash
+
+    while($a=shift @$news_title and $b=shift @$news_content){
+	my %row_data;
+	$row_data{N_TITLE}=Encode::encode('utf-8',$a); # encoding dei me coioni
+	$row_data{N_CONTENT}=Encode::encode('utf-8',$b); # encoding dei me coioni
+	push(@loop_news, \%row_data);
+    }
+    return @loop_news;
 }
 
 # estrae il numero di campi di una data disciplina dal file xml

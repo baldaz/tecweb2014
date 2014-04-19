@@ -18,18 +18,7 @@ my $file='../data/prenotazioni.xml';
 my $parser=XML::LibXML->new("1.0", "UTF-8");
 my $xml=$parser->parse_file($file);
 my $template;
-
-my ($news_title, $news_content)=UTILS::get_news($xml, $parser);     # genero le news da xml
-my @loop_news=();
-
-# scorro i risultati dell'estrazione e li inserisco in un hash
-
-while($a=shift @$news_title and $b=shift @$news_content){
-    my %row_data;
-    $row_data{N_TITLE}=Encode::encode('utf-8',$a); # encoding dei me coioni
-    $row_data{N_CONTENT}=Encode::encode('utf-8',$b); # encoding dei me coioni
-    push(@loop_news, \%row_data);
-}
+my @loop_news=UTILS::getNews($xml);
 
 given($page){
     when(/home/){
