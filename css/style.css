@@ -627,3 +627,7 @@ span.bold{
 #content span p{
     text-align:justify
 }
+
+#content span ul{
+    margin-left:35%
+}

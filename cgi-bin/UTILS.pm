@@ -333,7 +333,8 @@ sub printTblCorsi{
     my ($corsi, $prezzi)=@_;
     my $ret;
     my $class;
-    $ret="<table id=\"corsi_tbl\">
+    $ret="<table id=\"corsi_tbl\" summary=\"\">
+          <caption><h5>Abbonamenti</h5></caption>
 	    <thead>
               <tr>
                 <th>Corso</th>
