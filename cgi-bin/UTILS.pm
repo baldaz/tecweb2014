@@ -349,7 +349,7 @@ sub printTblCorsi{
             <tbody>
             ";
 
-    for my $i(0..@{$corsi}-1){ # accesso per riferimento
+    for my $i(0..$#{$corsi}){ # accesso per riferimento, $# indica l'indice massimo presente nell'array, equivale a @-1
 	if($i%2){$class='odd';}
 	else{$class='';}
 	$ret.="<tr class='$class'>
