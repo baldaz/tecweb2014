@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../css/mobile.css" media="only screen and (max-width: 480px)"/>
     <link rel="stylesheet" type="text/css" href="../css/tablet.css" media="only screen and (min-width: 481px) and (max-width: 767px)"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!--    <script src="//code.jquery.com/jquery-1.10.2.js"></script>-->
+    <script language="javascript" type="text/javascript" src="../js/jquery.js"></script>
     <script language="javascript" type="text/javascript" src="../js/script.js"></script>
   </head>
   <body>
@@ -33,11 +33,11 @@
       </div>
       <div id="content">
 	<div class="form-container">
-      	   <h2>Prenotazioni campo <TMPL_VAR NAME=CAMPO></h2>
+      	   <h2>Prenotazioni campo</h2>
 	   <form method="GET" id="form" name="form" class="frm-pren" action="" onsubmit="return validate()">
     	   	 <fieldset>
 		 <label for="disciplina"><span>Disciplina</span></label>
-			<select id="disciplina" name="disciplina">
+			<select id="disciplina" name="disciplina" class="p_field">
 				<option value="Calcetto">Calcetto</option>
 				<option value="Pallavolo">Pallavolo</option>
 				<option value="Calciotto">Calciotto</option>
@@ -45,13 +45,15 @@
 				<option value="Tennis">Tennis</option>
 			</select>
 		<label for="data"><span>Data</span></label>
-		<input type="date" name="data" id="data"><span id="err_data"></span>
+		<input type="date" name="data" id="data" value="" class="p_field"><span id="err_data"></span>
 			<input type="submit" value="Visualizza" class="button" />
 			<a href="prenota.cgi"><input type="button" value="Nuova prenotazione" class="button" /></a>
 		</fieldset>
 	   </form>
 	   </div>
+	   <div id="tables">
 	   <TMPL_VAR NAME=TABLE>
+	   </div>
 	</div>
 	<div id="news_container">
 	  <div id="news">
@@ -77,5 +79,6 @@
 	  </p> 
 	</div>
       </div>
+	  <script language="javascript" type="text/javascript" src="../js/rtc_form.js"></script>
     </body>
  </html>

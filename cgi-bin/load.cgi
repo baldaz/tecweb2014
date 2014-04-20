@@ -5,7 +5,7 @@ use warnings;
 use CGI;
 use CGI::Carp qw(fatalsToBrowser warningsToBrowser);
 use HTML::Template;
-use XML::LibXML;
+#use XML::LibXML;
 use feature 'switch';
 use UTILS;
 
@@ -14,16 +14,14 @@ my $cgi=CGI->new();
 my $page=$cgi->param('page');
 $page='home' if not defined($page);
 
-my $file='../data/prenotazioni.xml';
-my $parser=XML::LibXML->new("1.0", "UTF-8");
-my $xml=$parser->parse_file($file);
+my $xml=UTILS::loadXml('../data/prenotazioni.xml');
 my $template;
 my @loop_news=UTILS::getNews($xml);
 
 given($page){
     when(/home/){
 	$template=HTML::Template->new(filename=>'home.tmpl');
-	$xml=$parser->parse_file('../data/sezioni.xml');
+	$xml=UTILS::loadXml('../data/sezioni.xml');
 	my $description=UTILS::getDesc($xml, 'home');
 	$description=Encode::encode('utf8', $description);
 	$template->param(desc=>$description);
@@ -31,7 +29,7 @@ given($page){
     when(/impianti/){
 	$template=HTML::Template->new(filename=>'impianti.tmpl');
 
-	$xml=$parser->parse_file('../data/impianti.xml');
+	$xml=UTILS::loadXml('../data/impianti.xml');
   	           # estraggo il numero di campi
 	my $n_calcetto=UTILS::getFields($xml, 'Calcetto');
 	my $n_calciotto=UTILS::getFields($xml, 'Calciotto');
@@ -61,13 +59,14 @@ given($page){
     }
     when(/corsi/){
 	$template=HTML::Template->new(filename=>'corsi.tmpl');
-	my $xml=$parser->parse_file('../data/corsi.xml');
-	my $table=UTILS::getCorsi($xml); 
+	my $xml=UTILS::loadXml('../data/corsi.xml');
+	my $table=UTILS::getCorsi($xml);
+	$table=Encode::encode('utf8', $table); # boh, senza encoding sfasa l'UTF-8 del template, BUG
 	$template->param(tbl=>$table);
     }
     default{
 	$template=HTML::Template->new(filename=>'home.tmpl');
-	$xml=$parser->parse_file('../data/sezioni.xml');
+	$xml=UTILS::loadXml('../data/sezioni.xml');
 	my $description=UTILS::getDesc($xml, 'home');
 	$description=Encode::encode('utf8', $description);
 	$template->param(desc=>$description);

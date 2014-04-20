@@ -8,6 +8,29 @@ $("#telefono").keydown(function(event){
     }
 });
 
+$(".p_field").change(function(){
+    var disciplina=$("#disciplina").val();
+    var date=$("#data").val();
+	
+    if(date.length == ''){
+	var d=new Date();
+	date=d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate();
+    }
+
+    //	alert(disciplina+" e "+date);
+    $.ajax({
+	type: "GET",
+	url: "vbooked.pl",
+	data: "disciplina=" + disciplina + "&data=" + date,
+	error: function() { 
+	    alert("script call was not successful");
+        }, 
+	success: function(perl_data){
+	    $("#tables").html(perl_data);
+	}
+    });
+    return false;
+});
 /*
 $("#telefono").keydown(function(event) {
   // Backspace, tab, enter, end, home, left, right,decimal(.)in number part, decimal(.) in alphabet

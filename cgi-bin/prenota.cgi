@@ -63,7 +63,7 @@ else {
 
 if($test_fase==2){
 
-    if(UTILS::checkform($xml, $parser, $disciplina, $campo, $data, $ora)){ # fallimento, prenotazione già presente nell'xml
+    if(UTILS::checkform($xml, $disciplina, $campo, $data, $ora)){ # fallimento, prenotazione già presente nell'xml
 	$test=-1;
     }
     else{ $test=1;}			# successo
@@ -100,7 +100,7 @@ if($test_fase==2){
     if($test==-1){
 	$template->param(SHOW_TBL=>1); 
 	$test=0;
-	my $table=UTILS::getWeek($xml, $parser, $disciplina, $campo, $data);
+	my $table=UTILS::getWeek($xml, $disciplina, $campo, $data);
 	$template->param(TBL=>1);
 	$template->param(TEST=>$test);
 	$template->param(TABLE=>$table);

@@ -10,6 +10,7 @@ use CGI::Carp qw(warningsToBrowser fatalsToBrowser);
 use CGI::Session;
 use DateTime;
 use Date::Parse;
+use feature 'switch';
 
 sub init{
     my ($session, $cgi, $profiles_xml) = @_;
@@ -82,7 +83,7 @@ sub loadXml{
 # controllo prenotazione su file xml
 
 sub checkform{
-    my($xmldoc, $parser, $disciplina, $campo, $data, $ora)=@_;
+    my($xmldoc, $disciplina, $campo, $data, $ora)=@_;
     my $root=$xmldoc->getDocumentElement;
     $xmldoc->documentElement->setNamespace("www.prenotazioni.it", "p");
     #controllo se esiste un match (prenotazione gia' presa)
@@ -172,6 +173,31 @@ sub getDesc{
     return $ret_descr;
 }
 
+# funzione di modifica generica
+
+sub alter{
+    my($filter, $old_data, $new_data)=@_;
+    my $xml;
+    given($filter){
+	when(/news/){
+	    $xml=loadXml('..data/prenotazioni.xml');
+	}
+	when(/corso/){
+	    $xml=loadXml('..data/corsi.xml');
+	}
+	when(/impianto/){
+	    $xml=loadXml('..data/impianti.xml');
+	}
+	when(/contatto/){
+	}
+	when(/prenotazione/){
+	    $xml=loadXml('..data/prenotazioni.xml');
+	}
+	default{
+	}
+    }
+}
+
 #################################################
 #                     #                         #
 # TESTING SUBROUTINES # JUST FOR HTML::TEMPLATE #
@@ -183,12 +209,12 @@ sub getDesc{
 #################################################
 
 sub getWeek{
-    my ($xmldoc, $parser, $discipline, $campo, $p_date)=@_;
+    my ($xmldoc, $discipline, $campo, $p_date)=@_;
     my $root=$xmldoc->getDocumentElement;
     $xmldoc->documentElement->setNamespace("www.prenotazioni.it", "p");
-    my @date=$root->findnodes("//p:prenotante[p:disciplina='".$discipline."' and p:campo='".$campo."']/p:data");
+    my @dates=$root->findnodes("//p:prenotante[p:disciplina='".$discipline."' and p:campo='".$campo."']/p:data");
 
-    my @dates=toText(@date);
+    @dates=toText(@dates);
 
     my @split_pdate=split('-', $p_date);
 
@@ -224,8 +250,8 @@ sub getWeek{
     for my $i (0..$#ret_date){
 	@time=$root->findnodes("//p:prenotante[p:disciplina='".$discipline."' and p:campo='".$campo."' and p:data='".$ret_date[$i]."']/p:ora");
 	$hash[$i]{date}=$ret_date[$i];
-	my @txt_time=toText(@time);
-	my $time_str=join(" - ", @txt_time);
+	@time=toText(@time);
+	my $time_str=join(" - ", @time);
 	$hash[$i]{time}=$time_str;
     }			  
 
@@ -236,11 +262,13 @@ sub getWeek{
 #	}
 #	print "}<br />";
  #   }
-    return &printTable($dt, $campo, @hash);
+    
+    return &printTable($dt, $campo, $discipline, @hash);
 }
 
 sub printTable{
-    my ($p_day, $campo, @hash)=@_;
+    my ($p_day, $campo, $disciplina, @hash)=@_;
+    my $b_name=$p_day->clone();
     $p_day->subtract(days=>3);
     my $builder=$p_day->clone();
     my $class;
@@ -249,19 +277,21 @@ sub printTable{
     $class='green' if scalar(@hash)==0; # definizione hash con 0 elementi
 
     $ret='<table id="prenotazioni_tbl" summary="">
-             <caption><h3>Prenotazioni per il campo '.$campo.' </h3></caption>
+             <caption><h6>Prenotazioni per la settimana del '.$builder->dmy('-').' campo '.$campo.' '.$disciplina.' </h6></caption>
 	     <thead>
 	       <tr>
                   <th>ORARIO</th>
-	      	  <th>'.$builder->day_name().' '.$builder->day().'</th>';
+	      	  <th>'.$b_name->day_name().' '.$builder->day().'</th>';
     for(0..1){
-	$ret.=' <th>'.$builder->add(days=>1)->day_name.' '.$builder->day().'</th>';
+	$ret.=' <th>'.$b_name->add(days=>1)->day_name.' '.$builder->add(days=>1)->day().'</th>';
     }
-    $ret.=' <th class="selected">'.$builder->add(days=>1)->day_name.' '.$builder->day().'</th>';
+    $ret.=' <th class="selected">'.$b_name->add(days=>1)->day_name.' '.$builder->add(days=>1)->day().'</th>';
     for(0..2){
-	$ret.=' <th>'.$builder->add(days=>1)->day_name.' '.$builder->day().'</th>';
+	$ret.=' <th>'.$b_name->add(days=>1)->day_name.' '.$builder->add(days=>1)->day().'</th>';
     }
     $ret.=' </tr>
+               <tfoot>
+               </tfoot>
                </thead>
                <tbody>';
 
@@ -271,8 +301,8 @@ sub printTable{
 	my $control=$p_day->clone();
 	for(0..6){
 	    for my $j (0..$#hash){
-		my $d_control=substr $control, 0, 10;
-		if($hash[$j]{date}=~ m/$d_control/){
+		my $d_control=$control->ymd('-');
+		if($hash[$j]{date}=~m/$d_control/){
 		    if($hash[$j]{time}=~ m/$i:00/){
 			$class='red';
 #			$ret.= $i.':00';  # per vedere gli orari  
@@ -310,12 +340,11 @@ sub get {
 
 sub getCorsi{
     my $xmldoc=shift;
-    my @corsi;
-    my @prezzi;
+    my (@corsi, @corsi_global, @prezzi, $i);
     my $root=$xmldoc->getDocumentElement;
     $xmldoc->documentElement->setNamespace("www.corsi.it", "c");
-    my @corsi_global=$xmldoc->getElementsByTagName('corso');
-    my $i=0;
+    @corsi_global=$xmldoc->getElementsByTagName('corso');
+    $i=0;
     
     for my $item(@corsi_global){
 	$corsi[$i]=&get($item, 'nome');
@@ -331,8 +360,7 @@ sub getCorsi{
 
 sub printTblCorsi{
     my ($corsi, $prezzi)=@_;
-    my $ret;
-    my $class;
+    my ($ret,$class);
     $ret="<table id=\"corsi_tbl\" summary=\"\">
           <caption><h5>Abbonamenti</h5></caption>
 	    <thead>
