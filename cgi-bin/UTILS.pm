@@ -15,7 +15,6 @@ use feature 'switch';
 sub init{
     my ($session, $cgi, $profiles_xml) = @_;
     if ( $session->param("~logged-in") ) {
-	print "logg";
 	return 1;  # se già loggato posso uscire
     }
     
@@ -26,6 +25,7 @@ sub init{
 	$session->param("~profile", $profile);
 	$session->param("~logged-in", 1);
 	$session->clear(["~login-trials"]);
+	$session->expire("~logged-in" => '+4m');
 	return 1;
     }
 
@@ -43,7 +43,6 @@ sub load_profile {
     my $ret=$root->exists("//p:profilo[p:username='$user' and p:password='$passwd']");
     if($ret){
 	my $p_mask="x".length($passwd);
-	print $user;
 	return {username=>$user, password=>$p_mask};
     }
     
