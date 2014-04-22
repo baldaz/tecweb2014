@@ -3,6 +3,20 @@ tecweb2014
 
 Progetto Tecweb
 
+
+STRUTTURA PROVVISORIA:
+    
+                          ____|___  admin
+                         /    |
+       viewB  ______    /_____|___  login 
+                    \  /      |
+       load  _____  UTILS  ___|___  prenota
+                              |
+           
+- 5 CGI importano il modulo UTILS che contiene funzioni di utilità
+- viewB e load => funzionamento sito
+- admin e prenota => aree riservate, attraverso login
+
 TODO:
 
 	+++++ LAYOUT +++++
@@ -17,8 +31,6 @@ TODO:
 
   	+++++ PERL +++++
 
-- HTML::Template su index.cgi
-- Settare tutti i campi per le discipline a 3
 - Sessioni, login etc.
 - Eliminazione prenotazione.
 - Area amministrativa.
