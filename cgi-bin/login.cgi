@@ -1,19 +1,23 @@
 #!/usr/bin/perl -w
 
 use CGI;
-use CGI::Carp qw(fatalsToBrowser);
+use CGI::Carp qw(fatalsToBrowser warningsToBrowser);
 use CGI::Session ('-ip_match');
-use XML::LibXML;
+use UTILS;
 use strict;
 
 my $cgi=new CGI;
 
 my $username=$cgi->param('username');
-my $password=$cgi->param('password');
+my $password=$cgi->param('pwd');
 my $key="logdog";
 my $encrypted_p=crypt($key, $password);
 
 my $session=new CGI::Session();
+
+my $profiles=UTILS::loadXml('../data/profili.xml');
+UTILS::init($session, $cgi, $profiles);
+
 $session->param("user", $username);
 
 # TODO:

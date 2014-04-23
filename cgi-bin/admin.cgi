@@ -4,12 +4,12 @@ use strict;
 use warnings;
 use CGI;
 use CGI::Carp qw(fatalsToBrowser warningsToBrowser);
-use CGI::Session;
+use CGI::Session ('-ip_match');
 use HTML::Template;
 use UTILS;
 
 my $cgi=CGI->new();
-my $session=CGI::Session->new();
+my $session=CGI::Session->new($cgi);
 my $template=HTML::Template->new(filename=>'admin.tmpl');
 my $p_xml=UTILS::loadXml('../data/profili.xml');
 

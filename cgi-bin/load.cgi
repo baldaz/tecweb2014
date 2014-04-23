@@ -64,12 +64,16 @@ given($page){
 	$table=Encode::encode('utf8', $table); # boh, senza encoding sfasa l'UTF-8 del template, BUG
 	$template->param(tbl=>$table);
     }
+    when(/login/){
+	$template=HTML::Template->new(filename=>'login.tmpl');
+    }
     default{
-	$template=HTML::Template->new(filename=>'home.tmpl');
-	$xml=UTILS::loadXml('../data/sezioni.xml');
-	my $description=UTILS::getDesc($xml, 'home');
-	$description=Encode::encode('utf8', $description);
-	$template->param(desc=>$description);
+#	$template=HTML::Template->new(filename=>'home.tmpl');
+#	$xml=UTILS::loadXml('../data/sezioni.xml');
+#	my $description=UTILS::getDesc($xml, 'home');
+#	$description=Encode::encode('utf8', $description);
+#	$template->param(desc=>$description);
+	print $cgi->redirect('load.cgi?page=home');
     }
 }
     
