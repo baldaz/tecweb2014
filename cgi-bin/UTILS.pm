@@ -436,11 +436,9 @@ sub printTblCorsi{
 }
 
 # prova utilizzando modulo CGI
-# piu corto
+# piu corto, un solo hash, da rifare prezzicorsi
 
 sub printPR{
-   # use CGI qw(:standard);
-    my $cgi=CGI->new();
     my $ret;
     my %hash = (
 	"Yoga" => ["12:00 - 14:00", "", "", "12:00-14:00", "", "", ""],
