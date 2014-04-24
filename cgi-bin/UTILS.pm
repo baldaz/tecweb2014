@@ -5,7 +5,7 @@ package UTILS;
 use strict;
 use warnings;
 use XML::LibXML;
-use CGI;
+use CGI qw(:standard);
 use CGI::Carp qw(warningsToBrowser fatalsToBrowser);
 use CGI::Session;
 use DateTime;
@@ -435,4 +435,27 @@ sub printTblCorsi{
     return $ret;
 }
 
+# prova utilizzando modulo CGI
+# piu corto
+
+sub printPR{
+   # use CGI qw(:standard);
+    my $cgi=CGI->new();
+    my $ret;
+    my %hash = (
+	"Yoga" => ["12:00 - 14:00", "", "", "12:00-14:00", "", "", ""],
+	"Fit Boxe" => ["16:00 - 18:00", "", "14:00-16:00", "12:00-14:00", "", "", ""],
+	"Cross Fit" => ["","","18:00 - 20:00", "21:00 - 23:00", "", "","14:00 - 16:00"], 
+	);
+    
+    $ret="<table id=\"prenotazioni_tbl\" summary=\"\">
+          <caption><h5>Corsi</h5></caption>";
+    $ret.=Tr(th [qw(Corso Lunedì Martedì Mercoledì Giovedì Venerdì Sabato Domenica)]);
+    for my $k (sort keys %hash) {
+	$ret.= Tr(th($k), td( [ @{$hash{$k}} ] ));
+    }
+    $ret.="</table>";
+    return $ret;
+}
+ 
 1;

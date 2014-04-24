@@ -11,8 +11,8 @@ use UTILS;
 
 my $cgi=CGI->new();
 
-my $page=$cgi->param('page');
-$page='home' if not defined($page);
+my $page=$cgi->param('page') || 'home';
+#$page='home' if not defined($page);
 
 my $xml=UTILS::loadXml('../data/prenotazioni.xml');
 my $template;
@@ -60,9 +60,11 @@ given($page){
     when(/corsi/){
 	$template=HTML::Template->new(filename=>'corsi.tmpl');
 	my $xml=UTILS::loadXml('../data/corsi.xml');
+	my $tbl_corsi=UTILS::printPR;
 	my $table=UTILS::getPrezziCorsi($xml);
 	$table=Encode::encode('utf8', $table); # boh, senza encoding sfasa l'UTF-8 del template, BUG
 	$template->param(tbl=>$table);
+	$template->param(tbl_corsi=>$tbl_corsi);
     }
     when(/login/){
 	$template=HTML::Template->new(filename=>'login.tmpl');
