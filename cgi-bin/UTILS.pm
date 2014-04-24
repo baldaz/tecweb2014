@@ -447,9 +447,8 @@ sub printPR{
 	"Fit Boxe" => ["16:00 - 18:00", "", "14:00-16:00", "12:00-14:00", "", "", ""],
 	"Cross Fit" => ["","","18:00 - 20:00", "21:00 - 23:00", "", "","14:00 - 16:00"], 
 	);
-    
-    $ret="<table id=\"prenotazioni_tbl\" summary=\"\">
-          <caption><h5>Corsi</h5></caption>";
+    $ret=table({id => 'prenotazioni_tbl', summary =>''});
+    $ret.=caption(h5('Corsi prova'));
     $ret.=Tr(th [qw(Corso Lunedì Martedì Mercoledì Giovedì Venerdì Sabato Domenica)]);
     for my $k (sort keys %hash) {
 	$ret.= Tr(th($k), td( [ @{$hash{$k}} ] ));
