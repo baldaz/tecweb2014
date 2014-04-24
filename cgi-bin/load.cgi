@@ -60,7 +60,7 @@ given($page){
     when(/corsi/){
 	$template=HTML::Template->new(filename=>'corsi.tmpl');
 	my $xml=UTILS::loadXml('../data/corsi.xml');
-	my $table=UTILS::getCorsi($xml);
+	my $table=UTILS::getPrezziCorsi($xml);
 	$table=Encode::encode('utf8', $table); # boh, senza encoding sfasa l'UTF-8 del template, BUG
 	$template->param(tbl=>$table);
     }

@@ -174,7 +174,7 @@ sub getDesc{
 
 # funzione di modifica generica
 
-sub alter{
+sub update{
     my($filter, $old_data, $new_data)=@_;
     my $xml;
     given($filter){
@@ -337,7 +337,10 @@ sub get {
   return $value;
 }
 
-sub getCorsi{
+# estrae i prezzi dei corsi dall' xml e li associa ad un array di hash
+# infine richiama la funzione di stampa
+
+sub getPrezziCorsi{
     my $xmldoc=shift;
     my (@corsi, @corsi_global, @prezzi, $i);
     my $root=$xmldoc->getDocumentElement;
@@ -354,10 +357,12 @@ sub getCorsi{
 	$i++;
     }
 
-    return &printTblCorsi(\@corsi, \@prezzi); # 2 array bisogna usare i riferimenti
+    return &printTblPrezziCorsi(\@corsi, \@prezzi); # 2 array bisogna usare i riferimenti
 }
 
-sub printTblCorsi{
+# funzione di stampa della tabella prezzi
+
+sub printTblPrezziCorsi{
     my ($corsi, $prezzi)=@_;
     my ($ret,$class);
     $ret="<table id=\"corsi_tbl\" summary=\"\">
@@ -392,4 +397,42 @@ sub printTblCorsi{
          </table>";
     return $ret;
 }
+
+# stampa tabelle corsi settimanali
+
+sub printTblCorsi{
+    my($corsi, $time)=@_;
+    my $ret;
+    $ret="<table id=\"prenotazioni_tbl\" summary=\"\">
+          <caption><h5>Corsi</h5></caption>
+	    <thead>
+              <tr>
+                <th>Corso</th>
+                <th>Lunedì</th>
+                <th>Martedì</th>
+                <th>Mercoledì</th>
+                <th>Giovedì</th>
+                <th>Venerdì</th>
+                <th>Sabato</th>
+                <th>Domenica</th>
+              </tr>
+            </thead>
+            <tfoot>
+            </tfoot>
+            <tbody>
+            ";
+    for my $i(0..$corsi){
+	$ret.="<tr>
+                <th>$corsi->[$i]</th>
+             ";
+	for my $j(0..6){
+	    $ret.="<td>$time->[$i]{$j}</td>\n";
+	}
+	$ret.="</tr>\n";
+    }
+    $ret.="</tbody>
+        </table>";
+    return $ret;
+}
+
 1;
