@@ -15,6 +15,7 @@ use feature 'switch';
 sub init{
     my ($session, $cgi, $profiles_xml) = @_;
     if ( $session->param("~logged-in") ) {
+	$session->expire(10);
 	return 1;  # se già loggato posso uscire
     }
     
@@ -25,7 +26,7 @@ sub init{
 	$session->param("~profile", $profile);
 	$session->param("~logged-in", 1);
 	$session->clear(["~login-trials"]);
-	$session->expire("~logged-in" => '+4m');
+	$session->expire(10);
 	return 1;
     }
 
@@ -49,9 +50,10 @@ sub load_profile {
     return undef;
 }
 
+
 sub footer{
     my $ret;
-    $ret=div({id=>'footer'},
+    $ret=div({id => 'footer'},
 	     "\n\t",
 	     p("\n\t",
 	       span({lang=>"en"}, 'Copyright'), '© 2014 CiccipanzeSulWeb',
