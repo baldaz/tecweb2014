@@ -50,24 +50,24 @@ sub load_profile {
 }
 
 sub footer{
-    my $page=shift;
-    print $page->div({id=>'footer'},
-		     "\n",
-		     $page->p("\n",
-			      $page->span({lang=>"en"}, 'Copyright'), '© 2014 CiccipanzeSulWeb',
-			      "\n",
-			      $page->a({href=>"http://validator.w3.org/check?uri=referer"},
-				       "\n",
-				       $page->img({-src=>"http://www.w3.org/Icons/valid-xhtml10", -alt=>"Valid XHTML 1.0 Strict",
-						   -height=>"31", -width=>"88"}),
-				       "\n",
-			      ),
-			      "\n",
-		     ),
-		     "\n",
+    my $ret;
+    $ret=div({id=>'footer'},
+	     "\n\t",
+	     p("\n\t",
+	       span({lang=>"en"}, 'Copyright'), '© 2014 CiccipanzeSulWeb',
+	       "\n\t",
+	       a({href=>"http://validator.w3.org/check?uri=referer"},
+		 "\n\t\t",
+		 img({-src=>"http://www.w3.org/Icons/valid-xhtml10", -alt=>"Valid XHTML 1.0 Strict",
+		      -height=>"31", -width=>"88"}),
+		 "\n\t",
+	       ),
+	       "\n\t",
+	     ),
+	     "\n\t",
 	),
-	"\n",	
-	$page->end_div;
+    "\n\t";
+    return $ret;
 }
 
 # loader xml globale
@@ -342,13 +342,24 @@ sub get {
 
 sub getPrezziCorsi{
     my $xmldoc=shift;
-    my (@corsi, @corsi_global, @prezzi, $i);
+    my (@corsi, @corsi_global, @prezzi, $i, %hash, @pr);
     my $root=$xmldoc->getDocumentElement;
     $xmldoc->documentElement->setNamespace("www.corsi.it", "c");
     @corsi_global=$xmldoc->getElementsByTagName('corso');
     $i=0;
     
     for my $item(@corsi_global){
+	# prova
+	@pr=();
+	push(@pr, &get($item, 'mensile'));
+	push(@pr, &get($item, 'trimestrale'));
+	push(@pr, &get($item, 'semestrale'));
+	push(@pr, &get($item, 'annuale'));
+	my $na=&get($item, 'nome');
+	$hash{$na}=\@pr;
+	
+	# fine prova
+
 	$corsi[$i]=&get($item, 'nome');
 	$prezzi[$i]{mensile}=&get($item, 'mensile');
 	$prezzi[$i]{trimestrale}=&get($item, 'trimestrale');
@@ -357,7 +368,31 @@ sub getPrezziCorsi{
 	$i++;
     }
 
-    return &printTblPrezziCorsi(\@corsi, \@prezzi); # 2 array bisogna usare i riferimenti
+    return &printPR2(%hash);
+#    return &printTblPrezziCorsi(\@corsi, \@prezzi); # 2 array bisogna usare i riferimenti
+}
+
+# prova CGI table
+
+sub printPR2{
+    my (%hash)=@_;
+    my ($ret, $i, $class);
+    $i=0;
+    $class='';
+    $ret=table({id => 'corsi_tbl' , summary =>''});
+    $ret.=caption(h5('Abbonamenti'));
+    $ret.=thead(Tr(th [qw(Corso Mensile Trimestrale Semestrale Annuale)]));
+    $ret.=tfoot();
+    $ret.="<tbody>";
+    for my $k (keys %hash) {
+	if($i%2){$class='odd';}
+	else{$class='';}
+	$ret.=Tr({class=>$class},td($k), td( [ @{$hash{$k}} ] ));
+	$i++;
+    }
+    $ret.="</tbody>";
+    $ret.="</table>";
+    return $ret;
 }
 
 # funzione di stampa della tabella prezzi
@@ -435,6 +470,25 @@ sub printTblCorsi{
     return $ret;
 }
 
+
+sub getCorsi{
+    my $xmldoc=shift;
+    my (@corsi, @corsi_global, @prezzi, $i);
+    my $root=$xmldoc->getDocumentElement;
+    $xmldoc->documentElement->setNamespace("www.corsi.it", "c");
+    @corsi_global=$xmldoc->getElementsByTagName('corso');
+    $i=0;
+    
+    for my $item(@corsi_global){
+	$corsi[$i]=&get($item, 'nome');
+	$prezzi[$i]{mensile}=&get($item, 'mensile');
+	$prezzi[$i]{trimestrale}=&get($item, 'trimestrale');
+	$prezzi[$i]{semestrale}=&get($item, 'semestrale');
+	$prezzi[$i]{annuale}=&get($item, 'annuale');
+	$i++;
+    }
+}
+
 # prova utilizzando modulo CGI
 # piu corto, un solo hash, da rifare prezzicorsi
 
@@ -445,7 +499,7 @@ sub printPR{
 	"Fit Boxe" => ["16:00 - 18:00", "", "14:00-16:00", "12:00-14:00", "", "", ""],
 	"Cross Fit" => ["","","18:00 - 20:00", "21:00 - 23:00", "", "","14:00 - 16:00"], 
 	);
-    $ret=table({id => 'prenotazioni_tbl', summary =>''});
+    $ret=table({id => 'prenotazioni_tbl' , summary =>''});
     $ret.=caption(h5('Corsi prova'));
     $ret.=Tr(th [qw(Corso Lunedì Martedì Mercoledì Giovedì Venerdì Sabato Domenica)]);
     for my $k (sort keys %hash) {

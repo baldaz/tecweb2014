@@ -5,7 +5,6 @@ use warnings;
 use CGI;
 use CGI::Carp qw(fatalsToBrowser warningsToBrowser);
 use HTML::Template;
-#use XML::LibXML;
 use feature 'switch';
 use UTILS;
 
@@ -68,6 +67,7 @@ given($page){
     }
     when(/login/){
 	$template=HTML::Template->new(filename=>'login.tmpl');
+	$template->param(footer=>UTILS::footer);
     }
     default{
 #	$template=HTML::Template->new(filename=>'home.tmpl');
