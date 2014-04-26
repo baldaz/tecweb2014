@@ -8,7 +8,7 @@ use CGI::Carp qw(fatalsToBrowser warningsToBrowser);
 use UTILS;
 
 my $page = CGI->new();
-my ($nr_campi, $table, $data, $disciplina, $xml, $xml_campi, @loop_news, @discipline);
+my ($nr_campi, $table, $data, $disciplina, $xml, $xml_campi, $today, @loop_news, @discipline);
 my $template = HTML::Template->new(filename=>'prenotazioni.tmpl');
 
 $xml = UTILS::loadXml('../data/prenotazioni.xml');
@@ -16,11 +16,14 @@ $xml_campi = UTILS::loadXml('../data/impianti.xml');
 
 @loop_news = UTILS::getNews($xml);
 
-@discipline = ['Calcetto', 'Calciotto', 'Pallavolo', 'Beach Volley', 'Tennis']; 
-$disciplina = $page->param('disciplina') || $discipline[0] unless grep { $_ eq $disciplina } @discipline; # sanity check
+@discipline = ('Calcetto', 'Calciotto', 'Pallavolo', 'Beach Volley', 'Tennis'); 
+$disciplina = $page->param('disciplina') || 'Calcetto';
 
-$data = $page->param('data') || '2014-04-28';
-$data = '2014-04-28' if $data eq '';
+$disciplina=$discipline[0] unless grep { $_ eq $disciplina } @discipline; # sanity check
+
+$today = UTILS::_today;
+$data = $page->param('data') || $today;
+$data = $today if $data eq '';
 
 $template->param(NEWS => \@loop_news);
 

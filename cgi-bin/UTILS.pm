@@ -26,7 +26,7 @@ sub init{
 	$session->param("~profile", $profile);
 	$session->param("~logged-in", 1);
 	$session->clear(["~login-trials"]);
-	$session->expire(10);
+	$session->expire(120);
 	return 1;
     }
 
@@ -76,8 +76,9 @@ sub footer{
 
 sub loadXml{
     my $path=shift;
-    my $parser=XML::LibXML->new("1.0", "UTF-8");
-    my $ret=$parser->parse_file($path);
+#    my $parser=XML::LibXML->new("1.0", "UTF-8");
+ #   my $ret=$parser->parse_file($path);
+    my $ret = XML::LibXML->load_xml(location => $path);
     return $ret;
 }
 
@@ -123,6 +124,11 @@ sub loadNews{
     my @contents=$xml->findnodes("//p:new/p:contenuto");
     @contents=toText(@contents);
     return (\@titles, \@contents);
+}
+
+sub _today{
+    my $dt = DateTime->today->ymd("-");
+    return $dt;
 }
 
 sub getNews{
@@ -269,8 +275,8 @@ sub getWeek{
 
 sub printTable{
     my ($p_day, $campo, $disciplina, @hash)=@_;
-    my $b_name=$p_day->clone();
     $p_day->subtract(days=>3);
+    my $b_name=$p_day->clone();
     my $builder=$p_day->clone();
     my $class;
     my $ret;
