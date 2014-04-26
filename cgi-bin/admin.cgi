@@ -23,6 +23,7 @@ my $current_screen;
     'Default' =>  \&front_page,
     'Add'     =>  \&add,
     'Update'  =>  \&update_reservation,
+    'view'    =>  \&view,
     'Cancel'  =>  \&front_page,
     );
 
@@ -100,7 +101,38 @@ sub add{
 }
 
 sub update_reservation{
+    my $active = shift;
+
+    my @IDS = qw/0 1 2 3 4 5 6 7 8 9 10/;
+    my @fields = qw/ID user/;
+    
+    my ($uid, $usr) = (param("user"), param("ID"));
+
+    unless ($active){
+	print map { hidden($_) } @fields;
+	return;
+    }
+ 
+    print h1("Delete / Update");
+    print p("Form here you can delete or update reservation for users");
+    print h3("Data");
+    print pre(p("User id:  ", popup_menu("ID", \@IDS)),
+	      p("Username: ", textfield("user")));
+
+    print p(to_page("view"));
 }
+
+sub view{
+    my $active = shift;
+    return unless $active;
+    
+    my ($uid, $usr) = (param("ID"), param("user"));
+    print h1("User data");
+    print p("User: $usr");
+    print p("ID: $uid");
+    # dati prenotazion da estrarre
+}
+
 =pod
 my $cgi=CGI->new();
 my $session=CGI::Session->new($cgi);
