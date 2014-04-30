@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<profili xmlns="www.profili.it" xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance">
+  <profilo>
+    <username>admin</username>
+    <password>admin</password>
+  </profilo>
+</profili>

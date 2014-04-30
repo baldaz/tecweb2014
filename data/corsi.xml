@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<corsi xmlns="www.corsi.it" xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance">
+  <corso>
+    <nome>Sala Fitness</nome>
+    <mensile>60€</mensile>
+    <trimestrale>150€</trimestrale>
+    <semestrale>280€</semestrale>
+    <annuale>500€</annuale>
+  </corso>
+  <corso>
+    <nome>Yoga</nome>
+    <mensile>60€</mensile>
+    <trimestrale>150€</trimestrale>
+    <semestrale>280€</semestrale>
+    <annuale>500€</annuale>
+  </corso>
+  <corso>
+    <nome>Pilates</nome>
+    <mensile>60€</mensile>
+    <trimestrale>150€</trimestrale>
+    <semestrale>280€</semestrale>
+    <annuale>500€</annuale>
+  </corso>
+  <corso>
+    <nome>Cross Fit</nome>
+    <mensile>60€</mensile>
+    <trimestrale>150€</trimestrale>
+    <semestrale>280€</semestrale>
+    <annuale>500€</annuale>
+  </corso>
+  <corso>
+    <nome>Fit Boxe</nome>
+    <mensile>60€</mensile>
+    <trimestrale>150€</trimestrale>
+    <semestrale>280€</semestrale>
+    <annuale>500€</annuale>
+  </corso>
+</corsi>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scheduling xmlns="www.corsi.it" xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance">
+  <corso nome="Yoga">
+    <giorni>Lunedì-Giovedì</giorni>
+    <orario>12:00-14:00</orario>
+  </corso>
+  <corso nome="Fit Boxe">
+    <orario>16:00-18:00,14:00-16:00,12:00-14:00</orario>
+    <giorni>Lunedì-Mercoledì-Giovedì</giorni>
+  </corso>
+  <corso nome="Cross Fit">
+    <orario>18:00-20:00,21:00-23:00,14:00-16:00</orario>
+    <giorni>Mercoledì-Giovedì-Domenica</giorni>
+  </corso>
+</scheduling>

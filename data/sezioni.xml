@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sezioni xmlns="www.sezioni.it" xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance">
+  <sezione nome="home">
+    <contenuto><![CDATA[<p>  Il nostro centro offre tutto quello di cui uno sportivo ha bisogno, con un'estensione di oltre <em>360000<abbr title="Metri quadri">mq</abbr></em>
+    e 14 strutture sportive, siamo uno dei centri più all'avanguardia della regione.
+  </p>
+  <p>
+    Le nostre strutture sono le seguenti:
+  </p>
+  <ul>
+    <li>6 campi da Calcetto</li>
+    <li>1 campo da Calciotto</li>
+    <li>2 campi da Tennis</li>
+    <li>4 campi da <span xml:lang="en">Beach Volley</span></li>
+    <li>1 palestra per Pallavolo, Arti Marziali e vari corsi di Fitness</li>
+  </ul>
+  <p>
+    Potete trovare prezzi, orari e dettagli prenotazioni nelle singole sezioni delle varie discipline.
+  </p>
+  <p>
+    Oltre alle varie strutture sportive, disponiamo di un fornitissimo bar aperto dalle <time>11:00</time> a <time>00:30</time> per spuntini e aperitivi.
+  </p>
+  <p>
+    Per informazioni, prenotazioni, domande e suggerimenti trovate tutto il necessario nella sezione <a href="load.cgi?page=contatti">contatti</a>.
+    </p>]]></contenuto>
+    <img_src>../images/entrata_centro.jpg</img_src>
+  </sezione>
+  <sezione nome="arti_marziali">
+    <contenuto></contenuto>
+    <img_src></img_src>
+  </sezione>
+  <sezione nome="fitness">
+    <contenuto></contenuto>
+    <img_src></img_src>
+  </sezione>
+</sezioni>
