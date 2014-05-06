@@ -7,15 +7,26 @@ use warnings;
 use XML::LibXML;
 use CGI qw(:standard);
 use CGI::Carp qw(warningsToBrowser fatalsToBrowser);
-use CGI::Session;
+use CGI::Session ('-ip-match');
 use DateTime;
 use Date::Parse;
 use feature 'switch';
+use Encode;
+
+
+sub login{
+    my ($session,$cgi)=@_;
+    my $profiles=UTILS::loadXml('../data/profili.xml');
+    unless($session->param("~logged-in")){
+        return &init($session, $cgi, $profiles);
+    }
+    return 1;
+}
 
 sub init{
     my ($session, $cgi, $profiles_xml) = @_;
     if ( $session->param("~logged-in") ) {
-	$session->expire(10);
+	$session->expire(120);
 	return 1;  # se già loggato posso uscire
     }
     
@@ -32,8 +43,9 @@ sub init{
 
     # a questo punto le credenziali sono errate
 
-    my $trials = $session->param("~login-trials") || 0;
-    return $session->param("~login-trials", ++$trials);
+#    my $trials = $session->param("~login-trials") || 0;
+ #   return $session->param("~login-trials", ++$trials);
+     return 0;
 }
 
 sub load_profile {
@@ -140,8 +152,8 @@ sub getNews{
 
     while($a=shift @$news_title and $b=shift @$news_content){
 	my %row_data;
-	$row_data{N_TITLE}=Encode::encode('utf-8',$a); # encoding dei me coioni
-	$row_data{N_CONTENT}=Encode::encode('utf-8',$b); # encoding dei me coioni
+	$row_data{N_TITLE}=encode('utf-8',$a); # encoding dei me coioni
+	$row_data{N_CONTENT}=encode('utf-8',$b); # encoding dei me coioni
 	push(@loop_news, \%row_data);
     }
     return @loop_news;
@@ -162,7 +174,8 @@ sub getFields{
 sub getImg{
     my $xml=shift;
     $xml->documentElement->setNamespace("www.impianti.it","i");
-    my @ret_img=$xml->findnodes("//i:impianto/i:src/text()");
+    my @ret_img=$xml->findnodes("//i:impianto/i:src");
+    @ret_img=toText(@ret_img);
     return @ret_img;
 }
 
@@ -501,12 +514,8 @@ sub getCorsi{
 # piu corto, un solo hash, da rifare prezzicorsi
 
 sub printPR{
+    my %hash=@_;
     my $ret;
-    my %hash = (
-	"Yoga" => ["12:00 - 14:00", "", "", "12:00-14:00", "", "", ""],
-	"Fit Boxe" => ["16:00 - 18:00", "", "14:00-16:00", "12:00-14:00", "", "", ""],
-	"Cross Fit" => ["","","18:00 - 20:00", "21:00 - 23:00", "", "","14:00 - 16:00"], 
-	);
     $ret=table({id => 'prenotazioni_tbl' , summary =>''});
     $ret.=caption(h5('Corsi prova'));
     $ret.=Tr(th [qw(Corso Lunedì Martedì Mercoledì Giovedì Venerdì Sabato Domenica)]);
@@ -515,6 +524,29 @@ sub printPR{
     }
     $ret.="</table>";
     return $ret;
+}
+
+sub getOrari{
+	my $xmldoc=shift;
+	 my (@corsi, @orari_global, @orari, $i, %hash, @pr);
+	my $root=$xmldoc->getDocumentElement;
+    $xmldoc->documentElement->setNamespace("www.corsi.it", "c");
+    @orari_global=$xmldoc->getElementsByTagName('corso');
+	$i=0;
+	for my $item(@orari_global){
+		@pr=();
+		push(@pr, &get($item, 'lun'));
+		push(@pr, &get($item, 'mar'));
+		push(@pr, &get($item, 'mer'));
+		push(@pr, &get($item, 'gio'));
+		push(@pr, &get($item, 'ven'));
+		push(@pr, &get($item, 'sab'));
+		push(@pr, &get($item, 'dom'));
+		my $na=&get($item, 'nome');
+		$hash{$na}=\@pr;
+	}
+
+	&printPR(%hash);
 }
  
 1;

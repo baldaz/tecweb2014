@@ -7,23 +7,33 @@ use CGI::Carp qw(fatalsToBrowser warningsToBrowser);
 use HTML::Template;
 use feature 'switch';
 use UTILS;
+use CGI::Session ('-ip-match');
 
 my $cgi=CGI->new();
 
 my $page=$cgi->param('page') || 'home';
-#$page='home' if not defined($page);
+my $is_logged;
+my $session=CGI::Session->load() or die "ciao";
+if($session->param("~logged-in")){
+	$is_logged=1;
+}
+else{
+	$is_logged=UTILS::login($session, $cgi);
+}
 
 my $xml=UTILS::loadXml('../data/prenotazioni.xml');
 my $template;
 my @loop_news=UTILS::getNews($xml);
 
 given($page){
-    when(/home/){
+    when(/home/){ 
 	$template=HTML::Template->new(filename=>'home.tmpl');
 	$xml=UTILS::loadXml('../data/sezioni.xml');
 	my $description=UTILS::getDesc($xml, 'home');
 	$description=Encode::encode('utf8', $description);
 	$template->param(desc=>$description);
+	$template->param(LOGIN => $is_logged);
+	$template->param(USER => 'Admin');
     }
     when(/impianti/){
 	$template=HTML::Template->new(filename=>'impianti.tmpl');
@@ -59,7 +69,7 @@ given($page){
     when(/corsi/){
 	$template=HTML::Template->new(filename=>'corsi.tmpl');
 	my $xml=UTILS::loadXml('../data/corsi.xml');
-	my $tbl_corsi=UTILS::printPR;
+	my $tbl_corsi=UTILS::getOrari($xml);
 	my $table=UTILS::getPrezziCorsi($xml);
 	$table=Encode::encode('utf8', $table); # boh, senza encoding sfasa l'UTF-8 del template, BUG
 	$template->param(tbl=>$table);

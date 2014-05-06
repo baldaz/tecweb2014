@@ -6,6 +6,15 @@
     <trimestrale>150€</trimestrale>
     <semestrale>280€</semestrale>
     <annuale>500€</annuale>
+	<orari>
+		<lun>20:00 - 22:00</lun>
+		<mar></mar>
+		<mer></mer>
+		<gio>21:00 - 22:30</gio>
+		<ven></ven>
+		<sab></sab>
+		<dom></dom>
+	</orari>
   </corso>
   <corso>
     <nome>Yoga</nome>
@@ -13,6 +22,15 @@
     <trimestrale>150€</trimestrale>
     <semestrale>280€</semestrale>
     <annuale>500€</annuale>
+	<orari>
+		<lun>20:00 - 22:00</lun>
+		<mar></mar>
+		<mer></mer>
+		<gio>21:00 - 22:30</gio>
+		<ven></ven>
+		<sab></sab>
+		<dom></dom>
+	</orari>
   </corso>
   <corso>
     <nome>Pilates</nome>
@@ -20,6 +38,15 @@
     <trimestrale>150€</trimestrale>
     <semestrale>280€</semestrale>
     <annuale>500€</annuale>
+	<orari>
+		<lun>20:00 - 22:00</lun>
+		<mar></mar>
+		<mer></mer>
+		<gio>21:00 - 22:30</gio>
+		<ven></ven>
+		<sab></sab>
+		<dom></dom>
+	</orari>
   </corso>
   <corso>
     <nome>Cross Fit</nome>
@@ -27,6 +54,15 @@
     <trimestrale>150€</trimestrale>
     <semestrale>280€</semestrale>
     <annuale>500€</annuale>
+	<orari>
+		<lun>20:00 - 22:00</lun>
+		<mar></mar>
+		<mer></mer>
+		<gio>21:00 - 22:30</gio>
+		<ven></ven>
+		<sab></sab>
+		<dom></dom>
+	</orari>
   </corso>
   <corso>
     <nome>Fit Boxe</nome>
@@ -34,5 +70,14 @@
     <trimestrale>150€</trimestrale>
     <semestrale>280€</semestrale>
     <annuale>500€</annuale>
+	<orari>
+		<lun>20:00 - 22:00</lun>
+		<mar></mar>
+		<mer></mer>
+		<gio>21:00 - 22:30</gio>
+		<ven></ven>
+		<sab></sab>
+		<dom></dom>
+	</orari>
   </corso>
 </corsi>
