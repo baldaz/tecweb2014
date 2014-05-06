@@ -42,7 +42,7 @@ exit;
 
 sub standard_header{
     print header(), start_html(-Title => "Admin", -BGCOLOR=>"White");
-    print start_form(); # start_multipart_form() if file upload
+    print start_form(-action => ""); # start_multipart_form() if file upload
 }
 
 sub standard_footer { print end_form(), end_html() }

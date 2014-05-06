@@ -24,7 +24,7 @@ else{
 
 sub form{
     print header(), start_html(-Title => "Login");
-    print start_form();
+    print start_form(-action => "");
     print h5("Login");
     print pre(p("Username:  ", textfield("username")),
 	      p("Password:  ", password_field("passwd")));

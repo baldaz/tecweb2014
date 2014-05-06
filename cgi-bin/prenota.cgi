@@ -4,11 +4,19 @@ use strict;
 use warnings;
 use HTML::Template;
 use XML::LibXML;
-use CGI;
+use CGI qw(:standard);
 use CGI::Carp qw(fatalsToBrowser warningsToBrowser);
 use UTILS;
+use CGI::Session ('-ip_match');
 
 my $page=CGI->new();
+
+my $session=CGI::Session->load() or die "ciao";
+
+unless ($session->param("~logged-in")){
+    print header(-type => 'text/html', -location => 'login.cgi');
+}
+
 my $template=HTML::Template->new(filename=>'prenota.tmpl');
 my $file='../data/prenotazioni.xml';
 my $parser=XML::LibXML->new();
