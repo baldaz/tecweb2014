@@ -91,17 +91,22 @@ body{
 }
 
 #login{
-	float:right;
-	width:30%;
+	float:left;
+	padding-left: 55%;
+	width:50%;
 }
 
 #login input, label{
 	margin-top: 0.75em;
-	width: 20%;
 	display: inline !important;
     font-size:0.8em
 }
-
+#login label{
+	width: 1%;
+}
+#login input{
+	width: 15%;
+}
 .active{
     background:rgba(255,255,255,0.5)!important;
 }
