@@ -13,16 +13,6 @@ use Date::Parse;
 use feature 'switch';
 use Encode;
 
-
-sub login{
-    my ($session,$cgi)=@_;
-    my $profiles=UTILS::loadXml('../data/profili.xml');
-    unless($session->param("~logged-in")){
-        return &init($session, $cgi, $profiles);
-    }
-    return 1;
-}
-
 sub init{
     my ($session, $cgi, $profiles_xml) = @_;
     if ( $session->param("~logged-in") ) {
@@ -43,9 +33,8 @@ sub init{
 
     # a questo punto le credenziali sono errate
 
-#    my $trials = $session->param("~login-trials") || 0;
- #   return $session->param("~login-trials", ++$trials);
-     return 0;
+    my $trials = $session->param("~login-trials") || 0;
+    return $session->param("~login-trials", ++$trials);
 }
 
 sub load_profile {

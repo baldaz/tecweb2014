@@ -22,11 +22,11 @@
 
 	<div id="nav">
 		<ul>
-		<li><a<tmpl_if name="active">id="active"<tmpl_else> href="load.cgi?page=home"</tmpl_if>>Home</a></li> <!-- ripetere per tutte le voci -->
-		<li><a href="load.cgi?page=impianti">Gli Impianti</a></li>
-		<li><a href="load.cgi?page=corsi">Fitness e corsi</a></li> 
-		<li><a href="load.cgi?page=contatti">Contatti</a></li>
-		<li><a href="viewB.cgi">Prenotazioni</a></li>
+		<li><a<tmpl_if name="activeH">id="active"<tmpl_else> href="load.cgi?page=home"</tmpl_if>>Home</a></li> <!-- ripetere per tutte le voci -->
+		<li><a<tmpl_if name="activeI">id="active"<tmpl_else> href="load.cgi?page=impianti"</tmpl_if>>Gli Impianti</a></li>
+		<li><a<tmpl_if name="activeC">id="active"<tmpl_else> href="load.cgi?page=corsi"</tmpl_if>>Fitness e corsi</a></li> 
+		<li><a<tmpl_if name="activeC">id="active"<tmpl_else> href="load.cgi?page=contatti"</tmpl_if>>Contatti</a></li>
+		<li><a<tmpl_if name="activeP">id="active"<tmpl_else> href="viewB.cgi"</tmpl_if>>Prenotazioni</a></li>
 		</ul>
 	</div>
 

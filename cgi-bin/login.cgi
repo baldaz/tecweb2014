@@ -7,7 +7,7 @@ use UTILS;
 use strict;
 
 my $cgi=CGI->new();
-
+#my $page = param('page') || 'home';
 my $session=CGI::Session->new($cgi);
 
 my $profiles=UTILS::loadXml('../data/profili.xml');

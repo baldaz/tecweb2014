@@ -592,6 +592,10 @@ span.bold{
 
 #content img{
     margin-top:1em;
+    border-style:solid;
+    border-width:1px;
+    border-color:#777777;
+    border-radius:1em
 }
 
 #footer{

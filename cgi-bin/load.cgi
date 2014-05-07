@@ -12,14 +12,15 @@ use CGI::Session ('-ip-match');
 my $cgi=CGI->new();
 
 my $page=$cgi->param('page') || 'home';
-my $is_logged;
-my $session=CGI::Session->load() or die "ciao";
+my $is_logged = 0;
+#my $session=CGI::Session->new($cgi);
+my $session = CGI::Session->load();
 if($session->param("~logged-in")){
 	$is_logged=1;
 }
-else{
-	$is_logged=UTILS::login($session, $cgi);
-}
+#else{
+#	$is_logged=UTILS::login($session, $cgi);
+#}
 
 my $xml=UTILS::loadXml('../data/prenotazioni.xml');
 my $template;
