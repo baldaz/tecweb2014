@@ -90,23 +90,6 @@ body{
     background:rgba(0,0,0,0.5);
 }
 
-#login{
-	float:left;
-	padding-left: 55%;
-	width:50%;
-}
-
-#login input, label{
-	margin-top: 0.75em;
-	display: inline !important;
-    font-size:0.8em
-}
-#login label{
-	width: 1%;
-}
-#login input{
-	width: 15%;
-}
 .active{
     background:rgba(255,255,255,0.5)!important;
 }
@@ -431,6 +414,19 @@ td{
     top:30%;
     text-indent:10px;
     font-size:0.8em
+}
+
+#login{
+	float:left;
+	padding-left: 55%;
+	width:50%;
+}
+
+#login input, label{
+	margin-top: 0.75em;
+	display: inline !important;
+    font-size:0.8em;
+	width: 15%;
 }
 
 #nav {
