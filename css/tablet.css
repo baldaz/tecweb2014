@@ -194,27 +194,46 @@ table, th, td{
 }
 #path
 {
-   position:absolute;
-	height:30%;
-	width:100%;
+    position:absolute;
+    height:30%;
+    width:100%;
     bottom:0;
-	opacity:0.7;
-	background-color:#ffda47;
+    opacity:0.7;
+    background-color:#ffda47;
     background-image: -webkit-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
     background-image: -moz-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
     background-image: -o-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
     background-image: -ms-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
     background-image: -khtml-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
     background-image: linear-gradient(to right, #ffda47 0%, #ffffff 150%);
-	color:#FFDA47;
-	/*border-bottom-left-radius:20px;*/
-	-webkit-border-bottom-right-radius:20px;
+    color:#333333;
+    /*border-bottom-left-radius:20px;*/
+    -webkit-border-bottom-right-radius:20px;
     -moz-border-bottom-right-radius:20px;
     -o-border-bottom-right-radius:20px;
     -ms-border-bottom-right-radius:20px;
     -khtml-border-bottom-right-radius:20px;
-    border-bottom-right-radius:20px;
+    border-bottom-right-radius:20px
+}
 
+#path span{
+    position:absolute;
+    top:30%;
+    text-indent:10px;
+    font-size:0.8em
+}
+
+#login{
+	float:left;
+	padding-left: 35%;
+	width:50%;
+}
+
+#login input, label{
+	margin-top: 0.75em;
+	display: inline !important;
+    font-size:0.8em;
+	width: 15%;
 }
 
 #nav {
@@ -310,10 +329,14 @@ table, th, td{
     -ms-box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;
     -khtml-box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;
 	box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;	
+
+	padding-bottom:0.15em;
+	margin-bottom:0.5em;
 }
 
 #news{
 	text-align: center;
+	margin-top:1em;
 	width:100%;
 }
 
@@ -324,20 +347,22 @@ table, th, td{
 
 #news ul{
 	list-style: none;
+	
 }
 
 #news ul li{
-	margin-bottom:0.437em;
+    margin-bottom:0.437em;
     margin-left:0.5em;
     margin-right:0.5em;
-    border-style:dotted;
-    border-width: 1px;
-    -webkit-border-radius:2px;
-    -moz-border-radius:2px;
-    -o-border-radius:2px;
-    -ms-border-radius:2px;
-    -khtml-border-radius:2px;
-    border-radius:2px;
+    padding:0.2em 0;
+    border-style:none;
+    background:rgba(34,136,51,0.2);
+    -webkit-border-radius:0.8em;
+    -moz-border-radius:0.8em;
+    -o-border-radius:0.8em;
+    -ms-border-radius:0.8em;
+    -khtml-border-radius:0.8em;
+    border-radius:0.8em;
 }
 
 #content{
