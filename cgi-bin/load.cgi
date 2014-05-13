@@ -9,6 +9,7 @@ use feature 'switch';
 use UTILS;
 use CGI::Session ('-ip-match');
 
+$ENV{HTML_TEMPLATE_ROOT} = "../public_html/templates";
 my $cgi=CGI->new();
 
 my $page=$cgi->param('page') || 'home';
@@ -25,11 +26,14 @@ if($session->param("~logged-in")){
 my $xml=UTILS::loadXml('../data/prenotazioni.xml');
 my $template;
 my @loop_news=UTILS::getNews($xml);
-
+my $filename = "index.tmpl";
+my $filter = sub {$$_[0] =~ s/<tmpl_include content>/<tmpl_include $filename>/};
+	
 given($page){
-    when(/home/){ 
+    when(/home/){
 	$template=HTML::Template->new(filename=>'home.tmpl');
-	$xml=UTILS::loadXml('../data/sezioni.xml');
+
+       	$xml=UTILS::loadXml('../data/sezioni.xml');
 	my $description=UTILS::getDesc($xml, 'home');
 	$description=Encode::encode('utf8', $description);
 	$template->param(desc=>$description);

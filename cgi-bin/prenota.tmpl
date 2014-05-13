@@ -73,7 +73,7 @@
 		      <input type="hidden" id="disciplina_h" name="disciplina_h" value="<tmpl_var escape=html name=h_disciplina>">
 		    
 		    <label for="ora"><span> Ora:</span></label>
-		    <select name="ora" id="ora">
+		    <select name="ora" id="ora" class="p_field" >
 		      <option value="16:00">16:00</option>
 		      <option value="17:00">17:00</option>
 		      <option value="18:00">18:00</option>
@@ -84,9 +84,9 @@
 		      <option value="23:00">23:00</option>
 		    </select> 
 		    <label for="campo"><span>Campo:</span></label>
-		    <input type="number" name="campo" id="campo" min="1" max="<tmpl_var escape=html name=nr_campi default=3>" value="<tmpl_var escape=html name=c_val default=1>">
+		    <input type="number" name="campo" id="campo" min="1" max="<tmpl_var escape=html name=nr_campi default=3>" value="<tmpl_var escape=html name=c_val default=1>" class="p_field">
 		      <label for="data"><span>Giorno:</span></label> 
-   		      <input type="date" name="data" id="data" >
+   		      <input type="date" name="data" id="data" class="p_field" >
 		      </fieldset>
 		      </TMPL_IF>
 		      <fieldset>
@@ -96,6 +96,8 @@
 			</div>
 		      </fieldset>
 		    </form>
+		      <div id="tables">
+		      </div>
 		  </div>
 		  <TMPL_IF NAME="SHOW_TBL">
 	  <TMPL_IF NAME="TBL">

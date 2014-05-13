@@ -17,9 +17,9 @@ $xml_campi = UTILS::loadXml('../data/impianti.xml');
 @loop_news = UTILS::getNews($xml);
 
 @discipline = ('Calcetto', 'Calciotto', 'Pallavolo', 'Beach Volley', 'Tennis'); 
-$disciplina = $page->param('disciplina') || 'Calcetto';
+$disciplina = $page->param('disciplina');
 
-$disciplina=$discipline[0] unless grep { $_ eq $disciplina } @discipline; # sanity check
+$disciplina = $discipline[0] unless grep { $_ eq $disciplina } @discipline; # sanity check
 
 $today = UTILS::_today;
 $data = $page->param('data') || $today;
