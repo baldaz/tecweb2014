@@ -1,2 +1,16 @@
-<img src="../images/entrata_centro.jpg" alt="Entrata principale centro sportivo" width="70%"/>
-<tmpl_var name=desc>	
+<tmpl_include name = "header.tmpl">
+	      <div id="nav">
+	      <ul>
+		 <li><a id="active">Home</a></li>
+	 	 <li><a href="load.cgi?page=impianti">Gli Impianti</a></li>
+		 <li><a href="load.cgi?page=corsi">Fitness e corsi</a></li> 
+		 <li><a href="load.cgi?page=contatti">Contatti</a></li>
+		 <li><a href="viewB.cgi">Prenotazioni</a></li>
+	      </ul>
+	      </div>
+	      
+	      <div id="content">
+	      	   <img src="../images/entrata_centro.jpg" alt="Entrata principale centro sportivo" width="70%"/>
+		   <tmpl_var name=desc>
+	      </div>	
+<tmpl_include name = "footer.tmpl">

@@ -23,19 +23,17 @@ if($session->param("~logged-in")){
 #	$is_logged=UTILS::login($session, $cgi);
 #}
 
-my $xml=UTILS::loadXml('../data/prenotazioni.xml');
+my $xml = UTILS::loadXml('../data/prenotazioni.xml');
 my $template;
 my @loop_news=UTILS::getNews($xml);
-my $filename = "index.tmpl";
-my $filter = sub {$$_[0] =~ s/<tmpl_include content>/<tmpl_include $filename>/};
 	
 given($page){
     when(/home/){
-	$template=HTML::Template->new(filename=>'home.tmpl');
-
+	$template=HTML::Template->new(filename=>'index.tmpl');
        	$xml=UTILS::loadXml('../data/sezioni.xml');
 	my $description=UTILS::getDesc($xml, 'home');
 	$description=Encode::encode('utf8', $description);
+	$template->param(path => 'Home');
 	$template->param(desc=>$description);
 	$template->param(LOGIN => $is_logged);
 	$template->param(USER => 'Admin');
@@ -60,8 +58,8 @@ given($page){
 	    push(@loop_img, \%row_data);
 	}
 
+	$template->param(path => 'Impianti');
 	$template->param(imm_campi=>\@loop_img);
-
 	$template->param(n_calcetto=>$n_calcetto);
 	$template->param(n_calciotto=>$n_calciotto);
 	$template->param(n_tennis=>$n_tennis);
@@ -69,7 +67,8 @@ given($page){
 	$template->param(n_bvolley=>$n_bvolley);
     }
     when(/contatti/){
-	$template=HTML::Template->new(filename=>'contatti.tmpl');
+	$template = HTML::Template->new(filename=>'contatti.tmpl');
+	$template->param(path => 'Contatti');
     }
     when(/corsi/){
 	$template=HTML::Template->new(filename=>'corsi.tmpl');
@@ -77,12 +76,16 @@ given($page){
 	my $tbl_corsi=UTILS::getOrari($xml);
 	my $table=UTILS::getPrezziCorsi($xml);
 	$table=Encode::encode('utf8', $table); # boh, senza encoding sfasa l'UTF-8 del template, BUG
+	$template->param(path => 'Corsi');
 	$template->param(tbl=>$table);
 	$template->param(tbl_corsi=>$tbl_corsi);
     }
     when(/login/){
-	$template=HTML::Template->new(filename=>'login.tmpl');
-	$template->param(footer=>UTILS::footer);
+#	$template=HTML::Template->new(filename=>'login.tmpl');
+#	$template->param(footer=>UTILS::footer);
+	$template = HTML::Template->new(
+#	    path => ['../public_html/templates'],
+	    filename => 'index.tmpl');
     }
     default{
 #	$template=HTML::Template->new(filename=>'home.tmpl');

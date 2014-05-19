@@ -9,6 +9,7 @@ use CGI::Carp qw(fatalsToBrowser warningsToBrowser);
 use UTILS;
 use CGI::Session ('-ip_match');
 
+$ENV{HTML_TEMPLATE_ROOT} = "../public_html/templates";
 my $page=CGI->new();
 
 my $session=CGI::Session->load() or die "ciao";
@@ -17,7 +18,8 @@ unless ($session->param("~logged-in")){
     print header(-type => 'text/html', -location => 'login.cgi');
 }
 
-my $template=HTML::Template->new(filename=>'prenota.tmpl');
+my $template = HTML::Template->new(filename=>'prenota.tmpl');
+$template->param(path => '<a href="viewB.cgi">Prenotazioni</a> >> Prenota');
 my $file='../data/prenotazioni.xml';
 my $parser=XML::LibXML->new();
 my $xml=$parser->parse_file($file);
@@ -29,7 +31,7 @@ $template->param(NEWS=>\@loop_news);
 #dati form
 my($name, $surname, $tel, $email, $disciplina, $data, $ora, $campo, $test, $fase, $test_fase, $nr_campi, $xml_campi);
 
-$fase=$page->param('fase');
+$fase = $page->param('fase');
 
 if($fase==1){			# FASE 1
     $name=$page->param('nome');
@@ -56,17 +58,17 @@ if ($name eq '' or ($fase==2 and $name eq '')){		# fallimento, campi vuoti primo
     $test_fase=0;
 }
 else {
-    $template->param(fase=>2);
-    $template->param(FORM1=>0);
-    $template->param(button=>"Conferma");
-    $template->param(class_act=>"active");
-    $template->param(h_nome=>$name);
-    $template->param(h_cognome=>$surname);
-    $template->param(h_numero=>$tel);
-    $template->param(h_email=>$email);
-    $template->param(h_disciplina=>$disciplina);
-    $xml_campi=$parser->parse_file('../data/impianti.xml');
-    $template->param(NR_CAMPI=>UTILS::getFields($xml_campi, $disciplina));
+    $template->param(fase => 2);
+    $template->param(FORM1 => 0);
+    $template->param(button => "Conferma");
+    $template->param(class_act => "active");
+    $template->param(h_nome => $name);
+    $template->param(h_cognome => $surname);
+    $template->param(h_numero => $tel);
+    $template->param(h_email => $email);
+    $template->param(h_disciplina => $disciplina);
+    $xml_campi = $parser->parse_file('../data/impianti.xml');
+    $template->param(NR_CAMPI => UTILS::getFields($xml_campi, $disciplina));
 }
 
 if($test_fase==2){

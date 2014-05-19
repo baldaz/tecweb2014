@@ -7,9 +7,11 @@ use CGI;
 use CGI::Carp qw(fatalsToBrowser warningsToBrowser);
 use UTILS;
 
+$ENV{HTML_TEMPLATE_ROOT} = "../public_html/templates";
 my $page = CGI->new();
 my ($nr_campi, $table, $data, $disciplina, $xml, $xml_campi, $today, @loop_news, @discipline);
 my $template = HTML::Template->new(filename=>'prenotazioni.tmpl');
+$template->param(path => 'Prenotazioni');
 
 $xml = UTILS::loadXml('../data/prenotazioni.xml');
 $xml_campi = UTILS::loadXml('../data/impianti.xml');
