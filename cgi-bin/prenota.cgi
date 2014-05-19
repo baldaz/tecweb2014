@@ -10,15 +10,18 @@ use UTILS;
 use CGI::Session ('-ip_match');
 
 $ENV{HTML_TEMPLATE_ROOT} = "../public_html/templates";
-my $page=CGI->new();
+my $page = CGI->new();
 
-my $session=CGI::Session->load() or die "ciao";
+my $session = CGI::Session->load() or die "ciao";
 
 unless ($session->param("~logged-in")){
     print header(-type => 'text/html', -location => 'login.cgi');
 }
-
+my $is_logged = 1;
 my $template = HTML::Template->new(filename=>'prenota.tmpl');
+$template->param(LOGIN => $is_logged);
+$template->param(USER => 'Admin');
+$template->param(page => 'prenota.cgi');
 $template->param(path => '<a href="viewB.cgi">Prenotazioni</a> >> Prenota');
 my $file='../data/prenotazioni.xml';
 my $parser=XML::LibXML->new();
