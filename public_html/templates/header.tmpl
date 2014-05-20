@@ -20,19 +20,5 @@
 
 		<div id="path">
 		  <span><tmpl_var name="path"></span>
-		  <div id="login">
-		    <tmpl_if name="LOGIN">
-			Benvenuto <tmpl_var name="USER">
-		    <tmpl_else>
-			<form action="login.pl" method="POST" id="loginfrm">
-		 	   <label for="username">Username: </label>
-			   <input type="text" id="username" name="username">
-			   <label for="password">Password: </label>
-			   <input type="password" id="passwd" name="passwd">
-			   <input type="hidden" id="page" name="page" value="<tmpl_var name = page>">
-			   <input type="submit" value="sign in">
-			</form>
-		    </tmpl_if>
-		  </div>
 		</div>
 	</div>
