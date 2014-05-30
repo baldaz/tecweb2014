@@ -58,44 +58,10 @@ sub loadXml{
     my $ret = XML::LibXML->load_xml(location => $path);
 }
 
-sub admin_header{
-    print header(), start_html(-Title => "Admin", -BGCOLOR=>"White");
-    print "<h1>Hi</h1>\n";
-    print "Administration panel \n";
-    print start_form(-action => ""); # start_multipart_form() if file upload
-}
-
-sub admin_footer { print end_form(), end_html() }
-
 sub dispatch {
     my ($self, $screen) = @_;
     my $template = HTML::Template->new(filename => $screen.".tmpl");
     print "Content-Type: text/html\n\n", $template->output;
 }
-# funzione di modifica generica
-=pod
-sub update{
-    my($filter, $old_data, $new_data)=@_;
-    my $xml;
-    given($filter){
-	when(/news/){
-	    $xml=loadXml('..data/prenotazioni.xml');
-	}
-	when(/corso/){
-	    $xml=loadXml('..data/corsi.xml');
-	}
-	when(/impianto/){
-	    $xml=loadXml('..data/impianti.xml');
-	}
-	when(/contatto/){
-	}
-	when(/prenotazione/){
-	    $xml=loadXml('..data/prenotazioni.xml');
-	}
-	default{
-	}
-    }
-}
-=cut
 
 1;

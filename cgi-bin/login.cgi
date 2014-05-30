@@ -18,6 +18,7 @@ if($session->param("~logged-in")){
     print $session->header(-location => "admin.cgi");
 }
 else{
+#    $admin->dispatch('login');
     form();
 }
 
