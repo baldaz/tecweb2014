@@ -1,29 +1,5 @@
-<!DOCTYPE html
-	  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
-	  "">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
-  <head>
-    <title>Prenotazioni</title>
-    <meta name="content" content="width=device-width" />
-    <link rel="stylesheet" type="text/css" href="../css/style.css" media="only screen and (min-width: 768px)"/>
-    <link rel="stylesheet" type="text/css" href="../css/mobile.css" media="only screen and (max-width: 480px)"/>
-    <link rel="stylesheet" type="text/css" href="../css/tablet.css" media="only screen and (min-width: 481px) and (max-width: 767px)"/>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!--    <script src="//code.jquery.com/jquery-1.10.2.js"></script>-->
-    <script language="javascript" type="text/javascript" src="../js/script.js"></script>
-    <script language="javascript" type="text/javascript" src="../js/jquery.js"></script>
-  </head>
-  <body>
-    
-    <div id="container">
-      <div id="header">
-	<h1>Centro Sportivo</h1>
-	<div id="path">
-	  <span><a href="viewB.cgi">Prenotazioni</a> >> Prenota</span>
-	</div>
-      </div>
-      
-      <div id="nav">
+<tmpl_include name = "header.tmpl">
+<div id="nav">
 	<ul>
 	  <li><a href="load.cgi?page=home">Home</a></li>
 	  <li><a href="load.cgi?page=impianti">Gli Impianti</a></li>
@@ -110,30 +86,5 @@
 	  </TMPL_IF>
 	    </TMPL_IF>
 	</div>
-	<div id="news_container">
-	  <div id="news">
-	    <h2>NEWS</h2>
-	    <ul>
-	      <TMPL_LOOP NAME=NEWS>
-		<li>
-		  <TMPL_VAR NAME=N_TITLE>
-		    <p>
-		      <TMPL_VAR NAME=N_CONTENT>
-		    </p>
-		</li>
-              </TMPL_LOOP>
-	    </ul>
-	  </div>
-	</div>
-	<div id="footer">
-	  <p>
-	    <span lang="en">Copyright</span> © 2014 CiccipanzeSulWeb 
-	    <a href="http://validator.w3.org/check?uri=referer">
-	      <img height="31" src="http://www.w3.org/Icons/valid-xhtml10" width="88" alt="Valid XHTML 1.0 Strict" /> 
-	    </a> 
-	  </p> 
-	</div>
-      </div>
-    <script language="javascript" type="text/javascript" src="../js/rtc_form.js"></script>
-    </body>
- </html>
+	<script language="javascript" type="text/javascript" src="../js/rtc_form.js"></script>
+<tmpl_include name = "footer.tmpl">

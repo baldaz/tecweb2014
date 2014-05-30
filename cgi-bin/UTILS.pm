@@ -13,7 +13,7 @@ use Date::Parse;
 use feature 'switch';
 use Encode;
 
-sub init{
+sub init {
     my ($session, $cgi, $profiles_xml) = @_;
     if ( $session->param("~logged-in") ) {
 	$session->expire(120);
@@ -221,7 +221,7 @@ sub getWeek{
     my ($xmldoc, $discipline, $campo, $p_date)=@_;
     my $root=$xmldoc->getDocumentElement;
     $xmldoc->documentElement->setNamespace("www.prenotazioni.it", "p");
-    my @dates=$root->findnodes("//p:prenotante[p:disciplina='".$discipline."' and p:campo='".$campo."']/p:data");
+    my @dates = $root->findnodes("//p:prenotante[p:disciplina='".$discipline."' and p:campo='".$campo."']/p:data");
 
     @dates=toText(@dates);
 
@@ -282,15 +282,15 @@ sub printTable{
     my $builder=$p_day->clone();
     my $class;
     my $ret;
-    $class='green' unless @hash; # non definito
-    $class='green' if scalar(@hash)==0; # definizione hash con 0 elementi
+    $class = 'green' unless @hash; # non definito
+    $class = 'green' if scalar(@hash) == 0; # definizione hash con 0 elementi
 
     $ret='<table id="prenotazioni_tbl" summary="">
              <caption><h6>Prenotazioni per la settimana del '.$builder->dmy('-').' campo '.$campo.' '.$disciplina.' </h6></caption>
-	     <thead>
-	       <tr>
-                  <th>ORARIO</th>
-	      	  <th>'.$b_name->day_name().' '.$builder->day().'</th>';
+	     <thead>';
+#	       <tr>
+#                  <th>ORARIO</th>
+$ret.='	      	  <th>'.$b_name->day_name().' '.$builder->day().'</th>';
     for(0..1){
 	$ret.=' <th>'.$b_name->add(days=>1)->day_name.' '.$builder->add(days=>1)->day().'</th>';
     }
@@ -305,8 +305,8 @@ sub printTable{
                <tbody>';
 
     for my $i(16..23){
-	$ret.=' <tr>
-      		<th>'.$i.':00</th>';
+	$ret.=' <tr>';
+   #  		<th>'.$i.':00</th>';
 	my $control=$p_day->clone();
 	for(0..6){
 	    for my $j (0..$#hash){
@@ -367,15 +367,6 @@ sub getPrezziCorsi{
 	push(@pr, &get($item, 'annuale'));
 	my $na=&get($item, 'nome');
 	$hash{$na}=\@pr;
-	
-	# fine prova
-
-	$corsi[$i]=&get($item, 'nome');
-	$prezzi[$i]{mensile}=&get($item, 'mensile');
-	$prezzi[$i]{trimestrale}=&get($item, 'trimestrale');
-	$prezzi[$i]{semestrale}=&get($item, 'semestrale');
-	$prezzi[$i]{annuale}=&get($item, 'annuale');
-	$i++;
     }
 
     return &printPR2(%hash);
@@ -385,23 +376,18 @@ sub getPrezziCorsi{
 # prova CGI table
 
 sub printPR2{
-    my (%hash)=@_;
-    my ($ret, $i, $class);
-    $i=0;
-    $class='';
-    $ret=table({id => 'corsi_tbl' , summary =>''});
-    $ret.=caption(h5('Abbonamenti'));
-    $ret.=thead(Tr(th [qw(Corso Mensile Trimestrale Semestrale Annuale)]));
-    $ret.=tfoot();
-    $ret.="<tbody>";
-    for my $k (keys %hash) {
-	if($i%2){$class='odd';}
-	else{$class='';}
-	$ret.=Tr({class=>$class},td($k), td( [ @{$hash{$k}} ] ));
-	$i++;
+    my (%hash) = @_;
+    my $ret;
+    $ret = table({id => 'corsi_tbl' , summary => ''});
+    $ret.= caption(h5('Abbonamenti'));
+    $ret.= thead(Tr(th [qw(Corso Mensile Trimestrale Semestrale Annuale)]));
+    $ret.= tfoot();
+    $ret.= "<tbody>";
+    foreach(keys %hash) {
+	$ret.= Tr(td($_), td( [ @{$hash{$_}} ] ));
     }
-    $ret.="</tbody>";
-    $ret.="</table>";
+    $ret.= "</tbody>";
+    $ret.= "</table>";
     return $ret;
 }
 
@@ -480,47 +466,28 @@ sub printTblCorsi{
     return $ret;
 }
 
-
-sub getCorsi{
-    my $xmldoc=shift;
-    my (@corsi, @corsi_global, @prezzi, $i);
-    my $root=$xmldoc->getDocumentElement;
-    $xmldoc->documentElement->setNamespace("www.corsi.it", "c");
-    @corsi_global=$xmldoc->getElementsByTagName('corso');
-    $i=0;
-    
-    for my $item(@corsi_global){
-	$corsi[$i]=&get($item, 'nome');
-	$prezzi[$i]{mensile}=&get($item, 'mensile');
-	$prezzi[$i]{trimestrale}=&get($item, 'trimestrale');
-	$prezzi[$i]{semestrale}=&get($item, 'semestrale');
-	$prezzi[$i]{annuale}=&get($item, 'annuale');
-	$i++;
-    }
-}
-
 # prova utilizzando modulo CGI
 # piu corto, un solo hash, da rifare prezzicorsi
 
 sub printPR{
-    my %hash=@_;
+    my %hash = @_;
     my $ret;
-    $ret=table({id => 'prenotazioni_tbl' , summary =>''});
-    $ret.=caption(h5('Corsi prova'));
-    $ret.=Tr(th [qw(Corso Lunedì Martedì Mercoledì Giovedì Venerdì Sabato Domenica)]);
-    for my $k (sort keys %hash) {
-	$ret.= Tr(th($k), td( [ @{$hash{$k}} ] ));
+    $ret = table({id => 'prenotazioni_tbl' , summary => ''});
+    $ret.= caption(h5('Corsi prova'));
+    $ret.= Tr(th [qw(Corso Lunedì Martedì Mercoledì Giovedì Venerdì Sabato Domenica)]);
+    foreach(sort keys %hash) {
+	$ret.= Tr(th($_), td( [ @{$hash{$_}} ] ));
     }
-    $ret.="</table>";
+    $ret.= "</table>";
     return $ret;
 }
 
 sub getOrari{
-	my $xmldoc=shift;
-	 my (@corsi, @orari_global, @orari, $i, %hash, @pr);
-	my $root=$xmldoc->getDocumentElement;
+    my $xmldoc = shift;
+    my (@corsi, @orari_global, @orari, $i, %hash, @pr);
+    my $root = $xmldoc->getDocumentElement;
     $xmldoc->documentElement->setNamespace("www.corsi.it", "c");
-    @orari_global=$xmldoc->getElementsByTagName('corso');
+    @orari_global = $xmldoc->getElementsByTagName('corso');
 	$i=0;
 	for my $item(@orari_global){
 		@pr=();

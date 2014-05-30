@@ -58,9 +58,8 @@ sub front_page {
     my $active = shift;
     return unless $active;
     
-    print "<H1>Hi!</H1>\n";
-    print "Welcome to administration panel!  Please make your selection from ";
-    print "the menu below.\n";
+    print "<h1>Hi</h1>\n";
+    print "Administration panel \n";
     
     admin_menu();
 }

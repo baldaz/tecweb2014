@@ -1,0 +1,42 @@
+<div id="login">
+  <tmpl_if name="LOGIN">
+    Benvenuto <tmpl_var name="USER">
+      <tmpl_else>
+	<form action="login.pl" method="POST" id="loginfrm">
+	  <label for="username"><span>Username:</span> </label>
+	  <input type="text" id="username" name="username">
+	  <label for="password"><span>Password: </span></label>
+	  <input type="password" id="passwd" name="passwd">
+	  <input type="hidden" id="page" name="page" value="<tmpl_var name = page>">
+	  <input type="submit" value="sign in">
+	</form>
+	<a href="load.cgi?page=registrazione">Registrati</a>
+  </tmpl_if>
+</div>
+<div id="news_container">
+	<div id="news">
+	     <h2>NEWS</h2>
+	     <ul>
+	      <TMPL_LOOP NAME=NEWS>
+		<li>
+		  <TMPL_VAR NAME=N_TITLE>
+		    <p>
+		      <TMPL_VAR NAME=N_CONTENT>
+		    </p>
+		</li>
+              </TMPL_LOOP>
+	    </ul>
+	</div>
+	</div>
+	<div id="footer">
+		<p>
+		    <span xml:lang="en">Copyright</span>© 2014 CiccipanzeSulWeb
+		    <a href="http://validator.w3.org/check?uri=referer">
+			<img src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0 Strict" height="31" width="88" />
+		    </a>
+		</p>
+	</div>
+
+</div>
+</body>
+</html>

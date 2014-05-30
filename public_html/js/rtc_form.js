@@ -9,8 +9,13 @@ $("#telefono").keydown(function(event){
 });
 
 $(".p_field").change(function(){
-    var disciplina=$("#disciplina").val();
-    var date=$("#data").val();
+    var disciplina, date;
+    var fase=$("#fase").val();
+    if (undefined != fase ){
+	disciplina=$("#disciplina_h").val();
+    }
+    else{ disciplina=$("#disciplina").val();}
+    date=$("#data").val();
 	
     if(date.length == ''){
 	var d=new Date();

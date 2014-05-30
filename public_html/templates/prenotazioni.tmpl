@@ -1,0 +1,37 @@
+<tmpl_include name = "header.tmpl">
+<div id="nav">
+	<ul>
+	  <li><a href="load.cgi?page=home">Home</a></li>
+	  <li><a href="load.cgi?page=impianti">Gli Impianti</a><li>
+	  <li><a href="load.cgi?page=corsi">Fitness e corsi</a></li>
+	  <li><a href="load.cgi?page=contatti">Contatti</a></li>
+	  <li><a id="active">Prenotazioni</a></li>
+	</ul>
+      </div>
+      <div id="content">
+	<div class="form-container">
+      	   <h2>Prenotazioni campo</h2>
+	   <form method="GET" id="form" name="form" class="frm-pren" action="" onsubmit="return validate()">
+    	   	 <fieldset>
+		 <label for="disciplina"><span>Disciplina</span></label>
+			<select id="disciplina" name="disciplina" class="p_field">
+				<option value="Calcetto">Calcetto</option>
+				<option value="Pallavolo">Pallavolo</option>
+				<option value="Calciotto">Calciotto</option>
+				<option value="Beach Volley">Beach Volley</option>
+				<option value="Tennis">Tennis</option>
+			</select>
+		<label for="data"><span>Data</span></label>
+		<input type="date" name="data" id="data" value="" class="p_field"><span id="err_data"></span>
+			<input type="submit" value="Visualizza" class="button" />
+			<a href="prenota.cgi"><input type="button" value="Nuova prenotazione" class="button" /></a>
+		</fieldset>
+	   </form>
+	   
+	   <div id="tables">
+	   <TMPL_VAR NAME=TABLE>
+	   </div>
+	   </div>
+	</div>
+	<script language="javascript" type="text/javascript" src="../js/rtc_form.js"></script>
+<tmpl_include name = "footer.tmpl">

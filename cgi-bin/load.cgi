@@ -18,28 +18,32 @@ my $is_logged = 0;
 #my $session=CGI::Session->new($cgi);
 my $session = CGI::Session->load();
 if($session->param("~logged-in")){
-	$is_logged=1;
+	$is_logged = 1;
 }
 #else{
 #	$is_logged=UTILS::login($session, $cgi);
 #}
 
-my $xml=UTILS::loadXml('../data/prenotazioni.xml');
+my $xml = UTILS::loadXml('../data/prenotazioni.xml');
 my $template;
 my @loop_news=UTILS::getNews($xml);
-my $filename = "index.tmpl";
-my $filter = sub {$$_[0] =~ s/<tmpl_include content>/<tmpl_include $filename>/};
 	
 given($page){
     when(/home/){
+<<<<<<< HEAD
 	$template=HTML::Template->new(filename=>'home.tmpl');
 #	$template = Template->new({
 #	    INCLUDE_PATH => '/var/www/templates',
 #	    WRAPPER => 'wrapper',
 #				  });
+=======
+	$template=HTML::Template->new(filename=>'index.tmpl');
+>>>>>>> a1362d9c42a442266885cdeb799170d948baab5d
        	$xml=UTILS::loadXml('../data/sezioni.xml');
 	my $description=UTILS::getDesc($xml, 'home');
 	$description=Encode::encode('utf8', $description);
+	$template->param(page => 'home');
+	$template->param(path => 'Home');
 	$template->param(desc=>$description);
 	$template->param(LOGIN => $is_logged);
 	$template->param(USER => 'Admin');
@@ -63,17 +67,23 @@ given($page){
 	    $row_data{src}=$_;
 	    push(@loop_img, \%row_data);
 	}
-
+	$template->param(page => 'impianti');
+	$template->param(path => 'Impianti');
 	$template->param(imm_campi=>\@loop_img);
-
 	$template->param(n_calcetto=>$n_calcetto);
 	$template->param(n_calciotto=>$n_calciotto);
 	$template->param(n_tennis=>$n_tennis);
 	$template->param(n_pallavolo=>$n_pallavolo);
 	$template->param(n_bvolley=>$n_bvolley);
+	$template->param(LOGIN => $is_logged);
+	$template->param(USER => 'Admin');
     }
     when(/contatti/){
-	$template=HTML::Template->new(filename=>'contatti.tmpl');
+	$template = HTML::Template->new(filename=>'contatti.tmpl');
+	$template->param(page => 'contatti');
+	$template->param(path => 'Contatti');
+	$template->param(LOGIN => $is_logged);
+	$template->param(USER => 'Admin');
     }
     when(/corsi/){
 	$template=HTML::Template->new(filename=>'corsi.tmpl');
@@ -81,12 +91,19 @@ given($page){
 	my $tbl_corsi=UTILS::getOrari($xml);
 	my $table=UTILS::getPrezziCorsi($xml);
 	$table=Encode::encode('utf8', $table); # boh, senza encoding sfasa l'UTF-8 del template, BUG
+	$template->param(page => 'corsi');
+	$template->param(path => 'Corsi');
 	$template->param(tbl=>$table);
 	$template->param(tbl_corsi=>$tbl_corsi);
+	$template->param(LOGIN => $is_logged);
+	$template->param(USER => 'Admin');
     }
     when(/login/){
-	$template=HTML::Template->new(filename=>'login.tmpl');
-	$template->param(footer=>UTILS::footer);
+#	$template=HTML::Template->new(filename=>'login.tmpl');
+#	$template->param(footer=>UTILS::footer);
+	$template = HTML::Template->new(
+#	    path => ['../public_html/templates'],
+	    filename => 'index.tmpl');
     }
     default{
 #	$template=HTML::Template->new(filename=>'home.tmpl');

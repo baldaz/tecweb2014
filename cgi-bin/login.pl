@@ -8,6 +8,9 @@ use UTILS;
 
 my $cgi = CGI->new();
 my $page = $cgi->param("page") || 'home';
+unless ($page eq 'viewB.cgi' || $page eq 'prenota.cgi'){
+    $page = "load.cgi?page=".$page; 
+}
 my $user = $cgi->param("username") or return;
 my $passwd = $cgi->param("passwd") or return;
 my $profiles_xml = UTILS::loadXml('../data/profili.xml');
@@ -21,4 +24,4 @@ if (my $profile = UTILS::load_profile($user, $passwd, $profiles_xml)){
     $session->expire(120);
 }
 
-print $session->header(-location => "load.cgi?page=$page");
+print $session->header(-location => "$page");

@@ -7,9 +7,20 @@ use CGI;
 use CGI::Carp qw(fatalsToBrowser warningsToBrowser);
 use UTILS;
 
+$ENV{HTML_TEMPLATE_ROOT} = "../public_html/templates";
 my $page = CGI->new();
+my $is_logged = 0;
+#my $session=CGI::Session->new($cgi);
+my $session = CGI::Session->load();
+if($session->param("~logged-in")){
+	$is_logged = 1;
+}
 my ($nr_campi, $table, $data, $disciplina, $xml, $xml_campi, $today, @loop_news, @discipline);
 my $template = HTML::Template->new(filename=>'prenotazioni.tmpl');
+$template->param(page => 'viewB.cgi');
+$template->param(path => 'Prenotazioni');
+$template->param(LOGIN => $is_logged);
+$template->param(USER => 'Admin');
 
 $xml = UTILS::loadXml('../data/prenotazioni.xml');
 $xml_campi = UTILS::loadXml('../data/impianti.xml');
