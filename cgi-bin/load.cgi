@@ -8,9 +8,8 @@ use HTML::Template;
 use feature 'switch';
 use UTILS;
 use CGI::Session ('-ip-match');
-#use Template;
 
-#$ENV{HTML_TEMPLATE_ROOT} = "../public_html/templates";
+$ENV{HTML_TEMPLATE_ROOT} = "../public_html/templates";
 my $cgi=CGI->new();
 
 my $page=$cgi->param('page') || 'home';
@@ -30,15 +29,7 @@ my @loop_news=UTILS::getNews($xml);
 	
 given($page){
     when(/home/){
-<<<<<<< HEAD
-	$template=HTML::Template->new(filename=>'home.tmpl');
-#	$template = Template->new({
-#	    INCLUDE_PATH => '/var/www/templates',
-#	    WRAPPER => 'wrapper',
-#				  });
-=======
 	$template=HTML::Template->new(filename=>'index.tmpl');
->>>>>>> a1362d9c42a442266885cdeb799170d948baab5d
        	$xml=UTILS::loadXml('../data/sezioni.xml');
 	my $description=UTILS::getDesc($xml, 'home');
 	$description=Encode::encode('utf8', $description);
@@ -119,4 +110,3 @@ $template->param(NEWS=>\@loop_news);
 HTML::Template->config(utf8 => 1);
 
 print "Content-Type: text/html\n\n", $template->output;
-#$template->process('/var/www/templates/index.html');
