@@ -51,7 +51,6 @@ sub load_profile {
     return undef;
 }
 
-
 sub footer{
     my $ret;
     $ret=div({id => 'footer'},
@@ -180,31 +179,6 @@ sub getDesc{
 	$ret_descr.=$_;
     }
     return $ret_descr;
-}
-
-# funzione di modifica generica
-
-sub update{
-    my($filter, $old_data, $new_data)=@_;
-    my $xml;
-    given($filter){
-	when(/news/){
-	    $xml=loadXml('..data/prenotazioni.xml');
-	}
-	when(/corso/){
-	    $xml=loadXml('..data/corsi.xml');
-	}
-	when(/impianto/){
-	    $xml=loadXml('..data/impianti.xml');
-	}
-	when(/contatto/){
-	}
-	when(/prenotazione/){
-	    $xml=loadXml('..data/prenotazioni.xml');
-	}
-	default{
-	}
-    }
 }
 
 #################################################

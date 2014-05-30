@@ -1,16 +1,44 @@
 #!/usr/bin/perl -w
 
-use strict;
-use warnings;
-use CGI qw(:standard);
-use CGI::Carp qw(fatalsToBrowser warningsToBrowser);
-use CGI::Session ('-ip_match');
-use UTILS;
+use UTILS::Admin;
+use CGI qw /:standard/;
+use feature qw /switch/;
 
-my $cgi=CGI->new();
-my $session=CGI::Session->load() or die "ciao";
-#my $prof=UTILS::loadXml("../data/profili.xml");
-#UTILS::init($session, $cgi, $prof);
+$ENV{HTML_TEMPLATE_ROOT} = "../public_html/templates/admin";
+my $cgi = CGI->new();
+my $session = CGI::Session->load() or die "Errore";
+
+unless ($session->param("~logged-in")){
+    print header(-type => 'text/html', -location => 'login.cgi');
+}
+
+my $screen = $cgi->param('screen') || 'front_page';
+my $admin = UTILS::Admin->new;
+my $template;
+
+given($screen) {
+    when(/front_page/) {
+	# template per home admin
+    }
+    when(/edit_p/) {
+	# template per modifica prenotazione
+    }
+    when(/edit_n/) {
+	# template per modifica news
+    }
+    when(/update/) {
+	# template per modifica tabelle corsi
+    }
+    default {
+	print $cgi->redirect('admin.cgi?screen=front_page');
+    }
+}
+
+=pod
+$ENV{HTML_TEMPLATE_ROOT} = "../public_html/templates";
+my $admin = UTILS::Admin->new;
+my $cgi = CGI->new();
+my $session = CGI::Session->load() or die "Errore";
 
 unless ($session->param("~logged-in")){
     print header(-type => 'text/html', -location => 'login.cgi');
@@ -30,22 +58,14 @@ my $current_screen;
 $current_screen = param(".state") || "Default";
 die "No HTML per $current_screen" unless $states{$current_screen};
 
-standard_header();
-    
+$admin->admin_header();
+admin_menu();    
 while(my($screen_name, $function) = each %states){
     $function->($screen_name eq $current_screen);
 }
 
-standard_footer();
+$admin->admin_footer();
 exit;
-
-
-sub standard_header{
-    print header(), start_html(-Title => "Admin", -BGCOLOR=>"White");
-    print start_form(-action => ""); # start_multipart_form() if file upload
-}
-
-sub standard_footer { print end_form(), end_html() }
 
 sub admin_menu {
     print p(defaults("Home"),
@@ -57,21 +77,16 @@ sub admin_menu {
 sub front_page {
     my $active = shift;
     return unless $active;
-    
-    print "<h1>Hi</h1>\n";
-    print "Administration panel \n";
-    
-    admin_menu();
 }
 
-sub to_page{
+sub to_page {
     submit(-NAME => ".state", -VALUE => shift);
 }
 
-sub action_table{
+sub action_table {
 }
 
-sub add{
+sub add {
     my $active = shift;
     my @disc = ('Calcetto', 'Calciotto', 'Tennis', 'Beach Volley', 'Pallavolo');
     my @fields = qw(1 2 3 4 5);
@@ -95,8 +110,7 @@ sub add{
     print p("Time:", textfield("time"));
     print p("Discipline:",  popup_menu("discipline",  \@disc ),
 	    "Campo:", popup_menu("campo", \@fields));
-
-    admin_menu();
+    print p(to_page("view"));
 }
 
 sub update_reservation{
@@ -132,7 +146,6 @@ sub view{
     # dati prenotazion da estrarre
 }
 
-=pod
 my $cgi=CGI->new();
 my $session=CGI::Session->new($cgi);
 my $template=HTML::Template->new(filename=>'admin.tmpl');
