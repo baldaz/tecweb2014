@@ -6,9 +6,10 @@ use CGI qw /:standard/;
 use UTILS::Admin;
 
 my %action = (
-    'edit_p'  => \&edit_prenotation,
-    'edit_n'  => \&edit_news,
-    'update' => \&update
+    'edit_p'     => \&edit_prenotation,
+    'edit_n'     => \&edit_news,
+    'update'     => \&update,
+    'clear_logs' => \&clear_logs
     );
 
 my $command = param('action') || 'null';
@@ -26,4 +27,8 @@ sub edit_news {
 
 sub update {
     # prendi parametri per tabelle corsi
+}
+
+sub clear_logs {
+    # cancella i log
 }

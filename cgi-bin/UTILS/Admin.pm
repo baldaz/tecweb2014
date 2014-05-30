@@ -8,6 +8,9 @@ use XML::LibXML;
 use CGI qw /:standard/;
 use CGI::Carp qw /warningsToBrowser fatalsToBrowser/;
 use CGI::Session qw /-ip-match/;
+use HTML::Template;
+
+$ENV{HTML_TEMPLATE_ROOT} = "../public_html/templates/admin";
 
 sub new { bless {}, shift }
 
@@ -58,6 +61,11 @@ sub admin_header{
 
 sub admin_footer { print end_form(), end_html() }
 
+sub dispatch {
+    my ($self, $screen) = @_;
+    my $template = HTML::Template->new(filename => $screen.".tmpl");
+    print "Content-Type: text/html\n\n", $template->output;
+}
 # funzione di modifica generica
 =pod
 sub update{

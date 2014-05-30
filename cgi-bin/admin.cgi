@@ -3,6 +3,7 @@
 use UTILS::Admin;
 use CGI qw /:standard/;
 use feature qw /switch/;
+use HTML::Template;
 
 $ENV{HTML_TEMPLATE_ROOT} = "../public_html/templates/admin";
 my $cgi = CGI->new();
@@ -12,13 +13,16 @@ unless ($session->param("~logged-in")){
     print header(-type => 'text/html', -location => 'login.cgi');
 }
 
-my $screen = $cgi->param('screen') || 'front_page';
+my $screen = $cgi->param('screen') || 'index';
 my $admin = UTILS::Admin->new;
 my $template;
 
+$admin->dispatch($screen);
+=pod
 given($screen) {
     when(/front_page/) {
 	# template per home admin
+	$template = HTML::Template(
     }
     when(/edit_p/) {
 	# template per modifica prenotazione
@@ -33,7 +37,7 @@ given($screen) {
 	print $cgi->redirect('admin.cgi?screen=front_page');
     }
 }
-
+=cut
 =pod
 $ENV{HTML_TEMPLATE_ROOT} = "../public_html/templates";
 my $admin = UTILS::Admin->new;
