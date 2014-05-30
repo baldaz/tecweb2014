@@ -4,8 +4,9 @@ use strict;
 use warnings;
 use CGI;
 use CGI::Session qw(-ip-match);
-use UTILS;
+use UTILS::Admin;
 
+my $admin = UTILS::Admin->new;
 my $cgi = CGI->new();
 my $page = $cgi->param("page") || 'home';
 unless ($page eq 'viewB.cgi' || $page eq 'prenota.cgi'){
@@ -13,10 +14,9 @@ unless ($page eq 'viewB.cgi' || $page eq 'prenota.cgi'){
 }
 my $user = $cgi->param("username") or return;
 my $passwd = $cgi->param("passwd") or return;
-my $profiles_xml = UTILS::loadXml('../data/profili.xml');
-
 my $session;
-if (my $profile = UTILS::load_profile($user, $passwd, $profiles_xml)){
+
+if (my $profile = $admin->load_profile($user, $passwd)){
     $session = CGI::Session->new();
     $session->param("~profile", $profile);
     $session->param("~logged-in", 1);

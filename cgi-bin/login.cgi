@@ -3,15 +3,14 @@
 use CGI qw/:standard/;
 use CGI::Carp qw(fatalsToBrowser warningsToBrowser);
 use CGI::Session ('-ip_match');
-use UTILS;
+use UTILS::Admin;
 use strict;
 
-my $cgi=CGI->new();
+my $cgi = CGI->new();
+my $session = CGI::Session->new($cgi);
+my $admin = UTILS::Admin->new;
 
-my $session=CGI::Session->new($cgi);
-
-my $profiles=UTILS::loadXml('../data/profili.xml');
-UTILS::init($session, $cgi, $profiles);
+$admin->init($session, $cgi);
 
 my $profile = $session->param("~profile");
 

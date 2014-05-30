@@ -15,7 +15,7 @@ $ENV{HTML_TEMPLATE_ROOT} = "../public_html/templates/admin";
 sub new { bless {}, shift }
 
 sub init {
-    my ($self, $session, $cgi, $profiles_xml) = @_;
+    my ($self, $session, $cgi) = @_;
     if ( $session->param("~logged-in") ) {
 	$session->expire(120);
 	return 1;  # se già loggato posso uscire
@@ -24,7 +24,7 @@ sub init {
     my $user = $cgi->param("username") or return;
     my $passwd = $cgi->param("passwd") or return;
     
-    if (my $profile = load_profile($user, $passwd, $profiles_xml)){
+    if (my $profile = $self->load_profile($user, $passwd)){
 	$session->param("~profile", $profile);
 	$session->param("~logged-in", 1);
 	$session->clear(["~login-trials"]);
@@ -39,7 +39,8 @@ sub init {
 }
 
 sub load_profile {
-    my ($self, $user, $passwd, $profiles_xml) = @_;
+    my ($self, $user, $passwd) = @_;
+    my $profiles_xml = $self->loadXml('../data/profili.xml');
     my $root = $profiles_xml->getDocumentElement;
     $profiles_xml->documentElement->setNamespace("www.profili.it", "p");
 				# controllo se esiste un match (profilo esistente) 
@@ -50,6 +51,11 @@ sub load_profile {
     }
     
     return undef;
+}
+
+sub loadXml{
+    my ($self, $path) = @_;
+    my $ret = XML::LibXML->load_xml(location => $path);
 }
 
 sub admin_header{

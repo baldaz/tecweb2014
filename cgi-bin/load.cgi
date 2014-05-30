@@ -29,43 +29,43 @@ my @loop_news=UTILS::getNews($xml);
 	
 given($page){
     when(/home/){
-	$template=HTML::Template->new(filename=>'index.tmpl');
-       	$xml=UTILS::loadXml('../data/sezioni.xml');
-	my $description=UTILS::getDesc($xml, 'home');
-	$description=Encode::encode('utf8', $description);
+	$template = HTML::Template->new(filename => 'index.tmpl');
+       	$xml = UTILS::loadXml('../data/sezioni.xml');
+	my $description = UTILS::getDesc($xml, 'home');
+	$description = Encode::encode('utf8', $description);
 	$template->param(page => 'home');
 	$template->param(path => 'Home');
-	$template->param(desc=>$description);
+	$template->param(desc => $description);
 	$template->param(LOGIN => $is_logged);
 	$template->param(USER => 'Admin');
     }
     when(/impianti/){
-	$template=HTML::Template->new(filename=>'impianti.tmpl');
+	$template = HTML::Template->new(filename => 'impianti.tmpl');
 
-	$xml=UTILS::loadXml('../data/impianti.xml');
+	$xml = UTILS::loadXml('../data/impianti.xml');
   	           # estraggo il numero di campi
-	my $n_calcetto=UTILS::getFields($xml, 'Calcetto');
-	my $n_calciotto=UTILS::getFields($xml, 'Calciotto');
-	my $n_tennis=UTILS::getFields($xml, 'Tennis');
-	my $n_pallavolo=UTILS::getFields($xml, 'Pallavolo');
-	my $n_bvolley=UTILS::getFields($xml, 'Beach Volley');
+	my $n_calcetto = UTILS::getFields($xml, 'Calcetto');
+	my $n_calciotto = UTILS::getFields($xml, 'Calciotto');
+	my $n_tennis = UTILS::getFields($xml, 'Tennis');
+	my $n_pallavolo = UTILS::getFields($xml, 'Pallavolo');
+	my $n_bvolley = UTILS::getFields($xml, 'Beach Volley');
 
-	my @img=UTILS::getImg($xml);
-	my @loop_img=();
+	my @img = UTILS::getImg($xml);
+	my @loop_img = ();
 	
 	foreach(@img){
 	    my %row_data;
-	    $row_data{src}=$_;
+	    $row_data{src} = $_;
 	    push(@loop_img, \%row_data);
 	}
 	$template->param(page => 'impianti');
 	$template->param(path => 'Impianti');
-	$template->param(imm_campi=>\@loop_img);
-	$template->param(n_calcetto=>$n_calcetto);
-	$template->param(n_calciotto=>$n_calciotto);
-	$template->param(n_tennis=>$n_tennis);
-	$template->param(n_pallavolo=>$n_pallavolo);
-	$template->param(n_bvolley=>$n_bvolley);
+	$template->param(imm_campi => \@loop_img);
+	$template->param(n_calcetto => $n_calcetto);
+	$template->param(n_calciotto => $n_calciotto);
+	$template->param(n_tennis => $n_tennis);
+	$template->param(n_pallavolo => $n_pallavolo);
+	$template->param(n_bvolley => $n_bvolley);
 	$template->param(LOGIN => $is_logged);
 	$template->param(USER => 'Admin');
     }
@@ -77,24 +77,22 @@ given($page){
 	$template->param(USER => 'Admin');
     }
     when(/corsi/){
-	$template=HTML::Template->new(filename=>'corsi.tmpl');
-	my $xml=UTILS::loadXml('../data/corsi.xml');
-	my $tbl_corsi=UTILS::getOrari($xml);
-	my $table=UTILS::getPrezziCorsi($xml);
-	$table=Encode::encode('utf8', $table); # boh, senza encoding sfasa l'UTF-8 del template, BUG
+	$template = HTML::Template->new(filename=>'corsi.tmpl');
+	my $xml = UTILS::loadXml('../data/corsi.xml');
+	my $tbl_corsi = UTILS::getOrari($xml);
+	my $table = UTILS::getPrezziCorsi($xml);
+	$table = Encode::encode('utf8', $table); # boh, senza encoding sfasa l'UTF-8 del template, BUG
 	$template->param(page => 'corsi');
 	$template->param(path => 'Corsi');
-	$template->param(tbl=>$table);
-	$template->param(tbl_corsi=>$tbl_corsi);
+	$template->param(tbl => $table);
+	$template->param(tbl_corsi => $tbl_corsi);
 	$template->param(LOGIN => $is_logged);
 	$template->param(USER => 'Admin');
     }
     when(/login/){
 #	$template=HTML::Template->new(filename=>'login.tmpl');
 #	$template->param(footer=>UTILS::footer);
-	$template = HTML::Template->new(
-#	    path => ['../public_html/templates'],
-	    filename => 'index.tmpl');
+	$template = HTML::Template->new(filename => 'index.tmpl');
     }
     default{
 #	$template=HTML::Template->new(filename=>'home.tmpl');
@@ -106,7 +104,7 @@ given($page){
     }
 }
     
-$template->param(NEWS=>\@loop_news);
+$template->param(NEWS => \@loop_news);
 HTML::Template->config(utf8 => 1);
 
 print "Content-Type: text/html\n\n", $template->output;
