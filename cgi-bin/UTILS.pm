@@ -51,7 +51,7 @@ sub load_profile {
     return undef;
 }
 
-sub footer{
+sub footer {
     my $ret;
     $ret=div({id => 'footer'},
 	     "\n\t",
@@ -74,30 +74,27 @@ sub footer{
 
 # loader xml globale
 
-sub loadXml{
-    my $path=shift;
-#    my $parser=XML::LibXML->new("1.0", "UTF-8");
- #   my $ret=$parser->parse_file($path);
+sub loadXml {
+    my $path = shift;
     my $ret = XML::LibXML->load_xml(location => $path);
-    return $ret;
 }
 
 # controllo prenotazione su file xml
 
-sub checkform{
-    my($xmldoc, $disciplina, $campo, $data, $ora)=@_;
-    my $root=$xmldoc->getDocumentElement;
+sub checkform {
+    my($xmldoc, $disciplina, $campo, $data, $ora) = @_;
+    my $root = $xmldoc->getDocumentElement;
     $xmldoc->documentElement->setNamespace("www.prenotazioni.it", "p");
     #controllo se esiste un match (prenotazione gia' presa)
-    my $ret=$root->exists("//p:prenotante[p:disciplina='$disciplina' and p:data='$data' and p:ora='$ora' and p:campo='$campo']/p:nome");
+    my $ret = $root->exists("//p:prenotante[p:disciplina='$disciplina' and p:data='$data' and p:ora='$ora' and p:campo='$campo']/p:nome");
     return $ret;
 }
 
 # controllo numero telefonico
 
-sub check_tel{
-    my $number=shift;
-    if($number=~/^(\d)+$/){
+sub check_tel {
+    my $number = shift;
+    if($number = ~/^(\d)+$/){
 	return 0;
     }
     else{ return 1;}
@@ -105,43 +102,44 @@ sub check_tel{
 
 # estrae il contenuto di un nodo, analogo a text(), ma piu utile nei casi di html e CDATA nel file XML
 
-sub toText{
-    my (@data)=@_;
+sub toText {
+    my (@data) = @_;
     my @ret;
-    for(@data){
-	push(@ret ,$_->textContent);
-    }
+#    for(@data){
+#	push(@ret ,$_->textContent);
+ #   }
+    @ret = map { $_->textContent } @data;
     return @ret;
 }
 
 # estrae le news dal file xml
 
-sub loadNews{
-    my $xml=shift;
+sub loadNews {
+    my $xml = shift;
     $xml->documentElement->setNamespace("www.prenotazioni.it","p");
-    my @titles=$xml->findnodes("//p:new/p:titolo");
-    @titles=toText(@titles);
-    my @contents=$xml->findnodes("//p:new/p:contenuto");
-    @contents=toText(@contents);
+    my @titles = $xml->findnodes("//p:new/p:titolo");
+    @titles = toText(@titles);
+    my @contents = $xml->findnodes("//p:new/p:contenuto");
+    @contents = toText(@contents);
     return (\@titles, \@contents);
 }
 
-sub _today{
+sub _today {
     my $dt = DateTime->today->ymd("-");
     return $dt;
 }
 
-sub getNews{
-    my $xml=shift;
-    my ($news_title, $news_content)=&loadNews($xml);     # genero le news da xml
-    my @loop_news=();
+sub getNews {
+    my $xml = shift;
+    my ($news_title, $news_content) = loadNews($xml);     # genero le news da xml
+    my @loop_news = ();
 
 # scorro i risultati dell'estrazione e li inserisco in un hash
 
-    while($a=shift @$news_title and $b=shift @$news_content){
+    while($a = shift @$news_title and $b = shift @$news_content){
 	my %row_data;
-	$row_data{N_TITLE}=encode('utf-8',$a); # encoding dei me coioni
-	$row_data{N_CONTENT}=encode('utf-8',$b); # encoding dei me coioni
+	$row_data{N_TITLE} = encode('utf-8', $a); # encoding dei me coioni
+	$row_data{N_CONTENT} = encode('utf-8', $b); # encoding dei me coioni
 	push(@loop_news, \%row_data);
     }
     return @loop_news;
@@ -149,36 +147,36 @@ sub getNews{
 
 # estrae il numero di campi di una data disciplina dal file xml
 
-sub getFields{
-    my ($xml, $disciplina)=@_;
+sub getFields {
+    my ($xml, $disciplina) = @_;
     $xml->documentElement->setNamespace("www.impianti.it","i");
-    my @ret_n=$xml->findnodes("//i:impianto[i:disciplina='$disciplina']/i:campi");
-    @ret_n=toText(@ret_n);
+    my @ret_n = $xml->findnodes("//i:impianto[i:disciplina='$disciplina']/i:campi");
+    @ret_n = toText(@ret_n);
     return $ret_n[0];
 }
 
 # estrae il perscorsi delle immagini degli impianti dal file xml
 
-sub getImg{
-    my $xml=shift;
+sub getImg {
+    my $xml = shift;
     $xml->documentElement->setNamespace("www.impianti.it","i");
-    my @ret_img=$xml->findnodes("//i:impianto/i:src");
-    @ret_img=toText(@ret_img);
-    return @ret_img;
+    my @ret_img = $xml->findnodes("//i:impianto/i:src");
+    return toText(@ret_img);
 }
 
 # estrae la descrizione di una data sezione dal file xml
  
-sub getDesc{
-    my ($xml, $nome)=@_;
+sub getDesc {
+    my ($xml, $nome) = @_;
     $xml->documentElement->setNamespace("www.sezioni.it","s");
-    my @ret_desc=$xml->findnodes("//s:sezione[\@nome='$nome']/s:contenuto");
-    @ret_desc=toText(@ret_desc);
+    my @ret_desc = $xml->findnodes("//s:sezione[\@nome='$nome']/s:contenuto");
+    @ret_desc = toText(@ret_desc);
     my $ret_descr;
-    foreach(@ret_desc){
-	$ret_descr.=$_;
-    }
-    return $ret_descr;
+#    foreach(@ret_desc){
+#	$ret_descr.=$_;
+#    }
+#    return $ret_descr;
+    $ret_descr.= join( '', map { $_ } @ret_desc );
 }
 
 #################################################
@@ -191,69 +189,61 @@ sub getDesc{
 #                                               #
 #################################################
 
-sub getWeek{
-    my ($xmldoc, $discipline, $campo, $p_date)=@_;
-    my $root=$xmldoc->getDocumentElement;
+sub getWeek {
+    my ($xmldoc, $discipline, $campo, $p_date) = @_;
+    my $root = $xmldoc->getDocumentElement;
     $xmldoc->documentElement->setNamespace("www.prenotazioni.it", "p");
     my @dates = $root->findnodes("//p:prenotante[p:disciplina='".$discipline."' and p:campo='".$campo."']/p:data");
 
-    @dates=toText(@dates);
+    @dates = toText(@dates);
 
-    my @split_pdate=split('-', $p_date);
+    my @split_pdate = split('-', $p_date);
 
-    my $dt=new DateTime(
-	year=>$split_pdate[0],
-	month=>$split_pdate[1],
-	day=>$split_pdate[2]
+    my $dt = new DateTime(
+	year => $split_pdate[0],
+	month => $split_pdate[1],
+	day => $split_pdate[2]
 	);
 
-    my @ret_date;
-    my $dt_tmp=$dt->clone();
-    my $dt_loop=$dt->clone();
+    my @ret_date = ();
+    my $dt_tmp = $dt->clone();
+    my $dt_loop = $dt->clone();
     
-    $dt_loop->subtract(days=>3); #sottraggo 3 giorni
-    $dt_tmp->add(days=>3); # add aumenta 3 giorni
+    $dt_loop->subtract(days => 3); #sottraggo 3 giorni
+    $dt_tmp->add(days => 3); # add aumenta 3 giorni
 
     while($dt_loop <= $dt_tmp){
-	for(@dates){
-	    if(str2time($_) == str2time($dt_loop)){
-		push(@ret_date, $_);
-	    }
-	}
-	$dt_loop->add(days=>1);
+#	foreach(@dates){
+#	    if(str2time($_) == str2time($dt_loop)){
+#		push(@ret_date, $_);
+#	    }
+#	}
+	push(@ret_date, map { if (str2time($_) == str2time($dt_loop)){ $_ } } @dates);
+	$dt_loop->add(days => 1);
     }
 
     my %seen;
     $seen{$_}++ for @ret_date;
-    @ret_date=keys %seen;	#trova le chiavi uniche nell'array
+    @ret_date = keys %seen;	#trova le chiavi uniche nell'array
 
-    my @hash;
-    my @time;
+    my @hash = ();
+    my @time = ();
 
     for my $i (0..$#ret_date){
-	@time=$root->findnodes("//p:prenotante[p:disciplina='".$discipline."' and p:campo='".$campo."' and p:data='".$ret_date[$i]."']/p:ora");
-	$hash[$i]{date}=$ret_date[$i];
-	@time=toText(@time);
-	my $time_str=join(" - ", @time);
-	$hash[$i]{time}=$time_str;
+	@time = $root->findnodes("//p:prenotante[p:disciplina='".$discipline."' and p:campo='".$campo."' and p:data='".$ret_date[$i]."']/p:ora");
+	$hash[$i]{date} = $ret_date[$i];
+	@time = toText(@time);
+	my $time_str = join(" - ", @time);
+	$hash[$i]{time} = $time_str;
     }			  
-
-#    for my $i (0..$#hash){
-#	print "$i is { ";
-#	for my $role (keys%{$hash[$i]}){
-#	    print "$role=$hash[$i]{$role}";
-#	}
-#	print "}<br />";
- #   }
-    
-    return &printTable($dt, $campo, $discipline, @hash);
+    return printTable($dt, $campo, $discipline, @hash);
 }
 
-sub printTable{
-    my ($p_day, $campo, $disciplina, @hash)=@_;
-    $p_day->subtract(days=>3);
-    my $b_name=$p_day->clone();
-    my $builder=$p_day->clone();
+sub printTable {
+    my ($p_day, $campo, $disciplina, @hash) = @_;
+    $p_day->subtract(days => 3);
+    my $b_name = $p_day->clone();
+    my $builder = $p_day->clone();
     my $class;
     my $ret;
     $class = 'green' unless @hash; # non definito
@@ -273,30 +263,30 @@ $ret.='	      	  <th>'.$b_name->day_name().' '.$builder->day().'</th>';
 	$ret.=' <th>'.$b_name->add(days=>1)->day_name.' '.$builder->add(days=>1)->day().'</th>';
     }
     $ret.=' </tr>
+               </thead>
                <tfoot>
                </tfoot>
-               </thead>
                <tbody>';
 
     for my $i(16..23){
 	$ret.=' <tr>';
    #  		<th>'.$i.':00</th>';
-	my $control=$p_day->clone();
+	my $control = $p_day->clone();
 	for(0..6){
 	    for my $j (0..$#hash){
-		my $d_control=$control->ymd('-');
-		if($hash[$j]{date}=~m/$d_control/){
-		    if($hash[$j]{time}=~ m/$i:00/){
+		my $d_control = $control->ymd('-');
+		if($hash[$j]{date} =~m/$d_control/){
+		    if($hash[$j]{time} =~ m/$i:00/){
 			$class='red';
 #			$ret.= $i.':00';  # per vedere gli orari  
 			last; 
 		    }
-		    else{ $class='green';}
+		    else{ $class = 'green';}
 		}
-		else{ $class='green';}
+		else{ $class = 'green';}
 	    }
 	    $ret.=' <td class="'.$class.'">'.$i.':00</td>';
-	    $control->add(days=>1);
+	    $control->add(days => 1);
 	}
 	$ret.= ' </tr>';
     }	
@@ -317,7 +307,6 @@ sub get {
     my $target = $targets[0];
     $value = $target->textContent;
   }
-
   return $value;
 }
 
@@ -325,26 +314,20 @@ sub get {
 # infine richiama la funzione di stampa
 
 sub getPrezziCorsi{
-    my $xmldoc=shift;
-    my (@corsi, @corsi_global, @prezzi, $i, %hash, @pr);
-    my $root=$xmldoc->getDocumentElement;
+    my $xmldoc = shift;
+    my (@corsi_global, %hash, @pr);
     $xmldoc->documentElement->setNamespace("www.corsi.it", "c");
-    @corsi_global=$xmldoc->getElementsByTagName('corso');
-    $i=0;
+    @corsi_global = $xmldoc->getElementsByTagName('corso');
     
-    for my $item(@corsi_global){
-	# prova
-	@pr=();
-	push(@pr, &get($item, 'mensile'));
-	push(@pr, &get($item, 'trimestrale'));
-	push(@pr, &get($item, 'semestrale'));
-	push(@pr, &get($item, 'annuale'));
-	my $na=&get($item, 'nome');
-	$hash{$na}=\@pr;
+    foreach(@corsi_global){
+	@pr = ();
+	push(@pr, get($_, 'mensile'));
+	push(@pr, get($_, 'trimestrale'));
+	push(@pr, get($_, 'semestrale'));
+	push(@pr, get($_, 'annuale'));
+	$hash{get($_, 'nome')} = \@pr;
     }
-
-    return &printPR2(%hash);
-#    return &printTblPrezziCorsi(\@corsi, \@prezzi); # 2 array bisogna usare i riferimenti
+    return printPR2(%hash);
 }
 
 # prova CGI table
@@ -357,9 +340,10 @@ sub printPR2{
     $ret.= thead(Tr(th [qw(Corso Mensile Trimestrale Semestrale Annuale)]));
     $ret.= tfoot();
     $ret.= "<tbody>";
-    foreach(keys %hash) {
-	$ret.= Tr(td($_), td( [ @{$hash{$_}} ] ));
-    }
+#    foreach(keys %hash) {
+#	$ret.= Tr(td($_), td( [ @{$hash{$_}} ] ));
+#    }
+    $ret.= join('', map { Tr(td($_), td( [ @{$hash{$_}} ])) } keys %hash);
     $ret.= "</tbody>";
     $ret.= "</table>";
     return $ret;
@@ -368,7 +352,7 @@ sub printPR2{
 # funzione di stampa della tabella prezzi
 
 sub printTblPrezziCorsi{
-    my ($corsi, $prezzi)=@_;
+    my ($corsi, $prezzi) = @_;
     my ($ret,$class);
     $ret="<table id=\"corsi_tbl\" summary=\"\">
           <caption><h5>Abbonamenti</h5></caption>
@@ -449,34 +433,33 @@ sub printPR{
     $ret = table({id => 'prenotazioni_tbl' , summary => ''});
     $ret.= caption(h5('Corsi prova'));
     $ret.= Tr(th [qw(Corso Lunedì Martedì Mercoledì Giovedì Venerdì Sabato Domenica)]);
-    foreach(sort keys %hash) {
-	$ret.= Tr(th($_), td( [ @{$hash{$_}} ] ));
-    }
+#    foreach(sort keys %hash) {
+#	$ret.= Tr(th($_), td( [ @{$hash{$_}} ] ));
+#    }
+    $ret.= join( '', map { Tr(th($_), td( [ @{$hash{$_}} ])) } sort keys %hash );
     $ret.= "</table>";
     return $ret;
 }
 
 sub getOrari{
     my $xmldoc = shift;
-    my (@corsi, @orari_global, @orari, $i, %hash, @pr);
-    my $root = $xmldoc->getDocumentElement;
+    my (@orari_global, %hash, @pr);
     $xmldoc->documentElement->setNamespace("www.corsi.it", "c");
     @orari_global = $xmldoc->getElementsByTagName('corso');
-	$i=0;
-	for my $item(@orari_global){
-		@pr=();
-		push(@pr, &get($item, 'lun'));
-		push(@pr, &get($item, 'mar'));
-		push(@pr, &get($item, 'mer'));
-		push(@pr, &get($item, 'gio'));
-		push(@pr, &get($item, 'ven'));
-		push(@pr, &get($item, 'sab'));
-		push(@pr, &get($item, 'dom'));
-		my $na=&get($item, 'nome');
-		$hash{$na}=\@pr;
-	}
 
-	&printPR(%hash);
+    foreach(@orari_global){
+	@pr = ();
+	push(@pr, get($_, 'lun'));
+	push(@pr, get($_, 'mar'));
+	push(@pr, get($_, 'mer'));
+	push(@pr, get($_, 'gio'));
+	push(@pr, get($_, 'ven'));
+	push(@pr, get($_, 'sab'));
+	push(@pr, get($_, 'dom'));
+	$hash{get($_, 'nome')} = \@pr;
+    }
+    
+    printPR(%hash);
 }
  
 1;

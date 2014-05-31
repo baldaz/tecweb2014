@@ -52,7 +52,7 @@ given($page){
 
 	my @img = UTILS::getImg($xml);
 	my @loop_img = ();
-	
+	 
 	foreach(@img){
 	    my %row_data;
 	    $row_data{src} = $_;
