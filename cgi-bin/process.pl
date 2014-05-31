@@ -13,9 +13,7 @@ my %action = (
     );
 
 my $command = param('action') || 'null';
-while(my ($action, $function) = each %action){
-    $function->($action eq $command);
-}
+$action{$command}->();
 
 sub edit_prenotation {
     # prendi parametri per prenotazione

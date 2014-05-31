@@ -4,107 +4,89 @@ use strict;
 use warnings;
 use CGI;
 use CGI::Carp qw(fatalsToBrowser warningsToBrowser);
-use HTML::Template;
-use feature 'switch';
 use UTILS;
-use CGI::Session ('-ip-match');
 
-$ENV{HTML_TEMPLATE_ROOT} = "../public_html/templates";
-my $cgi=CGI->new();
+my $cgi = CGI->new();
+my $page = $cgi->param('page') || 'home';
+my $xml = UTILS::loadXml('../data/sezioni.xml');
+my $description = UTILS::getDesc($xml, $page);
+$description = Encode::encode('utf8', $description);
+my $is_logged = UTILS::is_logged;
 
-my $page=$cgi->param('page') || 'home';
-my $is_logged = 0;
-#my $session=CGI::Session->new($cgi);
-my $session = CGI::Session->load();
-if($session->param("~logged-in")){
-	$is_logged = 1;
+my %routes = (
+    'home'     => \&index,
+    'impianti' => \&impianti,
+    'contatti' => \&contatti,
+    'corsi'    => \&corsi,
+    );
+
+if( grep { $page eq $_} keys %routes){
+    $routes{$page}->();
 }
-#else{
-#	$is_logged=UTILS::login($session, $cgi);
-#}
-
-my $xml = UTILS::loadXml('../data/prenotazioni.xml');
-my $template;
-my @loop_news=UTILS::getNews($xml);
-	
-given($page){
-    when(/home/){
-	$template = HTML::Template->new(filename => 'index.tmpl');
-       	$xml = UTILS::loadXml('../data/sezioni.xml');
-	my $description = UTILS::getDesc($xml, 'home');
-	$description = Encode::encode('utf8', $description);
-	$template->param(page => 'home');
-	$template->param(path => 'Home');
-	$template->param(desc => $description);
-	$template->param(LOGIN => $is_logged);
-	$template->param(USER => 'Admin');
-    }
-    when(/impianti/){
-	$template = HTML::Template->new(filename => 'impianti.tmpl');
-
-	$xml = UTILS::loadXml('../data/impianti.xml');
-  	           # estraggo il numero di campi
-	my $n_calcetto = UTILS::getFields($xml, 'Calcetto');
-	my $n_calciotto = UTILS::getFields($xml, 'Calciotto');
-	my $n_tennis = UTILS::getFields($xml, 'Tennis');
-	my $n_pallavolo = UTILS::getFields($xml, 'Pallavolo');
-	my $n_bvolley = UTILS::getFields($xml, 'Beach Volley');
-
-	my @img = UTILS::getImg($xml);
-	my @loop_img = ();
-	 
-	foreach(@img){
-	    my %row_data;
-	    $row_data{src} = $_;
-	    push(@loop_img, \%row_data);
-	}
-	$template->param(page => 'impianti');
-	$template->param(path => 'Impianti');
-	$template->param(imm_campi => \@loop_img);
-	$template->param(n_calcetto => $n_calcetto);
-	$template->param(n_calciotto => $n_calciotto);
-	$template->param(n_tennis => $n_tennis);
-	$template->param(n_pallavolo => $n_pallavolo);
-	$template->param(n_bvolley => $n_bvolley);
-	$template->param(LOGIN => $is_logged);
-	$template->param(USER => 'Admin');
-    }
-    when(/contatti/){
-	$template = HTML::Template->new(filename=>'contatti.tmpl');
-	$template->param(page => 'contatti');
-	$template->param(path => 'Contatti');
-	$template->param(LOGIN => $is_logged);
-	$template->param(USER => 'Admin');
-    }
-    when(/corsi/){
-	$template = HTML::Template->new(filename=>'corsi.tmpl');
-	my $xml = UTILS::loadXml('../data/corsi.xml');
-	my $tbl_corsi = UTILS::getOrari($xml);
-	my $table = UTILS::getPrezziCorsi($xml);
-	$table = Encode::encode('utf8', $table); # boh, senza encoding sfasa l'UTF-8 del template, BUG
-	$template->param(page => 'corsi');
-	$template->param(path => 'Corsi');
-	$template->param(tbl => $table);
-	$template->param(tbl_corsi => $tbl_corsi);
-	$template->param(LOGIN => $is_logged);
-	$template->param(USER => 'Admin');
-    }
-    when(/login/){
-#	$template=HTML::Template->new(filename=>'login.tmpl');
-#	$template->param(footer=>UTILS::footer);
-	$template = HTML::Template->new(filename => 'index.tmpl');
-    }
-    default{
-#	$template=HTML::Template->new(filename=>'home.tmpl');
-#	$xml=UTILS::loadXml('../data/sezioni.xml');
-#	my $description=UTILS::getDesc($xml, 'home');
-#	$description=Encode::encode('utf8', $description);
-#	$template->param(desc=>$description);
-	print $cgi->redirect('load.cgi?page=home');
-    }
+else {
+    $description = UTILS::getDesc($xml, 'home');
+    $routes{'home'}->();
 }
-    
-$template->param(NEWS => \@loop_news);
-HTML::Template->config(utf8 => 1);
 
-print "Content-Type: text/html\n\n", $template->output;
+sub index {
+    my %params = (
+	page  => 'home',
+	path  => 'Home',
+	desc  => $description,
+	LOGIN => $is_logged,
+	USER  => 'Admin'
+	);
+
+    UTILS::dispatcher('index', %params);
+}
+
+sub impianti {
+    my @discipline = ('Calcetto', 'Calciotto', 'Tennis', 'Pallavolo', 'Beach Volley');
+    my $xml_imp = UTILS::loadXml('../data/impianti.xml');
+    # estraggo il numero di campi
+    my @d_param = map { UTILS::getFields($xml_imp, $_) } @discipline;
+    my @img = UTILS::getImg($xml_imp);
+    my @loop_img = ();
+
+    push @loop_img, {src => $_} foreach(@img); # push hash anonimi per generazione immagini
+
+    my %params = (
+	page        => 'impianti',
+	path        => 'Impianti',
+	imm_campi   => \@loop_img,
+	n_calcetto  => $d_param[0],
+	n_calciotto => $d_param[1],
+	n_tennis    => $d_param[2],
+	n_pallavolo => $d_param[3],
+	n_bvolley   => $d_param[4],
+	LOGIN       => $is_logged,
+	USER        => 'Admin'
+	);
+    UTILS::dispatcher('impianti', %params);
+}
+
+sub corsi {
+    my $xml_corsi = UTILS::loadXml('../data/corsi.xml');
+    my $tbl_corsi = UTILS::getOrari($xml_corsi);
+    my $table = UTILS::getPrezziCorsi($xml_corsi);
+    $table = Encode::encode('utf8', $table); # boh, senza encoding sfasa l'UTF-8 del template, BUG
+    my %params = (
+	page      => 'corsi',
+	path      => 'Corsi',
+	tbl       => $table,  
+	tbl_corsi => $tbl_corsi,
+	LOGIN     => $is_logged,
+	USER      => 'Admin'
+	);
+    UTILS::dispatcher('corsi', %params);
+}
+
+sub contatti {
+    my %params = (
+	page  => 'contatti',
+	path  => 'Contatti',
+	LOGIN => $is_logged,
+	USER  => 'Admin'
+	);
+    UTILS::dispatcher('contatti', %params);
+}

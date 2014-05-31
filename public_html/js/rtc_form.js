@@ -17,18 +17,18 @@ $(".p_field").change(function(){
     else{ disciplina=$("#disciplina").val();}
     date=$("#data").val();
 	
-    if(date.length == ''){
+    if(date.length == '' || date.length == 0){
 	var d=new Date();
-	date=d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate();
+//	date=d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate(); //funziona di merda, sbaglia il mese
     }
 
-    //	alert(disciplina+" e "+date);
+//    	alert(disciplina+" e "+date);
     $.ajax({
 	type: "GET",
 	url: "vbooked.pl",
 	data: "disciplina=" + disciplina + "&data=" + date,
-	error: function() { 
-	    alert("script call was not successful");
+	error: function(request) { 
+	    alert(request.responseText);
         }, 
 	success: function(perl_data){
 	    $("#tables").html(perl_data);

@@ -10,8 +10,10 @@ use CGI::Carp qw(warningsToBrowser fatalsToBrowser);
 use CGI::Session ('-ip-match');
 use DateTime;
 use Date::Parse;
-use feature 'switch';
+use HTML::Template;
 use Encode;
+
+$ENV{HTML_TEMPLATE_ROOT} = "../public_html/templates";
 
 sub init {
     my ($session, $cgi, $profiles_xml) = @_;
@@ -130,7 +132,7 @@ sub _today {
 }
 
 sub getNews {
-    my $xml = shift;
+    my $xml = UTILS::loadXml('../data/prenotazioni.xml');
     my ($news_title, $news_content) = loadNews($xml);     # genero le news da xml
     my @loop_news = ();
 
@@ -211,7 +213,7 @@ sub getWeek {
     
     $dt_loop->subtract(days => 3); #sottraggo 3 giorni
     $dt_tmp->add(days => 3); # add aumenta 3 giorni
-
+    
     while($dt_loop <= $dt_tmp){
 #	foreach(@dates){
 #	    if(str2time($_) == str2time($dt_loop)){
@@ -327,6 +329,7 @@ sub getPrezziCorsi{
 	push(@pr, get($_, 'annuale'));
 	$hash{get($_, 'nome')} = \@pr;
     }
+    
     return printPR2(%hash);
 }
 
@@ -461,5 +464,27 @@ sub getOrari{
     
     printPR(%hash);
 }
- 
+
+sub dispatcher {
+    my $route = shift;
+    my %params = @_;
+    my $template = HTML::Template->new(filename => $route.".tmpl");
+    foreach(keys %params){
+	$template->param($_ => $params{$_});
+    }	
+    my @loop_news = getNews;
+    $template->param(NEWS => \@loop_news);
+    HTML::Template->config(utf8 => 1);
+    print "Content-Type: text/html\n\n", $template->output;
+}
+
+sub is_logged {
+    my $session = CGI::Session->load();
+    if($session->param("~logged-in")){
+	return 1;
+    }
+
+    return;
+}
+
 1;
