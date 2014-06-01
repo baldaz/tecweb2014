@@ -30,6 +30,7 @@ else {
 
 sub index {
     my %params = (
+	title => 'Centro sportivo',
 	page  => 'home',
 	path  => 'Home',
 	desc  => $description,
@@ -51,6 +52,7 @@ sub impianti {
     push @loop_img, {src => $_} foreach(@img); # push hash anonimi per generazione immagini
 
     my %params = (
+	title => 'Centro sportivo - Impianti',
 	page        => 'impianti',
 	path        => 'Impianti',
 	imm_campi   => \@loop_img,
@@ -71,6 +73,7 @@ sub corsi {
     my $table = UTILS::getPrezziCorsi($xml_corsi);
     $table = Encode::encode('utf8', $table); # boh, senza encoding sfasa l'UTF-8 del template, BUG
     my %params = (
+	title => 'Centro sportivo - Corsi',
 	page      => 'corsi',
 	path      => 'Corsi',
 	tbl       => $table,  
@@ -83,6 +86,7 @@ sub corsi {
 
 sub contatti {
     my %params = (
+	title => 'Centro sportivo - Contatti',
 	page  => 'contatti',
 	path  => 'Contatti',
 	LOGIN => $is_logged,

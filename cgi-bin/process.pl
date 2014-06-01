@@ -5,6 +5,19 @@ use warnings;
 use CGI qw /:standard/;
 use UTILS::Admin;
 
+my %input;
+read(STDIN, my $buffer, $ENV{'CONTENT_LENGTH'});
+my @pairs = split(/&/, $buffer);
+foreach my $pair (@pairs){
+    my ($name, $value) = split(/=/, $pair);
+    $value =~ tr/+/ /;
+    $value =~ s/%([a-fA-F0-9][a-fA-F0-9])/pack("C", hex($1))/eg; 
+    $value =~ s/@/"\/@"/eg;
+    $name =~ tr/+/ /; 
+    $name =~ s/%([a-fA-F0-9][a-fA-F0-9])/pack("C",hex($1))/eg; 
+    $input{$name} = $value;
+}
+
 my %action = (
     'edit_p'     => \&edit_prenotation,
     'edit_n'     => \&edit_news,
@@ -12,8 +25,7 @@ my %action = (
     'clear_logs' => \&clear_logs
     );
 
-my $command = param('action') || 'null';
-$action{$command}->();
+$action{$input{'formfor'}}->();
 
 sub edit_prenotation {
     # prendi parametri per prenotazione

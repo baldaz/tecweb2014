@@ -53,27 +53,6 @@ sub load_profile {
     return undef;
 }
 
-sub footer {
-    my $ret;
-    $ret=div({id => 'footer'},
-	     "\n\t",
-	     p("\n\t",
-	       span({lang=>"en"}, 'Copyright'), '© 2014 CiccipanzeSulWeb',
-	       "\n\t",
-	       a({href=>"http://validator.w3.org/check?uri=referer"},
-		 "\n\t\t",
-		 img({-src=>"http://www.w3.org/Icons/valid-xhtml10", -alt=>"Valid XHTML 1.0 Strict",
-		      -height=>"31", -width=>"88"}),
-		 "\n\t",
-	       ),
-	       "\n\t",
-	     ),
-	     "\n\t",
-	),
-    "\n\t";
-    return $ret;
-}
-
 # loader xml globale
 
 sub loadXml {
@@ -106,11 +85,7 @@ sub check_tel {
 
 sub toText {
     my (@data) = @_;
-    my @ret;
-#    for(@data){
-#	push(@ret ,$_->textContent);
- #   }
-    @ret = map { $_->textContent } @data;
+    my @ret = map { $_->textContent } @data;
     return @ret;
 }
 
@@ -173,23 +148,8 @@ sub getDesc {
     $xml->documentElement->setNamespace("www.sezioni.it","s");
     my @ret_desc = $xml->findnodes("//s:sezione[\@nome='$nome']/s:contenuto");
     @ret_desc = toText(@ret_desc);
-    my $ret_descr;
-#    foreach(@ret_desc){
-#	$ret_descr.=$_;
-#    }
-#    return $ret_descr;
-    $ret_descr.= join( '', map { $_ } @ret_desc );
+    my $ret_descr.= join( '', map { $_ } @ret_desc );
 }
-
-#################################################
-#                     #                         #
-# TESTING SUBROUTINES # JUST FOR HTML::TEMPLATE #
-#                     #                         #
-#################################################
-#                                               #
-#            SO GOOD FOR 2 BUCKS!               #
-#                                               #
-#################################################
 
 sub getWeek {
     my ($xmldoc, $discipline, $campo, $p_date) = @_;
@@ -215,19 +175,14 @@ sub getWeek {
     $dt_tmp->add(days => 3); # add aumenta 3 giorni
     
     while($dt_loop <= $dt_tmp){
-#	foreach(@dates){
-#	    if(str2time($_) == str2time($dt_loop)){
-#		push(@ret_date, $_);
-#	    }
-#	}
-	push(@ret_date, map { if (str2time($_) == str2time($dt_loop)){ $_ } } @dates);
+	push(@ret_date, grep { str2time($_) == str2time($dt_loop) } @dates);
 	$dt_loop->add(days => 1);
     }
 
     my %seen;
     $seen{$_}++ for @ret_date;
     @ret_date = keys %seen;	#trova le chiavi uniche nell'array
-
+#    @ret_date = grep { ++$seen{$_} < 2 } @ret_date;
     my @hash = ();
     my @time = ();
 

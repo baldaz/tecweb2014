@@ -8,5 +8,11 @@
   </div>
   <div id="content">
     <p>tabella logs qui</p>
+    <form action="add_news.pl" method="post">
+      <input type="text" id="primo" name="primo">
+      <input type="text" id="secondo" name="secondo">
+      <input type="hidden" id="formfor" name="formfor" value="news">
+      <input type="submit" id="submit">
+    </form>
   </div>
 <tmpl_include name = "footer.tmpl">

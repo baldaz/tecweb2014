@@ -53,6 +53,10 @@ sub load_profile {
     return undef;
 }
 
+sub add_resource {
+    my ($self, %stash) = @_;
+}
+
 sub loadXml{
     my ($self, $path) = @_;
     my $ret = XML::LibXML->load_xml(location => $path);
