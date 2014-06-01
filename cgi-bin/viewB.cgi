@@ -2,7 +2,6 @@
 
 use strict;
 use warnings;
-use HTML::Template;
 use CGI;
 use CGI::Carp qw(fatalsToBrowser warningsToBrowser);
 use UTILS;
