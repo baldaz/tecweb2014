@@ -1,35 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<newsdata xmlns="www.news.it" xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance" xmlns:n="www.news.it">
-  
+<n:newsdata xmlns="www.news.it" xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance" xmlns:n="www.news.it">
   <news>
     <new>
-      <titolo/>
-      <data/>
-      <contenuto/>
+      <titolo></titolo>
+      <data></data>
+      <contenuto></contenuto>
     </new>
-  
-     <new>
-       <titolo/>
-       <data/>
-       <contenuto/>
-     </new>
-
-     <new>
-       <titolo/>
-       <data/>
-       <contenuto/>
-     </new>
-
-     <new>
-       <titolo/>
-       <data/>
-       <contenuto/>
-     </new>
-
-     <new>
-       <titolo/>
-       <data/>
-       <contenuto/>
-     </new>
-</news>
-</newsdata>
+  </news>
+</n:newsdata>

@@ -8,16 +8,21 @@ use UTILS;
 
 my $cgi = CGI->new();
 my $page = $cgi->param('page') || 'home';
+my $disciplina = $cgi->param('disciplina');
+my $today = UTILS::_today;
+my $data = $cgi->param('data') || $today;
+$data = $today if $data eq '';
 my $xml = UTILS::loadXml('../data/sezioni.xml');
 my $description = UTILS::getDesc($xml, $page);
 $description = Encode::encode('utf8', $description);
 my $is_logged = UTILS::is_logged;
 
 my %routes = (
-    'home'     => \&index,
-    'impianti' => \&impianti,
-    'contatti' => \&contatti,
-    'corsi'    => \&corsi,
+    'home'         => \&index,
+    'impianti'     => \&impianti,
+    'contatti'     => \&contatti,
+    'corsi'        => \&corsi,
+    'prenotazioni' => \&prenotazioni
     );
 
 if( grep { $page eq $_} keys %routes){
@@ -93,4 +98,31 @@ sub contatti {
 	USER  => 'Admin'
 	);
     UTILS::dispatcher('contatti', %params);
+}
+
+sub prenotazioni {
+    my $xml = UTILS::loadXml('../data/prenotazioni.xml');
+    my $xml_campi = UTILS::loadXml('../data/impianti.xml');
+
+    my @discipline = ('Calcetto', 'Calciotto', 'Pallavolo', 'Beach Volley', 'Tennis'); 
+
+    $disciplina = $discipline[0] unless grep { $_ eq $disciplina } @discipline; # sanity check
+    
+    my $nr_campi = UTILS::getFields($xml_campi, $disciplina);
+    $nr_campi = 2 if not defined $nr_campi;
+    my $table;
+    for(1..$nr_campi){
+	$table.= UTILS::getWeek($xml, $disciplina, $_, $data);
+    }
+
+    my %params = (
+	title => 'Centro sportivo - Prenotazioni',
+	page  => 'prenotazioni',
+	path  => 'Prenotazioni',
+	LOGIN => $is_logged,
+	USER  => 'Admin',
+	TABLE => $table
+    );
+
+UTILS::dispatcher('prenotazioni', %params);
 }

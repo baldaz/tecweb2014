@@ -5,6 +5,7 @@ use warnings;
 use CGI qw /:standard/;
 use UTILS::Admin;
 
+my $admin = UTILS::Admin->new;
 my %input;
 read(STDIN, my $buffer, $ENV{'CONTENT_LENGTH'});
 my @pairs = split(/&/, $buffer);
@@ -19,26 +20,13 @@ foreach my $pair (@pairs){
 }
 
 my %action = (
-    'edit_p'     => \&edit_prenotation,
-    'edit_n'     => \&edit_news,
-    'update'     => \&update,
-    'clear_logs' => \&clear_logs
+    'add_p'      => 'prenotazioni:prenotazione:add',
+    'add_n'      => 'news:new:add',
+    'edit_p'     => 'prenotazioni:prenotazione:edit',
+    'edit_n'     => 'news:new:edit',
+    'update'     => 'update:update:edit',
+    'clear_logs' => 'logs:log:delete'
     );
 
-$action{$input{'formfor'}}->();
-
-sub edit_prenotation {
-    # prendi parametri per prenotazione
-}
-
-sub edit_news {
-    # prendi parametri per news
-}
-
-sub update {
-    # prendi parametri per tabelle corsi
-}
-
-sub clear_logs {
-    # cancella i log
-}
+$input{'namespace'} = $action{$input{'formfor'}};
+$admin->add_resource(%input);

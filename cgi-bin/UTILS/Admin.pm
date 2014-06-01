@@ -54,7 +54,29 @@ sub load_profile {
 }
 
 sub add_resource {
-    my ($self, %stash) = @_;
+    my $self = shift;
+    my %stash = @_;
+    my $ret;
+    my ($suffix, $element, $action) = split (/:/, $stash{'namespace'});
+    my $path = get_path($suffix);
+    my $parser = XML::LibXML->new();
+    my $xml = $parser->parse_file($path);
+#    $xml->documentElement->setNamespace("www.$suffix.it","n");
+    delete $stash{'namespace'};
+    delete $stash{'formfor'};
+    $ret = "\t<$element>";
+    $ret.= "\n\t\t<$_>$stash{$_}</$_>" foreach keys %stash;
+    $ret.= "\n\t</$element>\n";
+    my $token = $xml->getElementsByTagName($suffix)->[0];
+    my $chunk = $parser->parse_balanced_chunk($ret);
+    $token->appendChild($chunk);
+    open(OUT, ">$path") || die "error $!";
+    print OUT $xml->toString; 
+    close OUT;
+}
+
+sub get_path {			# da spostare su UTILS, e fare inheritance
+    return "../data/".shift.".xml";
 }
 
 sub loadXml{
