@@ -124,7 +124,7 @@ sub getNews {
 
 sub getFields {
     my ($self, $disciplina) = @_;
-    my $xml = $self->load_xml;
+    my $xml = $self->load_xml('../data/impianti.xml');
     $xml->documentElement->setNamespace("www.impianti.it","i");
     my @ret_n = $xml->findnodes("//i:impianto[i:disciplina='$disciplina']/i:campi");
     @ret_n = $self->$text(@ret_n);
@@ -135,7 +135,7 @@ sub getFields {
 
 sub getImg {
     my $self = shift;
-    my $xml = $self->load_xml('..data/impianti.xml');
+    my $xml = $self->load_xml('../data/impianti.xml');
     $xml->documentElement->setNamespace("www.impianti.it","i");
     my @ret_img = $xml->findnodes("//i:impianto/i:src");
     return $self->$text(@ret_img);
@@ -259,7 +259,7 @@ $ret.='	      	  <th>'.$b_name->day_name().' '.$builder->day().'</th>';
 
 sub getPrezziCorsi{
     my $self = shift;
-    my $xmldoc = $self->load_xml('..data/corsi.xml');
+    my $xmldoc = $self->load_xml('../data/corsi.xml');
     my (@corsi_global, %hash, @pr);
     $xmldoc->documentElement->setNamespace("www.corsi.it", "c");
     @corsi_global = $xmldoc->getElementsByTagName('corso');

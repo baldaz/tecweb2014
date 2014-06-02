@@ -2,8 +2,6 @@
 
 use strict;
 use warnings;
-use CGI;
-use CGI::Session qw(-ip-match);
 use UTILS::Admin;
 
 my $admin = UTILS::Admin->new;

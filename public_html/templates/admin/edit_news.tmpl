@@ -1,0 +1,24 @@
+<tmpl_include name = "header.tmpl">
+  <div id="nav">
+    <ul>
+      <li><button><a href="admin.cgi?screen=edit_prenotation">Prenotazioni</a></button></li>
+      <li><button><a href="admin.cgi?screen=edit_news">News</a></button></li>
+      <li><button><a href="admin.cgi?screen=edit_courses">Corsi</a></button></li>
+    </ul>
+  </div>
+  <div id="content">
+    <form action="process.pl" method="post">
+      <fieldset>
+	<legend>Aggiungi notizia / modifica esistente</legend>
+	<label for="titolo">Titolo:</label>
+	<input type="text" id="titolo" name="titolo" />
+	<label for="data">Data:</label>
+	<input type="text" id="data" name="data" />
+	<label for="contenuto">Contenuto:</label>
+	<input type="text" id="contenuto" name="contenuto" />
+	<input type="hidden" id="formfor" name="formfor" value="add_n" />
+	<input type="submit" id="submit" value="submit">
+      </fieldset>
+    </form> 
+  </div>
+<tmpl_include name = "footer.tmpl"> 

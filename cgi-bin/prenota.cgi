@@ -2,12 +2,7 @@
 
 use strict;
 use warnings;
-use HTML::Template;
-use XML::LibXML;
-use CGI qw(:standard);
-use CGI::Carp qw(fatalsToBrowser warningsToBrowser);
 use UTILS;
-use CGI::Session ('-ip_match');
 
 $ENV{HTML_TEMPLATE_ROOT} = "../public_html/templates";
 my $page = CGI->new();

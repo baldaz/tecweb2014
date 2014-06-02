@@ -2,8 +2,6 @@
 
 use strict;
 use warnings;
-use CGI;
-use CGI::Carp qw(fatalsToBrowser warningsToBrowser);
 use UTILS;
 
 my $cgi = CGI->new();
@@ -13,8 +11,7 @@ my $disciplina = $cgi->param('disciplina');
 my $today = $utils->_today;
 my $data = $cgi->param('data') || $today;
 $data = $today if $data eq '';
-my $description = $utils->getDesc($page);
-$description = Encode::encode('utf8', $description);
+my $description = Encode::encode('utf8', $utils->getDesc($page));
 my $is_logged = $utils->is_logged;
 
 my %routes = (
@@ -22,14 +19,15 @@ my %routes = (
     'impianti'     => \&impianti,
     'contatti'     => \&contatti,
     'corsi'        => \&corsi,
-    'prenotazioni' => \&prenotazioni
+    'prenotazioni' => \&prenotazioni,
+    'registrazione' => \&registrazione
     );
 
 if( grep { $page eq $_} keys %routes){
     $routes{$page}->();
 }
 else {
-    $description = $utils->getDesc('home');
+    $description = Encode::encode('utf8', $utils->getDesc('home'));
     $routes{'home'}->();
 }
 
@@ -120,5 +118,15 @@ sub prenotazioni {
 	TABLE => $table
     );
 
-$utils->dispatcher('prenotazioni', %params);
+    $utils->dispatcher('prenotazioni', %params);
+}
+
+sub registrazione {
+    my %params = (
+	title => 'Centro sportivo - Registrazione',
+	page  => 'registrazione',
+	path  => 'Registrazione',
+	LOGIN => 0
+	);
+    $utils->dispatcher('registrazione', %params);
 }
