@@ -10,7 +10,7 @@ my $utils = UTILS->new();
 my $session = CGI::Session->load() or die "ciao";
 
 unless ($session->param("~logged-in")){
-    print header(-type => 'text/html', -location => 'login.cgi');
+    print $session->header(-type => 'text/html', -location => 'login.cgi');
 }
 my $is_logged = 1;
 my $template = HTML::Template->new(filename=>'prenota.tmpl');

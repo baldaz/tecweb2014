@@ -282,17 +282,11 @@ sub printPR2{
     my $self = shift;
     my (%hash) = @_;
     my $ret;
-    $ret = table({id => 'corsi_tbl' , summary => ''});
-    $ret.= caption(h5('Abbonamenti'));
-    $ret.= thead(Tr(th [qw(Corso Mensile Trimestrale Semestrale Annuale)]));
+    $ret = caption(h5('Abbonamenti'));
+    $ret.= thead(Tr(th({scope => 'col'}, [qw(Corso Mensile Trimestrale Semestrale Annuale)])));
     $ret.= tfoot();
-    $ret.= "<tbody>";
-#    foreach(keys %hash) {
-#	$ret.= Tr(td($_), td( [ @{$hash{$_}} ] ));
-#    }
-    $ret.= join('', map { Tr(td($_), td( [ @{$hash{$_}} ])) } keys %hash);
-    $ret.= "</tbody>";
-    $ret.= "</table>";
+    $ret.= tbody(join('', map { Tr({scope => 'row'}, td($_), td( [ @{$hash{$_}} ])) } keys %hash));
+    $ret = table({id => 'corsi_tbl' , summary => ''}, $ret);
     return $ret;
 }
 
@@ -378,14 +372,11 @@ sub printPR{
     my $self = shift;
     my %hash = @_;
     my $ret;
-    $ret = table({id => 'prenotazioni_tbl' , summary => ''});
-    $ret.= caption(h5('Corsi prova'));
-    $ret.= Tr(th [qw(Corso Lunedì Martedì Mercoledì Giovedì Venerdì Sabato Domenica)]);
-#    foreach(sort keys %hash) {
-#	$ret.= Tr(th($_), td( [ @{$hash{$_}} ] ));
-#    }
-    $ret.= join( '', map { Tr(th($_), td( [ @{$hash{$_}} ])) } sort keys %hash );
-    $ret.= "</table>";
+    $ret = caption(h5('Corsi prova'));
+    $ret.= thead(Tr(th({scope => 'col'}, [qw(Corso Lunedì Martedì Mercoledì Giovedì Venerdì Sabato Domenica)])));
+    $ret.= tfoot();
+    $ret.= tbody(join( '', map { Tr(th({scope => 'row'},$_), td( [ @{$hash{$_}} ])) } sort keys %hash ));
+    $ret = table({id => 'prenotazioni_tbl' , summary => ''}, $ret);
     return $ret;
 }
 

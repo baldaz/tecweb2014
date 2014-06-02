@@ -104,7 +104,7 @@ sub prenotazioni {
     
     my $nr_campi = $utils->getFields($disciplina);
     $nr_campi = 2 if not defined $nr_campi;
-    my $table;
+    my $table = "<h3>Tabelle prenotazione:</h3>";
     for(1..$nr_campi){
 	$table.= $utils->getWeek($disciplina, $_, $data);
     }
