@@ -5,9 +5,9 @@ package UTILS;
 use strict;
 use warnings;
 use XML::LibXML;
-use CGI qw(:standard);
-use CGI::Carp qw(warningsToBrowser fatalsToBrowser);
-use CGI::Session ('-ip-match');
+use CGI qw/:standard/;
+use CGI::Carp qw/warningsToBrowser fatalsToBrowser/;
+use CGI::Session qw/-ip-match/;
 use DateTime;
 use Date::Parse;
 use HTML::Template;
@@ -15,57 +15,52 @@ use Encode;
 
 $ENV{HTML_TEMPLATE_ROOT} = "../public_html/templates";
 
-sub init {
-    my ($session, $cgi, $profiles_xml) = @_;
-    if ( $session->param("~logged-in") ) {
-	$session->expire(120);
-	return 1;  # se già loggato posso uscire
-    }
-    
-    my $user = $cgi->param("username") or return;
-    my $passwd=$cgi->param("passwd") or return;
-    
-    if (my $profile=load_profile($user, $passwd, $profiles_xml)){
-	$session->param("~profile", $profile);
-	$session->param("~logged-in", 1);
-	$session->clear(["~login-trials"]);
-	$session->expire(120);
-	return 1;
-    }
+# ausiliarie
 
-    # a questo punto le credenziali sono errate
+my $get = sub {
+    my $self = shift;
+    my ($node, $name) = @_;
 
-    my $trials = $session->param("~login-trials") || 0;
-    return $session->param("~login-trials", ++$trials);
+    my $value = "(Element $name not found)";
+    my @targets = $node->getElementsByTagName($name);
+    
+    if (@targets) {
+	my $target = $targets[0];
+	$value = $target->textContent;
+    }
+    return $value;
+};
+
+my $text = sub {
+    my $self = shift;
+    my (@data) = @_;
+    my @ret = map { $_->textContent } @data;
+    return @ret;
+};
+
+sub new {
+    my $class = shift;
+    my $self = bless {
+	xml_path => shift || '../data/prenotazioni.xml'
+    }, $class;
+    return $self;
 }
 
-sub load_profile {
-    my ($user, $passwd, $profiles_xml) = @_;
-    my $root=$profiles_xml->getDocumentElement;
-    $profiles_xml->documentElement->setNamespace("www.profili.it", "p");
-				# controllo se esiste un match (profilo esistente) 
-    my $ret=$root->exists("//p:profilo[p:username='$user' and p:password='$passwd']");
-    if($ret){
-	my $p_mask="x".length($passwd);
-	return {username=>$user, password=>$p_mask};
+sub load_xml {
+    my $self = shift;
+    if(@_){
+	$self->{xml_path} = shift;
     }
-    
-    return undef;
-}
-
-# loader xml globale
-
-sub loadXml {
-    my $path = shift;
-    my $ret = XML::LibXML->load_xml(location => $path);
+    return XML::LibXML->load_xml(location => $self->{xml_path});
 }
 
 # controllo prenotazione su file xml
 
 sub checkform {
-    my($xmldoc, $disciplina, $campo, $data, $ora) = @_;
-    my $root = $xmldoc->getDocumentElement;
-    $xmldoc->documentElement->setNamespace("www.prenotazioni.it", "p");
+    my($self, $disciplina, $campo, $data, $ora) = @_;
+    $self->load_xml('../data/prenotazioni.xml');
+    my $root = $self->load_xml->getDocumentElement;
+    $self->load_xml->documentElement->setNamespace("www.prenotazioni.it", "p");
     #controllo se esiste un match (prenotazione gia' presa)
     my $ret = $root->exists("//p:prenotante[p:disciplina='$disciplina' and p:data='$data' and p:ora='$ora' and p:campo='$campo']/p:nome");
     return $ret;
@@ -74,11 +69,11 @@ sub checkform {
 # controllo numero telefonico
 
 sub check_tel {
-    my $number = shift;
+    my ($self, $number) = @_;
     if($number = ~/^(\d)+$/){
 	return 0;
     }
-    else{ return 1;}
+    else{ return 1; }
 }
 
 # estrae il contenuto di un nodo, analogo a text(), ma piu utile nei casi di html e CDATA nel file XML
@@ -92,23 +87,26 @@ sub toText {
 # estrae le news dal file xml
 
 sub loadNews {
-    my $xml = shift;
+    my $self = shift;
+    my $xml = $self->load_xml;
     $xml->documentElement->setNamespace("www.prenotazioni.it","p");
     my @titles = $xml->findnodes("//p:new/p:titolo");
-    @titles = toText(@titles);
+    @titles = $self->$text(@titles);
     my @contents = $xml->findnodes("//p:new/p:contenuto");
-    @contents = toText(@contents);
+    @contents = $self->$text(@contents);
     return (\@titles, \@contents);
 }
 
 sub _today {
+    my $self = shift;
     my $dt = DateTime->today->ymd("-");
     return $dt;
 }
 
 sub getNews {
-    my $xml = UTILS::loadXml('../data/prenotazioni.xml');
-    my ($news_title, $news_content) = loadNews($xml);     # genero le news da xml
+    my $self = shift;
+    my $xml = $self->load_xml('../data/prenotazioni.xml');
+    my ($news_title, $news_content) = $self->loadNews($xml);     # genero le news da xml
     my @loop_news = ();
 
 # scorro i risultati dell'estrazione e li inserisco in un hash
@@ -125,39 +123,43 @@ sub getNews {
 # estrae il numero di campi di una data disciplina dal file xml
 
 sub getFields {
-    my ($xml, $disciplina) = @_;
+    my ($self, $disciplina) = @_;
+    my $xml = $self->load_xml;
     $xml->documentElement->setNamespace("www.impianti.it","i");
     my @ret_n = $xml->findnodes("//i:impianto[i:disciplina='$disciplina']/i:campi");
-    @ret_n = toText(@ret_n);
+    @ret_n = $self->$text(@ret_n);
     return $ret_n[0];
 }
 
 # estrae il perscorsi delle immagini degli impianti dal file xml
 
 sub getImg {
-    my $xml = shift;
+    my $self = shift;
+    my $xml = $self->load_xml('..data/impianti.xml');
     $xml->documentElement->setNamespace("www.impianti.it","i");
     my @ret_img = $xml->findnodes("//i:impianto/i:src");
-    return toText(@ret_img);
+    return $self->$text(@ret_img);
 }
 
 # estrae la descrizione di una data sezione dal file xml
  
 sub getDesc {
-    my ($xml, $nome) = @_;
+    my ($self, $nome) = @_;
+    my $xml = $self->load_xml('../data/sezioni.xml');
     $xml->documentElement->setNamespace("www.sezioni.it","s");
     my @ret_desc = $xml->findnodes("//s:sezione[\@nome='$nome']/s:contenuto");
-    @ret_desc = toText(@ret_desc);
+    @ret_desc = $self->$text(@ret_desc);
     my $ret_descr.= join( '', map { $_ } @ret_desc );
 }
 
 sub getWeek {
-    my ($xmldoc, $discipline, $campo, $p_date) = @_;
+    my ($self, $discipline, $campo, $p_date) = @_;
+    my $xmldoc = $self->load_xml('../data/prenotazioni.xml');
     my $root = $xmldoc->getDocumentElement;
     $xmldoc->documentElement->setNamespace("www.prenotazioni.it", "p");
     my @dates = $root->findnodes("//p:prenotante[p:disciplina='".$discipline."' and p:campo='".$campo."']/p:data");
 
-    @dates = toText(@dates);
+    @dates = $self->$text(@dates);
 
     my @split_pdate = split('-', $p_date);
 
@@ -189,15 +191,15 @@ sub getWeek {
     for my $i (0..$#ret_date){
 	@time = $root->findnodes("//p:prenotante[p:disciplina='".$discipline."' and p:campo='".$campo."' and p:data='".$ret_date[$i]."']/p:ora");
 	$hash[$i]{date} = $ret_date[$i];
-	@time = toText(@time);
+	@time = $self->$text(@time);
 	my $time_str = join(" - ", @time);
 	$hash[$i]{time} = $time_str;
     }			  
-    return printTable($dt, $campo, $discipline, @hash);
+    return $self->printTable($dt, $campo, $discipline, @hash);
 }
 
 sub printTable {
-    my ($p_day, $campo, $disciplina, @hash) = @_;
+    my ($self, $p_day, $campo, $disciplina, @hash) = @_;
     $p_day->subtract(days => 3);
     my $b_name = $p_day->clone();
     my $builder = $p_day->clone();
@@ -252,45 +254,32 @@ $ret.='	      	  <th>'.$b_name->day_name().' '.$builder->day().'</th>';
     return $ret;
 }
 
-# ausiliaria ottenere valore nodo
-
-sub get {
-  my ($node, $name) = @_;
-
-  my $value = "(Element $name not found)";
-  my @targets = $node->getElementsByTagName($name);
-
-  if (@targets) {
-    my $target = $targets[0];
-    $value = $target->textContent;
-  }
-  return $value;
-}
-
 # estrae i prezzi dei corsi dall' xml e li associa ad un array di hash
 # infine richiama la funzione di stampa
 
 sub getPrezziCorsi{
-    my $xmldoc = shift;
+    my $self = shift;
+    my $xmldoc = $self->load_xml('..data/corsi.xml');
     my (@corsi_global, %hash, @pr);
     $xmldoc->documentElement->setNamespace("www.corsi.it", "c");
     @corsi_global = $xmldoc->getElementsByTagName('corso');
     
     foreach(@corsi_global){
 	@pr = ();
-	push(@pr, get($_, 'mensile'));
-	push(@pr, get($_, 'trimestrale'));
-	push(@pr, get($_, 'semestrale'));
-	push(@pr, get($_, 'annuale'));
-	$hash{get($_, 'nome')} = \@pr;
+	push(@pr, $self->$get($_, 'mensile'));
+	push(@pr, $self->$get($_, 'trimestrale'));
+	push(@pr, $self->$get($_, 'semestrale'));
+	push(@pr, $self->$get($_, 'annuale'));
+	$hash{$self->$get($_, 'nome')} = \@pr;
     }
     
-    return printPR2(%hash);
+    return $self->printPR2(%hash);
 }
 
 # prova CGI table
 
 sub printPR2{
+    my $self = shift;
     my (%hash) = @_;
     my $ret;
     $ret = table({id => 'corsi_tbl' , summary => ''});
@@ -310,8 +299,8 @@ sub printPR2{
 # funzione di stampa della tabella prezzi
 
 sub printTblPrezziCorsi{
-    my ($corsi, $prezzi) = @_;
-    my ($ret,$class);
+    my ($self, $corsi, $prezzi) = @_;
+    my ($ret, $class);
     $ret="<table id=\"corsi_tbl\" summary=\"\">
           <caption><h5>Abbonamenti</h5></caption>
 	    <thead>
@@ -348,7 +337,7 @@ sub printTblPrezziCorsi{
 # stampa tabelle corsi settimanali
 
 sub printTblCorsi{
-    my($corsi, $time)=@_;
+    my($self, $corsi, $time)=@_;
     my $ret;
     $ret="<table id=\"prenotazioni_tbl\" summary=\"\">
           <caption><h5>Corsi</h5></caption>
@@ -386,6 +375,7 @@ sub printTblCorsi{
 # piu corto, un solo hash, da rifare prezzicorsi
 
 sub printPR{
+    my $self = shift;
     my %hash = @_;
     my $ret;
     $ret = table({id => 'prenotazioni_tbl' , summary => ''});
@@ -400,45 +390,47 @@ sub printPR{
 }
 
 sub getOrari{
-    my $xmldoc = shift;
+    my $self = shift;
+    my $xmldoc = $self->load_xml('../data/corsi.xml');
     my (@orari_global, %hash, @pr);
     $xmldoc->documentElement->setNamespace("www.corsi.it", "c");
     @orari_global = $xmldoc->getElementsByTagName('corso');
 
     foreach(@orari_global){
 	@pr = ();
-	push(@pr, get($_, 'lun'));
-	push(@pr, get($_, 'mar'));
-	push(@pr, get($_, 'mer'));
-	push(@pr, get($_, 'gio'));
-	push(@pr, get($_, 'ven'));
-	push(@pr, get($_, 'sab'));
-	push(@pr, get($_, 'dom'));
-	$hash{get($_, 'nome')} = \@pr;
+	push(@pr, $self->$get($_, 'lun'));
+	push(@pr, $self->$get($_, 'mar'));
+	push(@pr, $self->$get($_, 'mer'));
+	push(@pr, $self->$get($_, 'gio'));
+	push(@pr, $self->$get($_, 'ven'));
+	push(@pr, $self->$get($_, 'sab'));
+	push(@pr, $self->$get($_, 'dom'));
+	$hash{$self->$get($_, 'nome')} = \@pr;
     }
     
-    printPR(%hash);
+    $self->printPR(%hash);
 }
 
 sub dispatcher {
+    my $self = shift;
     my $route = shift;
     my %params = @_;
     my $template = HTML::Template->new(filename => $route.".tmpl");
     foreach(keys %params){
 	$template->param($_ => $params{$_});
     }	
-    my @loop_news = getNews;
+    my @loop_news = $self->getNews;
     $template->param(NEWS => \@loop_news);
     HTML::Template->config(utf8 => 1);
     print "Content-Type: text/html\n\n", $template->output;
 }
 
 sub is_logged {
+    my $self = shift;
     my $session = CGI::Session->load();
     if($session->param("~logged-in")){
 	return 1;
     }
-
     return;
 }
 

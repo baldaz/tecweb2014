@@ -1,16 +1,14 @@
 #!/usr/bin/perl -w
 
 package UTILS::Admin;
-
-use strict;
-use warnings;
-use XML::LibXML;
-use CGI qw /:standard/;
-use CGI::Carp qw /warningsToBrowser fatalsToBrowser/;
-use CGI::Session qw /-ip-match/;
-use HTML::Template;
+use parent 'UTILS';
 
 $ENV{HTML_TEMPLATE_ROOT} = "../public_html/templates/admin";
+
+my $get_path = sub {		    # da spostare su UTILS, e fare inheritance
+    my $self = shift;
+    return "../data/".shift.".xml";
+};
 
 sub new { bless {}, shift }
 
@@ -40,7 +38,7 @@ sub init {
 
 sub load_profile {
     my ($self, $user, $passwd) = @_;
-    my $profiles_xml = $self->loadXml('../data/profili.xml');
+    my $profiles_xml = $self->load_xml('../data/profili.xml');
     my $root = $profiles_xml->getDocumentElement;
     $profiles_xml->documentElement->setNamespace("www.profili.it", "p");
 				# controllo se esiste un match (profilo esistente) 
@@ -58,7 +56,7 @@ sub add_resource {
     my %stash = @_;
     my $ret;
     my ($suffix, $element, $action) = split (/:/, $stash{'namespace'});
-    my $path = get_path($suffix);
+    my $path = $self->$get_path($suffix);
     my $parser = XML::LibXML->new();
     my $xml = $parser->parse_file($path);
 #    $xml->documentElement->setNamespace("www.$suffix.it","n");
@@ -73,15 +71,8 @@ sub add_resource {
     open(OUT, ">$path") || die "error $!";
     print OUT $xml->toString; 
     close OUT;
-}
-
-sub get_path {			# da spostare su UTILS, e fare inheritance
-    return "../data/".shift.".xml";
-}
-
-sub loadXml{
-    my ($self, $path) = @_;
-    my $ret = XML::LibXML->load_xml(location => $path);
+    print "Content-type: text/html\n\n";
+    print "Operazione riuscita.";
 }
 
 sub dispatch {

@@ -2,7 +2,6 @@
 
 use strict;
 use warnings;
-use CGI qw /:standard/;
 use UTILS::Admin;
 
 my $admin = UTILS::Admin->new;

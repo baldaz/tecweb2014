@@ -7,15 +7,15 @@ use CGI::Carp qw(fatalsToBrowser warningsToBrowser);
 use UTILS;
 
 my $cgi = CGI->new();
+my $utils = UTILS->new('../data/prenotazioni.xml');
 my $page = $cgi->param('page') || 'home';
 my $disciplina = $cgi->param('disciplina');
-my $today = UTILS::_today;
+my $today = $utils->_today;
 my $data = $cgi->param('data') || $today;
 $data = $today if $data eq '';
-my $xml = UTILS::loadXml('../data/sezioni.xml');
-my $description = UTILS::getDesc($xml, $page);
+my $description = $utils->getDesc($page);
 $description = Encode::encode('utf8', $description);
-my $is_logged = UTILS::is_logged;
+my $is_logged = $utils->is_logged;
 
 my %routes = (
     'home'         => \&index,
@@ -29,7 +29,7 @@ if( grep { $page eq $_} keys %routes){
     $routes{$page}->();
 }
 else {
-    $description = UTILS::getDesc($xml, 'home');
+    $description = $utils->getDesc('home');
     $routes{'home'}->();
 }
 
@@ -43,15 +43,14 @@ sub index {
 	USER  => 'Admin'
 	);
 
-    UTILS::dispatcher('index', %params);
+    $utils->dispatcher('index', %params);
 }
 
 sub impianti {
     my @discipline = ('Calcetto', 'Calciotto', 'Tennis', 'Pallavolo', 'Beach Volley');
-    my $xml_imp = UTILS::loadXml('../data/impianti.xml');
     # estraggo il numero di campi
-    my @d_param = map { UTILS::getFields($xml_imp, $_) } @discipline;
-    my @img = UTILS::getImg($xml_imp);
+    my @d_param = map { $utils->getFields($_) } @discipline;
+    my @img = $utils->getImg;
     my @loop_img = ();
 
     push @loop_img, {src => $_} foreach(@img); # push hash anonimi per generazione immagini
@@ -69,13 +68,12 @@ sub impianti {
 	LOGIN       => $is_logged,
 	USER        => 'Admin'
 	);
-    UTILS::dispatcher('impianti', %params);
+    $utils->dispatcher('impianti', %params);
 }
 
 sub corsi {
-    my $xml_corsi = UTILS::loadXml('../data/corsi.xml');
-    my $tbl_corsi = UTILS::getOrari($xml_corsi);
-    my $table = UTILS::getPrezziCorsi($xml_corsi);
+    my $tbl_corsi = $utils->getOrari;
+    my $table = $utils->getPrezziCorsi;
     $table = Encode::encode('utf8', $table); # boh, senza encoding sfasa l'UTF-8 del template, BUG
     my %params = (
 	title => 'Centro sportivo - Corsi',
@@ -86,7 +84,7 @@ sub corsi {
 	LOGIN     => $is_logged,
 	USER      => 'Admin'
 	);
-    UTILS::dispatcher('corsi', %params);
+    $utils->dispatcher('corsi', %params);
 }
 
 sub contatti {
@@ -97,22 +95,20 @@ sub contatti {
 	LOGIN => $is_logged,
 	USER  => 'Admin'
 	);
-    UTILS::dispatcher('contatti', %params);
+    $utils->dispatcher('contatti', %params);
 }
 
 sub prenotazioni {
-    my $xml = UTILS::loadXml('../data/prenotazioni.xml');
-    my $xml_campi = UTILS::loadXml('../data/impianti.xml');
 
     my @discipline = ('Calcetto', 'Calciotto', 'Pallavolo', 'Beach Volley', 'Tennis'); 
 
     $disciplina = $discipline[0] unless grep { $_ eq $disciplina } @discipline; # sanity check
     
-    my $nr_campi = UTILS::getFields($xml_campi, $disciplina);
+    my $nr_campi = $utils->getFields($disciplina);
     $nr_campi = 2 if not defined $nr_campi;
     my $table;
     for(1..$nr_campi){
-	$table.= UTILS::getWeek($xml, $disciplina, $_, $data);
+	$table.= $utils->getWeek($disciplina, $_, $data);
     }
 
     my %params = (
@@ -124,5 +120,5 @@ sub prenotazioni {
 	TABLE => $table
     );
 
-UTILS::dispatcher('prenotazioni', %params);
+$utils->dispatcher('prenotazioni', %params);
 }

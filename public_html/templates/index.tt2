@@ -1,3 +1,0 @@
-[% WRAPPER wrapper.tt2 %]
-<img src="../images/entrata_centro.jpg" alt="Entrata principale centro sportivo" width="70%"/>	
-[% END %]
