@@ -14,6 +14,4 @@ my $profile = $session->param("~profile");
 if($session->param("~logged-in")){
     print $session->header(-location => "admin.cgi");
 }
-else{
-    $admin->dispatch('login');
-}
+else{ $admin->dispatch('login'); }
