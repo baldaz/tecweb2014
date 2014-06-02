@@ -67,7 +67,7 @@ sub add_resource {
     $ret.= "\n\t</$element>\n";
     my $token = $xml->getElementsByTagName($suffix)->[0];
     my $chunk = $parser->parse_balanced_chunk($ret);
-    $token->appendChild($chunk);
+    $token->appendChild($chunk); # fare un $token->lastChild ed estrarre l'id, inserire ++id nel nuovo nodo
     open(OUT, ">$path") || die "error $!";
     print OUT $xml->toString; 
     close OUT;

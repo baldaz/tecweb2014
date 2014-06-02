@@ -281,8 +281,7 @@ sub getPrezziCorsi{
 sub printPR2{
     my $self = shift;
     my (%hash) = @_;
-    my $ret;
-    $ret = caption(h5('Abbonamenti'));
+    my $ret = caption(h5('Abbonamenti'));
     $ret.= thead(Tr(th({scope => 'col'}, [qw(Corso Mensile Trimestrale Semestrale Annuale)])));
     $ret.= tfoot();
     $ret.= tbody(join('', map { Tr({scope => 'row'}, td($_), td( [ @{$hash{$_}} ])) } keys %hash));
