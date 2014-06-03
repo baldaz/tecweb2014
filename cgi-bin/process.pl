@@ -27,5 +27,9 @@ my %action = (
     'clear_logs' => 'logs:log:delete'
     );
 
-$input{'namespace'} = $action{$input{'formfor'}};
-$admin->add_resource(%input);
+if($input{formfor} =~m/add/){
+    $input{'namespace'} = $action{$input{'formfor'}};
+    $admin->add_resource(%input);
+}
+elsif($input{formfor} =~m/edit/){
+}

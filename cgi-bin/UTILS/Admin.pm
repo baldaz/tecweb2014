@@ -26,7 +26,7 @@ sub init {
 	$session->param("~profile", $profile);
 	$session->param("~logged-in", 1);
 	$session->clear(["~login-trials"]);
-	$session->expire(120);
+	$session->expire(720);
 	return 1;
     }
 
@@ -76,6 +76,37 @@ sub add_resource {
 }
 
 sub dispatch {
+    my $self = shift;
+    my $route = shift;
+    my %params = @_;
+    my $template = HTML::Template->new(filename => $route.".tmpl");
+    foreach(keys %params){
+	$template->param($_ => $params{$_});
+    }	
+    HTML::Template->config(utf8 => 1);
+    print "Content-Type: text/html\n\n", $template->output;
+}
+
+sub list_news {
+    my $self = shift;
+    my @list = $self->getNews();
+    return @list;
+}
+
+sub get_ndata {
+    my ($self, $id) = @_;
+    my $xml = $self->load_xml('../data/news.xml');
+    my %data = ();
+    my $n_title = $xml->findnodes("//new[\@id='$id']/titolo/text()")->get_node(1);
+    my $n_content = $xml->findnodes("//new[\@id='$id']/contenuto/text()")->get_node(1);
+    my $n_date = $xml->findnodes("//new[\@id='$id']/data/text()")->get_node(1);
+    $data{n_title} = $n_title;
+    $data{n_content} = $n_content;
+    $data{n_date} = $n_date;
+    return %data;
+}
+
+sub dispatch2 {
     my ($self, $screen) = @_;
     my $template = HTML::Template->new(filename => $screen.".tmpl");
     print "Content-Type: text/html\n\n", $template->output;

@@ -76,27 +76,6 @@ sub check_tel {
     else{ return 1; }
 }
 
-# estrae il contenuto di un nodo, analogo a text(), ma piu utile nei casi di html e CDATA nel file XML
-
-sub toText {
-    my (@data) = @_;
-    my @ret = map { $_->textContent } @data;
-    return @ret;
-}
-
-# estrae le news dal file xml
-
-sub loadNews {
-    my $self = shift;
-    my $xml = $self->load_xml('../data/news.xml');
-    $xml->documentElement->setNamespace("www.news.it","n");
-    my @titles = $xml->findnodes("//n:new/n:titolo");
-    @titles = $self->$text(@titles);
-    my @contents = $xml->findnodes("//n:new/n:contenuto");
-    @contents = $self->$text(@contents);
-    return (\@titles, \@contents);
-}
-
 sub _today {
     my $self = shift;
     my $dt = DateTime->today->ymd("-");
@@ -105,17 +84,22 @@ sub _today {
 
 sub getNews {
     my $self = shift;
-    my ($news_title, $news_content) = $self->loadNews;     # genero le news da xml
-    my @loop_news = ();
-
-# scorro i risultati dell'estrazione e li inserisco in un hash
-
-    while($a = shift @$news_title and $b = shift @$news_content){
-	my %row_data;
-	$row_data{N_TITLE} = encode('utf-8', $a); # encoding dei me coioni
-	$row_data{N_CONTENT} = encode('utf-8', $b); # encoding dei me coioni
-	push(@loop_news, \%row_data);
+    my $xml = $self->load_xml('../data/news.xml');
+#    $xml->documentElement->setNamespace("www.news.it","n");
+#    my $root = $xml->getDocumentElement;
+    my @news = $xml->findnodes("//new");
+    my @titles = ();
+    my @dates = ();
+    my @content = ();
+    my @ids = ();
+    foreach my $new(@news){
+	push(@titles, $new->findvalue("titolo"));
+	push(@dates, $new->findvalue("data"));
+	push(@content, $new->findvalue("contenuto"));
+	push(@ids, $new->getAttribute("id"));
     }
+    
+    my @loop_news = map { {N_TITLE => $titles[$_], N_CONTENT => $content[$_], N_ID => $ids[$_]} } 0..$#news; # possibile encode utf8
     return @loop_news;
 }
 
@@ -125,9 +109,8 @@ sub getFields {
     my ($self, $disciplina) = @_;
     my $xml = $self->load_xml('../data/impianti.xml');
     $xml->documentElement->setNamespace("www.impianti.it","i");
-    my @ret_n = $xml->findnodes("//i:impianto[i:disciplina='$disciplina']/i:campi");
-    @ret_n = $self->$text(@ret_n);
-    return $ret_n[0];
+    my $ret = $xml->findnodes("//i:impianto[i:disciplina='$disciplina']/i:campi/text()")->get_node(1);
+    return $ret;
 }
 
 # estrae il perscorsi delle immagini degli impianti dal file xml

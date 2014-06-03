@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<n:newsdata xmlns="www.news.it" xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance" xmlns:n="www.news.it">
-  <news>
-    <new>
-      <titolo></titolo>
-      <data></data>
-      <contenuto></contenuto>
+<newsdata xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance">
+    <new id="1">
+      <titolo>Primo</titolo>
+      <data>2014-06-04</data>
+      <contenuto>Ciaooo</contenuto>
     </new>
-  </news>
-</n:newsdata>
+    <new id="2">
+      <titolo>Secondo</titolo>
+      <data>2014-06-04</data>
+      <contenuto>Ciaooo</contenuto>
+    </new>
+    <new id="3">
+      <titolo>Terzo</titolo>
+      <data>2014-06-04</data>
+      <contenuto>Ciaooo</contenuto>
+    </new>
+</newsdata>

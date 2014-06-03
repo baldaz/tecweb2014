@@ -1,0 +1,35 @@
+<tmpl_include name = "header.tmpl">
+  <div id="nav">
+    <ul>
+      <li><button><a href="admin.cgi?screen=edit_prenotation">Prenotazioni</a></button></li>
+      <li><button><a href="admin.cgi?screen=news">News</a></button></li>
+      <li><button><a href="admin.cgi?screen=edit_courses">Corsi</a></button></li>
+    </ul>
+  </div>
+  <div id="content">
+    <table summary="">
+      <caption>News</caption>
+      <thead>
+	<tr>
+	  <th scope="col">ID</th>
+	  <th scope="col">Titolo</th>
+	  <th scope="col">Contenuto</th>
+	  <th scope="col">Modifica</th>
+	</tr>
+      </thead>
+      <tfoot>
+      </tfoot>
+      <tbody>
+	<tmpl_loop name = "newslist">
+	  <tr>
+	    <td><tmpl_var name = "N_ID"></td>
+	    <td><tmpl_var name = "N_TITLE"></td>
+	    <td><tmpl_var name = "N_CONTENT"></td>
+	    <td><a href="admin.cgi?screen=edit_news&id=<tmpl_var name = N_ID>">Modifica</a>
+	  </tr>
+	</tmpl_loop>
+      </tbody>
+    </table>
+    <a href="admin.cgi?screen=add_news">Aggiungi news</a>
+  </div>
+<tmpl_include name = "footer.tmpl"> 

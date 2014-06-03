@@ -12,18 +12,18 @@
     </table>
     <form action="process.pl" method="post">
       <fieldset>
-	<legend>Modifica notizia</legend>
+	<legend>Aggiungi notizia</legend>
 	<label for="id">ID:</label>
-	<input type="text" id="Id" name="Id" value="<tmpl_var escape = html name = id>" />
+	<input type="text" id="Id" name="Id" />
 	<label for="titolo">Titolo:</label>
-	<input type="text" id="titolo" name="titolo" value="<tmpl_var escape = html name = n_title>"/>
+	<input type="text" id="titolo" name="titolo" />
 	<label for="data">Data:</label>
-	<input type="text" id="data" name="data" value="<tmpl_var escape = html name = n_date>"/>
+	<input type="text" id="data" name="data" />
 	<label for="contenuto">Contenuto:</label>
-	<input type="textarea" id="contenuto" name="contenuto" value="<tmpl_var escape = html name = n_content>"/>
-	<input type="hidden" id="formfor" name="formfor" value="edit_n" />
+	<input type="textarea" id="contenuto" name="contenuto"/>
+	<input type="hidden" id="formfor" name="formfor" value="add_n" />
 	<input type="submit" id="submit" value="submit">
       </fieldset>
     </form> 
   </div>
-<tmpl_include name = "footer.tmpl"> 
+<tmpl_include name = "footer.tmpl">
