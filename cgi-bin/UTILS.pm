@@ -397,7 +397,6 @@ sub getOrari{
 	push(@pr, $self->$get($_, 'dom'));
 	$hash{$self->$get($_, 'nome')} = \@pr;
     }
-    
     $self->printPR(%hash);
 }
 
