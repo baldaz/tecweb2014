@@ -109,7 +109,9 @@ sub getFields {
     my ($self, $disciplina) = @_;
     my $xml = $self->load_xml('../data/impianti.xml');
     $xml->documentElement->setNamespace("www.impianti.it","i");
-    my $ret = $xml->findnodes("//i:impianto[i:disciplina='$disciplina']/i:campi/text()")->get_node(1);
+    my $ret = $xml->findvalue("//i:impianto[i:disciplina='$disciplina']/i:campi");
+#    my @ret = $xml->findnodes("//i:impianto[i:disciplina='$disciplina']/i:campi");
+#    @ret = $self->$text(@ret);
     return $ret;
 }
 
@@ -329,6 +331,12 @@ sub is_logged {
 	return 1;
     }
     return;
+}
+
+sub get_user {
+    my $self = shift;
+    my $session = CGI::Session->load();
+    return $session->param("~profile");
 }
 
 1;

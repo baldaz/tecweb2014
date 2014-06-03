@@ -12,7 +12,10 @@ my $today = $utils->_today;
 my $data = $cgi->param('data') || $today;
 $data = $today if $data eq '';
 my $description = Encode::encode('utf8', $utils->getDesc($page));
-my $is_logged = $utils->is_logged;
+my ($is_logged, $user);
+if($is_logged = $utils->is_logged){
+    $user = $utils->get_user;
+}
 
 my %routes = (
     'home'          => \&index,
@@ -38,7 +41,7 @@ sub index {
 	path  => 'Home',
 	desc  => $description,
 	LOGIN => $is_logged,
-	USER  => 'Admin'
+	USER  => $user
 	);
 
     $utils->dispatcher('index', %params);
@@ -64,7 +67,7 @@ sub impianti {
 	n_pallavolo => $d_param[3],
 	n_bvolley   => $d_param[4],
 	LOGIN       => $is_logged,
-	USER        => 'Admin'
+	USER        => $user
 	);
     $utils->dispatcher('impianti', %params);
 }
@@ -80,7 +83,7 @@ sub corsi {
 	tbl       => $table,  
 	tbl_corsi => $tbl_corsi,
 	LOGIN     => $is_logged,
-	USER      => 'Admin'
+	USER      => $user
 	);
     $utils->dispatcher('corsi', %params);
 }
@@ -91,7 +94,7 @@ sub contatti {
 	page  => 'contatti',
 	path  => 'Contatti',
 	LOGIN => $is_logged,
-	USER  => 'Admin'
+	USER  => $user
 	);
     $utils->dispatcher('contatti', %params);
 }
@@ -114,7 +117,7 @@ sub prenotazioni {
 	page  => 'prenotazioni',
 	path  => 'Prenotazioni',
 	LOGIN => $is_logged,
-	USER  => 'Admin',
+	USER  => $user,
 	TABLE => $table
     );
 
