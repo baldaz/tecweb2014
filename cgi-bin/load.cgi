@@ -15,11 +15,11 @@ my $description = Encode::encode('utf8', $utils->getDesc($page));
 my $is_logged = $utils->is_logged;
 
 my %routes = (
-    'home'         => \&index,
-    'impianti'     => \&impianti,
-    'contatti'     => \&contatti,
-    'corsi'        => \&corsi,
-    'prenotazioni' => \&prenotazioni,
+    'home'          => \&index,
+    'impianti'      => \&impianti,
+    'contatti'      => \&contatti,
+    'corsi'         => \&corsi,
+    'prenotazioni'  => \&prenotazioni,
     'registrazione' => \&registrazione
     );
 

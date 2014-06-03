@@ -88,11 +88,11 @@ sub toText {
 
 sub loadNews {
     my $self = shift;
-    my $xml = $self->load_xml;
-    $xml->documentElement->setNamespace("www.prenotazioni.it","p");
-    my @titles = $xml->findnodes("//p:new/p:titolo");
+    my $xml = $self->load_xml('../data/news.xml');
+    $xml->documentElement->setNamespace("www.news.it","n");
+    my @titles = $xml->findnodes("//n:new/n:titolo");
     @titles = $self->$text(@titles);
-    my @contents = $xml->findnodes("//p:new/p:contenuto");
+    my @contents = $xml->findnodes("//n:new/n:contenuto");
     @contents = $self->$text(@contents);
     return (\@titles, \@contents);
 }
@@ -105,8 +105,7 @@ sub _today {
 
 sub getNews {
     my $self = shift;
-    my $xml = $self->load_xml('../data/prenotazioni.xml');
-    my ($news_title, $news_content) = $self->loadNews($xml);     # genero le news da xml
+    my ($news_title, $news_content) = $self->loadNews;     # genero le news da xml
     my @loop_news = ();
 
 # scorro i risultati dell'estrazione e li inserisco in un hash
