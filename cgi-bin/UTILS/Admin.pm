@@ -44,8 +44,7 @@ sub load_profile {
 				# controllo se esiste un match (profilo esistente) 
     my $ret = $root->exists("//p:profilo[p:username='$user' and p:password='$passwd']");
     if($ret){
-	my $p_mask = "x".length($passwd);
-	return { username => $user, password => $p_mask };
+	return $user;
     }
     
     return undef;
@@ -97,9 +96,10 @@ sub get_ndata {
     my ($self, $id) = @_;
     my $xml = $self->load_xml('../data/news.xml');
     my %data = ();
-    my $n_title = $xml->findnodes("//new[\@id='$id']/titolo/text()")->get_node(1);
-    my $n_content = $xml->findnodes("//new[\@id='$id']/contenuto/text()")->get_node(1);
-    my $n_date = $xml->findnodes("//new[\@id='$id']/data/text()")->get_node(1);
+#    my $n_title = $xml->findnodes("//new[\@id='$id']/titolo")->get_node(1)->textContent;
+    my $n_title = $xml->findvalue("//new[\@id='$id']/titolo");
+    my $n_content = $xml->findvalue("//new[\@id='$id']/contenuto");
+    my $n_date = $xml->findvalue("//new[\@id='$id']/data");
     $data{n_title} = $n_title;
     $data{n_content} = $n_content;
     $data{n_date} = $n_date;

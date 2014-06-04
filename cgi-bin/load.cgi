@@ -23,7 +23,8 @@ my %routes = (
     'contatti'      => \&contatti,
     'corsi'         => \&corsi,
     'prenotazioni'  => \&prenotazioni,
-    'registrazione' => \&registrazione
+    'registrazione' => \&registrazione,
+    'personale'     => \&personale
     );
 
 if( grep { $page eq $_} keys %routes){
@@ -132,4 +133,15 @@ sub registrazione {
 	LOGIN => 0
 	);
     $utils->dispatcher('registrazione', %params);
+}
+
+sub personale {
+    my %params = (
+	title => 'Centro sportivo - Area Personale',
+	page  => 'personale',
+	path  => 'Personale',
+	LOGIN => $is_logged,
+	USER  => $user
+	);
+    $utils->dispatcher('personale', %params);
 }
