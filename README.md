@@ -5,6 +5,59 @@ Progetto Tecweb
 
 ALBERO DIRECTORY:
 
+- cgi-bin/
+	   UTILS/
+		  Admin.pm
+	   UTILS.pm
+	   load.cgi
+	   admin.cgi
+	   login.cgi
+	   login.pl
+	   prenota.cgi
+	   process.pl
+	   vbooked.pl
+- data/
+        corsi.xml
+	impianti.xml
+	news.xml
+	profili.xml
+	sezioni.xml
+	prenotazioni.xml
+
+- public_html/
+	       css/
+	            corsi.css
+		    impianti.css
+		    mobile.css
+		    prenotazioni.css
+		    print.css
+		    style.css
+		    tablet.css
+	       
+	       images/
+		       border.png
+		       campo-tennis.png
+		       campo-calcetto.png
+		       entrata-centro.png
+		       fitness.jpg
+		       footerbackground.png
+		       headerbackground.png
+		       seagal-3.png
+		       shad2.png
+
+	       js/
+		   jquery.js
+		   rtc_form.js
+		   script.js
+
+	       templates/
+			  admin/
+				 add_news.tmpl
+				 edit_news.tmpl
+				 edit_prenotation.tmpl
+				 footer.tmpl
+				 header.tmpl       
+
 STRUTTURA PROVVISORIA:
     
                           ____|___  admin

@@ -141,16 +141,16 @@ sub getWeek {
     my $xmldoc = $self->load_xml('../data/prenotazioni.xml');
     my $root = $xmldoc->getDocumentElement;
     $xmldoc->documentElement->setNamespace("www.prenotazioni.it", "p");
-    my @dates = $root->findnodes("//p:prenotante[p:disciplina='".$discipline."' and p:campo='".$campo."']/p:data");
+    my @dates = $root->findnodes("//p:prenotante[p:disciplina='$discipline' and p:campo='$campo']/p:data");
 
     @dates = $self->$text(@dates);
 
     my @split_pdate = split('-', $p_date);
 
-    my $dt = new DateTime(
-	year => $split_pdate[0],
+    my $dt = DateTime->new(
+	year  => $split_pdate[0],
 	month => $split_pdate[1],
-	day => $split_pdate[2]
+	day   => $split_pdate[2]
 	);
 
     my @ret_date = ();
@@ -172,13 +172,16 @@ sub getWeek {
     my @hash = ();
     my @time = ();
 
-    for my $i (0..$#ret_date){
-	@time = $root->findnodes("//p:prenotante[p:disciplina='".$discipline."' and p:campo='".$campo."' and p:data='".$ret_date[$i]."']/p:ora");
-	$hash[$i]{date} = $ret_date[$i];
-	@time = $self->$text(@time);
-	my $time_str = join(" - ", @time);
-	$hash[$i]{time} = $time_str;
-    }			  
+#    for my $i (0..$#ret_date){
+#	@time = $root->findnodes("//p:prenotante[p:disciplina='$discipline' and p:campo='$campo' and p:data='$ret_date[$i]']/p:ora");
+#	$hash[$i]{date} = $ret_date[$i];
+#	@time = $self->$text(@time);
+#	my $time_str = join(" - ", @time);
+#	$hash[$i]{time} = $time_str;
+#    }
+    @time = $root->findnodes("//p:prenotante[p:disciplina='$discipline' and p:campo='$campo' and p:data='$ret_date[$_]']/p:ora") for 0..$#ret_date;
+    @time = $self->$text(@time);
+    @hash = map {{date => $_, time => join(" - ", @time)}} @ret_date;
     return $self->printTable($dt, $campo, $discipline, @hash);
 }
 

@@ -5,7 +5,7 @@ use warnings;
 use UTILS::Admin;
 
 my $admin = UTILS::Admin->new;
-my %input;
+my %input = ();
 read(STDIN, my $buffer, $ENV{'CONTENT_LENGTH'});
 my @pairs = split(/&/, $buffer);
 foreach my $pair (@pairs){
