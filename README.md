@@ -3,7 +3,7 @@ tecweb2014
 
 Progetto Tecweb
 
-ALBERO DIRECTORY:
+# ALBERO DIRECTORY:
 
 * [cgi-bin/] (https://github.com/baldaz/tecweb2014/tree/template_change/cgi-bin)
 	* [UTILS/] (https://github.com/baldaz/tecweb2014/tree/template_change/cgi-bin/UTILS)
@@ -44,16 +44,14 @@ ALBERO DIRECTORY:
 		   * [shad2.png] (https://github.com/baldaz/tecweb2014/tree/template_change/images/shad2.png)
 	    * [js/] (https://github.com/baldaz/tecweb2014/tree/template_change/js)
 	       * [jquery.js] (https://github.com/baldaz/tecweb2014/tree/template_change/js/jquery.js)
-	       * [rtc_form.js] (https://github.com/baldaz/tecweb2014/tree/template_change/images/rtc_form.js)
-	       * [script.js] (https://github.com/baldaz/tecweb2014/tree/template_change/script.js)
-
-	       templates/
-			  admin/
-				 add_news.tmpl
-				 edit_news.tmpl
-				 edit_prenotation.tmpl
-				 footer.tmpl
-				 header.tmpl       
+	       * [rtc_form.js] (https://github.com/baldaz/tecweb2014/tree/template_change/js/rtc_form.js)
+	       * [script.js] (https://github.com/baldaz/tecweb2014/tree/template_change/js/script.js)
+	    * [templates/] (https://github.com/baldaz/tecweb2014/tree/template_change/templates)
+		      * [admin/] (https://github.com/baldaz/tecweb2014/tree/template_change/templates/admin)
+			    * [add_news.tmpl] (https://github.com/baldaz/tecweb2014/tree/template_change/templates/admin/add_news.tmpl)
+			    * [edit_news.tmpl] (https://github.com/baldaz/tecweb2014/tree/template_change/templates/admin/edit_news.tmpl)
+		            * [footer.tmpl] (https://github.com/baldaz/tecweb2014/tree/template_change/templates/admin/footer.tmpl)
+			    * [header.tmpl] (https://github.com/baldaz/tecweb2014/tree/template_change/templates/admin/header.tmpl)     
 
 STRUTTURA PROVVISORIA:
     
