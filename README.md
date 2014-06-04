@@ -1,7 +1,7 @@
 tecweb2014
 ==========
 
-Progetto Tecweb
+# Progetto Tecweb
 
 ## ALBERO DIRECTORY
 
@@ -67,7 +67,7 @@ Progetto Tecweb
 	  * [registrazione.tmpl] (https://github.com/baldaz/tecweb2014/tree/template_change/templates/registrazione.tmpl)
 
 
-STRUTTURA PROVVISORIA:
+## STRUTTURA PROVVISORIA:
     
                           ____|___  admin
                          /    |
@@ -80,7 +80,7 @@ STRUTTURA PROVVISORIA:
 - viewB e load => funzionamento sito
 - admin e prenota => aree riservate, attraverso login
 
-TODO:
+## TODO:
 
 	+++++ LAYOUT +++++
 
