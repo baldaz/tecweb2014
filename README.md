@@ -6,25 +6,25 @@ Progetto Tecweb
 ALBERO DIRECTORY:
 
 * [cgi-bin/] (https://github.com/baldaz/tecweb2014/tree/template_change/cgi-bin)
-	* [UTILS/]
-		* [Admin.pm]
-        * [UTILS.pm]
-	* [load.cgi]
-	* [admin.cgi]
-	* [login.cgi]
-	* [login.pl]
-	* [prenota.cgi]
-	* [process.pl]
-	* [vbooked.pl]
-- data/
-        corsi.xml
-	impianti.xml
-	news.xml
-	profili.xml
-	sezioni.xml
-	prenotazioni.xml
+	* [UTILS/] (https://github.com/baldaz/tecweb2014/tree/template_change/cgi-bin/UTILS)
+		* [Admin.pm] (https://github.com/baldaz/tecweb2014/tree/template_change/cgi-bin/UTILS/Admin.pm)
+        * [UTILS.pm] (https://github.com/baldaz/tecweb2014/tree/template_change/cgi-bin/UTILS.pm)
+	* [load.cgi] (https://github.com/baldaz/tecweb2014/tree/template_change/cgi-bin/load.cgi)
+	* [admin.cgi] (https://github.com/baldaz/tecweb2014/tree/template_change/cgi-bin/admin.cgi)
+	* [login.cgi] (https://github.com/baldaz/tecweb2014/tree/template_change/cgi-bin/login.cgi)
+	* [login.pl] (https://github.com/baldaz/tecweb2014/tree/template_change/cgi-bin/login.pl)
+	* [prenota.cgi] (https://github.com/baldaz/tecweb2014/tree/template_change/cgi-bin/prenota.cgi)
+	* [process.pl] (https://github.com/baldaz/tecweb2014/tree/template_change/cgi-bin/process.pl)
+	* [vbooked.pl] (https://github.com/baldaz/tecweb2014/tree/template_change/cgi-bin/vbooked.pl)
+* [data/] (https://github.com/baldaz/tecweb2014/tree/template_change/data)
+  	* [corsi.xml] (https://github.com/baldaz/tecweb2014/tree/template_change/data/corsi.xml)
+	* [impianti.xml] (https://github.com/baldaz/tecweb2014/tree/template_change/data/impianti.xml)
+	* [news.xml] (https://github.com/baldaz/tecweb2014/tree/template_change/data/news.xml)
+	* [profili.xml] (https://github.com/baldaz/tecweb2014/tree/template_change/data/profili.xml)
+	* [sezioni.xml] (https://github.com/baldaz/tecweb2014/tree/template_change/data/sezioni.xml)
+	* [prenotazioni.xml] (https://github.com/baldaz/tecweb2014/tree/template_change/data/prenotazioni.xml)
 
-- public_html/
+* [public_html/] (https://github.com/baldaz/tecweb2014/tree/template_change/public_html)
 	       css/
 	            corsi.css
 		    impianti.css
