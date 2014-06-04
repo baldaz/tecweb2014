@@ -53,15 +53,16 @@ sub load_profile {
 sub add_resource {
     my $self = shift;
     my %stash = @_;
-    my $ret;
     my ($suffix, $element, $action) = split (/:/, $stash{'namespace'});
     my $path = $self->$get_path($suffix);
     my $parser = XML::LibXML->new();
     my $xml = $parser->parse_file($path);
 #    $xml->documentElement->setNamespace("www.$suffix.it","n");
+    my $id = $stash{'id'};
     delete $stash{'namespace'};
     delete $stash{'formfor'};
-    $ret = "\t<$element>";
+    delete $stash{'id'};
+    my $ret = "\t<$element id='$id'>";
     $ret.= "\n\t\t<$_>$stash{$_}</$_>" foreach keys %stash;
     $ret.= "\n\t</$element>\n";
     my $token = $xml->getElementsByTagName($suffix)->[0];
@@ -70,16 +71,19 @@ sub add_resource {
 	$token->appendChild($chunk); # fare un $token->lastChild ed estrarre l'id, inserire ++id nel nuovo nodo
     }
     elsif($action eq 'edit'){
-	my $root = $xml->getDocumentElement;
-	if($root->exists("$element[\@id=$stash{id}]")){
-	    $token->replaceChild($chunk, $token);
+	my $root = $xml->getDocumentElement();
+	if($root->exists($element."[\@id=$id]")){
+	    $token = $root->findnodes($element."[\@id=$id]")->get_node(1);
+	    $token->replaceChild($chunk, $token) || die $!;
 	}
+	else { die $!; }
     }
+    else { die $!; }
     open(OUT, ">$path") || die "error $!";
-    print OUT $xml->toString; 
+    print OUT $xml->toString || die $!; 
     close OUT;
     print "Content-type: text/html\n\n";
-    print "Operazione riuscita.";
+    print "Operazione riuscita. $element";
 }
 
 sub dispatch {
@@ -105,19 +109,22 @@ sub get_ndata {
     my $xml = $self->load_xml('../data/news.xml');
     my %data = ();
 #    my $n_title = $xml->findnodes("//new[\@id='$id']/titolo")->get_node(1)->textContent;
-    my $n_title = $xml->findvalue("//new[\@id='$id']/titolo");
-    my $n_content = $xml->findvalue("//new[\@id='$id']/contenuto");
-    my $n_date = $xml->findvalue("//new[\@id='$id']/data");
-    $data{n_title} = $n_title;
-    $data{n_content} = $n_content;
-    $data{n_date} = $n_date;
-    return %data;
-}
-
-sub dispatch2 {
-    my ($self, $screen) = @_;
-    my $template = HTML::Template->new(filename => $screen.".tmpl");
-    print "Content-Type: text/html\n\n", $template->output;
+    if($xml->getDocumentElement->exists("//new[\@id=$id]")){	
+	my $n_title = $xml->findvalue("//new[\@id='$id']/titolo");
+	my $n_content = $xml->findvalue("//new[\@id='$id']/contenuto");
+	my $n_date = $xml->findvalue("//new[\@id='$id']/data");
+	$data{n_title} = $n_title;
+	$data{n_content} = $n_content;
+	$data{n_date} = $n_date;
+	return %data;
+    }
+    else {
+	%params = (
+	    err_code => '404'
+	    );
+	$self->dispatch('error', %params);
+	# da fare error handler
+    }
 }
 
 1;

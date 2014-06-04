@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<newsdata xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance">
+<news xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance">
     <new id="1">
       <titolo>Primo</titolo>
       <data>2014-06-04</data>
@@ -15,4 +15,4 @@
       <data>2014-06-04</data>
       <contenuto>Ciaooo</contenuto>
     </new>
-</newsdata>
+</news>
