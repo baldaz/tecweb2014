@@ -66,7 +66,15 @@ sub add_resource {
     $ret.= "\n\t</$element>\n";
     my $token = $xml->getElementsByTagName($suffix)->[0];
     my $chunk = $parser->parse_balanced_chunk($ret);
-    $token->appendChild($chunk); # fare un $token->lastChild ed estrarre l'id, inserire ++id nel nuovo nodo
+    if($action eq 'add'){
+	$token->appendChild($chunk); # fare un $token->lastChild ed estrarre l'id, inserire ++id nel nuovo nodo
+    }
+    elsif($action eq 'edit'){
+	my $root = $xml->getDocumentElement;
+	if($root->exists("$element[\@id=$stash{id}]")){
+	    $token->replaceChild($chunk, $token);
+	}
+    }
     open(OUT, ">$path") || die "error $!";
     print OUT $xml->toString; 
     close OUT;

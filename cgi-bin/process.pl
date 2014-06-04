@@ -26,10 +26,6 @@ my %action = (
     'update'     => 'update:update:edit',
     'clear_logs' => 'logs:log:delete'
     );
-
-if($input{formfor} =~m/add/){
-    $input{'namespace'} = $action{$input{'formfor'}};
-    $admin->add_resource(%input);
-}
-elsif($input{formfor} =~m/edit/){
-}
+    
+$input{'namespace'} = $action{$input{'formfor'}};
+$admin->add_resource(%input);
