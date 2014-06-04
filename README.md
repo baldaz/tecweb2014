@@ -65,6 +65,7 @@ Progetto Tecweb
 	* [prenota.tmpl] (https://github.com/baldaz/tecweb2014/tree/template_change/templates/prenota.tmpl)
 	* [prenotazioni.tmpl] (https://github.com/baldaz/tecweb2014/tree/template_change/templates/prenotazioni.tmpl)
 	* [registrazione.tmpl] (https://github.com/baldaz/tecweb2014/tree/template_change/templates/registrazione.tmpl)
+*
 
 STRUTTURA PROVVISORIA:
     
