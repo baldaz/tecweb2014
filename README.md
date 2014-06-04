@@ -24,7 +24,7 @@ Progetto Tecweb
      * [sezioni.xml] (https://github.com/baldaz/tecweb2014/tree/template_change/data/sezioni.xml)
      * [prenotazioni.xml] (https://github.com/baldaz/tecweb2014/tree/template_change/data/prenotazioni.xml)
 * [public_html/] (https://github.com/baldaz/tecweb2014/tree/template_change/public_html)
-  	    * [css/] (https://github.com/baldaz/tecweb2014/tree/template_change/public_html/css)
+  	  * [css/] (https://github.com/baldaz/tecweb2014/tree/template_change/public_html/css)
 	        * [corsi.css] (https://github.com/baldaz/tecweb2014/tree/template_change/public_html/css/corsi.css)
 		* [impianti.css] (https://github.com/baldaz/tecweb2014/tree/template_change/public_html/css/impianti.css)
 		* [mobile.css] (https://github.com/baldaz/tecweb2014/tree/template_change/public_html/css/mobile.css)
