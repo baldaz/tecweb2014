@@ -5,17 +5,17 @@ Progetto Tecweb
 
 ALBERO DIRECTORY:
 
-- cgi-bin/
-	   UTILS/
-		  Admin.pm
-	   UTILS.pm
-	   load.cgi
-	   admin.cgi
-	   login.cgi
-	   login.pl
-	   prenota.cgi
-	   process.pl
-	   vbooked.pl
+* [cgi-bin/]
+	* [UTILS/]
+		* [Admin.pm]
+        * [UTILS.pm]
+	* [load.cgi]
+	* [admin.cgi]
+	* [login.cgi]
+	* [login.pl]
+	* [prenota.cgi]
+	* [process.pl]
+	* [vbooked.pl]
 - data/
         corsi.xml
 	impianti.xml
