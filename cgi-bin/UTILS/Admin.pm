@@ -113,20 +113,22 @@ sub list_courses {
     my $xml = $self->load_xml('../data/corsi.xml');
 #    $xml->documentElement->setNamespace("www.news.it","n");
     my @courses = $xml->findnodes("//corso");
-    my @names = ();
-    my @monthly = ();
-    my @trimestral = ();
-    my @semestral = ();
-    my @annual = ();
-    foreach my $course(@courses){
-	push(@names, $course->findvalue("nome"));
-	push(@monthly, $course->findvalue("mensile"));
-	push(@trimestral, $course->findvalue("trimestrale"));
-	push(@semestral, $course->findvalue("semestrale"));
-	push(@annual, $course->findvalue("annuale"));
-    }
-    
-    my @loop_courses = map { {C_NAME => $names[$_], MONTHLY => $monthly[$_], TRIMESTRAL => $trimestral[$_], SEMESTRAL => $semestral[$_], ANNUAL => $annual[$_]} } 0..$#courses; # possibile encode utf8
+#    my @names = ();
+#    my @monthly = ();
+#    my @trimestral = ();
+#    my @semestral = ();
+#    my @annual = ();
+#    foreach my $course(@courses){
+#	push(@names, $course->findvalue("nome"));
+#	push(@monthly, $course->findvalue("mensile"));
+#	push(@trimestral, $course->findvalue("trimestrale"));
+#	push(@semestral, $course->findvalue("semestrale"));
+#	push(@annual, $course->findvalue("annuale"));
+#    }
+    my @loop_courses = map {{C_NAME => $_->findvalue("nome"), MONTHLY => $_->findvalue("mensile"),
+	                     TRIMESTRAL => $_->findvalue("trimestrale"), SEMESTRAL => $_->findvalue("semestrale"),
+	                     ANNUAL => $_->findvalue("annuale")}} @courses;
+#    my @loop_courses = map { {C_NAME => $names[$_], MONTHLY => $monthly[$_], TRIMESTRAL => $trimestral[$_], SEMESTRAL => $semestral[$_], ANNUAL => $annual[$_]} } 0..$#courses; # possibile encode utf8
     return @loop_courses;
 }
 
