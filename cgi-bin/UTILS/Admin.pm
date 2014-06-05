@@ -123,21 +123,15 @@ sub get_ndata {
     my ($self, $id) = @_;
     my $xml = $self->load_xml('../data/news.xml');
     my %data = ();
-#    my $n_title = $xml->findnodes("//new[\@id='$id']/titolo")->get_node(1)->textContent;
     if($xml->getDocumentElement->exists("//new[\@id=$id]")){	
-	my $n_title = $xml->findvalue("//new[\@id='$id']/titolo");
-	my $n_content = $xml->findvalue("//new[\@id='$id']/contenuto");
-	my $n_date = $xml->findvalue("//new[\@id='$id']/data");
-	$data{n_title} = $n_title;
-	$data{n_content} = $n_content;
-	$data{n_date} = $n_date;
-	return %data;
+	$data{n_title} = $xml->findvalue("//new[\@id='$id']/titolo");
+	$data{n_content} = $xml->findvalue("//new[\@id='$id']/contenuto");
+	$data{n_date} = $xml->findvalue("//new[\@id='$id']/data");
     }
     else {
 	$data{not_found} = 1;
-	return %data;
-	# da fare error handler
     }
+    return %data;
 }
 
 1;

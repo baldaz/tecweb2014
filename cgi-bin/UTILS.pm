@@ -135,7 +135,7 @@ sub getDesc {
     $xml->documentElement->setNamespace("www.sezioni.it","s");
     my @ret_desc = $xml->findnodes("//s:sezione[\@nome='$nome']/s:contenuto");
     @ret_desc = $self->$text(@ret_desc);
-    my $ret_descr.= join( '', map { $_ } @ret_desc );
+    my $ret_descr.= join( '', @ret_desc );
 }
 
 sub getWeek {
@@ -279,8 +279,6 @@ sub printPR2{
 }
 
 # stampa tabelle corsi settimanali
-# prova utilizzando modulo CGI
-# piu corto, un solo hash, da rifare prezzicorsi
 
 sub printPR{
     my $self = shift;
@@ -335,7 +333,7 @@ sub is_logged {
     if($session->param("~logged-in")){
 	return 1;
     }
-    return;
+    return 0;
 }
 
 sub get_user {
