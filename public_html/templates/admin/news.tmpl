@@ -3,7 +3,7 @@
     <ul>
       <li><button><a href="admin.cgi?screen=edit_prenotation">Prenotazioni</a></button></li>
       <li><button><a href="admin.cgi?screen=news">News</a></button></li>
-      <li><button><a href="admin.cgi?screen=edit_courses">Corsi</a></button></li>
+      <li><button><a href="admin.cgi?screen=courses">Corsi</a></button></li>
     </ul>
   </div>
   <div id="content">
@@ -15,6 +15,7 @@
 	  <th scope="col">Titolo</th>
 	  <th scope="col">Contenuto</th>
 	  <th scope="col">Modifica</th>
+	  <th scope="col">Elimina</th>
 	</tr>
       </thead>
       <tfoot>
@@ -25,7 +26,8 @@
 	    <td><tmpl_var name = "N_ID"></td>
 	    <td><tmpl_var name = "N_TITLE"></td>
 	    <td><tmpl_var name = "N_CONTENT"></td>
-	    <td><a href="admin.cgi?screen=edit_news&id=<tmpl_var name = N_ID>">Modifica</a>
+	    <td><a href="admin.cgi?screen=edit_news&id=<tmpl_var name = N_ID>">Modifica</a></td>
+	    <td><a href="admin.cgi?screen=del_news&id=<tmpl_var name = N_ID>">Elimina</a></td>
 	  </tr>
 	</tmpl_loop>
       </tbody>

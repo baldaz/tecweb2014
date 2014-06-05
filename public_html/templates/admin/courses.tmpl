@@ -1,0 +1,41 @@
+<tmpl_include name = "header.tmpl">
+  <div id="nav">
+    <ul>
+      <li><button><a href="admin.cgi?screen=edit_prenotation">Prenotazioni</a></button></li>
+      <li><button><a href="admin.cgi?screen=news">News</a></button></li>
+      <li><button><a href="admin.cgi?screen=courses">Corsi</a></button></li>
+    </ul>
+  </div>
+  <div id="content">
+   <table summary="">
+      <caption>Coursi</caption>
+      <thead>
+	<tr>
+	  <th scope="col">Nome</th>
+	  <th scope="col">Mensile</th>
+	  <th scope="col">Trimestrale</th>
+	  <th scope="col">Semestrale</th>
+	  <th scope="col">Annuale</th>
+	  <th scope="col">Modifica</th>
+	  <th scope="col">Elimina</th>
+	</tr>
+      </thead>
+      <tfoot>
+      </tfoot>
+      <tbody>
+	<tmpl_loop name = "courses">
+	  <tr>
+	    <td><tmpl_var name = "C_NAME"></td>
+	    <td><tmpl_var name = "MONTHLY"></td>
+	    <td><tmpl_var name = "TRIMESTRAL"></td>
+	    <td><tmpl_var name = "SEMESTRAL"></td>
+	    <td><tmpl_var name = "ANNUAL"></td>
+	    <td><a href="admin.cgi?screen=edit_course&id=<tmpl_var name = C_NAME>">Modifica</a></td>
+	    <td><a href="admin.cgi?screen=del_course&id=<tmpl_var name = C_NAME>">Elimina</a></td>
+	  </tr>
+	</tmpl_loop>
+      </tbody>
+    </table>
+    <a href="admin.cgi?screen=add_course">Aggiungi news</a>
+  </div>
+<tmpl_include name = "footer.tmpl">

@@ -53,10 +53,11 @@ sub load_profile {
 sub add_resource {
     my $self = shift;
     my %stash = @_;
-    my ($suffix, $element, $action) = split (/:/, $stash{'namespace'});
+    my ($suffix, $element, $action, $from) = split (/:/, $stash{'namespace'});
     my $path = $self->$get_path($suffix);
     my $parser = XML::LibXML->new();
     my $xml = $parser->parse_file($path);
+    my $root = $xml->getDocumentElement();
 #    $xml->documentElement->setNamespace("www.$suffix.it","n");
     my $id = $stash{'id'};
     delete $stash{'namespace'};
@@ -71,19 +72,22 @@ sub add_resource {
 	$token->appendChild($chunk); # fare un $token->lastChild ed estrarre l'id, inserire ++id nel nuovo nodo
     }
     elsif($action eq 'edit'){
-	my $root = $xml->getDocumentElement();
 	if($root->exists($element."[\@id=$id]")){
 	    $token = $root->findnodes($element."[\@id=$id]")->get_node(1);
 	    $token->replaceChild($chunk, $token) || die $!;
 	}
-	else { die $!; }
+	else { die $!; }	# condizione eliminabile
     }
-    else { die $!; }
+    elsif($action eq 'delete'){
+	$token = $root->findnodes($element."[\@id=$id]")->get_node(1);
+	$token->unbindNode();
+    }
+    else { die $!; }		# lanciare errore
     open(OUT, ">$path") || die "error $!";
     print OUT $xml->toString || die $!; 
     close OUT;
-    print "Content-type: text/html\n\n";
-    print "Operazione riuscita. $element";
+#    print "Content-type: text/html\n\n";
+    print CGI::header(-location => "admin.cgi?screen=$from");
 }
 
 sub dispatch {
@@ -104,6 +108,28 @@ sub list_news {
     return @list;
 }
 
+sub list_courses {
+    my $self = shift;
+    my $xml = $self->load_xml('../data/corsi.xml');
+#    $xml->documentElement->setNamespace("www.news.it","n");
+    my @courses = $xml->findnodes("//corso");
+    my @names = ();
+    my @monthly = ();
+    my @trimestral = ();
+    my @semestral = ();
+    my @annual = ();
+    foreach my $course(@courses){
+	push(@names, $course->findvalue("nome"));
+	push(@monthly, $course->findvalue("mensile"));
+	push(@trimestral, $course->findvalue("trimestrale"));
+	push(@semestral, $course->findvalue("semestrale"));
+	push(@annual, $course->findvalue("annuale"));
+    }
+    
+    my @loop_courses = map { {C_NAME => $names[$_], MONTHLY => $monthly[$_], TRIMESTRAL => $trimestral[$_], SEMESTRAL => $semestral[$_], ANNUAL => $annual[$_]} } 0..$#courses; # possibile encode utf8
+    return @loop_courses;
+}
+
 sub get_ndata {
     my ($self, $id) = @_;
     my $xml = $self->load_xml('../data/news.xml');
@@ -119,10 +145,8 @@ sub get_ndata {
 	return %data;
     }
     else {
-	%params = (
-	    err_code => '404'
-	    );
-	$self->dispatch('error', %params);
+	$data{not_found} = 1;
+	return %data;
 	# da fare error handler
     }
 }

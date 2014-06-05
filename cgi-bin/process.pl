@@ -19,12 +19,12 @@ foreach my $pair (@pairs){
 }
 
 my %action = (
-    'add_p'      => 'prenotazioni:prenotazione:add',
-    'add_n'      => 'news:new:add',
-    'edit_p'     => 'prenotazioni:prenotazione:edit',
-    'edit_n'     => 'news:new:edit',
-    'update'     => 'update:update:edit',
-    'clear_logs' => 'logs:log:delete'
+    'add_c'      => 'corsi:corso:add:courses',
+    'add_n'      => 'news:new:add:news',
+    'edit_c'     => 'corsi:corso:edit:courses',
+    'edit_n'     => 'news:new:edit:news',
+    'update'     => 'update:update:edit:update_n',
+    'clear_logs' => 'logs:log:delete:clear_logs'
     );
     
 $input{'namespace'} = $action{$input{'formfor'}};

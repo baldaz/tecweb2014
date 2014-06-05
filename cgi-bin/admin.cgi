@@ -18,6 +18,8 @@ my %routes = (
     'news'             => \&news,
     'add_news'         => \&add_news,
     'edit_news'        => \&edit_news,
+    'del_news'         => \&del_news,
+    'courses'          => \&courses
 #    'edit_prenotation' => \&edit_prenotation,
 #    'edit_courses'     => \&edit_courses
     );
@@ -44,12 +46,50 @@ sub add_news {
 
 sub edit_news {
     my %news_data = $admin->get_ndata($id);
-    my %params = (
-	n_title   => $news_data{n_title},
-	n_content => $news_data{n_content},
-	n_date    => $news_data{n_date},
-	id        => $id
-	);
-    $admin->dispatch('edit_news', %params);
+    my %params = ();
+    if(exists $news_data{not_found}){
+	%params = (
+	    err_code => '404',
+	    err_desc => 'Non corrisponde alcuna risorsa all\' ID inserito'
+	    );
+	$admin->dispatch('error', %params);
+    }
+    else{
+	%params = (
+	    n_title   => $news_data{n_title},
+	    n_content => $news_data{n_content},
+	    n_date    => $news_data{n_date},
+	    id        => $id
+	    );
+	$admin->dispatch('edit_news', %params);
+    }
 }
-#$admin->dispatch($screen);
+
+sub del_news {
+    my %news_data = $admin->get_ndata($id);
+    my %params = ();
+    if(exists $news_data{not_found}){
+	%params = (
+	    err_code => '404',
+	    err_desc => 'Non corrisponde alcuna risorsa all\' ID inserito'
+	    );
+	$admin->dispatch('error', %params);
+    }
+    else{
+	%params = (
+	    'namespace' => 'news:new:delete:news',
+	    'id'        => $id
+	    );
+	$admin->add_resource(%params);
+	#news();
+	#$cgi->header(location => 'admin.cgi?screen=news');
+    }
+}
+
+sub courses {
+    my @courses = $admin->list_courses;
+    my %params = (
+	courses => \@courses
+	);
+    $admin->dispatch('courses', %params);
+}
