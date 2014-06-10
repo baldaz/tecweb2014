@@ -10,5 +10,9 @@
     </ul>
   </div>	
   <div id="content">
+    <tmpl_if name = "is_logged">
+    <tmpl_else>
+      <tmpl_include name = "login.tmpl">
+    </tmpl_if>
   </div>
 <tmpl_include name = "footer.tmpl">

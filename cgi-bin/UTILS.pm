@@ -98,9 +98,10 @@ sub getNews {
 #	push(@content, $new->findvalue("contenuto"));
 #	push(@ids, $new->getAttribute("id"));
 #    }
-    my @loop_news = map {{N_TITLE => $_->findvalue("titolo"),
+    my @loop_news = map {{N_TITLE   => $_->findvalue("titolo"),
 	                  N_CONTENT => $_->findvalue("contenuto"),
-	                  N_ID => $_->getAttribute("id")}} @news;
+			  N_DATE    => $_->findvalue("data"),
+	                  N_ID      => $_->getAttribute("id")}} @news;
 #    my @loop_news = map { {N_TITLE => $titles[$_], N_CONTENT => $content[$_], N_ID => $ids[$_]} } 0..$#news; # possibile encode utf8
     return @loop_news;
 }
@@ -340,6 +341,29 @@ sub get_user {
     my $self = shift;
     my $session = CGI::Session->load();
     return $session->param("~profile");
+}
+
+sub select_field {
+    my ($self, $disciplina, $data, $ora) = @_;
+    my $xml = $self->load_xml('../data/prenotazioni.xml');
+    my $root = $xml->getDocumentElement;
+    $xml->documentElement->setNamespace("www.prenotazioni.it", "p");
+    my @fields = $root->findnodes("//p:prenotante[p:disciplina='$disciplina' and p:data='$data' and p:ora='$ora']/p:campo");
+    @fields = $self->$text(@fields);
+    my $count = $self->getFields($disciplina);
+    my %b_fields = map {$_ => 1} @fields;
+    my @f_fields = grep {not $b_fields{$_}} 1..$count;
+    my $ret;
+    if(@f_fields){
+	foreach my $field(@f_fields){
+	    if(!$self->checkform($disciplina, $field, $data, $ora)){
+		$ret = $field;
+		last;
+	    }
+	}
+    }
+    else{ $ret = -1; }
+    return $ret;
 }
 
 1;

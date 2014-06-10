@@ -7,7 +7,7 @@ use UTILS;
 my $cgi = CGI->new();
 my $utils = UTILS->new('../data/prenotazioni.xml');
 my $page = $cgi->param('page') || 'home';
-my $disciplina = $cgi->param('disciplina');
+my $disciplina = $cgi->param('disciplina') || 'Calcetto';
 my $today = $utils->_today;
 my $data = $cgi->param('data') || $today;
 $data = $today if $data eq '';
@@ -24,7 +24,8 @@ my %routes = (
     'corsi'         => \&corsi,
     'prenotazioni'  => \&prenotazioni,
     'registrazione' => \&registrazione,
-    'personale'     => \&personale
+    'personale'     => \&personale,
+    'prenota'       => \&prenota,
     );
 
 if( grep { $page eq $_} keys %routes){
@@ -137,11 +138,27 @@ sub registrazione {
 
 sub personale {
     my %params = (
-	title => 'Centro sportivo - Area Personale',
-	page  => 'personale',
-	path  => 'Personale',
-	LOGIN => $is_logged,
-	USER  => $user
+	title     => 'Centro sportivo - Area Personale',
+	page      => 'personale',
+	path      => 'Personale',
+	is_logged => $is_logged,
+	LOGIN     => $is_logged,
+	USER      => $user
 	);
     $utils->dispatcher('personale', %params);
+}
+
+sub prenota {
+    my %params = (
+	title     => 'Centro sportivo - Prenota',
+	page      => 'prenota',
+	path      => '<a href="load.cgi?page=prenotazioni">Prenotazioni</a> >> Prenota',
+	is_logged => $is_logged,
+	LOGIN     => $is_logged,
+	USER      => $user,
+	SHOW_TBL  => 0,
+	TBL       => 0,
+	test      => 1,
+	);
+    $utils->dispatcher('prenota', %params);
 }

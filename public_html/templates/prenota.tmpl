@@ -10,72 +10,47 @@
     </ul>
   </div>
   <div id="content">
-    <div class="form-container">
-      <div id="form-path-1" class="active">
-      </div>
-      <div id="form-path-2" class="<tmpl_var escape=html name=class_act>">
-      </div>
-      <form method="POST" action="" class="frm-style" onsubmit="return validate()" name="form" >
+    <tmpl_if name = "is_logged">
+      <form method="post" action="prenota.pl" onsubmit="return validate()" name="form" >
 	<fieldset>
 	  <legend><h2>PRENOTAZIONE</h2></legend>
-
-	  <!-- FORM FASE 1, PRIMO ACCESSO -->
-	  <input type="hidden" id="fase" name="fase" value="<tmpl_var escape=html name=fase default=1>" />
-	  <TMPL_IF NAME="FORM1">
-	    <label for="nome"><span>Nome:</span></label>
-	    <input type="text" name="nome" id="nome" value="" placeholder="insert name" /><span id="err_nome"></span>
-	    <label for="cognome"><span>Cognome:</span></label> 
-	    <input type="text" name="cognome" id="cognome" value="" placeholder="insert surname" /><span id="err_cognome"></span>    
-	    <label for="telefono"><span>Telefono:</span></label> 
-	    <input type="text" name="telefono" id="telefono" value="" placeholder="insert tel" /><span id="err_telefono"></span>    
-	    <label for="email"><span>Email:</span></label>
-	    <input type="email" name="email" id="email" value="" placeholder="insert email" /><span id="err_email"></span>
-	    <label for="disciplina"><span>Disciplina:</span></label>
-	    <select name="disciplina" id="disciplina">
-	      <option value="Calcetto">Calcetto</option>
-	      <option value="Calciotto">Calciotto</option>
-	      <option value="Pallavolo">Pallavolo</option>
-	      <option value="Tennis">Tennis</option>
-	      <option value="Bvolley">Beach Volley</option>
-	    </select>
-	    
-	    <!-- FORM FASE 2 -->
-
-	    <TMPL_ELSE>
-	      
-	      <input type="hidden" id="nome_h" name="nome_h" value="<tmpl_var escape=html name=h_nome>" />
-	      <input type="hidden" id="cognome_h" name="cognome_h" value="<tmpl_var escape=html name=h_cognome>" />
-	      <input type="hidden" id="numero_h" name="numero_h" value="<tmpl_var escape=html name=h_numero>" />
-	      <input type="hidden" id="email_h" name="email_h" value="<tmpl_var escape=html name=h_email>" />
-	      <input type="hidden" id="disciplina_h" name="disciplina_h" value="<tmpl_var escape=html name=h_disciplina>" />
-	      
-	      <label for="ora"><span> Ora:</span></label>
-	      <select name="ora" id="ora" class="p_field" >
-		<option value="16:00">16:00</option>
-		<option value="17:00">17:00</option>
-		<option value="18:00">18:00</option>
-		<option value="19:00">19:00</option>
-		<option value="20:00">20:00</option>
-		<option value="21:00">21:00</option>
-		<option value="22:00">22:00</option>
-		<option value="23:00">23:00</option>
-	      </select> 
-	      <label for="campo"><span>Campo:</span></label>
-	      <input type="number" name="campo" id="campo" min="1" max="<tmpl_var escape=html name=nr_campi default=3>" value="<tmpl_var escape=html name=c_val default=1>" class="p_field" />
-	      <label for="data"><span>Giorno:</span></label> 
-   	      <input type="date" name="data" id="data" class="p_field" />
-	</fieldset>
-	</TMPL_IF>
-	<fieldset>
+	  <p>
+	  <label for="disciplina">Disciplina</label>
+	  <select id="disciplina" name="disciplina" class="p_field">
+	    <option value="Calcetto">Calcetto</option>
+	    <option value="Pallavolo">Pallavolo</option>
+	    <option value="Calciotto">Calciotto</option>
+	    <option value="Beach Volley">Beach Volley</option>
+	    <option value="Tennis">Tennis</option>
+	  </select>
+	  </p>
+	  <p>
+	  <label for="ora">Ora:</label>
+	  <select name="ora" id="ora" class="p_field" >
+	    <option value="16:00">16:00</option>
+	    <option value="17:00">17:00</option>
+	    <option value="18:00">18:00</option>
+	    <option value="19:00">19:00</option>
+	    <option value="20:00">20:00</option>
+	    <option value="21:00">21:00</option>
+	    <option value="22:00">22:00</option>
+	    <option value="23:00">23:00</option>
+	  </select>
+	  </p>
+	  <p>
+	  <label for="data">Giorno:</label> 
+   	  <input type="date" name="data" id="data" class="p_field" />
+	  </p>
 	  <div id="button_container">
   	    <input type="reset"  value="Resetta il form" class="button" />
-  	    <input type="submit" value="<tmpl_var escape=html name=button default=Prosegui>" class="button" />
+  	    <input type="submit" value="Conferma" class="button" />
 	  </div>
 	</fieldset>
       </form>
-      <div id="tables">
-      </div>
-    </div>
+      <tmpl_else>
+	<tmpl_include name = "login.tmpl">
+    </tmpl_if>
+    <div id="tables">
     <TMPL_IF NAME="SHOW_TBL">
       <TMPL_IF NAME="TBL">
 	<TMPL_IF NAME="TEST">
@@ -86,6 +61,7 @@
 	</TMPL_IF>
       </TMPL_IF>
     </TMPL_IF>
+    </div>
   </div>
   <script language="javascript" type="text/javascript" src="../js/rtc_form.js"></script>
-<tmpl_include name = "footer.tmpl">
+  <tmpl_include name = "footer.tmpl">

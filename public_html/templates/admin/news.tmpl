@@ -14,6 +14,7 @@
 	  <th scope="col">ID</th>
 	  <th scope="col">Titolo</th>
 	  <th scope="col">Contenuto</th>
+	  <th scope="col">Data</th>
 	  <th scope="col">Modifica</th>
 	  <th scope="col">Elimina</th>
 	</tr>
@@ -26,6 +27,7 @@
 	    <td><tmpl_var name = "N_ID"></td>
 	    <td><tmpl_var name = "N_TITLE"></td>
 	    <td><tmpl_var name = "N_CONTENT"></td>
+	    <td><tmpl_var name = "N_DATE"></td>
 	    <td><a href="admin.cgi?screen=edit_news&id=<tmpl_var name = N_ID>">Modifica</a></td>
 	    <td><a href="admin.cgi?screen=del_news&id=<tmpl_var name = N_ID>">Elimina</a></td>
 	  </tr>

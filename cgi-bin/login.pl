@@ -7,9 +7,7 @@ use UTILS::Admin;
 my $admin = UTILS::Admin->new;
 my $cgi = CGI->new();
 my $page = $cgi->param("page") || 'home';
-unless ($page eq 'viewB.cgi' || $page eq 'prenota.cgi'){
-    $page = "load.cgi?page=".$page; 
-}
+$page = "load.cgi?page=".$page; 
 my $user = $cgi->param("username") or return;
 my $passwd = $cgi->param("passwd") or return;
 my $session;
@@ -22,4 +20,4 @@ if (my $profile = $admin->load_profile($user, $passwd)){
     $session->expire(120);
 }
 
-print $session->header(-location => "$page");
+print $session->header(-location => $page);
