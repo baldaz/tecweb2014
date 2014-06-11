@@ -10,15 +10,19 @@
     <form action="process.pl" method="post">
       <fieldset>
 	<legend>Modifica corso</legend>
+	<label for="id">ID:</label>
+	<input type="text" id="id" name="id" value="<tmpl_var escape = html name = id>" />
 	<label for="nome">Nome:</label>
-	<input type="text" id="nome" name="nome" value="<tmpl_var escape = html name = nome>" />
-	<label for="titolo">Titolo:</label>
-	<input type="text" id="titolo" name="titolo" value="<tmpl_var escape = html name = n_title>"/>
-	<label for="data">Data:</label>
-	<input type="text" id="data" name="data" value="<tmpl_var escape = html name = n_date>"/>
-	<label for="contenuto">Contenuto:</label>
-	<input type="textarea" id="contenuto" name="contenuto" value="<tmpl_var escape = html name = n_content>"/>
-	<input type="hidden" id="formfor" name="formfor" value="edit_n" />
+	<input type="text" id="nome" name="nome" value="<tmpl_var escape = html name = c_name>" />
+	<label for="mensile">Mensile:</label>
+	<input type="text" id="mensile" name="mensile" value="<tmpl_var escape = html name = c_monthly>"/>
+	<label for="trimestrale">Trimestrale:</label>
+	<input type="text" id="trimestrale" name="trimestrale" value="<tmpl_var escape = html name = c_trimestral>"/>
+	<label for="semestrale">Semestrale:</label>
+	<input type="text" id="semestrale" name="semestrale" value="<tmpl_var escape = html name = c_semestral>"/>
+	<label for="annuale">Annuale:</label>
+	<input type="text" id="annuale" name="annuale" value="<tmpl_var escape = html name = c_annual>" />
+	<input type="hidden" id="formfor" name="formfor" value="edit_c" />
 	<input type="submit" id="submit" value="submit">
       </fieldset>
     </form> 

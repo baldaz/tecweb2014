@@ -19,9 +19,10 @@ my %routes = (
     'add_news'         => \&add_news,
     'edit_news'        => \&edit_news,
     'del_news'         => \&del_news,
-    'courses'          => \&courses
+    'courses'          => \&courses,
 #    'edit_prenotation' => \&edit_prenotation,
-#    'edit_courses'     => \&edit_courses
+    'edit_course'      => \&edit_course,
+    'del_course'       => \&del_course
     );
 
 $routes{$screen}->();
@@ -92,4 +93,46 @@ sub courses {
 	courses => \@courses
 	);
     $admin->dispatch('courses', %params);
+}
+
+sub edit_course {
+    my %cs_data = $admin->get_cdata($id);
+    my %params = ();
+    if(exists $cs_data{not_found}){
+	%params = (
+	    err_code => '404',
+	    err_desc => 'Non corrisponde alcuna risorsa all\' ID inserito'
+	    );
+	$admin->dispatch('error', %params);
+    }
+    else{
+	%params = (
+	    id           => $id,
+	    c_name       => $cs_data{c_name},
+	    c_monthly    => $cs_data{c_monthly},
+	    c_trimestral => $cs_data{c_trimestral},
+	    c_semestral  => $cs_data{c_semestral},
+	    c_annual     => $cs_data{c_annual}
+	    );
+	$admin->dispatch('edit_course', %params);
+    }
+}
+
+sub del_course {
+    my %cs_data = $admin->get_cdata($id);
+    my %params = ();
+    if(exists $cs_data{not_found}){
+	%params = (
+	    err_code => '404',
+	    err_desc => 'Non corrisponde alcuna risorsa all\' ID inserito'
+	    );
+	$admin->dispatch('error', %params);
+    }
+    else{
+	%params = (
+	    'namespace' => 'corsi:corso:delete:corsi',
+	    'id'        => $id
+	    );
+	$admin->add_resource(%params);
+    }
 }

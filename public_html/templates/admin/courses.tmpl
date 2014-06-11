@@ -11,6 +11,7 @@
       <caption>Corsi</caption>
       <thead>
 	<tr>
+	  <th scope="col">ID</th>
 	  <th scope="col">Nome</th>
 	  <th scope="col">Mensile</th>
 	  <th scope="col">Trimestrale</th>
@@ -25,13 +26,14 @@
       <tbody>
 	<tmpl_loop name = "courses">
 	  <tr>
+	    <td><tmpl_var name = "C_ID"></td>
 	    <td><tmpl_var name = "C_NAME"></td>
 	    <td><tmpl_var name = "MONTHLY"></td>
 	    <td><tmpl_var name = "TRIMESTRAL"></td>
 	    <td><tmpl_var name = "SEMESTRAL"></td>
 	    <td><tmpl_var name = "ANNUAL"></td>
-	    <td><a href="admin.cgi?screen=edit_course&id=<tmpl_var name = C_NAME>">Modifica</a></td>
-	    <td><a href="admin.cgi?screen=del_course&id=<tmpl_var name = C_NAME>">Elimina</a></td>
+	    <td><a href="admin.cgi?screen=edit_course&id=<tmpl_var name = C_ID>">Modifica</a></td>
+	    <td><a href="admin.cgi?screen=del_course&id=<tmpl_var name = C_ID>">Elimina</a></td>
 	  </tr>
 	</tmpl_loop>
       </tbody>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<corsi xmlns="www.corsi.it" xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance">
-  <corso>
+<corsi xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance">
+  <corso id="1">
     <nome>Sala Fitness</nome>
     <mensile>60€</mensile>
     <trimestrale>150€</trimestrale>
@@ -16,7 +16,7 @@
 		<dom></dom>
 	</orari>
   </corso>
-  <corso>
+  <corso id="2">
     <nome>Yoga</nome>
     <mensile>60€</mensile>
     <trimestrale>150€</trimestrale>
@@ -32,7 +32,7 @@
 		<dom></dom>
 	</orari>
   </corso>
-  <corso>
+  <corso id="3">
     <nome>Pilates</nome>
     <mensile>60€</mensile>
     <trimestrale>150€</trimestrale>
@@ -48,7 +48,7 @@
 		<dom></dom>
 	</orari>
   </corso>
-  <corso>
+  <corso id="4">
     <nome>Cross Fit</nome>
     <mensile>60€</mensile>
     <trimestrale>150€</trimestrale>
@@ -64,7 +64,7 @@
 		<dom></dom>
 	</orari>
   </corso>
-  <corso>
+  <corso id="5">
     <nome>Fit Boxe</nome>
     <mensile>60€</mensile>
     <trimestrale>150€</trimestrale>

@@ -114,7 +114,7 @@ sub list_courses {
     my @courses = $xml->findnodes("//corso");
     my @loop_courses = map {{C_NAME => $_->findvalue("nome"), MONTHLY => $_->findvalue("mensile"),
 	                     TRIMESTRAL => $_->findvalue("trimestrale"), SEMESTRAL => $_->findvalue("semestrale"),
-	                     ANNUAL => $_->findvalue("annuale")}} @courses;
+	                     ANNUAL => $_->findvalue("annuale"), C_ID => $_->getAttribute("id")}} @courses;
     return @loop_courses;
 }
 
@@ -131,6 +131,23 @@ sub get_ndata {
 	$data{not_found} = 1;
     }
     return %data;
+}
+
+sub get_cdata {
+    my ($self, $id) = @_;
+    my $xml = $self->load_xml('../data/corsi.xml');
+    my %c_data = ();
+    if($xml->getDocumentElement->exists("//corso[\@id=$id]")){
+	$c_data{c_name} = $xml->findvalue("//corso[\@id='$id']/nome");
+	$c_data{c_monthly} = $xml->findvalue("//corso[\@id='$id']/mensile");
+	$c_data{c_trimestral} = $xml->findvalue("//corso[\@id='$id']/trimestrale");
+	$c_data{c_semestral} = $xml->findvalue("//corso[\@id='$id']/semestrale");
+	$c_data{c_annual} = $xml->findvalue("//corso[\@id='$id']/annuale");
+    }
+    else {
+	$c_data{not_found} = 1;
+    }
+    return %c_data;
 }
 
 1;
