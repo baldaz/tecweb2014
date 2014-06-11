@@ -86,7 +86,6 @@ sub add_resource {
     open(OUT, ">$path") || die "error $!";
     print OUT $xml->toString || die $!; 
     close OUT;
-#    print "Content-type: text/html\n\n";
     print CGI::header(-location => "admin.cgi?screen=$from");
 }
 

@@ -81,14 +81,10 @@ input:focus, select:focus, textarea:focus, input:hover, select:hover, textarea:h
     outline: none;
     color:#333333
 }
-/*
 input:focus::-webkit-input-placeholder { color:transparent; }
-
 input:focus{
     text-indent:0.4em
 }
-*/
-/** prova **/
 form {
     margin:auto;
     position:relative;
@@ -96,10 +92,10 @@ form {
     font-size: 14px;
     font-style: italic;
     line-height: 24px;
-    font-weight: bold;
+    font-weight: 600;
     color: #ffda47;
     text-decoration: none;
-    padding:10px
+    padding:8px
 }
 input, select {
     display:block;
@@ -107,7 +103,7 @@ input, select {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius:5px;
-    height:1.575em;
+    height:1.5em;
     margin-top:0.1em;
     padding:0.1em;
     width:40%;
@@ -115,29 +111,8 @@ input, select {
     color:#333333;
     -webkit-box-shadow: 0px 0px 4px #888;
     -moz-box-shadow: 0px 0px 4px #888;
-    box-shadow: 0px 0px 4px #888;
+    box-shadow: 0px 0px 4px #888
 }
-input.submit {
-    width:100px;
-    position:absolute;
-    right:20px;
-    bottom:20px;
-    background:#09C;
-    color:#fff;
-    font-family: Tahoma, Geneva, sans-serif;
-    height:30px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    border-radius: 15px
-}
-input.submit:hover {
-    background:#fff;
-    color:#09C
-}
-input:focus {
-    border: 1px solid #09C
-}
-/** fine prova **/
 #prenotazioni_tbl{
     table-layout:fixed;
     width:80%;
@@ -224,8 +199,8 @@ td{
     color:#f00
 }
 #field{
- width:5%;
- clear:both
+    width:5%;
+    clear:both
 }
 #button_container{
     text-align:center
@@ -266,8 +241,8 @@ td{
     position:relative;
 }
 #header h1 {
-	text-align:center;
-	font-weight: bold;
+    text-align:center;
+    font-weight: bold;
 }
 #path {
     position:absolute;
@@ -302,7 +277,7 @@ td{
     -moz-box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;
     box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;	
     margin-bottom: 0.6em;
-    padding:0.2em;
+    padding:0.3em;
     text-align:left;
     display:block
 }
@@ -312,7 +287,7 @@ td{
     margin-bottom: 2%
 }
 #login input[type="submit"] {
-    margin: 3% 1%;
+    margin: 5% 1%;
     width:60%
 }
 #nav {
