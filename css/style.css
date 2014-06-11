@@ -19,8 +19,6 @@ body{
     background: -webkit-linear-gradient(to top, #ffda47 0%, #ffffff 80%) fixed;
     background: -moz-linear-gradient(to top, #ffda47 0%, #ffffff 80%) fixed;
     background: -o-linear-gradient(to top, #ffda47 0%, #ffffff 80%) fixed;
-    background: -ms-linear-gradient(to top, #ffda47 0%, #ffffff 80%) fixed;
-    background: -khtml-linear-gradient(to top, #ffda47 0%, #ffffff 80%) fixed;
     background: linear-gradient(to top, #ffda47 0%, #ffffff 80%) fixed;
     color:#333333;
     height:100%
@@ -281,8 +279,6 @@ td{
     background-image: -webkit-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
     background-image: -moz-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
     background-image: -o-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
-    background-image: -ms-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
-    background-image: -khtml-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
     background-image: linear-gradient(to right, #ffda47 0%, #ffffff 150%);
     color:#333333;
     -webkit-border-bottom-right-radius:20px;
@@ -337,8 +333,6 @@ td{
     -webkit-transition: all 0.3s ease-out;
     -moz-transition: all 0.3s ease-out;
     -o-transition: all 0.3s ease-out;
-    -ms-transition: all 0.3s ease-out;
-    -khtml-transition: all 0.3s ease-out;
     transition: all 0.3s ease-out;
     background: #228833;
     color: #FFDA47;
@@ -363,8 +357,6 @@ td{
     background-image: -webkit-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
     background-image: -moz-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
     background-image: -o-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
-    background-image: -ms-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
-    background-image: -khtml-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
     background-image: linear-gradient(to right, #ffda47 0%, #ffffff 150%);
     color: #228833;
     padding: 0.437em 0.937em 0.437em 1.875em;
@@ -373,8 +365,6 @@ td{
     background-image: -webkit-linear-gradient(to right, #ffda47 0%, #ffffff 150%) !important;
     background-image: -moz-linear-gradient(to right, #ffda47 0%, #ffffff 150%) !important;
     background-image: -o-linear-gradient(to right, #ffda47 0%, #ffffff 150%) !important;
-    background-image: -ms-linear-gradient(to right, #ffda47 0%, #ffffff 150%) !important;
-    background-image: -khtml-linear-gradient(to right, #ffda47 0%, #ffffff 150%) !important;
     background-image: linear-gradient(to right, #ffda47 0%, #ffffff 150%) !important;
     background-color:#ffda47 !important;
     color: #228833 !important;
