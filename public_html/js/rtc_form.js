@@ -23,45 +23,21 @@ $("#telefono").keydown(function(event){
 });
 
 $("form").submit(function(event){
-    if(!$("#nome").length){
-	event.preventDefault();
-	var error = $("<span class='errore'>Inserire nome</span>");
-	if(!$(".errore").length){
-	    $("#nome").after(error);
-	    setTimeout(function() {
-		$(".errore").remove();
-	    }, 2000);
+    var isValid = true;
+    $("form input:text").each(function(){
+	if($.trim($(this).val()).length == 0){
+	   // event.preventDefault();
+	    isValid = false;
+	    var error = $("<span class='errore'>Inserire nome</span>");
+	    if(!$(".errore").length){
+		$(this).after(error);
+		setTimeout(function() {
+		    $(".errore").remove();
+		}, 2000);
+	    }
 	}
     }
-    else {
-	$(".errore").remove();
-    }
-    if(!$("#cognome").length){
-	event.preventDefault();
-	var error = $("<span class='errore'>Inserire cognome</span>");
-	if(!$(".errore").length){
-	    $("#cognome").after(error);
-	    setTimeout(function() {
-		$(".errore").remove();
-	    }, 2000);
-	}
-    }
-    else {
-	$(".errore").remove();
-    }
-    if(!$("#email").length){
-	event.preventDefault();
-	var error = $("<span class='errore'>Inserire email</span>");
-	if(!$(".errore").length){
-	    $("#email").after(error);
-	    setTimeout(function() {
-		$(".errore").remove();
-	    }, 2000);
-	}
-    }
-    else {
-	$(".errore").remove();
-    }
+			      if(!isValid) return false;
 });
 
 $(".p_field").change(function(){
