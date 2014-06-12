@@ -1,10 +1,66 @@
+var i = 0;
+var src = ['../images/campo-tennis.jpg', '../images/campo_calcetto.jpg', '../images/seagal-3.jpg', '../images/fitness.jpg'];
+setInterval(function(){
+    $("#ft").attr('src', src[i]);
+    i++;
+    if(i == src.length) i = 0;
+}, 5000);
+
 $("#telefono").keydown(function(event){
     if((event.which < 47 || event.which > 57) && event.which !=8 && event.which != 9 && event.which != 46){
 	event.preventDefault();
-	$("#err_telefono").text("Inserire numeri");
+	var error = $("<span class='errore'>Inserire numeri</span>");
+	if(!$(".errore").length){
+	    $(this).after(error);
+	    setTimeout(function() {
+		$(".errore").remove();
+	    }, 2000);
+	}
     }
     else{
-	$("#err_telefono").text("");
+	$(".errore").remove();
+    }
+});
+
+$("form").submit(function(event){
+    if(!$("#nome").length){
+	event.preventDefault();
+	var error = $("<span class='errore'>Inserire nome</span>");
+	if(!$(".errore").length){
+	    $("#nome").after(error);
+	    setTimeout(function() {
+		$(".errore").remove();
+	    }, 2000);
+	}
+    }
+    else {
+	$(".errore").remove();
+    }
+    if(!$("#cognome").length){
+	event.preventDefault();
+	var error = $("<span class='errore'>Inserire cognome</span>");
+	if(!$(".errore").length){
+	    $("#cognome").after(error);
+	    setTimeout(function() {
+		$(".errore").remove();
+	    }, 2000);
+	}
+    }
+    else {
+	$(".errore").remove();
+    }
+    if(!$("#email").length){
+	event.preventDefault();
+	var error = $("<span class='errore'>Inserire email</span>");
+	if(!$(".errore").length){
+	    $("#email").after(error);
+	    setTimeout(function() {
+		$(".errore").remove();
+	    }, 2000);
+	}
+    }
+    else {
+	$(".errore").remove();
     }
 });
 

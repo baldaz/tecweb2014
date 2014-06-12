@@ -4,23 +4,7 @@
       Benvenuto <tmpl_var name="USER">
     </p>
       <tmpl_else>
-	<form action="login.pl" method="post">
-	  <fieldset>
-	    <legend>Area personale</legend>
-	    <p>
-	    <label for="username">Username:</label>
-	    <input type="text" id="username" name="username" />
-	    </p>
-	    <p>
-	    <label for="password">Password:</label>
-	    <input type="password" id="passwd" name="passwd" />
-	    </p>
-	    <p>
-	    <input type="hidden" id="page" name="page" value="<tmpl_var name = page>">
-	    <input type="submit" value="sign in" class="button"/>
-	    </p>
-	  </fieldset>
-	</form>
+	<tmpl_include name = "login.tmpl">
 	<a href="load.cgi?page=registrazione">Registrati</a>
   </tmpl_if>
 </div>

@@ -1,26 +1,29 @@
 <tmpl_include name = "header.tmpl">
   <div id="content">
-    <form action="" method="post" onsubmit="return validate()">
+    <form action="" method="post" onsubmit="return validate()" name="form" id="form">
       <fieldset>
 	<legend>Dati registrazione</legend>
-	<p>
+	<div class="formgroup">
 	  <label for="nome">Nome:</label>
-	  <input type="text" name="nome" id="nome" value="" placeholder="insert name" /><span id="err_nome"></span>
-	</p>
-	<p>
+	  <input type="text" name="nome" id="nome" value="" placeholder="insert name" />
+	</div>
+	<div class="formgroup">
 	  <label for="cognome">Cognome:</label> 
-	  <input type="text" name="cognome" id="cognome" value="" placeholder="insert surname" /><span id="err_cognome"></span> 
-	</p>
-	<p>
+	  <input type="text" name="cognome" id="cognome" value="" placeholder="insert surname" /> 
+	</div>
+	<div class="formgroup">
 	  <label for="telefono">Telefono:</label> 
-	  <input type="text" name="telefono" id="telefono" value="" placeholder="insert tel" /><span id="err_telefono"></span>    
-	</p>
-	<p>
+	  <input type="text" name="telefono" id="telefono" value="" placeholder="insert tel" />  
+	</div>
+	<div class="formgroup">
 	  <label for="email">Email:</label>
-	  <input type="email" name="email" id="email" value="" placeholder="insert email" /><span id="err_email"></span>
-	</p>
-	<input type="submit" value="sign up" />
+	  <input type="email" name="email" id="email" value="" placeholder="insert email" />
+	</div>
+	<div class="formgroup">
+	<input type="submit" value="sign up" class="button" />
+	</div>
       </fieldset>
     </form>
   </div>
+  <script type="text/javascript" src="../js/rtc_form.js"></script>
 <tmpl_include name = "footer.tmpl">
