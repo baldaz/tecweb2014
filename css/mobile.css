@@ -163,23 +163,7 @@ td{
 .selected{
     background:rgba(255,255,255,0.3)
 }
-#separator{
-    float:left;
-    display:block;
-    position:absolute;
-    width:1px;
-    top:5%;
-    left:33%;
-    bottom:5%;
-    border-style:dotted;
-    border-color:#777777;
-    border-left-width:1px
-}
-#imp_desc{
-    width:65%; 
-    margin-left:35%
-}
-.floated{
+/*.floated{
     float:left;
     width:30%;
     margin:1em;
@@ -189,15 +173,15 @@ td{
     border-style: solid;
     border-width: 1px;
     border-color: #777777
-}
+}*/
 #content span{
     clear:both
 }
-#err_nome, #err_cognome, #err_telefono, #err_email, #err_ora, #err_campo,#err_data{
+/*#err_nome, #err_cognome, #err_telefono, #err_email, #err_ora, #err_campo,#err_data{
     vertical-align:middle;
     margin-left:1em;
     color:#f00
-}
+}*/
 #field{
     width:5%;
     clear:both
@@ -218,8 +202,7 @@ td{
     color: #228833;
 }
 #container {
-    height: 100%;
-
+    height: 100%
 }
 #header {
     height:15%;
@@ -340,14 +323,14 @@ td{
     color: #228833;
     padding: 0.437em 0.937em 0.437em 1.875em;
 }*/
-/*#active {
+#active {
     background-image: -webkit-linear-gradient(to right, #ffda47 0%, #ffffff 150%) !important;
     background-image: -moz-linear-gradient(to right, #ffda47 0%, #ffffff 150%) !important;
     background-image: -o-linear-gradient(to right, #ffda47 0%, #ffffff 150%) !important;
     background-image: linear-gradient(to right, #ffda47 0%, #ffffff 150%) !important;
     background-color:#ffda47 !important;
     color: #228833 !important;
-}*/
+}
 #news_container {
     max-width: 100%;
     background:rgba(0,0,0,0.3);
@@ -419,11 +402,14 @@ span.bold{
     font-weight:bold
 }
 #content img{
-    margin-top:1em;
+    /*margin-top:1em;
     border-style:solid;
     border-width:1px;
     border-color:#777777;
-    border-radius:1em
+    border-radius:1em*/
+	width:90%;
+	margin:2% 5% 2% 5%;
+	-webkit-border-radius: 1em;
 }
 #footer{
     width:100%;
@@ -446,23 +432,20 @@ span.bold{
 #footer p{
     padding: 1.5em;
 }
-#imp_desc p{ /* sovrascrittura content */
-    text-align:justify
-}
 #content span p{
     text-align:justify
 }
 #content span ul{
     margin-left:35%
 }
-#images{
+/* IMPIANTI */
+#images{				/*da sistemare, mettere sotto se si riesce*/
     text-align:center;
-    margin:auto;
-    float:left;
-    width:30%
+ /*   margin:auto;*/
+
 }
 #images span{
-    display:block;
+   /* display:block;*/
     width:100%;
     margin:0 0.5em;
     font-size:0.675em
@@ -482,7 +465,16 @@ span.bold{
     -moz-border-top-right-radius: 1em;
     border-top-right-radius: 1em
 }
+#images span img{
+    -webkit-border-radius: 0em;
+    -moz-border-radius: 0em;
+    border-radius: 0em
+}
 #images span:last-child img{
-    border-bottom-left-radius:1em;
+    border-bottom-left-radius:1em ;
     border-bottom-right-radius:1em
+}
+#imp_desc{
+	position:absolute;
+	top:0px;
 }

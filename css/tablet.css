@@ -1,3 +1,4 @@
+		/*provare su altro monitor, alcune scritte me pare massa piccoe */
 * {
     border: 0 none;
     padding: 0;
@@ -200,9 +201,11 @@ table, th, td{
     -moz-background-size: 50% 100%;
     -o-background-size: 50% 100%;
     background-size: 50% 100%;
+	
 }
 #nav ul li{
     margin-bottom:0.437em;	
+	margin-left:0 !important;
 }
 #nav ul li a{
     width: 85%; 
@@ -266,11 +269,28 @@ table, th, td{
     margin-bottom: 2%
 }
 #login input[type="submit"] {
-    margin: 5% 1%;
+    /*margin: 5% 1%;*/
     width:30%
 }
-#login a{
-	
+#login legend, p{
+	text-align:center;
+}
+#login a{						/* da mettere al centro o cmq cambiare */
+    background-color:#228833;
+    color: #ffda47;
+    width:40%;
+    margin:1em 0.675em;
+    cursor:pointer;
+	text-decoration:none;
+	align:inherit;
+	padding: 0.075em 1em 0.075em 1em;
+	-webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+}
+#login a:hover{
+    background-color:#ffda47;
+    color: #228833;
 }
 
 #news_container{
@@ -312,6 +332,7 @@ table, th, td{
     list-style:none;
 }
 #news ul li{
+	text-align:center;
     margin-bottom:0.437em;
     margin-left:0.5em;
     margin-right:0.5em;
@@ -324,6 +345,7 @@ table, th, td{
 }
 
 #content{
+	position:relative;
     width:70%;
     min-height:65%;
     margin-left: 30%;
@@ -351,7 +373,10 @@ table, th, td{
 }
 #content img{
     margin-top:1em;
+	width:90%;
+	margin:2% 5% 2% 5%;
 }
+
 #footer{
     width:100%;
     height:10%;
@@ -372,4 +397,91 @@ table, th, td{
 }
 #footer p{
     padding: 1.5em;
+}
+/*gli impianti*/
+/*#separator{			da vedere se vabene in tablet / mobile
+    float:left;
+    display:block;
+    position:absolute;
+    width:1px;
+    top:5%;
+    left:33%;
+    bottom:5%;
+    border-style:dotted;
+    border-color:#777777;
+    border-left-width:1px
+}*/
+#images{
+    text-align:center;
+    margin:auto;
+    float:left;
+    width:30%
+}								/*con pagina al limite (stretta) vien na merda, cosa femo?	*/
+#images span{
+    display:block;
+    width:100%;
+    margin:0 0.5em;
+    font-size:0.675em
+}
+#images img{
+    width:14em;
+    height:10em;
+    border-style:solid;
+    border-width:1px;
+    border-color:#777777
+}
+#images span:first-child img{
+    -webkit-border-top-left-radius: 1em;
+    -moz-border-top-left-radius: 1em;
+    border-top-left-radius: 1em;
+    -webkit-border-top-right-radius: 1em;
+    -moz-border-top-right-radius: 1em;
+    border-top-right-radius: 1em
+}
+#images span:last-child img{
+    border-bottom-left-radius:1em;
+    border-bottom-right-radius:1em
+}
+#imp_desc p, li { /* sovrascrittura content */
+    text-align:justify;
+	margin-left:30%;
+}
+
+/*fitness e corsi*/
+
+#content h2{
+	padding-top:2%;
+	color:#FFDA47;
+}
+#prenotazioni_tbl{
+    table-layout:fixed;
+    width:90%;
+    border-collapse:collapse;
+    margin: 2% 5% 2%;
+    background:url("../images/headerbackground_o.jpg")
+}
+#prenotazioni_tbl th, #prenotazioni_tbl td{
+    border: 1px dotted black;
+    font-size:10px;
+    padding:5px;
+}
+#corsi_tbl{
+    width:90%;
+    margin: 2% 5% 2%;
+    border-collapse:collapse
+}
+#corsi_tbl th{
+    border-bottom: 1px solid #777777;
+    padding:8px;
+    font-size:11px
+}
+#corsi_tbl td{
+    padding:5px;
+    font-size:11px
+}
+#corsi_tbl tr:hover{
+    background-color: rgba(20,110,170,0.2)
+}
+#corsi_tbl tr:nth-child(2n+2) {
+    background-color: rgba(20,110,170,0.2)
 }
