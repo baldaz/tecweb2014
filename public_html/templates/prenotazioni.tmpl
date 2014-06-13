@@ -15,7 +15,7 @@
     <form method="GET" id="form" name="form" class="frm-pren" action="" onsubmit="return validate()">
       <input type="hidden" id="page" name="page" value="prenotazioni">
       <fieldset>
-	<p>
+	<div class="formgroup">
 	  <label for="disciplina">Disciplina</label>
 	  <select id="disciplina" name="disciplina" class="p_field">
 	    <option value="Calcetto">Calcetto</option>
@@ -24,13 +24,15 @@
 	    <option value="Beach Volley">Beach Volley</option>
 	    <option value="Tennis">Tennis</option>
 	  </select>
-	</p>
-	<p>
+	</div>
+	<div class="formgroup">
 	  <label for="data">Data</label>
-	  <input type="date" name="data" id="data" value="" class="p_field"><span id="err_data"></span>
+	  <input type="date" name="data" id="data" value="" class="p_field">
+	</div>
+	<div class="formgroup">
 	  <input type="submit" value="Visualizza" class="button" />
 	  <a href="load.cgi?page=prenota"><input type="button" value="Nuova prenotazione" class="button" /></a>
-	</p>
+	</div>
       </fieldset>
     </form>
     

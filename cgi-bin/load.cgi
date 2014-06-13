@@ -91,10 +91,15 @@ sub corsi {
 }
 
 sub contatti {
+    my $mail = '';
+    if($is_logged){
+	$mail = $user;
+    }
     my %params = (
 	title => 'Centro sportivo - Contatti',
 	page  => 'contatti',
 	path  => 'Contatti',
+	email => $user,
 	LOGIN => $is_logged,
 	USER  => $user
 	);
@@ -137,10 +142,15 @@ sub registrazione {
 }
 
 sub personale {
+    my %generals = $utils->get_generals($user);
     my %params = (
 	title     => 'Centro sportivo - Area Personale',
 	page      => 'personale',
 	path      => 'Personale',
+	name      => $generals{name},
+	surname   => $generals{surname},
+	mail      => $user,
+	tel       => $generals{tel},
 	is_logged => $is_logged,
 	LOGIN     => $is_logged,
 	USER      => $user

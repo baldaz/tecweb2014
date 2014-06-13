@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<profili xmlns="www.profili.it" xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance">
+<profili xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance">
   <profilo>
-    <username>admin</username>
+    <username>admin@admin.ad</username>
     <password>admin</password>
+    <nome>AmministratoreDog</nome>
+    <cognome>Dog</cognome>
+    <telefono>0123456789</telefono>
   </profilo>
 </profili>

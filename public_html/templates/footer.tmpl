@@ -1,11 +1,11 @@
 <div id="login">
   <tmpl_if name="LOGIN">
     <p>
-      Benvenuto <tmpl_var name="USER">
+      <a href="load.cgi?page=personale"><tmpl_var name="USER"></a>
+      <a href="logout.pl?page=<tmpl_var name = page>" >Logout</a>
     </p>
-      <tmpl_else>
-	<tmpl_include name = "login.tmpl">
-	<a href="load.cgi?page=registrazione">Registrati</a>
+    <tmpl_else>
+      <tmpl_include name = "login.tmpl">
   </tmpl_if>
 </div>
 <div id="news_container">
@@ -15,10 +15,10 @@
       <TMPL_LOOP NAME=NEWS>
 	<li>
 	  <TMPL_VAR NAME=N_TITLE><tmpl_var name = "N_DATE">
-	    <p>
-	      <TMPL_VAR NAME=N_CONTENT>
-	      <tmpl_var name = N_ID>
-	    </p>
+	      <p>
+		<TMPL_VAR NAME=N_CONTENT>
+		  <tmpl_var name = N_ID>
+	      </p>
 	</li>
       </TMPL_LOOP>
     </ul>

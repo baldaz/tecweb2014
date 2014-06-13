@@ -17,7 +17,7 @@ if (my $profile = $admin->load_profile($user, $passwd)){
     $session->param("~profile", $user);
     $session->param("~logged-in", 1);
     $session->clear(["~login-trials"]);
-    $session->expire(120);
+    $session->expire(360);
     print $session->header(-location => $page);
 }
 else { print $cgi->header(-location => $page);}

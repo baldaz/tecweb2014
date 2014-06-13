@@ -1,4 +1,4 @@
-<form action="login.pl" method="post" >
+<form action="login.pl" method="post" onsubmit="return validateLogin()" name="login" >
   <fieldset>
     <legend>Area personale</legend>
     <div class="formgroup">
@@ -8,10 +8,11 @@
     <div class="formgroup">
       <label for="passwd">Password:</label>
       <input type="password" id="passwd" name="passwd" placeholder="Password" />
-      <input type="hidden" id="page" name="page" value="<tmpl_var name = page>">
+      <input type="hidden" id="page" name="page" value="<tmpl_var name = page>" />
     </div>
     <div class="formgroup">
       <input type="submit" value="sign in" class="button" />
+      <a href="load.cgi?page=registrazione"><input type="button" value="Registrati" class="button" /></a>
     </div>
   </fieldset>
 </form>

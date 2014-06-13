@@ -12,10 +12,24 @@
 <div id="content">
   <div class="form-container">
     <h2>Contatti</h2>
-    <form>
-      <label for="name">Nome:</label>
-      <input type="text" name="name" id="name">
-      <input type="submit" value="submit">
+    <p>
+      Indirizzo, mappa?
+    </p>
+    <form action="" method="post" name="contattaci" >
+      <fieldset>
+	<legend>Contattaci</legend>
+	<div class="formgroup">
+	  <label for="email">E-Mail:</label>
+	  <input type="text" name="email" id="email" value="<tmpl_var escape = html name = email>"/>
+	</div>
+	<div class="formgroup">
+	  <label for="message">Message:</label>
+	  <textarea name="message" id="message"></textarea>
+	</div>
+	<div class="formgroup">
+	  <input type="submit" value="submit" class="button" />
+	</div>
+      </fieldset>
     </form>
   </div>
 </div>	

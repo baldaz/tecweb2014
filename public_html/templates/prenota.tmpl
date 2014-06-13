@@ -14,33 +14,33 @@
       <form method="post" action="prenota.pl" onsubmit="return validate()" name="form" >
 	<fieldset>
 	  <legend><h2>PRENOTAZIONE</h2></legend>
-	  <p>
-	  <label for="disciplina">Disciplina</label>
-	  <select id="disciplina" name="disciplina" class="p_field">
-	    <option value="Calcetto">Calcetto</option>
-	    <option value="Pallavolo">Pallavolo</option>
-	    <option value="Calciotto">Calciotto</option>
-	    <option value="Beach Volley">Beach Volley</option>
-	    <option value="Tennis">Tennis</option>
-	  </select>
-	  </p>
-	  <p>
-	  <label for="ora">Ora:</label>
-	  <select name="ora" id="ora" class="p_field" >
-	    <option value="16:00">16:00</option>
-	    <option value="17:00">17:00</option>
-	    <option value="18:00">18:00</option>
-	    <option value="19:00">19:00</option>
-	    <option value="20:00">20:00</option>
-	    <option value="21:00">21:00</option>
-	    <option value="22:00">22:00</option>
-	    <option value="23:00">23:00</option>
-	  </select>
-	  </p>
-	  <p>
-	  <label for="data">Giorno:</label> 
-   	  <input type="date" name="data" id="data" class="p_field" />
-	  </p>
+	  <div class="formgroup">
+	    <label for="disciplina">Disciplina</label>
+	    <select id="disciplina" name="disciplina" class="p_field">
+	      <option value="Calcetto">Calcetto</option>
+	      <option value="Pallavolo">Pallavolo</option>
+	      <option value="Calciotto">Calciotto</option>
+	      <option value="Beach Volley">Beach Volley</option>
+	      <option value="Tennis">Tennis</option>
+	    </select>
+	  </div>
+	  <div class="formgroup">
+	    <label for="ora">Ora:</label>
+	    <select name="ora" id="ora" class="p_field" >
+	      <option value="16:00">16:00</option>
+	      <option value="17:00">17:00</option>
+	      <option value="18:00">18:00</option>
+	      <option value="19:00">19:00</option>
+	      <option value="20:00">20:00</option>
+	      <option value="21:00">21:00</option>
+	      <option value="22:00">22:00</option>
+	      <option value="23:00">23:00</option>
+	    </select>
+	  </div>
+	  <div class="formgroup">
+	    <label for="data">Giorno:</label> 
+   	    <input type="date" name="data" id="data" class="p_field" />
+	  </div>
 	  <div id="button_container">
   	    <input type="reset"  value="Resetta il form" class="button" />
   	    <input type="submit" value="Conferma" class="button" />

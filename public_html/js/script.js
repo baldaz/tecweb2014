@@ -1,36 +1,63 @@
-/*function destroy(tag){
-    document.getElementById(tag).outerHTML='';
+function validateLogin(){
+    var errors = {};
+    var username = document.forms["login"]["username"].value;
+    var password = document.forms["login"]["passwd"].value;
+    var patt=/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    if(!patt.test(username)) {
+	errors["username"] = "<span id='errore_username' class='errore'>*</span>";
+    }
+    if(password.length < 1) {
+	errors["passwd"] = "<span id='errore_passwd' class='errore'>*</span>";
+    }
+    if(Object.keys(errors).length > 0){
+	reportErrors(errors);
+	return false;
+    }
+    return true;
 }
 
 function validate(){
-    var count=0;
-    var x=document.forms["form"]["nome"].value;
-    var y=document.forms["form"]["cognome"].value;
-    var mail=document.forms["form"]["email"].value;
+    var errors = {};
+    var name = document.forms["form"]["nome"].value;
+    var surn = document.forms["form"]["cognome"].value;
+    var mail = document.forms["form"]["email"].value;
 
-    if(x.length<1){
-	var name = document.getElementById('nome');
-	name.insertAdjacentHTML('afterEnd', "<span id='err_nome' class='errore'>pirla pirla pirla</span>");
-	setTimeout(function(){destroy('err_nome')}, 2000);
-	count++;
+    if(name.length<1){
+	errors["nome"] = "<span id='errore_nome' class='errore'>Inserire nome</span>";
     }
-    else{document.getElementById('err_nome').outerHTML='';}
-    if(y.length<1){
-	var surname = document.getElementById('cognome');
-	surname.insertAdjacentHTML('afterEnd', "<span id='err_cogn' class='errore'>pirla </span>");
-	setTimeout(function(){destroy('err_cogn')}, 2000);
-	count++;
+    if(surn.length<1){
+	errors["cognome"] = "<span id='errore_cognome' class='errore'>Inserire cognome</span>";
     }
-    else{document.getElementById('err_cogn').outerHTML='';}
     var patt=/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if(!patt.test(mail)){
-	var email = document.getElementById('email');
-	email.insertAdjacentHTML('afterEnd', "<span id='err_email' class='errore'>pirla </span>");
-	setTimeout(function(){destroy('err_email')}, 2000);
-	count++;
+	errors["email"] = "<span id='errore_email' class='errore'>Inserire email</span>";
     }
-    else{document.getElementById('err_email').outerHTML='';}
-    
-    return (count==0);
+    if(Object.keys(errors).length > 0){
+	reportErrors(errors);
+	return false;
+    }
+    return true;
 }
-*/
+
+function reportErrors(errors){
+    var node;
+    var err_name = ['errore_nome', 'errore_cognome', 'errore_email', 'errore_username', 'errore_passwd'];
+    for(var i in err_name){
+	if(isInPage(document.getElementById(err_name[i]))){
+	    document.getElementById(err_name[i]).remove();
+	}
+    }
+    for (var key in errors){
+	var dump = "errore_" + key;
+	var obj = document.getElementById(dump);
+	if(!document.body.contains(obj)){
+	    node = document.getElementById(key);
+	    node.insertAdjacentHTML('afterEnd', errors[key]);
+	}
+    }
+}
+
+function isInPage(node) {
+    return (node === document.body) ? false : document.body.contains(node);
+}

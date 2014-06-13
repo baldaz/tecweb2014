@@ -40,9 +40,9 @@ sub load_profile {
     my ($self, $user, $passwd) = @_;
     my $profiles_xml = $self->load_xml('../data/profili.xml');
     my $root = $profiles_xml->getDocumentElement;
-    $profiles_xml->documentElement->setNamespace("www.profili.it", "p");
+#    $profiles_xml->documentElement->setNamespace("www.profili.it", "p");
 				# controllo se esiste un match (profilo esistente) 
-    my $ret = $root->exists("//p:profilo[p:username='$user' and p:password='$passwd']");
+    my $ret = $root->exists("//profilo[username='$user' and password='$passwd']");
     if($ret){
 	return $user;
     }

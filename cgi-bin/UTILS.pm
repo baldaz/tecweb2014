@@ -343,6 +343,21 @@ sub get_user {
     return $session->param("~profile");
 }
 
+sub get_generals {
+    my ($self, $user) = @_;
+    my $xml = $self->load_xml('../data/profili.xml');
+    my %gens = ();
+    if($xml->getDocumentElement->exists("//profilo[username='$user']")){
+	$gens{name} = $xml->findvalue("//profilo[username='$user']/nome");
+	$gens{surname} = $xml->findvalue("//profilo[username='$user']/cognome");
+	$gens{tel} = $xml->findvalue("//profilo[username='$user']/telefono");
+    }
+    else {
+	$gens{not_found} = 1;
+    }
+    return %gens;
+}
+
 sub select_field {
     my ($self, $disciplina, $data, $ora) = @_;
     my $xml = $self->load_xml('../data/prenotazioni.xml');
