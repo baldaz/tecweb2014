@@ -11,6 +11,7 @@ use CGI::Session qw/-ip-match/;
 use DateTime;
 use Date::Parse;
 use HTML::Template;
+use Net::SMTP;
 use Encode;
 
 $ENV{HTML_TEMPLATE_ROOT} = "../public_html/templates";
@@ -379,6 +380,23 @@ sub select_field {
     }
     else{ $ret = -1; }
     return $ret;
+}
+
+sub send_email {
+    my ($self, $subject, $from, $to, $message) = @_;
+    my $dt = DateTime->now;
+    my $smtp = Net::SMTP->new('smtp.studenti.math.unipd.it',
+			      Hello   => 'studenti.math.unipd.it',
+			      Timeout => 30,
+			      Debug   => 1,
+	);
+    $smtp->datasend("Date: ".DateTime::Format::Mail->format_datetime( $dt )."\n");
+    $smtp->datasend("Subject: $subject\n");
+    $smtp->datasend("From: $from\n");
+    $smtp->datasend("To: $to\n\n");
+    $smtp->datasend($message);
+    $smtp->dataend();
+    $smtp->quit;
 }
 
 1;
