@@ -83,7 +83,12 @@ input:focus::-webkit-input-placeholder { color:transparent; }
 input:focus{
     text-indent:0.4em
 }
+#login #loginfrm {
+    width:100%;
+    text-align: left
+}
 #loginfrm {
+    width: 60%;
     text-align:center
 }
 #loginfrm label{

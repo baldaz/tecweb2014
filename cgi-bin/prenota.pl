@@ -44,7 +44,7 @@ if($campo != -1){
     $tbl = 0;
 }
 else{
-    $show_tbl = 1; 
+    $show_tbl = 0; 
     $test = 0;
     $table = $utils->getWeek($disciplina, $campo, $data);
     $tbl = 1;
