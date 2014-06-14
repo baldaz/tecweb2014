@@ -135,7 +135,7 @@ sub registrazione {
     my %params = (
 	title => 'Centro sportivo - Registrazione',
 	page  => 'registrazione',
-	path  => 'Registrazione',
+	path  => '<a href="load.cgi?page=personale">Personale</a> >> Registrazione',
 	LOGIN => 0
 	);
     $utils->dispatcher('registrazione', %params);
