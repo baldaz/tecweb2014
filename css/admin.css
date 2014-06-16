@@ -1,0 +1,46 @@
+body{
+    background: #f6f6f6
+}
+#content {
+    text-align: center
+}
+#adlogin {
+    background: rgba(0, 0, 110, 0.1);
+    line-height: 24px;
+    text-align:center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -10%;
+    margin-left: -15%;
+    height: 20%;
+    width: 30%;
+    padding: 1em;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 1em;
+    -moz-border-radius: 1em;
+    border-radius: 1em;
+    -webkit-box-shadow: 4px 4px 8px #888;
+    -moz-box-shadow: 4px 4px 8px #888;
+    box-shadow: 4px 4px 8px #888
+}
+#adlogin fieldset {
+    border: none
+}
+#adlogin input[type="text"], #adlogin input[type="password"] {
+    background: #f6f6f6;
+    padding: 2px;
+    margin-bottom: 0.7em;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px
+}
+#adlogin label {
+    text-align: left;
+    float:left;
+    width: 6.25em
+}
+.formgroup, label {
+    font-size:0.9em;
+    display:block
+}

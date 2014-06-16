@@ -5,23 +5,24 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width" />
     <title>Login amministrazione</title>
+    <link rel="stylesheet" media="screen" href="../css/admin.css" />
   </head>
   <body>
     <div id="content">
-      <form action="" method="post" >
+      <form action="" method="post" id="adlogin" >
 	<fieldset>
 	  <legend>Login</legend>
-	  <p>
+	  <div class="formgroup">
 	    <label for="username">Username:</label>
 	    <input type="text" id="username" name="username" />
-	  </p>
-	  <p>
+	  </div>
+	  <div class="formgroup">
 	    <label for="passwd">Password:</label>
 	    <input type="password" id="passwd" name="passwd" />
-	  </p>
-	  <p>
+	  </div>
+	  <div class="formgroup">
 	  <input type="submit" value="sign in" />
-	  </p>
+	  </div>
 	</fieldset>
       </form>
     </div>
