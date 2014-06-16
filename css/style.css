@@ -152,46 +152,41 @@ input, select {
     margin-left: 1em;
     color: #f00
 }
-#prenotazioni_tbl{
+.table {
     table-layout:fixed;
     width:80%;
     border-collapse:collapse;
     margin-left:10%;
-    margin-top:2%;
+    margin-top:2%
+}
+.table.simple {
     background:url("../images/headerbackground_o.jpg")
 }
-#prenotazioni_tbl th, #prenotazioni_tbl td{
+.table.simple th, .table.simple td {
     border: 1px dotted black;
     font-size:10px;
-    padding:5px;
+    padding:5px
 }
-#corsi_tbl{
-    width:80%;
-    margin-left:10%;
-    margin-top:3%;
-    margin-bottom:5%;
-    border-collapse:collapse
+.table td {
+    font-size: 9px
 }
-#preview {
-    margin-bottom: 3%
+.table.table-corsi {
+    margin-bottom: 5%
 }
-#corsi_tbl th{
+.table.table-corsi th {
     border-bottom: 1px solid #777777;
     padding:8px;
     font-size:11px
 }
-#corsi_tbl td{
+.table.table-corsi td {
     padding:5px;
     font-size:11px
 }
-#corsi_tbl tr:hover{
+.table.table-corsi tr:nth-child(2n+2) {
     background-color: rgba(20,110,170,0.2)
 }
-#corsi_tbl tr:nth-child(2n+2) {
-    background-color: rgba(20,110,170,0.2)
-}
-td{
-    font-size:9px
+#preview {
+    margin-bottom: 3%
 }
 .red{
     background:rgba(255,0,0,0.5);

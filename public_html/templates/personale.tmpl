@@ -18,10 +18,18 @@
 	<li>Email: <tmpl_var name = mail></li>
 	<li>Telefono: <tmpl_var name = tel></li>
       </ul>
+      <p>
+	<a href="#">Modifica</a>
+      </p>
       <h2>Riepilogo prenotazioni</h2>
     <tmpl_else>
     <div class="centered">
-      <tmpl_include name = "login.tmpl">
+      <p>
+	Area personale, per accedervi bisogna essere loggati, se non sei ancora registrato fallo ora.
+      </p>
+      <p>
+	<a href="load.cgi?page=registrazione"><input type="button" value="registrati ora" class="button" /></a>
+      </p>
     </div>
     </tmpl_if>
   </div>

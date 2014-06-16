@@ -199,7 +199,7 @@ sub printTable {
     $class = 'green' unless @hash; # non definito
     $class = 'green' if scalar(@hash) == 0; # definizione hash con 0 elementi
 
-    $ret='<table id="prenotazioni_tbl" summary="">
+    $ret='<table class="table simple" summary="">
              <caption><h6>Prenotazioni per la settimana del '.$builder->dmy('-').' campo '.$campo.' '.$disciplina.' </h6></caption>
 	     <thead>';
 #	       <tr>
@@ -276,7 +276,7 @@ sub printPR2{
     $ret.= thead(Tr(th({scope => 'col'}, [qw(Corso Mensile Trimestrale Semestrale Annuale)])));
     $ret.= tfoot();
     $ret.= tbody(join('', map { Tr({scope => 'row'}, td($_), td( [ @{$hash{$_}} ])) } keys %hash));
-    $ret = table({id => 'corsi_tbl' , summary => ''}, $ret);
+    $ret = table({class => 'table table-corsi' , summary => ''}, $ret);
     return $ret;
 }
 
@@ -290,7 +290,7 @@ sub printPR{
     $ret.= thead(Tr(th({scope => 'col'}, [qw(Corso Lunedì Martedì Mercoledì Giovedì Venerdì Sabato Domenica)])));
     $ret.= tfoot();
     $ret.= tbody(join( '', map { Tr(th({scope => 'row'},$_), td( [ @{$hash{$_}} ])) } sort keys %hash ));
-    $ret = table({id => 'prenotazioni_tbl' , summary => ''}, $ret);
+    $ret = table({class => 'table simple' , summary => ''}, $ret);
     return $ret;
 }
 
