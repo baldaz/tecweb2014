@@ -1,13 +1,13 @@
 <tmpl_include name = "header.tmpl">
   <div id="nav">
     <ul>
-      <li><button><a href="admin.cgi?screen=edit_prenotation">Prenotazioni</a></button></li>
-      <li><button><a href="admin.cgi?screen=news">News</a></button></li>
-      <li><button><a href="admin.cgi?screen=courses">Corsi</a></button></li>
+      <li><a href="admin.cgi"><button class="home"></button></a></li>
+      <li><a href="admin.cgi?screen=news"><button>News</button></a></li>
+      <li><a href="admin.cgi?screen=courses"><button>Corsi</button></a></li>
     </ul>
   </div>
   <div id="content">
-    <table summary="">
+    <table summary="" class="table table-mod">
       <caption>News</caption>
       <thead>
 	<tr>
@@ -33,6 +33,8 @@
 	</tmpl_loop>
       </tbody>
     </table>
-    <a href="admin.cgi?screen=add_news">Aggiungi news</a>
+    <p>
+      <a href="admin.cgi?screen=add_news">Aggiungi news</a>
+    </p>
   </div>
 <tmpl_include name = "footer.tmpl"> 
