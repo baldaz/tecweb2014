@@ -1,5 +1,8 @@
 body{
-    background: #f6f6f6
+    background: #f6f6f6;
+    color: #333;
+    font-family: Tahoma, Geneva, sans-serif;
+    text-shadow: 0px 1px 1px #d4d4d4
 }
 #content {
     text-align: center
@@ -31,6 +34,8 @@ body{
     background: #f6f6f6;
     padding: 2px;
     margin-bottom: 0.7em;
+    color: #333;
+    text-shadow: 0px 1px 1px #d4d4d4;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px
@@ -38,9 +43,33 @@ body{
 #adlogin label {
     text-align: left;
     float:left;
+    font-weight: 600;
+    font-style: italic;
+    text-shadow: 0px 1px 1px #d4d4d4;
+    color: #333;
     width: 6.25em
+}
+#adlogin legend {
+    font-weight: 600;
+    font-style: italic;
+    color: #333;
+    text-shadow: 0px 1px 1px #d4d4d4
 }
 .formgroup, label {
     font-size:0.9em;
     display:block
+}
+#nav ul {
+    display: inline;
+    list-style: none
+}
+#nav ul li {
+    display: inline
+}
+button {
+    border-radius: 10px;
+    padding: 10px
+}
+a {
+    text-decoration: none
 }
