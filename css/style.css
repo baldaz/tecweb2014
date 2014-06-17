@@ -409,6 +409,7 @@ input, select {
     margin-right:0.5em;
     padding:0.2em 0;
     border-style:none;
+    word-wrap: normal;
     background:rgba(34,136,51,0.2);
     -webkit-border-radius:0.8em;
     -moz-border-radius:0.8em;

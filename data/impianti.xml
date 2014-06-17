@@ -2,27 +2,27 @@
 <impianti xmlns="www.impianti.it" xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance">
   <impianto>
     <disciplina>Calcetto</disciplina>
-    <campi>5</campi>
+    <campi>3</campi>
     <src>../images/campo_calcetto.jpg</src>
   </impianto>
   <impianto>
     <disciplina>Calciotto</disciplina>
-    <campi>4</campi>
+    <campi>2</campi>
     <src>../images/campo_calcetto.jpg</src>
   </impianto>
   <impianto>
     <disciplina>Pallavolo</disciplina>
-    <campi>3</campi>
+    <campi>2</campi>
     <src>../images/campo_calcetto.jpg</src>
   </impianto>
   <impianto>
     <disciplina>Tennis</disciplina>
-    <campi>6</campi>
+    <campi>2</campi>
     <src>../images/campo-tennis.jpg</src>
   </impianto>
   <impianto>
     <disciplina>Beach Volley</disciplina>
-    <campi>3</campi>
+    <campi>1</campi>
     <src>../images/campo_calcetto.jpg</src>
   </impianto>
 </impianti>

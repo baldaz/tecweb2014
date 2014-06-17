@@ -146,18 +146,39 @@ sub registrazione {
 
 sub personale {
     my %generals = $utils->get_generals($user);
-    my %params = (
-	title     => 'Centro sportivo - Area Personale',
-	page      => 'personale',
-	path      => 'Personale',
-	name      => $generals{name},
-	surname   => $generals{surname},
-	mail      => $user,
-	tel       => $generals{tel},
-	is_logged => $is_logged,
-	LOGIN     => $is_logged,
-	USER      => $user
+    my @prens = $utils->get_prenotations($user);
+    my %params = ();
+    if(!@prens){
+	%params = (
+	    title     => 'Centro sportivo - Area Personale',
+	    page      => 'personale',
+	    path      => 'Personale',
+	    name      => $generals{name},
+	    surname   => $generals{surname},
+	    mail      => $user,
+	    tel       => $generals{tel},
+	    is_logged => $is_logged,
+	    LOGIN     => $is_logged,
+	    USER      => $user,
+	    has_pren  => 0
 	);
+    }
+    else {
+	%params = (
+	    title     => 'Centro sportivo - Area Personale',
+	    page      => 'personale',
+	    path      => 'Personale',
+	    name      => $generals{name},
+	    surname   => $generals{surname},
+	    mail      => $user,
+	    tel       => $generals{tel},
+	    is_logged => $is_logged,
+	    LOGIN     => $is_logged,
+	    USER      => $user,
+	    has_pren  => 1,
+	    pren_loop => \@prens
+	);
+    }
     $utils->dispatcher('personale', %params);
 }
 

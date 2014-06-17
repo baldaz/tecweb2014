@@ -22,6 +22,35 @@
 	<a href="#">Modifica</a>
       </p>
       <h2>Riepilogo prenotazioni</h2>
+      <tmpl_if name = "has_pren">
+	<table summary="" class="table table-corsi">
+	  <caption>Prenotazioni effettuate</caption>
+	  <thead>
+	    <tr>
+	      <th scope="col">Disciplina</th>
+	      <th scope="col">Data</th>
+	      <th scope="col">Ora</th>
+	      <th scope="col">Campo</th>
+	    </tr>
+	  </thead>
+	  <tfoot>
+	  </tfoot>
+	  <tbody>
+	    <tmpl_loop name = "pren_loop">
+	      <tr>
+		<td><tmpl_var name = "discipline"></td>
+		<td><tmpl_var name = "data"></td>
+		<td><tmpl_var name = "ora"></td>
+		<td><tmpl_var name = "campo"></td>
+	      </tr>
+	    </tmpl_loop>
+	  </tbody>
+	</table>
+	<tmpl_else>
+	  <p>
+	    Nessuna prenotazione effettuata ancora
+	  </p>
+      </tmpl_if>
     <tmpl_else>
     <div class="centered">
       <p>

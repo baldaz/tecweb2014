@@ -348,6 +348,23 @@ sub get_generals {
     return %gens;
 }
 
+sub get_prenotations {
+    my ($self, $user) = @_;
+    my $xml = $self->load_xml('../data/prenotazioni.xml');
+    my @loop_prens = ();
+    if($xml->getDocumentElement->exists("//p:prenotante[p:email='$user']")){
+	 my @prenotations = $xml->findnodes("//p:prenotante[p:email='$user']");
+	@loop_prens = map {{discipline => join("-", $prenotations[0]->findnodes("//p:prenotante[p:email='$user']/p:disciplina")->get_node($_)), 
+			    data       => $prenotations[0]->findnodes("//p:prenotante[p:email='$user']/p:data")->get_node($_),
+			    ora        => $prenotations[0]->findnodes("//p:prenotante[p:email='$user']/p:ora")->get_node($_), 
+			    campo      => $prenotations[0]->findnodes("//p:prenotante[p:email='$user']/p:campo")->get_node($_)}} 1..@prenotations;
+    }
+    else {
+	return 0;
+    }
+    return @loop_prens;
+}
+
 sub select_field {
     my ($self, $disciplina, $data, $ora) = @_;
     my $xml = $self->load_xml('../data/prenotazioni.xml');
