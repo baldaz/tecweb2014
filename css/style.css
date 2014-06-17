@@ -113,6 +113,9 @@ input:focus{
     margin-bottom: 0.8em;
     width: 60%
 }
+.prenfrm.reg {
+    text-align: left
+}
 #content.centered {
     text-align: center
 }
@@ -149,7 +152,9 @@ input, select {
     display:block
 }
 .errore {
-    margin-left: 1em;
+    margin-left: 0.8em;
+    font-size: 0.7em;
+    font-style: italic;
     color: #f00
 }
 .table {

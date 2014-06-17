@@ -89,21 +89,10 @@ sub getNews {
 #    $xml->documentElement->setNamespace("www.news.it","n");
 #    my $root = $xml->getDocumentElement;
     my @news = $xml->findnodes("//new");
-#    my @titles = ();
-#    my @dates = ();
-#    my @content = ();
-#    my @ids = ();
-#    foreach my $new(@news){
-#	push(@titles, $new->findvalue("titolo"));
-#	push(@dates, $new->findvalue("data"));
-#	push(@content, $new->findvalue("contenuto"));
-#	push(@ids, $new->getAttribute("id"));
-#    }
-    my @loop_news = map {{N_TITLE   => $_->findvalue("titolo"),
-	                  N_CONTENT => $_->findvalue("contenuto"),
-			  N_DATE    => $_->findvalue("data"),
-	                  N_ID      => $_->getAttribute("id")}} @news;
-#    my @loop_news = map { {N_TITLE => $titles[$_], N_CONTENT => $content[$_], N_ID => $ids[$_]} } 0..$#news; # possibile encode utf8
+    my @loop_news = map {{N_TITLE   => encode('utf8', $_->findvalue("titolo")),
+	                  N_CONTENT => encode('utf8', $_->findvalue("contenuto")),
+			  N_DATE    => encode('utf8', $_->findvalue("data")),
+	                  N_ID      => encode('utf8', $_->getAttribute("id"))}} @news;
     return @loop_news;
 }
 

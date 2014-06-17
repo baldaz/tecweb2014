@@ -63,7 +63,8 @@ my %params = (
     );
 
 $utils->dispatcher('prenota', %params);
-=cut
+=pod
 print "Content-type:text/html\n\n";
 my $ret = $utils->select_field('Calcetto', '2014-04-18', '16:00');
 print $ret;
+=cut

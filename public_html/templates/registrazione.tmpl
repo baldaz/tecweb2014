@@ -10,30 +10,45 @@
     </ul>
   </div>
   <div id="content">
-    <form action="" method="post" onsubmit="return validate()" name="form" >
-      <fieldset>
-	<legend>Dati registrazione</legend>
-	<div class="formgroup">
-	  <label for="nome">Nome:</label>
-	  <input type="text" name="nome" id="nome" value="" placeholder="insert name" />
-	</div>
-	<div class="formgroup">
-	  <label for="cognome">Cognome:</label> 
-	  <input type="text" name="cognome" id="cognome" value="" placeholder="insert surname" /> 
-	</div>
-	<div class="formgroup">
-	  <label for="telefono">Telefono:</label> 
-	  <input type="text" name="telefono" id="telefono" value="" placeholder="insert tel" />  
-	</div>
-	<div class="formgroup">
-	  <label for="email">Email:</label>
-	  <input type="text" name="email" id="email" value="" placeholder="insert email" />
-	</div>
-	<div class="formgroup">
-	<input type="submit" value="sign up" class="button" />
-	</div>
-      </fieldset>
-    </form>
+    <tmpl_if name = "has_account">
+      <p>
+	Esiste già un account corrispondente a questa e-mail
+      </p>
+      <tmpl_else>
+	<tmpl_if name = "registered">
+	  <p>
+	    Complimenti! Registrazione avvenuta con successo!
+	  </p>
+	  <tmpl_else>
+	    <form action="registra.pl" method="post" onsubmit="return validate()" name="form" >
+	      <fieldset>
+		<legend>Dati registrazione</legend>
+		<div class="formgroup">
+		  <label for="nome">Nome:</label>
+		  <input type="text" name="nome" id="nome" value="" placeholder="insert name" />
+		</div>
+		<div class="formgroup">
+		  <label for="cognome">Cognome:</label> 
+		  <input type="text" name="cognome" id="cognome" value="" placeholder="insert surname" /> 
+		</div>
+		<div class="formgroup">
+		  <label for="telefono">Telefono:</label> 
+		  <input type="text" name="telefono" id="telefono" value="" placeholder="insert tel" />  
+		</div>
+		<div class="formgroup">
+		  <label for="email">Email:</label>
+		  <input type="text" name="email" id="email" value="" placeholder="insert email" />
+		</div>
+		<div class="formgroup">
+		  <label for="password">Password:</label>
+		  <input type="password" name="password" id="password" value="" placeholder="insert password" />
+		  <div class="formgroup">
+		    <input type="submit" value="sign up" class="button" />
+		  </div>
+	      </fieldset>
+	    </form>
+	</tmpl_if>
+    </tmpl_if>
   </div>
   <script type="text/javascript" src="../js/rtc_form.js"></script>
 <tmpl_include name = "footer.tmpl">

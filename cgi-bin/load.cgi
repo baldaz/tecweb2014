@@ -132,11 +132,14 @@ sub prenotazioni {
 }
 
 sub registrazione {
+    print $cgi->header(-location => 'load.cgi?page=personale') unless(!$is_logged);
     my %params = (
-	title => 'Centro sportivo - Registrazione',
-	page  => 'registrazione',
-	path  => '<a href="load.cgi?page=personale">Personale</a> >> Registrazione',
-	LOGIN => 0
+	title       => 'Centro sportivo - Registrazione',
+	page        => 'registrazione',
+	path        => '<a href="load.cgi?page=personale">Personale</a> >> Registrazione',
+	LOGIN       => 0,
+        has_account => 0,
+	registered  => 0
 	);
     $utils->dispatcher('registrazione', %params);
 }

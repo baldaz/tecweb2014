@@ -80,7 +80,7 @@ button {
 a {
     text-decoration: none
 }*/
-button {
+#nav a {
     -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
     -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
     box-shadow:inset 0px 1px 0px 0px #ffffff;
@@ -108,12 +108,12 @@ button {
     text-shadow:1px 1px 0px #ffffff;
     outline: none
 }
-button:hover {
+#nav a:hover {
     background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
     background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
     background-color:#dfdfdf
 }
-button:active {
+#nav a:active {
     position:relative;
     top:1px
 }
@@ -134,9 +134,9 @@ button:active {
 .table.table-mod tr:nth-child(2n+2) {
     background-color: rgba(20,110,170,0.2)
 }
-button.home {
+#nav a.home {
     background: url('../images/home.png');
-    background-position: center center;
-    background-size: 60%;
+    background-position: center top;
+    background-size: 25%;
     background-repeat: no-repeat
 }
