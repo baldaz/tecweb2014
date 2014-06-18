@@ -354,10 +354,11 @@ sub get_prenotations {
     my @loop_prens = ();
     if($xml->getDocumentElement->exists("//p:prenotante[p:email='$user']")){
 	 my @prenotations = $xml->findnodes("//p:prenotante[p:email='$user']");
-	@loop_prens = map {{discipline => join("-", $prenotations[0]->findnodes("//p:prenotante[p:email='$user']/p:disciplina")->get_node($_)), 
-			    data       => $prenotations[0]->findnodes("//p:prenotante[p:email='$user']/p:data")->get_node($_),
-			    ora        => $prenotations[0]->findnodes("//p:prenotante[p:email='$user']/p:ora")->get_node($_), 
-			    campo      => $prenotations[0]->findnodes("//p:prenotante[p:email='$user']/p:campo")->get_node($_)}} 1..@prenotations;
+	@loop_prens = map {{discipline => $prenotations[0]->findnodes("//p:prenotante[p:email='$user']/p:disciplina")->get_node($_)->textContent, 
+			    data       => $prenotations[0]->findnodes("//p:prenotante[p:email='$user']/p:data")->get_node($_)->textContent,
+			    ora        => $prenotations[0]->findnodes("//p:prenotante[p:email='$user']/p:ora")->get_node($_)->textContent, 
+			    campo      => $prenotations[0]->findnodes("//p:prenotante[p:email='$user']/p:campo")->get_node($_)->textContent
+	    }} 1..@prenotations;
     }
     else {
 	return 0;

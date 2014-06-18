@@ -15,7 +15,7 @@ sub new { bless {}, shift }
 sub init {
     my ($self, $session, $cgi) = @_;
     if ( $session->param("~logged-in") ) {
-	$session->expire(120);
+	$session->expire(720);
 	return 1;  # se già loggato posso uscire
     }
     

@@ -26,6 +26,7 @@ my %routes = (
     'registrazione' => \&registrazione,
     'personale'     => \&personale,
     'prenota'       => \&prenota,
+    'edit_personal' => \&edit_personal
     );
 
 if( grep { $page eq $_} keys %routes){
@@ -180,6 +181,23 @@ sub personale {
 	);
     }
     $utils->dispatcher('personale', %params);
+}
+
+sub edit_personal {
+    my %generals = $utils->get_generals($user);
+    my %params = (
+	title     => 'Centro sportivo - Area Personale',
+	page      => 'personale',
+	path      => 'Personale',
+	name      => $generals{name},
+	surname   => $generals{surname},
+	mail      => $user,
+	tel       => $generals{tel},
+	is_logged => $is_logged,
+	LOGIN     => $is_logged,
+	USER      => $user,
+	);
+    $utils->dispatcher('edit_personal', %params);
 }
 
 sub prenota {

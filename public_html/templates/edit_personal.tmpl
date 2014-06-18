@@ -1,0 +1,49 @@
+<tmpl_include name = "header.tmpl">
+  <div id="nav">
+    <ul>
+      <li><a href="load.cgi?page=home">Home</a></li>
+      <li><a href="load.cgi?page=impianti">Gli Impianti</a></li>
+      <li><a href="load.cgi?page=corsi">Fitness e corsi</a></li> 
+      <li><a href="load.cgi?page=contatti">Contatti</a></li>
+      <li><a href="load.cgi?page=prenotazioni">Prenotazioni</a></li>
+      <li><a id="active">Area Personale</a></li>
+    </ul>
+  </div>	
+  <div id="content">
+    <tmpl_if name = "is_logged">
+      <h2>Riepilogo dati</h2>
+      <form action="" method="post">
+	<fieldset>
+	  <legend>Dati</legend>
+	  <div class="formgroup">
+	    <label for="nome">Nome:</label> 
+	    <input type="text" id="nome" name="nome" value="<tmpl_var escape = html name = name>" />
+	  </div>
+	  <div class="formgroup">
+	    <label for="cognome">Cognome:</label>
+	    <input type="text" id="cognome" name="cognome" value="<tmpl_var escape = html name = surname>" />
+	  </div>
+	  <div class="formgroup">
+	    <label for="email">E-mail:</label>
+	    <input type="text" id="email" name="email" value="<tmpl_var escape = html name = mail>" />
+	  </div>
+	  <div class="formgroup">
+	    <label for="telefono">Telefono:</label>
+	    <input type="text" id="telefono" name="telefono" value="<tmpl_var escape = html name = tel>"/>
+	  </div>
+	  <div class="formgroup">
+	    <label for="vpassword">Vecchia password:</label>
+	    <input type="password" id="vpassword" name="vpassword" />
+	  </div>
+	  <div class="formgroup">
+	    <label for="password">Nuova password: </label>
+	    <input type="password" id="password" name="password" />
+	  </div>
+	  <div class="formgroup">
+	    <input type="submit" class="button" value="conferma" />
+	  </div>
+	</fieldset>
+      </form>
+    </tmpl_if>
+  </div>
+<tmpl_include name = "footer.tmpl">	

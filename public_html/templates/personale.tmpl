@@ -19,7 +19,7 @@
 	<li>Telefono: <tmpl_var name = tel></li>
       </ul>
       <p>
-	<a href="#">Modifica</a>
+	<a href="load.cgi?page=edit_personal">Modifica</a>
       </p>
       <h2>Riepilogo prenotazioni</h2>
       <tmpl_if name = "has_pren">
@@ -31,6 +31,7 @@
 	      <th scope="col">Data</th>
 	      <th scope="col">Ora</th>
 	      <th scope="col">Campo</th>
+	      <th scope="col">Rimuovi</th>
 	    </tr>
 	  </thead>
 	  <tfoot>
@@ -42,6 +43,7 @@
 		<td><tmpl_var name = "data"></td>
 		<td><tmpl_var name = "ora"></td>
 		<td><tmpl_var name = "campo"></td>
+		<td><a href="delete_prenotation.pl?disciplina=<tmpl_var escape=html name=discipline>&campo=<tmpl_var escape=html name=campo>&data=<tmpl_var escape=html name=data>&ora=<tmpl_var escape=html name=ora>" class="remove"> Elimina</a></a></td>
 	      </tr>
 	    </tmpl_loop>
 	  </tbody>
