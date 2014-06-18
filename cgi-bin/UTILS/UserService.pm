@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-package UTILS::Admin;
+package UTILS::UserService;
 use parent 'UTILS';
 
 my $get_path = sub {		    # da spostare su UTILS, e fare inheritance

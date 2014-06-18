@@ -313,6 +313,9 @@ sub dispatcher {
 	$template->param($_ => $params{$_});
     }	
     my @loop_news = $self->getNews;
+    foreach(@loop_news){
+	delete $_->{N_ID};
+    }
     $template->param(NEWS => \@loop_news);
     HTML::Template->config(utf8 => 1);
     print "Content-Type: text/html\n\n", $template->output;

@@ -532,3 +532,7 @@ span.bold{
     background-size: 20%;
     background-repeat: no-repeat
 }
+.news_date {
+    margin: .2em;
+    font-size: 0.580em
+}

@@ -5,7 +5,7 @@ use warnings;
 use UTILS::UserService;
 
 my $cgi = CGI->new();
-my $utils = UTILS::UserService->new('../data/prenotazioni.xml');
+my $utils = UTILS::UserService->new();
 my $page = $cgi->param('page') || 'home';
 my $disciplina = $cgi->param('disciplina') || 'Calcetto';
 my $today = $utils->_today;

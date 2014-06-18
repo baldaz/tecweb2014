@@ -4,29 +4,26 @@
       <a href="load.cgi?page=personale"><tmpl_var name="USER"></a>
       <a href="logout.pl?page=<tmpl_var name = page>" >Logout</a>
     </p>
-<<<<<<< HEAD
-    <tmpl_else>
-      <tmpl_include name = "login.tmpl">
-=======
       <tmpl_else>
 	<tmpl_include name = "login.tmpl">
 	<p><a href="load.cgi?page=registrazione">Registrati</a></p>
->>>>>>> 5880d29400614d89ba89947db8f55c517cc9b1f8
   </tmpl_if>
 </div>
 <div id="news_container">
   <div id="news">
     <h2>NEWS</h2>
     <ul>
-      <TMPL_LOOP NAME=NEWS>
+      <tmpl_loop name = "news">
 	<li>
-	  <TMPL_VAR NAME=N_TITLE><tmpl_var name = "N_DATE">
-	      <p>
-		<TMPL_VAR NAME=N_CONTENT>
-		  <tmpl_var name = N_ID>
-	      </p>
+	  <tmpl_var name = "N_TITLE">
+	    <p>
+	      <tmpl_var name = "N_CONTENT">		
+	    </p>
+	    <p class="news_date">
+	      <tmpl_var name = "N_DATE">
+	    </p>
 	</li>
-      </TMPL_LOOP>
+      </tmpl_loop>
     </ul>
   </div>
 </div>
