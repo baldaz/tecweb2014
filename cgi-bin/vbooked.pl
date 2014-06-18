@@ -2,10 +2,10 @@
 
 use strict;
 use warnings;
-use UTILS;
+use UTILS::UserService;
 
 my $cgi = CGI->new();
-my $utils = UTILS->new;
+my $utils = UTILS::UserService->new;
 my $table = "<h3>Tabelle prenotazione:</h3>";
 my $disciplina = $cgi->param('disciplina') || 'Calcetto';
 my $today = $utils->_today;

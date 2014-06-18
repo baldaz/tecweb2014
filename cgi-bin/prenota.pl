@@ -2,13 +2,13 @@
 
 use strict;
 use warnings;
-use UTILS;
+use UTILS::UserService;
 
 my $cgi = CGI->new;
 my $disciplina = $cgi->param("disciplina");
 my $data = $cgi->param("data");
 my $ora = $cgi->param("ora");
-my $utils = UTILS->new();
+my $utils = UTILS::UserService->new();
 my $is_logged = $utils->is_logged;
 my $email = $utils->get_user;
 my $file = '../data/prenotazioni.xml';

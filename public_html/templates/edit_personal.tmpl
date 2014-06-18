@@ -32,6 +32,14 @@
 	    <input type="text" id="telefono" name="telefono" value="<tmpl_var escape = html name = tel>"/>
 	  </div>
 	  <div class="formgroup">
+	    <input type="submit" class="button" value="conferma" />
+	  </div>
+	</fieldset>
+      </form>
+      <form action="" method="post" >
+	<fieldset>
+	  <legend>Cambio password</legend>
+	  <div class="formgroup">
 	    <label for="vpassword">Vecchia password:</label>
 	    <input type="password" id="vpassword" name="vpassword" />
 	  </div>
@@ -44,6 +52,10 @@
 	  </div>
 	</fieldset>
       </form>
+      <tmpl_else>
+	<p>
+	  Non sei loggato
+	</p>
     </tmpl_if>
   </div>
 <tmpl_include name = "footer.tmpl">	

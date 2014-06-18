@@ -2,10 +2,10 @@
 
 use strict;
 use warnings;
-use UTILS;
+use UTILS::UserService;
 
 my $cgi = CGI->new();
-my $utils = UTILS->new('../data/prenotazioni.xml');
+my $utils = UTILS::UserService->new('../data/prenotazioni.xml');
 my $page = $cgi->param('page') || 'home';
 my $disciplina = $cgi->param('disciplina') || 'Calcetto';
 my $today = $utils->_today;
