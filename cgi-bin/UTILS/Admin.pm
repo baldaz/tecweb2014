@@ -5,7 +5,7 @@ use parent 'UTILS';
 
 $ENV{HTML_TEMPLATE_ROOT} = "../public_html/templates/admin";
 
-my $get_path = sub {		    # da spostare su UTILS, e fare inheritance
+my $_get_path = sub {		    # da spostare su UTILS, e fare inheritance
     my $self = shift;
     return "../data/".shift.".xml";
 };
@@ -56,7 +56,7 @@ sub add_resource {
     my $self = shift;
     my %stash = @_;
     my ($suffix, $element, $action, $from) = split (/:/, $stash{'namespace'});
-    my $path = $self->$get_path($suffix);
+    my $path = $self->$_get_path($suffix);
     my $parser = XML::LibXML->new();
     my $xml = $parser->parse_file($path);
     my $root = $xml->getDocumentElement();

@@ -3,7 +3,7 @@
 package UTILS::UserService;
 use parent 'UTILS';
 
-my $get_path = sub {		    # da spostare su UTILS, e fare inheritance
+my $_get_path = sub {		    # da spostare su UTILS, e fare inheritance
     my $self = shift;
     return "../data/".shift.".xml";
 };

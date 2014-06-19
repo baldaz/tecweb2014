@@ -16,9 +16,9 @@ use Encode;
 
 $ENV{HTML_TEMPLATE_ROOT} = "../public_html/templates";
 
-# ausiliarie
+# protette
 
-my $get = sub {
+my $_get = sub {
     my $self = shift;
     my ($node, $name) = @_;
 
@@ -32,11 +32,34 @@ my $get = sub {
     return $value;
 };
 
-my $text = sub {
+my $_text = sub {
     my $self = shift;
     my (@data) = @_;
     my @ret = map { $_->textContent } @data;
     return @ret;
+};
+
+my $_table_corsi = sub {
+    my $self = shift;
+    my %hash = @_;
+    my $ret;
+    $ret = caption(h5('Corsi prova'));
+    $ret.= thead(Tr(th({scope => 'col'}, [qw(Corso Lunedì Martedì Mercoledì Giovedì Venerdì Sabato Domenica)])));
+    $ret.= tfoot();
+    $ret.= tbody(join( '', map { Tr(th({scope => 'row'},$_), td( [ @{$hash{$_}} ])) } sort keys %hash ));
+    $ret = table({class => 'table simple' , summary => ''}, $ret);
+    return $ret;
+};
+
+my $_table_prezzi_corsi = sub {
+    my $self = shift;
+    my (%hash) = @_;
+    my $ret = caption(h5('Abbonamenti'));
+    $ret.= thead(Tr(th({scope => 'col'}, [qw(Corso Mensile Trimestrale Semestrale Annuale)])));
+    $ret.= tfoot();
+    $ret.= tbody(join('', map { Tr(td($_), td( [ @{$hash{$_}} ])) } keys %hash));
+    $ret = table({class => 'table table-corsi' , summary => ''}, $ret);
+    return $ret;
 };
 
 sub new {
@@ -103,19 +126,17 @@ sub getFields {
     my $xml = $self->load_xml('../data/impianti.xml');
     $xml->documentElement->setNamespace("www.impianti.it","i");
     my $ret = $xml->findvalue("//i:impianto[i:disciplina='$disciplina']/i:campi");
-#    my @ret = $xml->findnodes("//i:impianto[i:disciplina='$disciplina']/i:campi");
-#    @ret = $self->$text(@ret);
     return $ret;
 }
 
 # estrae il perscorsi delle immagini degli impianti dal file xml
-
+# deprecabile
 sub getImg {
     my $self = shift;
     my $xml = $self->load_xml('../data/impianti.xml');
     $xml->documentElement->setNamespace("www.impianti.it","i");
     my @ret_img = $xml->findnodes("//i:impianto/i:src");
-    return $self->$text(@ret_img);
+    return $self->$_text(@ret_img);
 }
 
 # estrae la descrizione di una data sezione dal file xml
@@ -124,9 +145,9 @@ sub getDesc {
     my ($self, $nome) = @_;
     my $xml = $self->load_xml('../data/sezioni.xml');
     $xml->documentElement->setNamespace("www.sezioni.it","s");
-    my @ret_desc = $xml->findnodes("//s:sezione[\@nome='$nome']/s:contenuto");
-    @ret_desc = $self->$text(@ret_desc);
-    my $ret_descr.= join( '', @ret_desc );
+    my $ret_desc = $xml->findvalue("//s:sezione[\@nome='$nome']/s:contenuto");
+#    @ret_desc = $self->_$text(@ret_desc);
+#    my $ret_descr.= join( '', @ret_desc );
 }
 
 sub getWeek {
@@ -136,7 +157,7 @@ sub getWeek {
     $xmldoc->documentElement->setNamespace("www.prenotazioni.it", "p");
     my @dates = $root->findnodes("//p:prenotante[p:disciplina='$discipline' and p:campo='$campo']/p:data");
 
-    @dates = $self->$text(@dates);
+    @dates = $self->$_text(@dates);
 
     my @split_pdate = split('-', $p_date);
 
@@ -173,7 +194,7 @@ sub getWeek {
 #	$hash[$i]{time} = $time_str;
 #    }
     @time = $root->findnodes("//p:prenotante[p:disciplina='$discipline' and p:campo='$campo' and p:data='$ret_date[$_]']/p:ora") for 0..$#ret_date;
-    @time = $self->$text(@time);
+    @time = $self->$_text(@time);
     @hash = map {{date => $_, time => join(" - ", @time)}} @ret_date;
     return $self->printTable($dt, $campo, $discipline, @hash);
 }
@@ -194,7 +215,7 @@ sub printTable {
 	     <thead>
 	       <tr>
                   <th scope="col">ORARIO</th>';
-$ret.='	      	  <th scope="col">'.$b_name->day_name().' '.$builder->day().'</th>';
+    $ret.='	      	  <th scope="col">'.$b_name->day_name().' '.$builder->day().'</th>';
     for(0..1){
 	$ret.=' <th scope="col">'.$b_name->add(days=>1)->day_name.' '.$builder->add(days=>1)->day().'</th>';
     }
@@ -248,27 +269,14 @@ sub getPrezziCorsi{
     
     foreach(@corsi_global){
 	@pr = ();
-	push(@pr, $self->$get($_, 'mensile'));
-	push(@pr, $self->$get($_, 'trimestrale'));
-	push(@pr, $self->$get($_, 'semestrale'));
-	push(@pr, $self->$get($_, 'annuale'));
-	$hash{$self->$get($_, 'nome')} = \@pr;
+	push(@pr, $self->$_get($_, 'mensile'));
+	push(@pr, $self->$_get($_, 'trimestrale'));
+	push(@pr, $self->$_get($_, 'semestrale'));
+	push(@pr, $self->$_get($_, 'annuale'));
+	$hash{$self->$_get($_, 'nome')} = \@pr;
     }
     
-    return $self->printPR2(%hash);
-}
-
-# prova CGI table
-
-sub printPR2{
-    my $self = shift;
-    my (%hash) = @_;
-    my $ret = caption(h5('Abbonamenti'));
-    $ret.= thead(Tr(th({scope => 'col'}, [qw(Corso Mensile Trimestrale Semestrale Annuale)])));
-    $ret.= tfoot();
-    $ret.= tbody(join('', map { Tr(td($_), td( [ @{$hash{$_}} ])) } keys %hash));
-    $ret = table({class => 'table table-corsi' , summary => ''}, $ret);
-    return $ret;
+    $self->$_table_prezzi_corsi(%hash);
 }
 
 sub getOrari{
@@ -280,30 +288,16 @@ sub getOrari{
 
     foreach(@orari_global){
 	@pr = ();
-	push(@pr, $self->$get($_, 'lun'));
-	push(@pr, $self->$get($_, 'mar'));
-	push(@pr, $self->$get($_, 'mer'));
-	push(@pr, $self->$get($_, 'gio'));
-	push(@pr, $self->$get($_, 'ven'));
-	push(@pr, $self->$get($_, 'sab'));
-	push(@pr, $self->$get($_, 'dom'));
-	$hash{$self->$get($_, 'nome')} = \@pr;
+	push(@pr, $self->$_get($_, 'lun'));
+	push(@pr, $self->$_get($_, 'mar'));
+	push(@pr, $self->$_get($_, 'mer'));
+	push(@pr, $self->$_get($_, 'gio'));
+	push(@pr, $self->$_get($_, 'ven'));
+	push(@pr, $self->$_get($_, 'sab'));
+	push(@pr, $self->$_get($_, 'dom'));
+	$hash{$self->$_get($_, 'nome')} = \@pr;
     }
-    $self->printPR(%hash);
-}
-
-# stampa tabelle corsi settimanali
-
-sub printPR{
-    my $self = shift;
-    my %hash = @_;
-    my $ret;
-    $ret = caption(h5('Corsi prova'));
-    $ret.= thead(Tr(th({scope => 'col'}, [qw(Corso Lunedì Martedì Mercoledì Giovedì Venerdì Sabato Domenica)])));
-    $ret.= tfoot();
-    $ret.= tbody(join( '', map { Tr(th({scope => 'row'},$_), td( [ @{$hash{$_}} ])) } sort keys %hash ));
-    $ret = table({class => 'table simple' , summary => ''}, $ret);
-    return $ret;
+    $self->$_table_corsi(%hash);
 }
 
 sub dispatcher {
@@ -329,7 +323,7 @@ sub select_field {
     my $root = $xml->getDocumentElement;
     $xml->documentElement->setNamespace("www.prenotazioni.it", "p");
     my @fields = $root->findnodes("//p:prenotante[p:disciplina='$disciplina' and p:data='$data' and p:ora='$ora']/p:campo");
-    @fields = $self->$text(@fields);
+    @fields = $self->$_text(@fields);
     my $count = $self->getFields($disciplina);
     my %b_fields = map {$_ => 1} @fields;
     my @f_fields = grep {not $b_fields{$_}} 1..$count;
