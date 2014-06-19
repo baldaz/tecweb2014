@@ -536,3 +536,6 @@ span.bold{
     margin: .2em;
     font-size: 0.580em
 }
+#loginfrm a {
+    text-decoration: none
+}

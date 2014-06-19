@@ -161,8 +161,8 @@ sub personale {
 	    is_logged => $is_logged,
 	    LOGIN     => $is_logged,
 	    USER      => $user,
-	    has_pren  => 0
-	);
+	    has_pren  => 0,
+	    );
     }
     else {
 	%params = (
@@ -178,7 +178,7 @@ sub personale {
 	    USER      => $user,
 	    has_pren  => 1,
 	    pren_loop => \@prens
-	);
+	    );
     }
     $utils->dispatcher('personale', %params);
 }

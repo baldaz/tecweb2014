@@ -2,12 +2,11 @@
 
 use strict;
 use warnings;
-use UTILS::UserService
+use UTILS::UserService;
 
-my $cgi = CGI->new;
-my $utils = UTILS::UserService->new;
-my ($name, $surname, $tel, $email, $password) = 
-    ($cgi->param('nome'), $cgi->param('cognome'), $cgi->param('telefono'), $cgi->param('email'), $cgi->param('password'));
+my $cgi = CGI->new();
+my $utils = UTILS::UserService->new();
+my ($name, $surname, $tel, $email, $password) = ($cgi->param('nome'), $cgi->param('cognome'), $cgi->param('telefono'), $cgi->param('email'), $cgi->param('password'));
 my $file = '../data/profili.xml';
 my $parser = XML::LibXML->new();
 my $xml = $parser->parse_file($file);

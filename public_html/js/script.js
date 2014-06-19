@@ -61,10 +61,11 @@ function reportErrors(errors){
 function isInPage(node) {
     return (node === document.body) ? false : document.body.contains(node);
 }
-
+/*
 function get_cookie() {
     if(document.cookie.length > 0){
 	return document.cookie;
     }
     else 
 }
+*/

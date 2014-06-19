@@ -13,10 +13,10 @@
     <tmpl_if name = "is_logged">
       <h2>Riepilogo dati</h2>
       <ul class="riepilogo">
-	<li>Nome: <tmpl_var name = name></li>
-	<li>Cognome: <tmpl_var name = surname></li>
-	<li>Email: <tmpl_var name = mail></li>
-	<li>Telefono: <tmpl_var name = tel></li>
+	<li>Nome: <tmpl_var name = "name"></li>
+	<li>Cognome: <tmpl_var name = "surname"></li>
+	<li>Email: <tmpl_var name = "mail"></li>
+	<li>Telefono: <tmpl_var name = "tel"></li>
       </ul>
       <p>
 	<a href="load.cgi?page=edit_personal">Modifica</a>
