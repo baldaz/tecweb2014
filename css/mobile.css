@@ -113,42 +113,47 @@ input, select {
     -moz-box-shadow: 0px 0px 4px #888;
     box-shadow: 0px 0px 4px #888
 }
-#prenotazioni_tbl{
+.formgroup, label {
+    font-size:0.9em;
+    display:block
+}
+.errore {
+    margin-left: 0.8em;
+    font-size: 0.7em;
+    font-style: italic;
+    color: #f00
+}
+.table {
     table-layout:fixed;
     width:80%;
     border-collapse:collapse;
     margin-left:10%;
-    margin-top:2%;
+    margin-top:2%
+}
+.table.simple {
     background:url("../images/headerbackground_o.jpg")
 }
-#prenotazioni_tbl th, #prenotazioni_tbl td{
+.table.simple th, .table.simple td {
     border: 1px dotted black;
     font-size:10px;
-    padding:5px;
+    padding:5px
 }
-#corsi_tbl{
-    width:80%;
-    margin-left:10%;
-    margin-top:3%;
-    margin-bottom:5%;
-    border-collapse:collapse
+.table td {
+    font-size: 9px
 }
-#preview {
-    margin-bottom: 3%
+.table.table-corsi {
+    margin-bottom: 5%
 }
-#corsi_tbl th{
+.table.table-corsi th {
     border-bottom: 1px solid #777777;
     padding:8px;
     font-size:11px
 }
-#corsi_tbl td{
+.table.table-corsi td {
     padding:5px;
     font-size:11px
 }
-#corsi_tbl tr:hover{
-    background-color: rgba(20,110,170,0.2)
-}
-#corsi_tbl tr:nth-child(2n+2) {
+.table.table-corsi tr:nth-child(2n+2) {
     background-color: rgba(20,110,170,0.2)
 }
 td{
@@ -176,6 +181,20 @@ td{
 }*/
 #content span{
     clear:both
+}
+textarea{
+    background:rgba(0,0,0,0.2);
+    border-radius:5px;
+    margin-top:0.3em;
+    padding:0.1em;
+    text-indent:0.4em;
+    color:#333333;
+    width:70%;
+    height:16em;
+    resize:none;
+    -webkit-box-shadow: 0px 0px 4px #888;
+    -moz-box-shadow: 0px 0px 4px #888;
+    box-shadow: 0px 0px 4px #888
 }
 /*#err_nome, #err_cognome, #err_telefono, #err_email, #err_ora, #err_campo,#err_data{
     vertical-align:middle;
@@ -291,15 +310,15 @@ td{
     transition: all 0.3s ease-out;
     background: #228833;
     color: #FFDA47;
-	float:left;
-    padding: 0.437em 0.937em 0.437em 0.937em;
+	 float:left;
+    padding: 0.437em 1% 0.437em 1%;
     -webkit-border-top-right-radius: 10px;
     -moz-border-top-right-radius: 10px;
     border-top-right-radius: 10px;
     -webkit-border-bottom-right-radius: 10px;
     -moz-border-bottom-right-radius: 10px;
     border-bottom-right-radius: 10px;
-    width: 42%; 
+    width: 47%; 
     display: block;
     -webkit-box-shadow: 2px 2px 4px #888;
     -moz-box-shadow: 2px 2px 4px #888;
@@ -477,4 +496,28 @@ span.bold{
 #imp_desc{
 	position:absolute;
 	top:0px;
+}
+
+
+.prenfrm {
+    width: 60%;
+    text-align:center
+}
+.prenfrm label {
+    width: 6.25em;
+    text-align: left;
+    float: left
+}
+.prenfrm select,.prenfrm input[type="text"], .prenfrm input[type="date"] {
+    margin-bottom: 0.8em;
+    width: 60%
+}
+.prenfrm.reg {
+    text-align: left
+}
+#content.centered {
+    text-align: center
+}
+#content{
+	text-align:center;	
 }
