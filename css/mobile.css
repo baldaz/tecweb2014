@@ -125,9 +125,9 @@ input, select {
 }
 .table {
     table-layout:fixed;
-    width:100%;
+    width:95%;
     border-collapse:collapse;
-    margin-top:2%
+    margin: 2% 2.5% 0% 2.5%;
 }
 .table.simple {
     background:url("../images/headerbackground_o.jpg")
@@ -188,7 +188,7 @@ textarea{
     padding:0.1em;
     text-indent:0.4em;
     color:#333333;
-    width:70%;
+    width:100%;
     height:16em;
     resize:none;
     -webkit-box-shadow: 0px 0px 4px #888;
@@ -220,7 +220,8 @@ textarea{
     color: #228833;
 }
 #container {
-    height: 100%
+    height: 100%;
+    min-width:315px;
 }
 #header {
     height:15%;
@@ -326,12 +327,8 @@ textarea{
 	margin-bottom:0.437em;
 	margin-right:1%;	/*sul nexus 5 va a capo sul pc no?!*/
 }
-/*.pair{
-	/*float:right;*//*
-	margin-left:50%;
-	margin-top:0;
-}*/
-/*#nav ul li a:hover{
+
+/*#nav ul li a:hover{			non serve per mobile
 	/*background: #ffda47;*//*
     background-color:#ffda47;
     background-image: -webkit-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
@@ -389,7 +386,7 @@ textarea{
 	margin-top:8em;
     position:relative; /* per separator */
     width:100%;
-    min-height:65%;
+   /* min-height:65%;*/
     background:rgba(0,0,0,0.3);
     -webkit-border-radius:20px;
     -moz-border-radius:20px;
@@ -420,14 +417,15 @@ span.bold{
     font-weight:bold
 }
 #content img{
-    /*margin-top:1em;
+    margin-top:1em;
     border-style:solid;
     border-width:1px;
     border-color:#777777;
-    border-radius:1em*/
+	-webkit-border-radius: 1em;
+    border-radius:1em;
 	width:90%;
 	margin:2% 5% 2% 5%;
-	-webkit-border-radius: 1em;
+	
 }
 #footer{
     width:100%;
@@ -457,59 +455,30 @@ span.bold{
     margin-left:35%
 }
 /* IMPIANTI */
-#images{				/*da sistemare, mettere sotto se si riesce*/
-    text-align:center;
- /*   margin:auto;*/
-
-}
-#images span{
-   /* display:block;*/
-    width:100%;
-    margin:0 0.5em;
-    font-size:0.675em
+#images{
+    margin:auto;
+    width:100%
 }
 #images img{
-    width:14em;
-    height:10em;
+    width:40%;
+    margin: 1%;
     border-style:solid;
     border-width:1px;
     border-color:#777777
 }
-#images span:first-child img{
-    -webkit-border-top-left-radius: 1em;
-    -moz-border-top-left-radius: 1em;
-    border-top-left-radius: 1em;
-    -webkit-border-top-right-radius: 1em;
-    -moz-border-top-right-radius: 1em;
-    border-top-right-radius: 1em
-}
-#images span img{
-    -webkit-border-radius: 0em;
-    -moz-border-radius: 0em;
-    border-radius: 0em
-}
-#images span:last-child img{
-    border-bottom-left-radius:1em ;
-    border-bottom-right-radius:1em
-}
-#imp_desc{
-	position:absolute;
-	top:0px;
-}
-
-
 .prenfrm {
-    width: 60%;
-    text-align:center
+	 margin-left:3%;
+    width: 80%;
+    text-align:left;
 }
 .prenfrm label {
-    width: 6.25em;
+    /*width: 6.25em;*/
     text-align: left;
-    float: left
+    /*float: left*/
 }
 .prenfrm select,.prenfrm input[type="text"], .prenfrm input[type="date"] {
     margin-bottom: 0.8em;
-    width: 60%
+    width: 80%
 }
 .prenfrm.reg {
     text-align: left
