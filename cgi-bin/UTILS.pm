@@ -184,22 +184,23 @@ sub printTable {
     my $b_name = $p_day->clone();
     my $builder = $p_day->clone();
     my $class;
+    my $fill = 'libero';
     my $ret;
     $class = 'green' unless @hash; # non definito
     $class = 'green' if scalar(@hash) == 0; # definizione hash con 0 elementi
 
     $ret='<table class="table simple" summary="">
              <caption><h6>Prenotazioni per la settimana del '.$builder->dmy('-').' campo '.$campo.' '.$disciplina.' </h6></caption>
-	     <thead>';
-#	       <tr>
-#                  <th>ORARIO</th>
-$ret.='	      	  <th>'.$b_name->day_name().' '.$builder->day().'</th>';
+	     <thead>
+	       <tr>
+                  <th scope="col">ORARIO</th>';
+$ret.='	      	  <th scope="col">'.$b_name->day_name().' '.$builder->day().'</th>';
     for(0..1){
-	$ret.=' <th>'.$b_name->add(days=>1)->day_name.' '.$builder->add(days=>1)->day().'</th>';
+	$ret.=' <th scope="col">'.$b_name->add(days=>1)->day_name.' '.$builder->add(days=>1)->day().'</th>';
     }
-    $ret.=' <th class="selected">'.$b_name->add(days=>1)->day_name.' '.$builder->add(days=>1)->day().'</th>';
+    $ret.=' <th scope="col" class="selected">'.$b_name->add(days=>1)->day_name.' '.$builder->add(days=>1)->day().'</th>';
     for(0..2){
-	$ret.=' <th>'.$b_name->add(days=>1)->day_name.' '.$builder->add(days=>1)->day().'</th>';
+	$ret.=' <th scope="col">'.$b_name->add(days=>1)->day_name.' '.$builder->add(days=>1)->day().'</th>';
     }
     $ret.=' </tr>
                </thead>
@@ -208,8 +209,8 @@ $ret.='	      	  <th>'.$b_name->day_name().' '.$builder->day().'</th>';
                <tbody>';
 
     for my $i(16..23){
-	$ret.=' <tr>';
-   #  		<th>'.$i.':00</th>';
+	$ret.=' <tr>
+     		<th scope="row">'.$i.':00</th>';
 	my $control = $p_day->clone();
 	for(0..6){
 	    for my $j (0..$#hash){
@@ -217,14 +218,15 @@ $ret.='	      	  <th>'.$b_name->day_name().' '.$builder->day().'</th>';
 		if($hash[$j]{date} =~m/$d_control/){
 		    if($hash[$j]{time} =~ m/$i:00/){
 			$class='red';
+			$fill = 'occupato';
 #			$ret.= $i.':00';  # per vedere gli orari  
 			last; 
 		    }
-		    else{ $class = 'green';}
+		    else{ $class = 'green'; $fill = 'libero';}
 		}
-		else{ $class = 'green';}
+		else{ $class = 'green'; $fill = 'libero';}
 	    }
-	    $ret.=' <td class="'.$class.'">'.$i.':00</td>';
+	    $ret.=" <td class=$class>$fill</td>";
 	    $control->add(days => 1);
 	}
 	$ret.= ' </tr>';
@@ -264,7 +266,7 @@ sub printPR2{
     my $ret = caption(h5('Abbonamenti'));
     $ret.= thead(Tr(th({scope => 'col'}, [qw(Corso Mensile Trimestrale Semestrale Annuale)])));
     $ret.= tfoot();
-    $ret.= tbody(join('', map { Tr({scope => 'row'}, td($_), td( [ @{$hash{$_}} ])) } keys %hash));
+    $ret.= tbody(join('', map { Tr(td($_), td( [ @{$hash{$_}} ])) } keys %hash));
     $ret = table({class => 'table table-corsi' , summary => ''}, $ret);
     return $ret;
 }

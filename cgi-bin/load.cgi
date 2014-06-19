@@ -63,7 +63,7 @@ sub impianti {
 	title => 'Centro sportivo - Impianti',
 	page        => 'impianti',
 	path        => 'Impianti',
-	imm_campi   => \@loop_img,
+#	imm_campi   => \@loop_img,
 	n_calcetto  => $d_param[0],
 	n_calciotto => $d_param[1],
 	n_tennis    => $d_param[2],
@@ -161,7 +161,7 @@ sub personale {
 	    is_logged => $is_logged,
 	    LOGIN     => $is_logged,
 	    USER      => $user,
-	    has_pren  => 0,
+	    has_pren  => 0
 	    );
     }
     else {

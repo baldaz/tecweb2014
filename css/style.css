@@ -190,9 +190,6 @@ input, select {
 .table.table-corsi tr:nth-child(2n+2) {
     background-color: rgba(20,110,170,0.2)
 }
-#preview {
-    margin-bottom: 3%
-}
 .red{
     background:rgba(255,0,0,0.5);
 }
@@ -202,33 +199,7 @@ input, select {
 .selected{
     background:rgba(255,255,255,0.3)
 }
-#separator{
-    float:left;
-    display:block;
-    position:absolute;
-    width:1px;
-    top:5%;
-    left:33%;
-    bottom:5%;
-    border-style:dotted;
-    border-color:#777777;
-    border-left-width:1px
-}
-#imp_desc{
-    width:65%; 
-    margin-left:35%
-}
-.floated{
-    float:left;
-    width:30%;
-    margin:1em;
-    -webkit-border-radius: 1em;
-    -moz-border-radius: 1em;
-    border-radius: 1em;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #777777
-}
+
 #field{
     width:5%;
     clear:both
@@ -247,6 +218,21 @@ input, select {
 .button:hover{
     background-color:#ffda47;
     color: #228833;
+}
+#preview {
+    min-height: 60%
+}
+.floated{
+    float:left;
+    width:30%;
+    height: 30%;
+    margin:1em;
+    -webkit-border-radius: 1em;
+    -moz-border-radius: 1em;
+    border-radius: 1em;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #777777
 }
 #container {
     height: 100%;
@@ -477,6 +463,9 @@ span.bold{
 #footer p{
     padding: 1.5em;
 }
+#imp_desc{
+    width:100%
+}
 #imp_desc p{ /* sovrascrittura content */
     text-align:justify
 }
@@ -487,35 +476,15 @@ span.bold{
     margin-left:35%
 }
 #images{
-    text-align:center;
     margin:auto;
-    float:left;
-    width:30%
-}
-#images span{
-    display:block;
-    width:100%;
-    margin:0 0.5em;
-    font-size:0.675em
+    width:100%
 }
 #images img{
-    width:14em;
-    height:10em;
+    width:20%;
+    margin: 1%;
     border-style:solid;
     border-width:1px;
     border-color:#777777
-}
-#images span:first-child img{
-    -webkit-border-top-left-radius: 1em;
-    -moz-border-top-left-radius: 1em;
-    border-top-left-radius: 1em;
-    -webkit-border-top-right-radius: 1em;
-    -moz-border-top-right-radius: 1em;
-    border-top-right-radius: 1em
-}
-#images span:last-child img{
-    border-bottom-left-radius:1em;
-    border-bottom-right-radius:1em
 }
 .riepilogo {
     padding: 1em;

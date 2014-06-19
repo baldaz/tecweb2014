@@ -12,6 +12,7 @@ my $parser = XML::LibXML->new();
 my $xml = $parser->parse_file($file);
 my %find = $utils->get_generals($email);
 my $registered = 0;
+my $has_account = 0;
 if(exists $find{not_found}){
     my $key = 'tecweb2014';
     my $encrypted_pwd = crypt($key, $password);
@@ -37,12 +38,13 @@ if(exists $find{not_found}){
     close OUT;
     $registered = 1;
 }
+else  { $has_account = 1;}
 my %params = (
     title       => 'Centro sportivo - Registrazione',
     page        => 'registrazione',
     path        => '<a href="load.cgi?page=personale">Personale</a> >> Registrazione',
     LOGIN       => 0,
-    has_account => 0,
+    has_account => $has_account,
     registered  => $registered
     );
 $utils->dispatcher('registrazione', %params);

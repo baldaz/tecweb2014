@@ -53,7 +53,8 @@ sub get_prenotations {
 	    }} 1..@prenotations;
     }
     else {
-	return 0;
+	@loop_prens = ();
+	return @loop_prens;
     }
     return @loop_prens;
 }
