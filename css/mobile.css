@@ -125,9 +125,8 @@ input, select {
 }
 .table {
     table-layout:fixed;
-    width:80%;
+    width:100%;
     border-collapse:collapse;
-    margin-left:10%;
     margin-top:2%
 }
 .table.simple {

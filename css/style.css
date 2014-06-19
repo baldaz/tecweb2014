@@ -23,6 +23,9 @@ body{
     color:#333333;
     height:100%
 }
+a {
+    text-decoration: none
+}
 ::-webkit-scrollbar {
     width: 6px
 }
@@ -65,8 +68,8 @@ textarea{
     padding:0.1em;
     text-indent:0.4em;
     color:#333333;
-    width:70%;
-    height:16em;
+    width:80%;
+    height:20em;
     resize:none;
     -webkit-box-shadow: 0px 0px 4px #888;
     -moz-box-shadow: 0px 0px 4px #888;
@@ -130,7 +133,7 @@ form {
     color: #ffda47;
     text-decoration: none;
     text-align: left;
-    padding:8px
+    padding:18px
 }
 input, select {
     background:rgba(0,0,0,0.2);
@@ -405,7 +408,7 @@ input, select {
     position:relative; /* per separator */
     width:60%;
     float:left;
-    min-height:65%;
+/*    min-height:65%;*/
     background:rgba(0,0,0,0.3);
     -webkit-border-radius:20px;
     -moz-border-radius:20px;
@@ -504,7 +507,22 @@ span.bold{
 .news_date {
     margin: .2em;
     font-size: 0.580em
+}/*
+#loginfrm button {
+    width: 60%;
+    height: 1.5em;
+    border-radius: 5px;
+    box-shadow: 0px 0px 4px #888
 }
 #loginfrm a {
+    background-color:#228833;
+    color: #ffda47;
+     border-radius: 5px;
+/*    font-size:0.9em;*/
+/*    cursor:pointer;
     text-decoration: none
 }
+#loginfrm a:hover {
+    background-color:#ffda47;
+    color: #228833;
+}*/
