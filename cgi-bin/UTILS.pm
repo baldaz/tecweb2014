@@ -39,6 +39,65 @@ my $_text = sub {
     return @ret;
 };
 
+
+my $_italian_days = sub {
+    my ($self, $start_dt) = @_;
+    my %day_names = (
+	'Sunday'    => 'Domenica',
+	'Monday'    => 'Lunedì',
+	'Tuesday'   => 'Martedì',
+	'Wednesday' => 'Mercoledì',
+	'Thursday'  => 'Giovedì',
+	'Friday'    => 'Venerdì',
+	'Saturday'  => 'Sabato'
+	);
+    my @it_days = ();
+    push(@it_days, $day_names{$start_dt->day_name()}." ".$start_dt->day());
+    push(@it_days, $day_names{$start_dt->add(days => 1)->day_name()}." ".$start_dt->day()) for 0..5;
+    return @it_days;
+};
+
+my $_table_prenotazioni = sub {
+    my ($self, $p_day, $campo, $disciplina, @hash) = @_;
+    $p_day->subtract(days => 3);
+    my $builder = $p_day->clone();
+    my $class;
+    my $fill = 'libero';
+    my $body;
+    $class = 'green' unless @hash; # non definito
+    $class = 'green' if scalar(@hash) == 0; # definizione hash con 0 elementi    
+    my $table = caption(h6('Prenotazioni per la settimana del '.$builder->dmy('-').' campo '.$campo.' '.$disciplina));
+    my @it_days = $self->$_italian_days($builder);   
+    for my $i(16..23){
+	$body.='<tr>
+                 <th scope="row">'.$i.':00 </th>';
+	my $control = $p_day->clone();
+	for(0..6){
+	    for my $j (0..$#hash){
+		my $d_control = $control->ymd('-');
+		if($hash[$j]{date} =~m/$d_control/){
+		    if($hash[$j]{time} =~ m/$i:00/){
+			$class = 'red';
+			$fill = 'occupato';
+			last; 
+		    }
+		    else{ $class = 'green'; $fill = 'libero';}
+		}
+		else{ $class = 'green'; $fill = 'libero';}
+	    }
+	    $body.=" <td class=$class>$fill</td>";
+	    $control->add(days => 1);
+	}
+	$body.= ' </tr>';
+    }	
+    my $wrapped_body = tbody($body);
+    $table .= thead(Tr(th({scope => 'col'}, ['ORARIO', @it_days])));
+    $table .= tfoot();
+    $table .= $wrapped_body;
+    $table = table({class => 'table simple', summary => ''}, $table);
+    return $table;
+};
+
 my $_table_corsi = sub {
     my $self = shift;
     my %hash = @_;
@@ -186,75 +245,13 @@ sub getWeek {
     my @hash = ();
     my @time = ();
 
-#    for my $i (0..$#ret_date){
-#	@time = $root->findnodes("//p:prenotante[p:disciplina='$discipline' and p:campo='$campo' and p:data='$ret_date[$i]']/p:ora");
-#	$hash[$i]{date} = $ret_date[$i];
-#	@time = $self->$text(@time);
-#	my $time_str = join(" - ", @time);
-#	$hash[$i]{time} = $time_str;
-#    }
-    @time = $root->findnodes("//p:prenotante[p:disciplina='$discipline' and p:campo='$campo' and p:data='$ret_date[$_]']/p:ora") for 0..$#ret_date;
-    @time = $self->$_text(@time);
-    @hash = map {{date => $_, time => join(" - ", @time)}} @ret_date;
-    return $self->printTable($dt, $campo, $discipline, @hash);
-}
-
-sub printTable {
-    my ($self, $p_day, $campo, $disciplina, @hash) = @_;
-    $p_day->subtract(days => 3);
-    my $b_name = $p_day->clone();
-    my $builder = $p_day->clone();
-    my $class;
-    my $fill = 'libero';
-    my $ret;
-    $class = 'green' unless @hash; # non definito
-    $class = 'green' if scalar(@hash) == 0; # definizione hash con 0 elementi
-
-    $ret='<table class="table simple" summary="">
-             <caption><h6>Prenotazioni per la settimana del '.$builder->dmy('-').' campo '.$campo.' '.$disciplina.' </h6></caption>
-	     <thead>
-	       <tr>
-                  <th scope="col">ORARIO</th>';
-    $ret.='	      	  <th scope="col">'.$b_name->day_name().' '.$builder->day().'</th>';
-    for(0..1){
-	$ret.=' <th scope="col">'.$b_name->add(days=>1)->day_name.' '.$builder->add(days=>1)->day().'</th>';
+    for my $i (0..$#ret_date){
+	@time = $root->findnodes("//p:prenotante[p:disciplina='$discipline' and p:campo='$campo' and p:data='$ret_date[$i]']/p:ora");
+	$hash[$i]{date} = $ret_date[$i];
+	@time = $self->$_text(@time);
+	$hash[$i]{time} = join(" - ", @time);
     }
-    $ret.=' <th scope="col" class="selected">'.$b_name->add(days=>1)->day_name.' '.$builder->add(days=>1)->day().'</th>';
-    for(0..2){
-	$ret.=' <th scope="col">'.$b_name->add(days=>1)->day_name.' '.$builder->add(days=>1)->day().'</th>';
-    }
-    $ret.=' </tr>
-               </thead>
-               <tfoot>
-               </tfoot>
-               <tbody>';
-
-    for my $i(16..23){
-	$ret.=' <tr>
-     		<th scope="row">'.$i.':00</th>';
-	my $control = $p_day->clone();
-	for(0..6){
-	    for my $j (0..$#hash){
-		my $d_control = $control->ymd('-');
-		if($hash[$j]{date} =~m/$d_control/){
-		    if($hash[$j]{time} =~ m/$i:00/){
-			$class='red';
-			$fill = 'occupato';
-#			$ret.= $i.':00';  # per vedere gli orari  
-			last; 
-		    }
-		    else{ $class = 'green'; $fill = 'libero';}
-		}
-		else{ $class = 'green'; $fill = 'libero';}
-	    }
-	    $ret.=" <td class=$class>$fill</td>";
-	    $control->add(days => 1);
-	}
-	$ret.= ' </tr>';
-    }	
-    $ret.=' </tbody>
-           </table>';
-    return $ret;
+    $self->$_table_prenotazioni($dt, $campo, $discipline, @hash);
 }
 
 # estrae i prezzi dei corsi dall' xml e li associa ad un array di hash
