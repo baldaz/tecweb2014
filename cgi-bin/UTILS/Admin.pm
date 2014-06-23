@@ -10,6 +10,40 @@ my $_get_path = sub {		    # da spostare su UTILS, e fare inheritance
     return "../data/".shift.".xml";
 };
 
+my $_get_last_id = sub {
+    my ($self, $node, $node_name) = @_;
+    my $root = $node->getDocumentElement();
+    my $id = $root->findnodes($node_name."[last()]/\@id")->[0];
+    return $id->textContent;
+};
+
+my $_build_node = sub {
+    my $self = shift;
+    my $element = shift;
+    my $id = shift;
+    my %tag = @_;
+    my $node = "\t<$element id='$id'>";
+    if($element eq 'corso'){
+	$node .= "\n\t\t<nome>$tag{nome}</nome>";
+	$node .= "\n\t\t<mensile>$tag{mensile}</mensile>";
+	$node .= "\n\t\t<trimestrale>$tag{trimestrale}</trimestrale>";
+	$node .= "\n\t\t<semestrale>$tag{semestrale}</semestrale>";
+	$node .= "\n\t\t<annuale>$tag{annuale}</annuale>";
+	$node .= "\n\t\t<orari>";
+	$node .= "\n\t\t\t<lun>$tag{lun}</lun>";
+	$node .= "\n\t\t\t<mar>$tag{mar}</mar>";
+	$node .= "\n\t\t\t<mer>$tag{mer}</mer>";
+	$node .= "\n\t\t\t<gio>$tag{gio}</gio>";
+	$node .= "\n\t\t\t<ven>$tag{ven}</ven>";
+	$node .= "\n\t\t\t<sab>$tag{sab}</sab>";
+	$node .= "\n\t\t\t<dom>$tag{dom}</dom>";
+	$node .= "\n\t\t</orari>";
+    }
+    else{$node.= "\n\t\t<$_>$tag{$_}</$_>" foreach keys %tag;}
+    $node.= "\n\t</$element>\n";
+    return $node;
+};
+
 sub new { bless {}, shift }
 
 sub init {
@@ -65,9 +99,7 @@ sub add_resource {
     delete $stash{'namespace'};
     delete $stash{'formfor'};
     delete $stash{'id'};
-    my $ret = "\t<$element id='$id'>";
-    $ret.= "\n\t\t<$_>$stash{$_}</$_>" foreach keys %stash;
-    $ret.= "\n\t</$element>\n";
+    my $ret = $self->$_build_node($element, $id, %stash);
     my $token = $xml->getElementsByTagName($suffix)->[0];
     my $chunk = $parser->parse_balanced_chunk($ret);
     if($action eq 'add'){
@@ -110,13 +142,30 @@ sub list_news {
 }
 
 sub list_courses {
-    my $self = shift;
+    my ($self, $mode) = @_;
     my $xml = $self->load_xml('../data/corsi.xml');
 #    $xml->documentElement->setNamespace("www.news.it","n");
     my @courses = $xml->findnodes("//corso");
-    my @loop_courses = map {{C_NAME => $_->findvalue("nome"), MONTHLY => $_->findvalue("mensile"),
-	                     TRIMESTRAL => $_->findvalue("trimestrale"), SEMESTRAL => $_->findvalue("semestrale"),
-	                     ANNUAL => $_->findvalue("annuale"), C_ID => $_->getAttribute("id")}} @courses;
+    my @loop_courses = ();
+=pod    if($mode eq 'week'){
+	@loop_courses = map {{C_NAME => $_->findvalue("nome"), C_ID => $_->getAttribute("id"),
+	                      C_LUN => $_->findvalue("orari/lun"), C_MAR => $_->findvalue("orari/mar"),
+	                      C_MER => $_->findvalue("orari/mer"), C_GIO => $_->findvalue("orari/gio"),
+			      C_VEN => $_->findvalue("orari/ven"), C_SAB => $_->findvalue("orari/sab"), 
+			      C_DOM => $_->findvalue("orari/dom")}} @courses;
+    }
+    else{
+	@loop_courses = map {{C_NAME => $_->findvalue("nome"), MONTHLY => $_->findvalue("mensile"),
+			      TRIMESTRAL => $_->findvalue("trimestrale"), SEMESTRAL => $_->findvalue("semestrale"),
+			      ANNUAL => $_->findvalue("annuale")}} @courses# C_ID => $_->getAttribute("id")}} @courses;
+    }
+=cut
+    @loop_courses = map {{C_NAME => $_->findvalue("nome"), MONTHLY => $_->findvalue("mensile"), C_ID => $_->getAttribute("id"),
+			  TRIMESTRAL => $_->findvalue("trimestrale"), SEMESTRAL => $_->findvalue("semestrale"),
+			  ANNUAL => $_->findvalue("annuale"),C_LUN => $_->findvalue("orari/lun"), C_MAR => $_->findvalue("orari/mar"),
+			  C_MER => $_->findvalue("orari/mer"), C_GIO => $_->findvalue("orari/gio"),
+			  C_VEN => $_->findvalue("orari/ven"), C_SAB => $_->findvalue("orari/sab"), 
+			  C_DOM => $_->findvalue("orari/dom")}} @courses;# C_ID => $_->getAttribute("id")}} @courses;
     return @loop_courses;
 }
 
@@ -145,6 +194,13 @@ sub get_cdata {
 	$c_data{c_trimestral} = $xml->findvalue("//corso[\@id='$id']/trimestrale");
 	$c_data{c_semestral} = $xml->findvalue("//corso[\@id='$id']/semestrale");
 	$c_data{c_annual} = $xml->findvalue("//corso[\@id='$id']/annuale");
+	$c_data{c_lun} = $xml->findvalue("//corso[\@id='$id']/orari/lun");
+	$c_data{c_mar} = $xml->findvalue("//corso[\@id='$id']/orari/mar");
+	$c_data{c_mer} = $xml->findvalue("//corso[\@id='$id']/orari/mer");
+	$c_data{c_gio} = $xml->findvalue("//corso[\@id='$id']/orari/gio");
+	$c_data{c_ven} = $xml->findvalue("//corso[\@id='$id']/orari/ven");
+	$c_data{c_sab} = $xml->findvalue("//corso[\@id='$id']/orari/sab");
+	$c_data{c_dom} = $xml->findvalue("//corso[\@id='$id']/orari/dom");
     }
     else {
 	$c_data{not_found} = 1;

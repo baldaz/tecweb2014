@@ -11,12 +11,22 @@
       <caption>Corsi</caption>
       <thead>
 	<tr>
-	  <th scope="col">ID</th>
+	  <th scope="colgroup" colspan="5">Prezzi</th>
+	  <th scope="colgroup" colspan="8">Scheduling</th>
+	</tr>
+	<tr>
 	  <th scope="col">Nome</th>
 	  <th scope="col">Mensile</th>
 	  <th scope="col">Trimestrale</th>
 	  <th scope="col">Semestrale</th>
 	  <th scope="col">Annuale</th>
+	  <th scope="col">Lun</th>
+	  <th scope="col">Mar</th>
+	  <th scope="col">Mer</th>
+	  <th scope="col">Gio</th>
+	  <th scope="col">Ven</th>
+	  <th scope="col">Sab</th>
+	  <th scope="col">Dom</th>
 	  <th colspan="2" scope="colgroup">Azione</th>
 	</tr>
       </thead>
@@ -25,20 +35,26 @@
       <tbody>
 	<tmpl_loop name = "courses">
 	  <tr>
-	    <td><tmpl_var name = "C_ID"></td>
 	    <td><tmpl_var name = "C_NAME"></td>
 	    <td><tmpl_var name = "MONTHLY"></td>
 	    <td><tmpl_var name = "TRIMESTRAL"></td>
 	    <td><tmpl_var name = "SEMESTRAL"></td>
 	    <td><tmpl_var name = "ANNUAL"></td>
+	    <td><tmpl_var name = "C_LUN"></td>
+	    <td><tmpl_var name = "C_MAR"></td>
+	    <td><tmpl_var name = "C_MER"></td>
+	    <td><tmpl_var name = "C_GIO"></td>
+	    <td><tmpl_var name = "C_VEN"></td>
+	    <td><tmpl_var name = "C_SAB"></td>
+	    <td><tmpl_var name = "C_DOM"></td>
 	    <td><a href="admin.cgi?screen=edit_course&id=<tmpl_var name = C_ID>">Modifica</a></td>
 	    <td><a href="admin.cgi?screen=del_course&id=<tmpl_var name = C_ID>">Elimina</a></td>
 	  </tr>
-	</tmpl_loop>
+	</tmpl_loop> 
       </tbody>
-    </table>
-    <p>
-      <a href="admin.cgi?screen=add_course">Aggiungi corso</a>
-    </p>
+   </table>
+   <p>
+     <a href="admin.cgi?screen=add_course">Aggiungi corso</a>
+   </p>
   </div>
 <tmpl_include name = "footer.tmpl">

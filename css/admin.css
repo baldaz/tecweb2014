@@ -1,5 +1,10 @@
+* {
+    padding: 0;
+    margin: 0;
+}
 html, body {
-    width: 100%
+    width: 95%;
+    margin: auto
 }
 body{
     background: #f6f6f6;
@@ -10,6 +15,7 @@ body{
 }
 #content {
     width: 100%;
+    margin: auto;
     text-align: center
 }
 #adlogin {
@@ -118,21 +124,21 @@ a {
     top:1px
 }
 .table {
-    margin-top: 5%;
-    width: 80%;
+    margin: auto;
+    width: 100%;
     border-collapse: collapse
 }
 .table.table-mod th {
-    border-bottom: 1px solid #777777;
-    padding:8px;
-    font-size:11px
+    border-bottom: 1px solid #888888;
+    padding:7px 2px;
+    font-size:10px
 }
 .table.table-mod td {
-    padding:5px;
-    font-size:11px
+    padding:5px 2px;
+    font-size:10px
 }
 .table.table-mod tr:nth-child(2n+2) {
-    background-color: rgba(20,110,170,0.2)
+    background-color: rgba(20,130,170,0.2)
 }
 #nav a.home {
     background: url('../images/home.png');

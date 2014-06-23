@@ -112,7 +112,14 @@ sub edit_course {
 	    c_monthly    => $cs_data{c_monthly},
 	    c_trimestral => $cs_data{c_trimestral},
 	    c_semestral  => $cs_data{c_semestral},
-	    c_annual     => $cs_data{c_annual}
+	    c_annual     => $cs_data{c_annual},
+	    c_lun        => $cs_data{c_lun},
+	    c_mar        => $cs_data{c_mar},
+	    c_mer        => $cs_data{c_mer},
+	    c_gio        => $cs_data{c_gio},
+	    c_ven        => $cs_data{c_ven},
+	    c_sab        => $cs_data{c_sab},
+	    c_dom        => $cs_data{c_dom}
 	    );
 	$admin->dispatch('edit_course', %params);
     }
