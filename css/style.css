@@ -162,10 +162,9 @@ input, select {
 }
 .table {
     table-layout:fixed;
-    width:80%;
-    border-collapse:collapse;
-    margin-left:10%;
-    margin-top:2%
+    width:90%;
+    border-collapse: collapse;
+    margin-left:5%
 }
 .table.simple {
     background:url("../images/headerbackground_o.jpg")
@@ -183,12 +182,12 @@ input, select {
 }
 .table.table-corsi th {
     border-bottom: 1px solid #777777;
-    padding:8px;
-    font-size:11px
+    padding:4px 0px;
+    font-size:10px
 }
 .table.table-corsi td {
-    padding:5px;
-    font-size:11px
+    padding:3px 0px;
+    font-size:10px
 }
 .table.table-corsi tr:nth-child(2n+2) {
     background-color: rgba(20,110,170,0.2)

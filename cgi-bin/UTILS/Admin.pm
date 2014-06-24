@@ -142,30 +142,16 @@ sub list_news {
 }
 
 sub list_courses {
-    my ($self, $mode) = @_;
+    my $self = shift;
     my $xml = $self->load_xml('../data/corsi.xml');
 #    $xml->documentElement->setNamespace("www.news.it","n");
     my @courses = $xml->findnodes("//corso");
-    my @loop_courses = ();
-=pod    if($mode eq 'week'){
-	@loop_courses = map {{C_NAME => $_->findvalue("nome"), C_ID => $_->getAttribute("id"),
-	                      C_LUN => $_->findvalue("orari/lun"), C_MAR => $_->findvalue("orari/mar"),
-	                      C_MER => $_->findvalue("orari/mer"), C_GIO => $_->findvalue("orari/gio"),
-			      C_VEN => $_->findvalue("orari/ven"), C_SAB => $_->findvalue("orari/sab"), 
-			      C_DOM => $_->findvalue("orari/dom")}} @courses;
-    }
-    else{
-	@loop_courses = map {{C_NAME => $_->findvalue("nome"), MONTHLY => $_->findvalue("mensile"),
-			      TRIMESTRAL => $_->findvalue("trimestrale"), SEMESTRAL => $_->findvalue("semestrale"),
-			      ANNUAL => $_->findvalue("annuale")}} @courses# C_ID => $_->getAttribute("id")}} @courses;
-    }
-=cut
-    @loop_courses = map {{C_NAME => $_->findvalue("nome"), MONTHLY => $_->findvalue("mensile"), C_ID => $_->getAttribute("id"),
-			  TRIMESTRAL => $_->findvalue("trimestrale"), SEMESTRAL => $_->findvalue("semestrale"),
-			  ANNUAL => $_->findvalue("annuale"),C_LUN => $_->findvalue("orari/lun"), C_MAR => $_->findvalue("orari/mar"),
-			  C_MER => $_->findvalue("orari/mer"), C_GIO => $_->findvalue("orari/gio"),
-			  C_VEN => $_->findvalue("orari/ven"), C_SAB => $_->findvalue("orari/sab"), 
-			  C_DOM => $_->findvalue("orari/dom")}} @courses;# C_ID => $_->getAttribute("id")}} @courses;
+    my @loop_courses = map {{C_NAME => $_->findvalue("nome"), MONTHLY => $_->findvalue("mensile"), C_ID => $_->getAttribute("id"),
+			     TRIMESTRAL => $_->findvalue("trimestrale"), SEMESTRAL => $_->findvalue("semestrale"),
+			     ANNUAL => $_->findvalue("annuale"), C_LUN => $_->findvalue("orari/lun"), 
+			     C_MAR => $_->findvalue("orari/mar"), C_MER => $_->findvalue("orari/mer"), 
+			     C_GIO => $_->findvalue("orari/gio"), C_VEN => $_->findvalue("orari/ven"),
+			     C_SAB => $_->findvalue("orari/sab"), C_DOM => $_->findvalue("orari/dom")}} @courses;
     return @loop_courses;
 }
 

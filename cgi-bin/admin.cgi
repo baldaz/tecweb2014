@@ -3,7 +3,7 @@
 use UTILS::Admin;
 
 my $cgi = CGI->new();
-my $session = CGI::Session->load() or die "Errore";
+my $session = CGI::Session->load($cgi) or die "Errore";
 
 unless ($session->param("~logged-in")){
     print $session->header(-type => 'text/html', -location => 'login.cgi');
@@ -20,7 +20,7 @@ my %routes = (
     'edit_news'        => \&edit_news,
     'del_news'         => \&del_news,
     'courses'          => \&courses,
-#    'edit_prenotation' => \&edit_prenotation,
+    'add_course'       => \&add_course,
     'edit_course'      => \&edit_course,
     'del_course'       => \&del_course
     );
@@ -93,6 +93,11 @@ sub courses {
 	courses => \@courses
 	);
     $admin->dispatch('courses', %params);
+}
+
+sub add_course {
+    my %params = ();
+    $admin->dispatch('add_course', %params);
 }
 
 sub edit_course {

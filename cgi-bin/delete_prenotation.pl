@@ -4,16 +4,16 @@ use UTILS::UserService;
 
 my $cgi = CGI->new;
 my $utils = UTILS::UserService->new;
-
+my %sess_params = $utils->session_params($cgi);
 my $campo = $cgi->param('campo');
 my $data = $cgi->param('data');
 my $ora = $cgi->param('ora');
 my $disciplina = $cgi->param('disciplina');
-unless($utils->is_logged){
+unless($sess_params{is_logged}){
     print $cgi->header(-location => 'load.cgi?page=personale');
     return;
 }
-my $user = $utils->get_user;
+my $user = $sess_params{profile};
 my $parser = XML::LibXML->new();
 my $path = '../data/prenotazioni.xml';
 my $xml = $parser->parse_file($path);

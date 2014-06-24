@@ -98,29 +98,6 @@ my $_table_prenotazioni = sub {
     return $table;
 };
 
-my $_table_corsi = sub {
-    my $self = shift;
-    my %hash = @_;
-    my $ret;
-    $ret = caption(h5('Corsi prova'));
-    $ret.= thead(Tr(th({scope => 'col'}, [qw(Corso Lunedì Martedì Mercoledì Giovedì Venerdì Sabato Domenica)])));
-    $ret.= tfoot();
-    $ret.= tbody(join( '', map { Tr(th({scope => 'row'},$_), td( [ @{$hash{$_}} ])) } sort keys %hash ));
-    $ret = table({class => 'table simple' , summary => ''}, $ret);
-    return $ret;
-};
-
-my $_table_prezzi_corsi = sub {
-    my $self = shift;
-    my (%hash) = @_;
-    my $ret = caption(h5('Abbonamenti'));
-    $ret.= thead(Tr(th({scope => 'col'}, [qw(Corso Mensile Trimestrale Semestrale Annuale)])));
-    $ret.= tfoot();
-    $ret.= tbody(join('', map { Tr(td($_), td( [ @{$hash{$_}} ])) } keys %hash));
-    $ret = table({class => 'table table-corsi' , summary => ''}, $ret);
-    return $ret;
-};
-
 sub new {
     my $class = shift;
     my $self = bless {
@@ -257,44 +234,26 @@ sub getWeek {
 # estrae i prezzi dei corsi dall' xml e li associa ad un array di hash
 # infine richiama la funzione di stampa
 
-sub getPrezziCorsi{
+sub list_prices {
     my $self = shift;
-    my $xmldoc = $self->load_xml('../data/corsi.xml');
-    my (@corsi_global, %hash, @pr);
-    $xmldoc->documentElement->setNamespace("www.corsi.it", "c");
-    @corsi_global = $xmldoc->getElementsByTagName('corso');
-    
-    foreach(@corsi_global){
-	@pr = ();
-	push(@pr, $self->$_get($_, 'mensile'));
-	push(@pr, $self->$_get($_, 'trimestrale'));
-	push(@pr, $self->$_get($_, 'semestrale'));
-	push(@pr, $self->$_get($_, 'annuale'));
-	$hash{$self->$_get($_, 'nome')} = \@pr;
-    }
-    
-    $self->$_table_prezzi_corsi(%hash);
+    my $xml = $self->load_xml('../data/corsi.xml');
+#    $xml->documentElement->setNamespace("www.news.it","n");
+    my @courses = $xml->findnodes("//corso");
+    my @loop_courses = map {{c_name => $_->findvalue("nome"), c_mon => $_->findvalue("mensile"),
+			     c_tri => $_->findvalue("trimestrale"), c_sem => $_->findvalue("semestrale"),
+			     c_ann => $_->findvalue("annuale")}} @courses;
+    return @loop_courses;
 }
 
-sub getOrari{
+sub list_scheduling {
     my $self = shift;
-    my $xmldoc = $self->load_xml('../data/corsi.xml');
-    my (@orari_global, %hash, @pr);
-    $xmldoc->documentElement->setNamespace("www.corsi.it", "c");
-    @orari_global = $xmldoc->getElementsByTagName('corso');
-
-    foreach(@orari_global){
-	@pr = ();
-	push(@pr, $self->$_get($_, 'lun'));
-	push(@pr, $self->$_get($_, 'mar'));
-	push(@pr, $self->$_get($_, 'mer'));
-	push(@pr, $self->$_get($_, 'gio'));
-	push(@pr, $self->$_get($_, 'ven'));
-	push(@pr, $self->$_get($_, 'sab'));
-	push(@pr, $self->$_get($_, 'dom'));
-	$hash{$self->$_get($_, 'nome')} = \@pr;
-    }
-    $self->$_table_corsi(%hash);
+    my $xml =$self->load_xml('../data/corsi.xml');
+    my @courses = $xml->findnodes("//corso");
+    my @loop_courses = map {{c_name => $_->findvalue("nome"), c_lun => $_->findvalue("orari/lun"), 
+			     c_mar => $_->findvalue("orari/mar"), c_mer => $_->findvalue("orari/mer"), 
+			     c_gio => $_->findvalue("orari/gio"), c_ven => $_->findvalue("orari/ven"),
+			     c_sab => $_->findvalue("orari/sab"), c_dom => $_->findvalue("orari/dom")}} @courses;
+    return @loop_courses;
 }
 
 sub dispatcher {

@@ -10,19 +10,21 @@ my $_get_path = sub {		    # da spostare su UTILS, e fare inheritance
 
 sub new { bless {}, shift }
 
-sub is_logged {
-    my $self = shift;
-    my $session = CGI::Session->load();
+sub session_params {
+    my ($self, $cgi) = @_;
+    my $session = CGI::Session->load($cgi);
+    my %params = ();
     if($session->param("~logged-in")){
-	return 1;
+	$params{is_logged} = 1;
+	$params{profile} = $session->param("~profile");
     }
-    return 0;
-}
-
-sub get_user {
-    my $self = shift;
-    my $session = CGI::Session->load();
-    return $session->param("~profile");
+    else{
+	$params{is_logged} = 0;
+	if($session->param("~login-trials")){
+	    $params{attempt} = 1;
+	}
+    }
+    return %params;
 }
 
 sub get_generals {

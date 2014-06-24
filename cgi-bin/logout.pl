@@ -8,7 +8,7 @@ my $cgi = CGI->new;
 my $page = $cgi->param("page") || 'home';
 $page = "load.cgi?page=".$page;
 my $admin = UTILS::Admin->new;
-my $session = CGI::Session->load() || die $!;
+my $session = CGI::Session->load($cgi) || die $!;
 if($session->param("~logged-in")){
     $session->delete();
     $session->close();

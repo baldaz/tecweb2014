@@ -9,8 +9,7 @@ my $disciplina = $cgi->param("disciplina");
 my $data = $cgi->param("data");
 my $ora = $cgi->param("ora");
 my $utils = UTILS::UserService->new();
-my $is_logged = $utils->is_logged;
-my $email = $utils->get_user;
+my %sess_params = $utils->session_params($cgi);
 my $file = '../data/prenotazioni.xml';
 my $parser = XML::LibXML->new();
 my $xml = $parser->parse_file($file);
@@ -22,7 +21,7 @@ if($campo != -1){
     my $new_element = 
 	"
     <prenotante>
-      <email>".$email."</email>
+      <email>".$sess_params{profile}."</email>
       <disciplina>".$disciplina."</disciplina>
       <campo>".$campo."</campo>
       <data>".$data."</data>
@@ -51,11 +50,11 @@ else{
 }
 
 my %params = (
-    LOGIN => $is_logged,
-    USER => 'Admin',
+    LOGIN => $sess_params{is_logged},
+    USER =>  $sess_params{profile},
     page => 'prenota',
     path => '<a href="load.cgi?page=prenotazioni">Prenotazioni</a> >> Prenota',
-    is_logged => $is_logged,
+    is_logged => $sess_params{is_logged},
     TEST     => $test,
     SHOW_TBL => $show_tbl,
     TBL      => $tbl,

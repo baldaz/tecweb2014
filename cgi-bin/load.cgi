@@ -12,11 +12,8 @@ my $today = $utils->_today;
 my $data = $cgi->param('data') || $today;
 $data = $today if $data eq '';
 my $description = Encode::encode('utf8', $utils->getDesc($page));
-my ($is_logged, $user);
-if($is_logged = $utils->is_logged){
-    $user = $utils->get_user;
-}
-
+my %sess_params = $utils->session_params($cgi);
+    
 my %routes = (
     'home'          => \&index,
     'impianti'      => \&impianti,
@@ -38,13 +35,17 @@ else {
 }
 
 sub index {
+#    print "Content-type: text/html\n\n";
+#    print $attempt;
+#    print $utils->get_id;
     my %params = (
-	title => 'Centro sportivo',
-	page  => 'home',
-	path  => 'Home',
-	desc  => $description,
-	LOGIN => $is_logged,
-	USER  => $user
+	title   => 'Centro sportivo',
+	page    => 'home',
+	path    => 'Home',
+	desc    => $description,
+	LOGIN   => $sess_params{is_logged},
+	USER    => $sess_params{profile},
+	attempt => $sess_params{attempt}
 	);
 
     $utils->dispatcher('index', %params);
@@ -54,10 +55,10 @@ sub impianti {
     my @discipline = ('Calcetto', 'Calciotto', 'Tennis', 'Pallavolo', 'Beach Volley');
     # estraggo il numero di campi
     my @d_param = map { $utils->getFields($_) } @discipline;
-    my @img = $utils->getImg;
-    my @loop_img = ();
+#    my @img = $utils->getImg;
+#    my @loop_img = ();
 
-    push @loop_img, {src => $_} foreach(@img); # push hash anonimi per generazione immagini
+#    push @loop_img, {src => $_} foreach(@img); # push hash anonimi per generazione immagini
 
     my %params = (
 	title => 'Centro sportivo - Impianti',
@@ -69,40 +70,42 @@ sub impianti {
 	n_tennis    => $d_param[2],
 	n_pallavolo => $d_param[3],
 	n_bvolley   => $d_param[4],
-	LOGIN       => $is_logged,
-	USER        => $user
+	LOGIN       => $sess_params{is_logged},
+	USER        => $sess_params{profile},
+	attempt     => $sess_params{attempt}
 	);
     $utils->dispatcher('impianti', %params);
 }
 
 sub corsi {
-    my $tbl_corsi = $utils->getOrari;
-    my $table = $utils->getPrezziCorsi;
-    $table = Encode::encode('utf8', $table); # boh, senza encoding sfasa l'UTF-8 del template, BUG
+    my @loop_prices = $utils->list_prices;
+    my @loop_scheduling = $utils->list_scheduling;
     my %params = (
 	title => 'Centro sportivo - Corsi',
 	page      => 'corsi',
 	path      => 'Corsi',
-	tbl       => $table,  
-	tbl_corsi => $tbl_corsi,
-	LOGIN     => $is_logged,
-	USER      => $user
+	courses_price => \@loop_prices,
+	courses_scheduling => \@loop_scheduling,
+	LOGIN     => $sess_params{is_logged},
+	USER      => $sess_params{profile},
+	attempt   => $sess_params{attempt}
 	);
     $utils->dispatcher('corsi', %params);
 }
 
 sub contatti {
     my $mail = '';
-    if($is_logged){
-	$mail = $user;
+    if($sess_params{is_logged}){
+	$mail = $sess_params{profile};
     }
     my %params = (
-	title => 'Centro sportivo - Contatti',
-	page  => 'contatti',
-	path  => 'Contatti',
-	email => $user,
-	LOGIN => $is_logged,
-	USER  => $user
+	title   => 'Centro sportivo - Contatti',
+	page    => 'contatti',
+	path    => 'Contatti',
+	email   => $mail,
+	LOGIN   => $sess_params{is_logged},
+	USER    => $sess_params{profile},
+	attempt => $sess_params{attempt}
 	);
     $utils->dispatcher('contatti', %params);
 }
@@ -121,19 +124,20 @@ sub prenotazioni {
     }
 
     my %params = (
-	title => 'Centro sportivo - Prenotazioni',
-	page  => 'prenotazioni',
-	path  => 'Prenotazioni',
-	LOGIN => $is_logged,
-	USER  => $user,
-	TABLE => $table
+	title   => 'Centro sportivo - Prenotazioni',
+	page    => 'prenotazioni',
+	path    => 'Prenotazioni',
+	LOGIN   => $sess_params{is_logged},
+	USER    => $sess_params{profile},
+	attempt => $sess_params{attempt},
+	TABLE   => $table
     );
 
     $utils->dispatcher('prenotazioni', %params);
 }
 
 sub registrazione {
-    print $cgi->header(-location => 'load.cgi?page=personale') unless(!$is_logged);
+    print $cgi->header(-location => 'load.cgi?page=personale') unless(!$sess_params{is_logged});
     my %params = (
 	title       => 'Centro sportivo - Registrazione',
 	page        => 'registrazione',
@@ -146,8 +150,8 @@ sub registrazione {
 }
 
 sub personale {
-    my %generals = $utils->get_generals($user);
-    my @prens = $utils->get_prenotations($user);
+    my %generals = $utils->get_generals($sess_params{profile});
+    my @prens = $utils->get_prenotations($sess_params{profile});
     my %params = ();
     if(!@prens){
 	%params = (
@@ -156,11 +160,12 @@ sub personale {
 	    path      => 'Personale',
 	    name      => $generals{name},
 	    surname   => $generals{surname},
-	    mail      => $user,
+	    mail      => $sess_params{profile},
 	    tel       => $generals{tel},
-	    is_logged => $is_logged,
-	    LOGIN     => $is_logged,
-	    USER      => $user,
+	    is_logged => $sess_params{is_logged},
+	    LOGIN     => $sess_params{is_logged},
+	    USER      => $sess_params{profile},
+	    attempt   => $sess_params{attempt},
 	    has_pren  => 0
 	    );
     }
@@ -171,11 +176,12 @@ sub personale {
 	    path      => 'Personale',
 	    name      => $generals{name},
 	    surname   => $generals{surname},
-	    mail      => $user,
+	    mail      => $sess_params{profile},
 	    tel       => $generals{tel},
-	    is_logged => $is_logged,
-	    LOGIN     => $is_logged,
-	    USER      => $user,
+	    is_logged => $sess_params{is_logged},
+	    LOGIN     => $sess_params{is_logged},
+	    USER      => $sess_params{profile},
+	    attempt   => $sess_params{attempt},
 	    has_pren  => 1,
 	    pren_loop => \@prens
 	    );
@@ -184,18 +190,19 @@ sub personale {
 }
 
 sub edit_personal {
-    my %generals = $utils->get_generals($user);
+    my %generals = $utils->get_generals($sess_params{profile});
     my %params = (
 	title     => 'Centro sportivo - Area Personale',
 	page      => 'personale',
 	path      => 'Personale',
 	name      => $generals{name},
 	surname   => $generals{surname},
-	mail      => $user,
+	mail      => $sess_params{profile},
 	tel       => $generals{tel},
-	is_logged => $is_logged,
-	LOGIN     => $is_logged,
-	USER      => $user,
+	is_logged => $sess_params{is_logged},
+	LOGIN     => $sess_params{is_logged},
+	USER      => $sess_params{profile},
+	attempt   => $sess_params{attempt}
 	);
     $utils->dispatcher('edit_personal', %params);
 }
@@ -205,9 +212,10 @@ sub prenota {
 	title     => 'Centro sportivo - Prenota',
 	page      => 'prenota',
 	path      => '<a href="load.cgi?page=prenotazioni">Prenotazioni</a> >> Prenota',
-	is_logged => $is_logged,
-	LOGIN     => $is_logged,
-	USER      => $user,
+	is_logged => $sess_params{is_logged},
+	LOGIN     => $sess_params{is_logged},
+	USER      => $sess_params{profile},
+	attempt   => $sess_params{attempt},
 	SHOW_TBL  => 0,
 	TBL       => 0,
 	test      => 1,
