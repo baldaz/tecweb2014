@@ -1,0 +1,47 @@
+<tmpl_include name = "header.tmpl">
+  <div id="nav">
+    <ul>
+      <li><a href="admin.cgi" class="home">Home</a></li>
+      <li><a href="admin.cgi?screen=news">News</a></li>
+      <li><a href="admin.cgi?screen=courses">Corsi</a></li>
+    </ul>
+  </div>
+  <div id="content">
+    <form action="process.pl" method="post">
+      <fieldset>
+	<legend>Aggiungi corso</legend>
+	<label for="id">ID:</label>
+	<input type="text" id="id" name="id" />
+	<label for="titolo">Nome:</label>
+	<input type="text" id="nome" name="nome" />
+	<label for="mensile">Mensile:</label>
+	<input type="text" id="mensile" name="mensile" />
+	<label for="trimestrale">Trimestrale:</label>
+	<input type="text" id="trimestrale" name="trimestrale" />
+	<label for="semestrale">Semestrale:</label>
+	<input type="text" id="semestrale" name="semestrale" />
+	<label for="annuale">Annuale:</label>
+	<input type="text" id="annuale" name="annuale" />
+      </fieldset>
+      <fieldset>
+	<legend>Orari</legend>
+	<label for="lun">Lun:</label>
+	<input type="text" id="lun" name="lun" />
+	<label for="mar">Mar:</label>
+	<input type="text" id="mar" name="mar" />
+	<label for="mer">Mer:</label>
+	<input type="text" id="mer" name="mer" />
+	<label for="gio">Gio:</label>
+	<input type="text" id="gio" name="gio" />
+	<label for="ven">Ven:</label>
+	<input type="text" id="ven" name="ven" />
+	<label for="sab">Sab:</label>
+	<input type="text" id="sab" name="sab" />
+	<label for="dom">Dom:</label>
+	<input type="text" id="dom" name="dom" />
+	<input type="hidden" id="formfor" name="formfor" value="add_c" />
+	<input type="submit" id="submit" value="submit">
+      </fieldset>
+    </form> 
+  </div>
+<tmpl_include name = "footer.tmpl">
