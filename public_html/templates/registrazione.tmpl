@@ -25,26 +25,30 @@
 		<legend>Dati registrazione</legend>
 		<div class="formgroup">
 		  <label for="nome">Nome:</label>
-		  <input type="text" name="nome" id="nome" value="" placeholder="insert name" />
+		  <input type="text" name="nome" id="nome" placeholder="insert name" value="<tmpl_var escape = html name = r_name>"/>
 		</div>
 		<div class="formgroup">
 		  <label for="cognome">Cognome:</label> 
-		  <input type="text" name="cognome" id="cognome" value="" placeholder="insert surname" /> 
+		  <input type="text" name="cognome" id="cognome" value="<tmpl_var escape = html name = r_surname>" placeholder="insert surname" /> 
 		</div>
 		<div class="formgroup">
 		  <label for="telefono">Telefono:</label> 
-		  <input type="text" name="telefono" id="telefono" value="" placeholder="insert tel" />  
+		  <input type="text" name="telefono" id="telefono" value="<tmpl_var escape = html name = r_tel>" placeholder="insert tel" />  
 		</div>
 		<div class="formgroup">
 		  <label for="email">Email:</label>
-		  <input type="text" name="email" id="email" value="" placeholder="insert email" />
+		  <input type="text" name="email" id="email" value="<tmpl_var escape = html name = r_mail>" placeholder="insert email" />
 		</div>
 		<div class="formgroup">
 		  <label for="password">Password:</label>
 		  <input type="password" name="password" id="password" value="" placeholder="insert password" />
-		  <div class="formgroup">
-		    <input type="submit" value="sign up" class="button" />
-		  </div>
+		</div>
+		<tmpl_if name = "error">
+		  <p><span class="errore">Errore nel form</span></p>
+		</tmpl_if>
+		<div class="formgroup">
+		  <input type="submit" value="sign up" class="button" />
+		</div>
 	      </fieldset>
 	    </form>
 	</tmpl_if>

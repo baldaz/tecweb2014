@@ -2,6 +2,8 @@
 
 package UTILS::UserService;
 use parent 'UTILS';
+use HTML::Entities;
+use Email::Valid;
 
 my $_get_path = sub {		    # da spostare su UTILS, e fare inheritance
     my $self = shift;
@@ -60,3 +62,29 @@ sub get_prenotations {
     }
     return @loop_prens;
 }
+
+sub filter_input {
+    my ($self, $input) = @_;
+    return HTML::Entities::encode($input);
+}
+
+sub validate_mail {
+    my ($self, $mail) = @_;
+    $email = lc($email);
+    if($email =~ /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/){
+	return 1;
+    }
+    else { return 0; }
+}
+
+# controllo numero telefonico
+
+sub validate_tel {
+    my ($self, $number) = @_;
+    if($number = ~/^(\d)+$/){
+	return 1;
+    }
+    else{ return 0; }
+}
+
+1;

@@ -13,7 +13,15 @@ my $xml = $parser->parse_file($file);
 my %find = $utils->get_generals($email);
 my $registered = 0;
 my $has_account = 0;
-if(exists $find{not_found}){
+my $error = 0;
+
+if(!$utils->validate_mail($email) || !$utils->validate_tel($tel) || !$name || !$surname || !$tel || !$email || !$password || length($name) > 20 || length($surname) > 20 || length($tel) > 10 || length($email) > 30 || length($password) > 20){
+    $error = 1;
+    
+    print "Content-type: text/html\n\n";
+    print $utils->validate_mail($email);
+}
+elsif(exists $find{not_found}){
     my $key = 'tecweb2014';
     my $encrypted_pwd = crypt($key, $password);
     my $new_element = 
@@ -45,6 +53,11 @@ my %params = (
     path        => '<a href="load.cgi?page=personale">Personale</a> >> Registrazione',
     LOGIN       => 0,
     has_account => $has_account,
-    registered  => $registered
+    registered  => $registered,
+    error       => $error,
+    r_name      => $name,
+    r_surname   => $surname,
+    r_tel       => $tel,
+    r_mail      => $email
     );
 $utils->dispatcher('registrazione', %params);

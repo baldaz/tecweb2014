@@ -126,16 +126,6 @@ sub checkform {
     return $ret;
 }
 
-# controllo numero telefonico
-
-sub check_tel {
-    my ($self, $number) = @_;
-    if($number = ~/^(\d)+$/){
-	return 0;
-    }
-    else{ return 1; }
-}
-
 sub _today {
     my $self = shift;
     my $dt = DateTime->today->ymd("-");
