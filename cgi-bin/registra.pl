@@ -18,8 +18,8 @@ my $error = 0;
 if(!$utils->validate_mail($email) || !$utils->validate_tel($tel) || !$name || !$surname || !$tel || !$email || !$password || length($name) > 20 || length($surname) > 20 || length($tel) > 10 || length($email) > 30 || length($password) > 20){
     $error = 1;
     
-    print "Content-type: text/html\n\n";
-    print $utils->validate_mail($email);
+#    print "Content-type: text/html\n\n";
+#    print $utils->validate_mail($email);
 }
 elsif(exists $find{not_found}){
     my $key = 'tecweb2014';

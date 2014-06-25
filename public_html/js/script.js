@@ -11,7 +11,7 @@ function validateLogin(){
 	errors["passwd"] = "<span id='errore_passwd' class='errore'>*</span>";
     }
     if(Object.keys(errors).length > 0){
-	reportErrors(errors);
+	reportErrors(errors, 'login');
 	return false;
     }
     return true;
@@ -34,27 +34,36 @@ function validate(){
 	errors["email"] = "<span id='errore_email' class='errore'>Inserire email</span>";
     }
     if(Object.keys(errors).length > 0){
-	reportErrors(errors);
+	reportErrors(errors, 'content');
 	return false;
     }
     return true;
 }
 
-function reportErrors(errors){
+function reportErrors(errors, parentNode){
     var node;
-    var err_name = ['errore_nome', 'errore_cognome', 'errore_email', 'errore_username', 'errore_passwd'];
+    var div = document.createElement("div");
+    var content = document.createTextNode("Errori nel riempimento dei campi");
+    div.appendChild(content);
+    if(isInPage(document.getElementById('errore'))){
+	document.getElementById('errore').remove();
+    }
+    div.id = 'errore';
+/*    var err_name = ['errore_nome', 'errore_cognome', 'errore_email', 'errore_username', 'errore_passwd'];
     for(var i in err_name){
 	if(isInPage(document.getElementById(err_name[i]))){
 	    document.getElementById(err_name[i]).remove();
 	}
-    }
+    }*/
+    var last = document.getElementById(parentNode);
+    last.appendChild(div);
     for (var key in errors){
-	var dump = "errore_" + key;
-	var obj = document.getElementById(dump);
-	if(!document.body.contains(obj)){
-	    node = document.getElementById(key);
-	    node.insertAdjacentHTML('afterEnd', errors[key]);
-	}
+/*	var dump = "errore_" + key;
+	var obj = document.getElementById(key);
+	if(!document.body.contains(obj)){*/
+	node = document.getElementById(key).style.boxShadow="0px 0px 8px #f00";
+/*	node.style.borderColor = 'red';
+/*	    node.insertAdjacentHTML('afterEnd', errors[key]);*/
     }
 }
 
