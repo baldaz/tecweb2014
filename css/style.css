@@ -23,9 +23,6 @@ body{
     color:#000/*#042048*/;
     height:100%
 }													/*d7edff AZZURRINO SFONDO*/
-/*a {
-    text-decoration: none
-}*/
 ::-webkit-scrollbar {
     width: 6px
 }
@@ -309,7 +306,7 @@ input, select {
 #login{
     max-width: 18%;
     margin-left: 82%;
-    background:rgba(7,58,120,0.3);
+    background:rgba(7,58,120,0.2);
     -webkit-border-radius:20px;
     -moz-border-radius:20px;
     border-radius:20px;
@@ -352,7 +349,7 @@ input, select {
     -o-transition: all 0.3s ease-out;
     transition: all 0.3s ease-out;
     /*background: #1e6c00;*/
-	 background-color:#042e4f;
+	background-color:#042e4f;
     color: #D9EEFF;
     padding: 0.437em 0.937em 0.437em 0.937em;
     -webkit-border-top-right-radius: 10px;
@@ -391,8 +388,7 @@ input, select {
 #news_container {
     max-width: 18%;
     margin-left: 82%;
-/*    background:rgba(0,0,0,0.3);*/
- 	 background:rgba(7,58,120,0.2); 
+ 	background:rgba(7,58,120,0.2); 
     -webkit-border-radius:20px;
     -moz-border-radius:20px;
     border-radius:20px;
@@ -427,7 +423,7 @@ input, select {
     border-radius:0.8em
 }
 #content{
-    position:relative; /* per separator */
+    position:relative; /* per separator  SERVE ANCORA?*/
     width:60%;
     float:left;
 /*    min-height:65%;*/
@@ -472,7 +468,7 @@ span.bold{
     width:100%;
 	 min-height:10%;
     clear: both;
-    background: #13c26e url("../images/footerbluette.jpg") no-repeat;
+    background:#073a78 url("../images/footerbluette.jpg") no-repeat;
     background-size:100%;
     -webkit-border-bottom-right-radius: 20px;
     -moz-border-bottom-right-radius: 20px;
@@ -549,4 +545,3 @@ span.bold{
     background-color:#ffda47;
     color: #228833;
 }*/
-
