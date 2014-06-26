@@ -14,15 +14,15 @@ p {
     font-size:0.9em;
 }
 h2{
-    color:#ffda47;
+    color:#042048;
     letter-spacing:1px
 }
 body{
     background: #EEE8AA;
-    background: -webkit-linear-gradient(to top, #ffda47 0%, #ffffff 80%) fixed;
-    background: -moz-linear-gradient(to top, #ffda47 0%, #ffffff 80%) fixed;
-    background: -o-linear-gradient(to top, #ffda47 0%, #ffffff 80%) fixed;
-    background: linear-gradient(to top, #ffda47 0%, #ffffff 80%) fixed;
+    background: -webkit-linear-gradient(to top, #d7edff 0%, #ffffff 80%) fixed;
+    background: -moz-linear-gradient(to top, #d7edff 0%, #ffffff 80%) fixed;
+    background: -o-linear-gradient(to top, #d7edff 0%, #ffffff 80%) fixed;
+    background: linear-gradient(to top, #d7edff 0%, #ffffff 80%) fixed;
 }
 ::-webkit-scrollbar {
     width: 6px;
@@ -72,7 +72,7 @@ label>span{
     font-weight: bold;
 }
 input, select {
-    background:rgba(0,0,0,0.2);
+    background:rgba(7,58,120,0.3);
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius:5px;
@@ -81,7 +81,7 @@ input, select {
     padding:0.1em;
     width:30%;
     text-indent:0.4em;
-    color:#333333;
+    color:#000;
     -webkit-box-shadow: 0px 0px 4px #888;
     -moz-box-shadow: 0px 0px 4px #888;
     box-shadow: 0px 0px 4px #888
@@ -105,16 +105,16 @@ input:focus, select:focus, input:hover, select:hover{
     text-align:center
 }
 .button{
-    background-color:#228833;
-    color: #ffda47;
+    background-color:#042e4f;
+    color: #D9EEFF;
     width:45%;
     margin:0.5em 0.5em;
     font-size:0.9em;
     cursor:pointer
 }
 .button:hover{
-    background-color:#ffda47;
-    color: #228833;
+    background-color:#D9EEFF;
+    color: #042e4f;
 }
 #container {
     height: 100%;
@@ -124,9 +124,9 @@ input:focus, select:focus, input:hover, select:hover{
 #header{
     min-height:15%;
     width:100%;
-    background: #228833 url("../images/headerbackground.jpg") no-repeat;
+    background: #073a78 url("../images/bluette.jpg") no-repeat;
     background-size:100%;
-    color:#FFDA47;
+    color:#D9EEFF;
     padding-top:20px;
     -webkit-border-top-right-radius:20px;
     -moz-border-top-right-radius:20px;
@@ -150,12 +150,12 @@ input:focus, select:focus, input:hover, select:hover{
     width:100%;
     bottom:0;
     opacity:0.7;
-    background-color:#ffda47;
-    background-image: -webkit-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
-    background-image: -moz-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
-    background-image: -o-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
-    background-image: linear-gradient(to right, #ffda47 0%, #ffffff 150%);
-    color:#333333;
+    background-color:#073a78;
+    background-image: -webkit-linear-gradient(to left, #073a78 0%, #ffffff 120%);
+    background-image: -moz-linear-gradient(to left, #073a78 0%, #ffffff 120%);
+    background-image: -o-linear-gradient(to left, #073a78 0%, #ffffff 120%);
+    background-image: linear-gradient(to left, #073a78 0%, #ffffff 120%);
+    color:#000;
     -webkit-border-bottom-right-radius:20px;
     -moz-border-bottom-right-radius:20px;
     border-bottom-right-radius:20px
@@ -202,8 +202,8 @@ input:focus, select:focus, input:hover, select:hover{
     -moz-transition: all 0.3s ease-out;
     -o-transition: all 0.3s ease-out;
     transition: all 0.3s ease-out;
-    background: #228833;
-    color: #FFDA47;
+    background-color:#042e4f;
+    color: #D9EEFF;
     padding: 0.437em 0.937em 0.437em 0.937em;
     -webkit-border-top-right-radius: 10px;
     -moz-border-top-right-radius: 10px;
@@ -219,27 +219,27 @@ input:focus, select:focus, input:hover, select:hover{
     text-decoration:none
 }
 #nav ul li a:hover{
-    background-color:#ffda47;
-    background-image: -webkit-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
-    background-image: -moz-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
-    background-image: -o-linear-gradient(to right, #ffda47 0%, #ffffff 150%);
-    background-image: linear-gradient(to right, #ffda47 0%, #ffffff 150%);
-    color: #228833;
+    background-color:#D9EEFF;
+    background-image: -webkit-linear-gradient(to right, #D9EEFF 0%, #ffffff 150%);
+    background-image: -moz-linear-gradient(to right, #D9EEFF 0%, #ffffff 150%);
+    background-image: -o-linear-gradient(to right, #D9EEFF 0%, #ffffff 150%);
+    background-image: linear-gradient(to right, #D9EEFF 0%, #ffffff 150%);
+    color: #042e4f;
     padding: 0.437em 0.937em 0.437em 1.875em
 }
 #active {
-    background-image: -webkit-linear-gradient(to right, #ffda47 0%, #ffffff 150%) !important;
-    background-image: -moz-linear-gradient(to right, #ffda47 0%, #ffffff 150%) !important;
-    background-image: -o-linear-gradient(to right, #ffda47 0%, #ffffff 150%) !important;
-    background-image: linear-gradient(to right, #ffda47 0%, #ffffff 150%) !important;
-    background-color:#ffda47 !important;
-    color: #228833 !important;
+    background-image: -webkit-linear-gradient(to right, #D9EEFF 0%, #ffffff 150%) !important;
+    background-image: -moz-linear-gradient(to right, #D9EEFF 0%, #ffffff 150%) !important;
+    background-image: -o-linear-gradient(to right, #D9EEFF 0%, #ffffff 150%) !important;
+    background-image: linear-gradient(to right, #D9EEFF 0%, #ffffff 150%) !important;
+    background-color:#D9EEFF !important;
+    color:#042e4f !important;
     padding: 0.437em 0.937em 0.437em 1.875em !important
 }
 
 #login{
     width:100%;
-    background:rgba(0,0,0,0.3);
+    background:rgba(7,58,120,0.2);
     -webkit-border-radius:20px;
     -moz-border-radius:20px;
     border-radius:20px;
@@ -262,12 +262,13 @@ input:focus, select:focus, input:hover, select:hover{
     font-variant: italic
 }
 #login legend, #login label{
-	 color:#ffda47;
+	color:#042048;
+	margin-left:1em;
 }
 #news_container{
 	 clear: both;
     width: 100%;	
-    background:rgba(0,0,0,0.3);
+    background:rgba(7,58,120,0.2);
     -webkit-border-radius:20px;
     -moz-border-radius:20px;
     border-radius:20px;
@@ -278,25 +279,12 @@ input:focus, select:focus, input:hover, select:hover{
     padding-bottom:0.15em;
     margin-bottom:0.5em;
 }
-/*#news_container {		in teoria questo ze da canceare
-    width:100%;
-    background:rgba(0,0,0,0.3);
-    -webkit-border-radius:20px;
-    -moz-border-radius:20px;
-    border-radius:20px;
-    text-align:center;
-    -webkit-box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;
-    -moz-box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;
-    box-shadow: 4px 0px 8px #888 , -4px 0px 8px #888;	
-    margin-bottom: 0.6em;
-    padding-bottom:1em;
-}*/
 #news{
     width:100%;
     text-align: center;
 }
 #news h2{
-    color:#ffda47;
+    color:#042048;
     padding:0.2em;
 }
 #news ul{
@@ -309,7 +297,7 @@ input:focus, select:focus, input:hover, select:hover{
     margin-right:0.5em;
     padding:0.2em 0;
     border-style:none;
-    background:rgba(34,136,51,0.2);
+    background:rgba(7,58,120,0.1);
     -webkit-border-radius:0.8em;
     -moz-border-radius:0.8em;
     border-radius:0.8em
@@ -320,7 +308,7 @@ input:focus, select:focus, input:hover, select:hover{
     width:70%;
     min-height:65%;
     margin-left: 30%;
-    background:rgba(0,0,0,0.3);
+    background:rgba(7,58,120,0.2);
     -webkit-border-radius:20px;
     -moz-border-radius:20px;
     border-radius:20px;
@@ -352,7 +340,7 @@ input:focus, select:focus, input:hover, select:hover{
     width:100%;
     min-height:10%;
     clear: both;
-    background: #13c26e url("../images/footerbackground.jpg") no-repeat;
+    background:#073a78 url("../images/footerbluette.jpg") no-repeat;
     background-size:100%;
     -webkit-border-bottom-right-radius: 20px;
     -moz-border-bottom-right-radius: 20px;
@@ -363,7 +351,7 @@ input:focus, select:focus, input:hover, select:hover{
     -webkit-box-shadow: 4px 4px 8px  #888;
     -moz-box-shadow: 4px 4px 8px  #888;
     box-shadow: 4px 4px 8px  #888;
-    color: #ffda47;
+    color: #D9EEFF;
     text-align: center;	
 }
 #footer p{
@@ -390,15 +378,15 @@ input:focus, select:focus, input:hover, select:hover{
     width: 6.25em;
     text-align: left;
 }
-.prenfrm select,.prenfrm input[type="text"], .prenfrm input[type="date"] {
+.prenfrm select,.prenfrm input[type="text"], .prenfrm input[type="date"], .prenfrm input[type="password"] {
     margin-bottom: 0.8em;
-    width: 80%
+    width: 100%
 }
 .prenfrm.reg {
     text-align: left
 }
 .prenfrm legend, .prenfrm label{
-	 color:#ffda47;
+	 color:#042048;
 	 text-align: left;
 }
 .prenfrm legend{
@@ -422,6 +410,7 @@ input:focus, select:focus, input:hover, select:hover{
 /*fitness e corsi*/
 
 #content h2{
+    color:#042048;
 	padding-top:2%;
 }
 .formgroup, label {
@@ -441,12 +430,16 @@ input:focus, select:focus, input:hover, select:hover{
     margin-left:5%
 }
 .table.simple {
-    background:url("../images/headerbackground_o.jpg")
+	 background-color: rgba(132,159,196,1);
+   /* background:url("../images/bluette.jpg")*/
 }
 .table.simple th, .table.simple td {
     border: 1px dotted black;
     font-size:10px;
     padding:5px
+}
+.table.simple th{
+	 color:/*#042e4f*/ #000;
 }
 .table td {
     font-size: 9px
@@ -467,10 +460,12 @@ input:focus, select:focus, input:hover, select:hover{
     background-color: rgba(20,110,170,0.2)
 }
 .red{
-    background:rgba(255,0,0,0.5);
+	 /*background-color:#ff6c0c;*/
+    background:rgba(255,108,12,0.9);
 }
 .green{
-    background:rgba(0,255,0,0.4);
+	 background-color:#BDCFE3;
+    /*background:rgba(75,255,255,0.5);*/
 }
 .selected{
     background:rgba(255,255,255,0.3)
@@ -495,12 +490,12 @@ input:focus, select:focus, input:hover, select:hover{
     font-size: 0.580em
 }
 textarea{
-    background:rgba(0,0,0,0.2);
+    background:rgba(7,58,120,0.3);
     border-radius:5px;
     margin-top:0.3em;
     padding:0.1em;
     text-indent:0.4em;
-    color:#333333;
+    color:#000;
     width:100%;
     height:16em;
     resize:none;
@@ -508,24 +503,32 @@ textarea{
     -moz-box-shadow: 0px 0px 4px #888;
     box-shadow: 0px 0px 4px #888
 }
-input:focus, select:focus, textarea:focus, input:hover, select:hover, textarea:hover{
-    -webkit-box-shadow: 0px 0px 8px #228833;
-    -moz-box-shadow: 0px 0px 8px #228833;
-    box-shadow: 0px 0px 8px #228833;
+input:focus, select:focus, textarea:focus, input:hover, select:hover, textarea:hover {
+    -webkit-box-shadow: 0px 0px 8px #073a78;
+    -moz-box-shadow: 0px 0px 8px #073a78;
+    box-shadow: 0px 0px 8px #073a78;
     outline: none;
-    color:#333333
+    color:#000
 }
-input:focus::-webkit-input-placeholder { color:transparent; }
+input:focus::-webkit-input-placeholder { 
+	 color:#D9EEFF; 
+}
+::-webkit-input-placeholder {
+    font-size:0.9em;
+    padding-left:5px;
+	 color:#D9EEFF;
+    font-style:italic
+}
 input:focus{
     text-indent:0.4em
 }
 
 /* modifica dati personali */
 form label, form legend{
-	 color:#ffda47;
+	 color:#042048;
 }
 .formgroup legend, .formgroup label{
-	 color:#ffda47;
+	 color:#042048;
 	 text-align:left;
 }
 /*.formgroup label{
