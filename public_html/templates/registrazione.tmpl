@@ -37,20 +37,20 @@
 		</div>
 		<div class="formgroup">
 		  <label for="email">Email:</label>
-		  <input type="text" name="email" id="email" value="<tmpl_var escape = html name = r_mail>" placeholder="insert email" />
+		  <input type="text" name="email" id="email" value='<tmpl_var escape = html name = r_mail>' placeholder="insert email" />
 		</div>
 		<div class="formgroup">
 		  <label for="password">Password:</label>
 		  <input type="password" name="password" id="password" value="" placeholder="insert password" />
 		</div>
-		<tmpl_if name = "error">
-		  <p><span class="errore">Errore nel form</span></p>
-		</tmpl_if>
 		<div class="formgroup">
 		  <input type="submit" value="sign up" class="button" />
 		</div>
 	      </fieldset>
 	    </form>
+	    <tmpl_if name = "error">
+	      <div class="errore">Errore nel form</div>
+	    </tmpl_if>
 	</tmpl_if>
     </tmpl_if>
   </div>

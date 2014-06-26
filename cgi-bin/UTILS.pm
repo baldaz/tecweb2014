@@ -263,6 +263,15 @@ sub dispatcher {
     print "Content-Type: text/html\n\n", $template->output;
 }
 
+sub dispatch_error {
+    my ($self, $code, $desc) = @_;
+    my %params = (
+	err_code => $code,
+	err_desc => $desc
+	);
+    $self->dispatcher('404', %params);
+}
+
 sub select_field {
     my ($self, $disciplina, $data, $ora) = @_;
     my $xml = $self->load_xml('../data/prenotazioni.xml');

@@ -167,9 +167,9 @@ input, select {
 }*/
 .errore {
     /*margin-left: 0.8em;*/
+    padding: 5px;
     font-size: 0.7em;
     font-style: italic;
-	 float:right;
     color: #f00
 }
 .table {
@@ -549,4 +549,7 @@ span.bold{
     background-color:#ffda47;
     color: #228833;
 }*/
-
+.glow {
+    -webkit-box-shadow: 0px 0px 8px #f00;
+    box-shadow: 0px 0px 8px #f00
+}

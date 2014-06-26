@@ -8,8 +8,8 @@ my $admin = UTILS::Admin->new;
 my $cgi = CGI->new();
 my $page = $cgi->param("page") || 'home';
 $page = "load.cgi?page=".$page; 
-my $user = $cgi->param("username") or return;
-my $passwd = $cgi->param("passwd") or return;
+my $user = $cgi->param("username") || '';
+my $passwd = $cgi->param("passwd") || '';
 my $session = CGI::Session->new(undef, $cgi, {Directory => '/tmp'});
 
 if (my $profile = $admin->load_profile($user, $passwd)){
