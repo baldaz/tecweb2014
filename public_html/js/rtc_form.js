@@ -50,4 +50,10 @@ $(document).ready(function(){$(".p_field").change(function(){
     });
     return false;
 });
-			    });
+
+
+document.getElementById('tables').addEventListener('click', function() {
+ 
+    (this.style.height == '18em' || this.style.height == '')? this.style.height = '54em' : this.style.height = '18em';
+    
+}, false );			    });

@@ -182,7 +182,8 @@ input, select {
     margin-left:5%
 }
 .table.simple {
-	 background-color: rgba(132,159,196,1);
+    background-color: rgba(132,159,196,1);
+    margin-top: 1em
    /* background:url("../images/bluette.jpg")*/
 }
 .table.simple th, .table.simple td {
@@ -551,3 +552,12 @@ span.bold{
     background-color:#ffda47;
     color: #228833;
 }*/
+#tables {
+    margin-top: 1em;
+    height: 18em;
+    overflow: hidden;
+    -webkit-transition: height 500ms ease;
+    -moz-transition:    height 500ms ease;
+    -o-transition:      height 500ms ease;
+    transition:         height 500ms ease
+}
