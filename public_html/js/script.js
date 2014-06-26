@@ -1,15 +1,15 @@
 function validateLogin(){
-    var errors = {};
+    var errors = new Array();
     var list = new Array('username', 'passwd');
     var username = document.forms["login"]["username"].value;
     var password = document.forms["login"]["passwd"].value;
     var patt=/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     if(!patt.test(username)) {
-	errors["username"] = "<span id='errore_username' class='errore'>*</span>";
+	errors.push("username");
     }
     if(password.length < 1) {
-	errors["passwd"] = "<span id='errore_passwd' class='errore'>*</span>";
+	errors.push("passwd");
     }
     if(Object.keys(errors).length > 0){
 	reportErrors(errors, 'login', list);

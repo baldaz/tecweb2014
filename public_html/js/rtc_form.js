@@ -1,4 +1,4 @@
-var i = 0;
+/*var i = 0;
 var src = ['../images/campo-tennis.jpg', '../images/campo_calcetto.jpg', '../images/seagal-3.jpg', '../images/fitness.jpg'];
 setInterval(function(){
     $("#ft").attr('src', src[i]);
@@ -21,8 +21,8 @@ $("#telefono").keydown(function(event){
 	$(".errore").remove();
     }
 });
-
-$(".p_field").change(function(){
+*/
+$(document).ready(function(){$(".p_field").change(function(){
     var disciplina, date;
     var fase=$("#fase").val();
     if (undefined != fase ){
@@ -50,3 +50,4 @@ $(".p_field").change(function(){
     });
     return false;
 });
+			    });
