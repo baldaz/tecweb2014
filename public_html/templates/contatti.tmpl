@@ -15,7 +15,7 @@
     <p>
       Indirizzo, mappa?
     </p>
-    <form class="prenfrm" action="" method="post" name="contattaci" >
+    <form class="prenfrm" action="" method="post" name="contattaci" onsubmit="return validate_contact()" >
       <fieldset>
 	<legend>Contattaci</legend>
 	<div class="formgroup">
@@ -31,6 +31,9 @@
 	</div>
       </fieldset>
     </form>
+    <tmpl_if name = "error">
+      <div class="errore">Errore nel form</div>
+    </tmpl_if>
   </div>
 </div>	
 <tmpl_include name = "footer.tmpl">

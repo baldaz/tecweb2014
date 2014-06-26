@@ -19,13 +19,11 @@ if($email !~ /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i || !$utils->validate_tel(
     $error = 1;
 }
 elsif(exists $find{not_found}){
-    my $key = 'tecweb2014';
-    my $encrypted_pwd = crypt($key, $password);
     my $new_element = 
 	"
     <profilo>
       <username>".$email."</username>
-      <password>".$encrypted_pwd."</password>
+      <password>".$password."</password>
       <nome>".$name."</nome>
       <cognome>".$surname."</cognome>
       <telefono>".$tel."</telefono>

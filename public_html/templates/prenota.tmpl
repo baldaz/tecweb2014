@@ -11,7 +11,7 @@
   </div>
   <div id="content">
     <tmpl_if name = "is_logged">
-      <form method="post" action="prenota.pl" onsubmit="return validate()" name="form" class="prenfrm" >
+      <form method="post" action="user_jobs.pl" onsubmit="return validate()" name="form" class="prenfrm" >
 	<fieldset>
 	  <legend><h2>PRENOTAZIONE</h2></legend>
 	  <div class="formgroup">
@@ -42,6 +42,7 @@
    	    <input type="date" name="data" id="data" class="p_field" />
 	  </div>
 	  <div class="formgroup">
+	    <input type="hidden" id="_cmd" name="_cmd" value="book" />
   	    <input type="reset"  value="Resetta il form" class="button" />
   	    <input type="submit" value="Conferma" class="button" />
 	  </div>

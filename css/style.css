@@ -118,12 +118,18 @@ input:focus{
     text-align: left
 }
 .prenfrm legend, .prenfrm label{
-	 color:/*#ffda47*/#042048;
+    color:/*#ffda47*/#042048;
+}
+.prenfrm.psw {
+    width: 80%;
+/*    line-height: 0.7em*/
+}
+.prenfrm.psw label{
+    width: 8.5em
 }
 .form-container a, .formgroup a{
 	 text-decoration:none;
 }
-
 #content.centered {
     text-align: center
 }

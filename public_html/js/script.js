@@ -18,23 +18,66 @@ function validateLogin(){
     return true;
 }
 
-function validate(){
+function validate_contact(){
     var errors = new Array();
-    var list = new Array('nome', 'cognome', 'email', 'telefono', 'password');
+    var list = new Array('email', 'message');
+    var email = document.forms["contattaci"]["email"].value;
+    var message = document.forms["contattaci"]["message"].value;
+    var patt = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    if(!patt.test(email)){
+	errors.push("email");
+    }
+    if(message.length < 1 || message.length > 250){
+	errors.push("message");
+    }
+    if(Object.keys(errors).length > 0){
+	reportErrors(errors, 'content', list);
+	return false;
+    }
+    return true;
+}
+
+function validate_pwd_change(){
+    var errors = new Array();
+    var list = new Array('vpassword', 'password');
+    var vpwd = document.forms["pwd_change"]["vpassword"].value;
+    var opwd = document.forms["pwd_change"]["password"].value;
+
+    if(vpwd.length < 6){
+	errors.push("vpassword");
+    }
+    if(opwd.length < 6){
+	errors.push("password");
+    }
+    if(Object.keys(errors).length > 0){
+	reportErrors(errors, 'content', list);
+	return false;
+    }
+    return true;
+}
+
+function validate(bip){
+    var errors = new Array();
+    var list = new Array('nome', 'cognome', 'email', 'telefono');
     var name = document.forms["form"]["nome"].value;
     var surn = document.forms["form"]["cognome"].value;
     var mail = document.forms["form"]["email"].value;
     var tel  = document.forms["form"]["telefono"].value;
-    var pwd  = document.forms["form"]["password"].value;
-
+    if(bip){
+	var pwd  = document.forms["form"]["password"].value;
+	list.push("password");
+    }
     if(name.length<1){
 	errors.push("nome");
     }
     if(surn.length<1){
 	errors.push("cognome");
     }
-    if(pwd.length < 6){
-	errors.push("password");
+    if(bip){
+	if(pwd.length < 6){
+	    errors.push("password");
+	}
     }
     if(isNaN(tel) || tel.length < 6){
 	errors.push("telefono");

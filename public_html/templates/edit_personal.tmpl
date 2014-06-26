@@ -12,7 +12,7 @@
   <div id="content">
     <tmpl_if name = "is_logged">
       <h2>Riepilogo dati</h2>
-      <form action="" method="post">
+      <form action="user_jobs.pl" method="post" onsubmit="return validate(0)" name="form" class="prenfrm">
 	<fieldset>
 	  <legend>Dati</legend>
 	  <div class="formgroup">
@@ -25,18 +25,19 @@
 	  </div>
 	  <div class="formgroup">
 	    <label for="email">E-mail:</label>
-	    <input type="text" id="email" name="email" value="<tmpl_var escape = html name = mail>" />
+	    <input type="text" id="email" name="email" value="<tmpl_var escape = html name = mail>" readonly/>
 	  </div>
 	  <div class="formgroup">
 	    <label for="telefono">Telefono:</label>
 	    <input type="text" id="telefono" name="telefono" value="<tmpl_var escape = html name = tel>"/>
 	  </div>
 	  <div class="formgroup">
+	    <input type="hidden" id="_cmd" name="_cmd" value="mod_d" />
 	    <input type="submit" class="button" value="conferma" />
 	  </div>
 	</fieldset>
       </form>
-      <form action="" method="post" >
+      <form action="user_jobs.pl" method="post" class="prenfrm psw" onsubmit="return validate_pwd_change()" name="pwd_change">
 	<fieldset>
 	  <legend>Cambio password</legend>
 	  <div class="formgroup">
@@ -48,6 +49,7 @@
 	    <input type="password" id="password" name="password" />
 	  </div>
 	  <div class="formgroup">
+	    <input type="hidden" id="_cmd" name="_cmd" value="mod_pw" />
 	    <input type="submit" class="button" value="conferma" />
 	  </div>
 	</fieldset>

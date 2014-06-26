@@ -20,7 +20,7 @@
 	    Complimenti! Registrazione avvenuta con successo!
 	  </p>
 	  <tmpl_else>
-	    <form class="prenfrm" action="registra.pl" method="post" onsubmit="return validate()" name="form" >
+	    <form class="prenfrm" action="user_jobs.pl" method="post" onsubmit="return validate(1)" name="form" >
 	      <fieldset>
 		<legend>Dati registrazione</legend>
 		<div class="formgroup">
@@ -44,6 +44,7 @@
 		  <input type="password" name="password" id="password" value="" placeholder="insert password" />
 		</div>
 		<div class="formgroup">
+		  <input type="hidden" name="_cmd" id="_cmd" value="reg" />
 		  <input type="submit" value="sign up" class="button" />
 		</div>
 	      </fieldset>
