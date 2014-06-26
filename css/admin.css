@@ -18,6 +18,46 @@ body{
     margin: auto;
     text-align: center
 }
+.group {
+    display: inline-block
+}
+.admin-frm {
+    line-height: 24px;
+    display: inline;
+    padding: 1.2em
+}
+.admin-frm input, .admin-frm label {
+    display: block;
+    text-align: left
+    background: #f6f6f6;
+    padding: 2px;
+    color: #333;
+    text-shadow: 0px 1px 1px #d4d4d4;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px
+}
+.admin-frm fieldset {
+    border: none;
+    border-top: 1px solid #333;
+    text-align: left;
+    font-weight: 600;
+    font-style: italic;
+    color: #333;
+    text-shadow: 0px 1px 1px #d4d4d4
+}
+.admin-frm textarea {
+    width: 50%;
+    height: 10em;
+    text-align: left
+    background: #f6f6f6;
+    padding: 2px;
+    color: #333;
+    text-shadow: 0px 1px 1px #d4d4d4;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px
+}
 #adlogin {
     background: rgba(0, 0, 110, 0.1);
     line-height: 24px;
