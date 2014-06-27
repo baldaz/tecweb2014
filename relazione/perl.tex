@@ -32,7 +32,8 @@ Vi sono infine \texttt{login.pl}, \texttt{login.cgi} e \texttt{logout.pl}, picco
 
 Ogni \textit{route} richiama il \textit{dispatcher} da \texttt{UTILS} e passa un \textit{hash} contenente i parametri necessari al popolamento del template richiamato, che inoltre possiede lo stesso nome della \textit{route} appunto.
 
-\scriptsize{\begin{verbatim}
+\scriptsize{
+\begin{verbatim}
    sub dispatcher {
     my $self = shift;
     my $route = shift;
@@ -45,7 +46,8 @@ Ogni \textit{route} richiama il \textit{dispatcher} da \texttt{UTILS} e passa un
     foreach(@loop_news){
         delete $_->{N_ID};
     }
-    $template->param(NEWS => \@loop_news);
+    $template->param(NEWS => @loop_news);
     print "Content-Type: text/html\n\n", $template->output;
 }
-\end{verbatim}}
+\end{verbatim}
+}
