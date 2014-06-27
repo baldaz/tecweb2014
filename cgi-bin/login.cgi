@@ -1,7 +1,6 @@
 #!/usr/bin/perl -w
 
 use UTILS::Admin;
-use strict;
 
 my $cgi = CGI->new();
 my $session = CGI::Session->new($cgi);

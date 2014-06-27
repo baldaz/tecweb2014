@@ -138,10 +138,10 @@ sub getNews {
 #    $xml->documentElement->setNamespace("www.news.it","n");
 #    my $root = $xml->getDocumentElement;
     my @news = $xml->findnodes("//new");
-    my @loop_news = map {{N_TITLE   => encode('utf8', $_->findvalue("titolo")),
-	                  N_CONTENT => encode('utf8', $_->findvalue("contenuto")),
-			  N_DATE    => encode('utf8', $_->findvalue("data")),
-	                  N_ID      => encode('utf8', $_->getAttribute("id"))}} @news;
+    my @loop_news = map {{N_TITLE   => $_->findvalue("titolo"),
+	                  N_CONTENT => $_->findvalue("contenuto"),
+			  N_DATE    => $_->findvalue("data"),
+	                  N_ID      => $_->getAttribute("id")}} @news;
     return @loop_news;
 }
 
@@ -250,16 +250,17 @@ sub dispatcher {
     my $self = shift;
     my $route = shift;
     my %params = @_;
-    my $template = HTML::Template->new(filename => $route.".tmpl");
+    my $template = HTML::Template->new(filename => $route.".tmpl", utf8 => 1);
     foreach(keys %params){
 	$template->param($_ => $params{$_});
     }	
     my @loop_news = $self->getNews;
     foreach(@loop_news){
 	delete $_->{N_ID};
+	#decode('utf8', $_->{N_CONTENT});
     }
     $template->param(NEWS => \@loop_news);
-    HTML::Template->config(utf8 => 1);
+#    HTML::Template->config(utf8 => 1);
     print "Content-Type: text/html\n\n", $template->output;
 }
 

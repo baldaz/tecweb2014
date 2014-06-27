@@ -1,9 +1,9 @@
-<tmpl_include name = "header.tmpl">
+﻿<tmpl_include name = "header.tmpl">
   <div id="nav">
     <ul>
-      <li><a href="admin.cgi" class="home">Home</a></li>
+      <li><a href="admin.cgi">Home</a></li>
       <li><a href="admin.cgi?screen=news">News</a></li>
-      <li><a href="admin.cgi?screen=courses">Corsi</a></li>
+      <li><a href="admin.cgi?screen=courses" class="here">Corsi</a></li>
     </ul>
   </div>
   <div id="content">
@@ -47,8 +47,8 @@
 	    <td><tmpl_var name = "C_VEN"></td>
 	    <td><tmpl_var name = "C_SAB"></td>
 	    <td><tmpl_var name = "C_DOM"></td>
-	    <td><a href="admin.cgi?screen=edit_course&id=<tmpl_var name = C_ID>">Modifica</a></td>
-	    <td><a href="admin.cgi?screen=del_course&id=<tmpl_var name = C_ID>">Elimina</a></td>
+	    <td><a href="admin.cgi?screen=edit_course&id=<tmpl_var name = C_ID>" class="edit">Modifica</a></td>
+	    <td><a href="admin.cgi?screen=del_course&id=<tmpl_var name = C_ID>" class="remove">Elimina</a></td>
 	  </tr>
 	</tmpl_loop> 
       </tbody>

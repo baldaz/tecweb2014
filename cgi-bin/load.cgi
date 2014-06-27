@@ -11,7 +11,7 @@ my $disciplina = $cgi->param('disciplina') || 'Calcetto';
 my $today = $utils->_today;
 my $data = $cgi->param('data') || $today;
 $data = $today if $data eq '';
-my $description = Encode::encode('utf8', $utils->getDesc($page));
+my $description = $utils->getDesc($page);
 my %sess_params = $utils->session_params($cgi);
     
 my %routes = (
@@ -30,7 +30,7 @@ if( grep { $page eq $_} keys %routes){
     $routes{$page}->();
 }
 else {
-    $description = Encode::encode('utf8', $utils->getDesc('home'));
+    $description = $utils->getDesc('home');
     $routes{'home'}->();
 }
 
@@ -122,7 +122,7 @@ sub prenotazioni {
     for(1..$nr_campi){
 	$table.= $utils->getWeek($disciplina, $_, $data);
     }
-
+    $table = Encode::decode('utf8', $table);
     my %params = (
 	title   => 'Centro sportivo - Prenotazioni',
 	page    => 'prenotazioni',

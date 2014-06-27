@@ -2,7 +2,8 @@
     border: 0 none;
     padding: 0;
     margin: 0;
-    font-family: Copperplate, "Copperplate Gothic Light", fantasy;
+/*    font-family: Copperplate, "Copperplate Gothic Light", fantasy;*/
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     word-wrap:break-word
 }
 html,body{
@@ -10,7 +11,7 @@ html,body{
     font-size:100%
 }
 p {
-    font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+/*    font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;*/
     font-size:0.75em
 }
 body{
@@ -88,7 +89,7 @@ input:focus{
 }
 #login #loginfrm {
     width:90%;
-	 margin:auto;
+    margin:auto;
     text-align: left
 }
 #loginfrm label{
@@ -195,7 +196,7 @@ input, select {
 	 color:/*#042e4f*/ #000;
 }
 .table td {
-    font-size: 9px
+    font-size: 9px /*forse inutile*/
 }
 .table.table-corsi {
     margin-bottom: 5%
@@ -203,11 +204,11 @@ input, select {
 .table.table-corsi th {
     border-bottom: 1px solid #777777;
     padding:4px 0px;
-    font-size:10px
+    font-size:11px
 }
 .table.table-corsi td {
     padding:3px 0px;
-    font-size:10px
+    font-size:11px
 }
 .table.table-corsi tr:nth-child(2n+2) {
     background-color: rgba(20,110,170,0.2)
@@ -523,11 +524,17 @@ span.bold{
     margin: 0.6em
 }
 .remove {
-    padding: 0 20px;
-    text-decoration: none;
-    background: url('../images/cross.png');
+    padding: 1px 20px;
+    background: url('../images/delete.png');
     background-position: left;
     background-size: 20%;
+    background-repeat: no-repeat
+}
+.edit {
+    padding: 1px 20px;
+    background: url('../images/edit.png');
+    background-position: left;
+    background-size: 14%;
     background-repeat: no-repeat
 }
 .news_date {

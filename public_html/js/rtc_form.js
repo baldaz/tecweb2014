@@ -1,4 +1,4 @@
-/*var i = 0;
+﻿/*var i = 0;
 var src = ['../images/campo-tennis.jpg', '../images/campo_calcetto.jpg', '../images/seagal-3.jpg', '../images/fitness.jpg'];
 setInterval(function(){
     $("#ft").attr('src', src[i]);
