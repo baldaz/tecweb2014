@@ -127,11 +127,10 @@ sub dispatch {
     my $self = shift;
     my $route = shift;
     my %params = @_;
-    my $template = HTML::Template->new(filename => $route.".tmpl");
+    my $template = HTML::Template->new(filename => $route.".tmpl", utf8 => 1);
     foreach(keys %params){
 	$template->param($_ => $params{$_});
     }	
-    HTML::Template->config(utf8 => 1);
     print "Content-Type: text/html\n\n", $template->output;
 }
 
