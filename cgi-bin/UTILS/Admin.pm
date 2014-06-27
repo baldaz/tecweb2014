@@ -14,13 +14,16 @@ my $_get_last_id = sub {
     my ($self, $node, $node_name) = @_;
     my $root = $node->getDocumentElement();
     my $id = $root->findnodes($node_name."[last()]/\@id")->[0];
-    return $id->textContent;
+    return $id->textContent if defined($id);
+    return 0;
 };
 
 my $_build_node = sub {
     my $self = shift;
+    my $action = shift;
     my $element = shift;
     my $id = shift;
+    $id += 1 if($action eq 'add');
     my %tag = @_;
     my $node = "\t<$element id='$id'>";
     if($element eq 'corso'){
@@ -95,11 +98,11 @@ sub add_resource {
     my $xml = $parser->parse_file($path);
     my $root = $xml->getDocumentElement();
 #    $xml->documentElement->setNamespace("www.$suffix.it","n");
-    my $id = $stash{'id'};
+    my $id = $stash{'id'} || $self->$_get_last_id($xml, $element);
     delete $stash{'namespace'};
     delete $stash{'formfor'};
     delete $stash{'id'};
-    my $ret = $self->$_build_node($element, $id, %stash);
+    my $ret = $self->$_build_node($action, $element, $id, %stash);
     my $token = $xml->getElementsByTagName($suffix)->[0];
     my $chunk = $parser->parse_balanced_chunk($ret);
     if($action eq 'add'){
@@ -107,13 +110,13 @@ sub add_resource {
     }
     elsif($action eq 'edit'){
 	if($root->exists($element."[\@id=$id]")){
-	    $token = $root->findnodes($element."[\@id=$id]")->get_node(1);
+	    $token = $root->findnodes($element."[\@id='$id']")->get_node(1);
 	    $token->replaceChild($chunk, $token) || die $!;
 	}
 	else { die $!; }	# condizione eliminabile
     }
     elsif($action eq 'delete'){
-	$token = $root->findnodes($element."[\@id=$id]")->get_node(1);
+	$token = $root->findnodes($element."[\@id='$id']")->get_node(1);
 	$token->unbindNode();
     }
     else { die $!; }		# lanciare errore

@@ -13,6 +13,14 @@ body{
     font-size: 0.9em;
     text-shadow: 0px 1px 1px #d4d4d4
 }
+#header {
+    padding: 1.2em 0em;
+/*    background: rgba(0,0,0,0.2);
+    position: relative;
+    width: 95%;
+    height: 10%;
+    margin: auto*/
+}
 #content {
     width: 100%;
     margin: auto;
@@ -22,6 +30,7 @@ input:hover, input:focus, textarea:hover, textarea:focus {
     -webkit-box-shadow: 0px 0px 8px #888;
     -moz-box-shadow: 0px 0px 8px #888;
     box-shadow: 0px 0px 8px #888;
+    outline:none;
     text-indent: 0.3em
 }
 .group {
@@ -38,6 +47,7 @@ input:hover, input:focus, textarea:hover, textarea:focus {
     background: #f6f6f6;
     padding: 2px;
     color: #333;
+    outline: none;
     text-shadow: 0px 1px 1px #d4d4d4;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
