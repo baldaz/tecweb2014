@@ -1,3 +1,14 @@
+function validateCourse(){
+    var errors = new Array();
+    var list = new Array('nome', 'Mensile', 'Trimestrale', 'Semestrale', 'Annuale');
+    var nome = document.forms["courses"]["nome"].value;
+    var mensile = document.forms["courses"]["mensile"].value;
+    var trimestrale = document.forms["courses"]["trimestrale"].value;
+    var semestrale = document.forms["courses"]["semestrale"].value;
+    var annuale = document.forms["courses"]["annuale"].value;
+    
+}
+
 function validateLogin(){
     var errors = new Array();
     var list = new Array('username', 'passwd');
