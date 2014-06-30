@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/usr/bin/perl
 
 package UTILS::UserService;
 use parent 'UTILS';
@@ -48,7 +48,7 @@ sub get_prenotations {
     my $xml = $self->load_xml('../data/prenotazioni.xml');
     my @loop_prens = ();
     if($xml->getDocumentElement->exists("//p:prenotante[p:email='$user']")){
-	 my @prenotations = $xml->findnodes("//p:prenotante[p:email='$user']");
+	my @prenotations = $xml->findnodes("//p:prenotante[p:email='$user']");
 	@loop_prens = map {{discipline => $prenotations[0]->findnodes("//p:prenotante[p:email='$user']/p:disciplina")->get_node($_)->textContent, 
 			    data       => $prenotations[0]->findnodes("//p:prenotante[p:email='$user']/p:data")->get_node($_)->textContent,
 			    ora        => $prenotations[0]->findnodes("//p:prenotante[p:email='$user']/p:ora")->get_node($_)->textContent, 
@@ -71,7 +71,7 @@ sub filter_input {
 
 sub validate_tel {
     my ($self, $number) = @_;
-    if($number = ~/^(\d)+$/){
+    if($number =~ /^(\d)+$/){
 	return 1;
     }
     else{ return 0; }

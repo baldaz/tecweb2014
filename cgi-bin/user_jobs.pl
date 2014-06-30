@@ -36,7 +36,7 @@ sub book {
     my $campo = $service->select_field($disciplina, $data, $ora);
     my $parser = XML::LibXML->new();
     my $xml = $parser->parse_file("../data/prenotazioni.xml");
-    my ($show_tbl, $table, $tbl, $test);
+    my ($show, $table, $tbl, $test);
 
     if($campo != -1){
 	my $new_element = 
@@ -60,14 +60,12 @@ sub book {
 	print OUT $xml->toString; 
 	close OUT;
 	$test = 1;
-	$show_tbl = 0;
-	$tbl = 0;
+	$show = 1;
     }
     else{
-	$show_tbl = 0; 
 	$test = 0;
+	$show = 1;
 	$table = $service->getWeek($disciplina, $campo, $data);
-	$tbl = 1;
     }
 
     my %params = (
@@ -76,10 +74,10 @@ sub book {
 	page => 'prenota',
 	path => '<a href="load.cgi?page=prenotazioni">Prenotazioni</a> >> Prenota',
 	is_logged => $sess_params{is_logged},
-	TEST     => $test,
-	SHOW_TBL => $show_tbl,
-	TBL      => $tbl,
-	TABLE    => $table,
+	show     => $show,
+	test     => $test,
+	campo    => $campo,
+	table    => $table,
 	);
     
     $service->dispatcher('prenota', %params);
