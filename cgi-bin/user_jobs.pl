@@ -27,7 +27,12 @@ $job{$cmd}->($cgi);
 
 sub book {
     my $cgi = shift;
-    my($disciplina, $data, $ora) = ($cgi->param('disciplina'), $cgi->param('data'), $cgi->param('ora'));
+    my $today = $service->_today();
+    my($disciplina, $giorno, $mese, $anno, $ora) = 
+	($cgi->param('disciplina'), $cgi->param('giorno'), $cgi->param('mese'), $cgi->param('anno'), $cgi->param('ora'));
+    my $data = $anno."-".$mese."-".$giorno;
+    $data = $today->ymd("-") if $data eq '';
+    $service->validate($data);
     my $campo = $service->select_field($disciplina, $data, $ora);
     my $parser = XML::LibXML->new();
     my $xml = $parser->parse_file("../data/prenotazioni.xml");

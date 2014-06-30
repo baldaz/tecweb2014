@@ -5,10 +5,7 @@ use UTILS::UserService;
 my $cgi = CGI->new();
 my $utils = UTILS::UserService->new();
 my $page = $cgi->param('page') || 'home';
-my $disciplina = $cgi->param('disciplina') || 'Calcetto';
 my $today = $utils->_today;
-my $data = $cgi->param('data') || $today;
-$data = $today if $data eq '';
 my $description = $utils->getDesc($page);
 my %sess_params = $utils->session_params($cgi);
     
@@ -25,17 +22,15 @@ my %routes = (
     );
 
 if( grep { $page eq $_} keys %routes){
-    $routes{$page}->();
+    $routes{$page}->($cgi);
 }
 else {
     $description = $utils->getDesc('home');
-    $routes{'home'}->();
+    $routes{'home'}->($cgi);
 }
 
 sub index {
-#    print "Content-type: text/html\n\n";
-#    print $attempt;
-#    print $utils->get_id;
+    my $cgi = shift;
     my %params = (
 	title   => 'Centro sportivo',
 	page    => 'home',
@@ -50,6 +45,7 @@ sub index {
 }
 
 sub impianti {
+    my $cgi = shift;
     my @discipline = ('Calcetto', 'Calciotto', 'Tennis', 'Pallavolo', 'Beach Volley');
     # estraggo il numero di campi
     my @d_param = map { $utils->getFields($_) } @discipline;
@@ -76,6 +72,7 @@ sub impianti {
 }
 
 sub corsi {
+    my $cgi = shift;
     my @loop_prices = $utils->list_prices;
     my @loop_scheduling = $utils->list_scheduling;
     my %params = (
@@ -92,6 +89,7 @@ sub corsi {
 }
 
 sub contatti {
+    my $cgi = shift;
     my $mail = '';
     if($sess_params{is_logged}){
 	$mail = $sess_params{profile};
@@ -109,11 +107,15 @@ sub contatti {
 }
 
 sub prenotazioni {
-
+    my $cgi = shift;
+    my $disciplina = $cgi->param('disciplina') || 'Calcetto';
+#    my $data = $cgi->param('data') || $today;
+    my ($giorno, $mese, $anno) = ($cgi->param('giorno') || $today->day(), $cgi->param('mese') || $today->month(), $cgi->param('anno') || $today->year());
+    my $data = $anno."-".$mese."-".$giorno;
+    $data = $today->ymd("-") if $data eq '';
+    $utils->validate($data);
     my @discipline = ('Calcetto', 'Calciotto', 'Pallavolo', 'Beach Volley', 'Tennis'); 
-
     $disciplina = $discipline[0] unless grep { $_ eq $disciplina } @discipline; # sanity check
-    
     my $nr_campi = $utils->getFields($disciplina);
     $nr_campi = 2 if not defined $nr_campi;
     my $table = "<h3>Tabelle prenotazione:</h3>";
@@ -135,6 +137,7 @@ sub prenotazioni {
 }
 
 sub registrazione {
+    my $cgi = shift;
     print $cgi->header(-location => 'load.cgi?page=personale') unless(!$sess_params{is_logged});
     my %params = (
 	title       => 'Centro sportivo - Registrazione',
@@ -148,6 +151,7 @@ sub registrazione {
 }
 
 sub personale {
+    my $cgi = shift;
     my %generals = $utils->get_generals($sess_params{profile});
     my @prens = $utils->get_prenotations($sess_params{profile});
     my %params = ();
@@ -188,6 +192,7 @@ sub personale {
 }
 
 sub edit_personal {
+    my $cgi = shift;
     my %generals = $utils->get_generals($sess_params{profile});
     my %params = (
 	title     => 'Centro sportivo - Area Personale',
@@ -206,6 +211,7 @@ sub edit_personal {
 }
 
 sub prenota {
+    my $cgi = shift;
     my %params = (
 	title     => 'Centro sportivo - Prenota',
 	page      => 'prenota',

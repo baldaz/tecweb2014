@@ -128,7 +128,9 @@ sub checkform {
 
 sub _today {
     my $self = shift;
-    my $dt = DateTime->today->ymd("-");
+    my $today = DateTime->today->ymd("-");
+    my @day = split('-', $today);
+    my $dt = DateTime->new(day => $day[2], month => $day[1], year => $day[0]);
     return $dt;
 }
 
@@ -270,7 +272,7 @@ sub dispatch_error {
 	err_code => $code,
 	err_desc => $desc
 	);
-    $self->dispatcher('404', %params);
+    $self->dispatcher($code, %params);
 }
 
 sub select_field {
@@ -320,4 +322,28 @@ sub trim {
     return $string;
 }
 
+sub validate {
+    my ($self, $date) = @_;
+    my %months = (
+	'1'  => '31', 
+	'2'  => '28',
+	'3'  => '31',
+	'4'  => '30',
+	'5'  => '31',
+	'6'  => '30',
+	'7'  => '31',
+	'8'  => '31',
+	'9'  => '30',
+	'10' => '31',
+	'11' => '30',
+	'12' => '31'
+	);
+    my @dt = split('-', $date);
+
+    if($dt[2] > $months{$dt[1]}){
+	$self->dispatch_error('400', 'Formato data errato');
+	return 0;
+    }
+    else{ return 1;}
+}
 1;
