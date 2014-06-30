@@ -23,6 +23,7 @@ $("#telefono").keydown(function(event){
 });
 */
 $(document).ready(function(){$(".p_field").change(function(){
+<<<<<<< HEAD
     var disc, date;
     var giorno = $("#giorno").val();
     var mese = $("#mese").val();
@@ -45,6 +46,12 @@ $(document).ready(function(){$(".p_field").change(function(){
 
     if(giorno > mesi[mese]){
 	$("#tables").html("<div class='errore'>Errore data, ricontrollare il giorno(Dog)</div>");
+=======
+/*    var disciplina, date;
+    var fase=$("#fase").val();
+    if (undefined != fase ){
+	disciplina=$("#disciplina_h").val();
+>>>>>>> c5ab22f96463dee5d3fa7ef805948dfaded70c38
     }
     else{
 /*    var fase=$("#fase").val();
@@ -59,7 +66,7 @@ $(document).ready(function(){$(".p_field").change(function(){
 //	date=d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate(); //funziona di merda, sbaglia il mese
     }*/
 
-//    	alert(disciplina+" e "+date);
+//    	alert(disciplina+" e "+date);*/
     $.ajax({
 	type: "POST",
 	url: "vbooked.pl",
@@ -81,5 +88,9 @@ document.getElementById('tables').addEventListener('click', function() {
  
     (this.style.height == '18em' || this.style.height == '')? this.style.height = '54em' : this.style.height = '18em';
     
+<<<<<<< HEAD
 }, false );			   */ 
 });
+=======
+}, false );			    });
+>>>>>>> c5ab22f96463dee5d3fa7ef805948dfaded70c38

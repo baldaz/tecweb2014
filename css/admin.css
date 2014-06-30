@@ -23,6 +23,7 @@ body{
 }
 #content {
     width: 100%;
+	 min-width:320px;
     margin: auto;
     text-align: center
 }
@@ -52,6 +53,9 @@ input:hover, input:focus, textarea:hover, textarea:focus {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px
+}
+.admin-frm input[type="submit"]{
+	 margin-top:0.5em;
 }
 .admin-frm fieldset {
     border: none;
@@ -84,7 +88,9 @@ input:hover, input:focus, textarea:hover, textarea:focus {
     margin-top: -10%;
     margin-left: -15%;
     height: 20%;
-    width: 30%;
+    width: 20%;
+	 min-height:10em;
+	 min-width:10em;
     padding: 1em;
     border: 1px solid #ccc;
     -webkit-border-radius: 1em;
@@ -98,16 +104,24 @@ input:hover, input:focus, textarea:hover, textarea:focus {
     border: none
 }
 #adlogin input[type="text"], #adlogin input[type="password"], #adlogin input[type="submit"] {
+	 display:block;
     background: #f6f6f6;
     padding: 2px;
-    margin-bottom: 0.7em;
+    margin-bottom: 3%;
     color: #333;
     text-shadow: 0px 1px 1px #d4d4d4;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     outline: none;
-    border-radius: 5px
+    border-radius: 5px;
 }
+#adlogin input[type="text"], #adlogin input[type="password"]{
+	 width:80%;
+}
+#adlogin input[type="submit"] {
+	 padding:1%;
+}
+
 #adlogin label {
     text-align: left;
     float:left;
@@ -161,7 +175,7 @@ a {
     font-weight: bold;
     font-style: normal;    
     line-height: 20px;
-    padding: 20px;
+    padding: 18px;
     text-decoration: none;
     text-align: center;
     margin: 0.5em;
@@ -196,6 +210,7 @@ a {
     font-size:10px
 }
 .table.table-mod td {
+	 text-align:center;
     padding:5px 2px;
     font-size:10px
 }
@@ -216,3 +231,4 @@ a {
     background-size: 16%;
     background-repeat: no-repeat
 }
+
