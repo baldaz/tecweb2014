@@ -23,7 +23,7 @@ $("#telefono").keydown(function(event){
 });
 */
 $(document).ready(function(){$(".p_field").change(function(){
-    var disciplina, date;
+/*    var disciplina, date;
     var fase=$("#fase").val();
     if (undefined != fase ){
 	disciplina=$("#disciplina_h").val();
@@ -36,7 +36,7 @@ $(document).ready(function(){$(".p_field").change(function(){
 //	date=d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate(); //funziona di merda, sbaglia il mese
     }
 
-//    	alert(disciplina+" e "+date);
+//    	alert(disciplina+" e "+date);*/
     $.ajax({
 	type: "GET",
 	url: "vbooked.pl",
