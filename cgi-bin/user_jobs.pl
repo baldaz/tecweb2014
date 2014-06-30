@@ -5,8 +5,8 @@ use UTILS::UserService;
 my $cgi = CGI->new;
 my $service = UTILS::UserService->new;
 my %sess_params = $service->session_params($cgi);
-unless($sess_params{is_logged}){
-    print $cgi->header(-location => 'load.cgi?page=personale');
+unless($sess_params{is_logged} || $cgi->param('_cmd') eq 'reg'){
+    print $cgi->header(-location => 'load.cgi?page=registrazione');
     return;
 }
 
@@ -97,7 +97,7 @@ sub register {
     my $has_account = 0;
     my $error = 0;
 
-    if($email !~ /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i || !$utils->validate_tel($tel) || !length($name) || !length($surname) || !length($tel) || !length($email) || !length($password)){
+    if($email !~ /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i || !$service->validate_tel($tel) || !length($name) || !length($surname) || !length($tel) || !length($email) || !length($password)){
 	$error = 1;
     }
     elsif(exists $find{not_found}){
