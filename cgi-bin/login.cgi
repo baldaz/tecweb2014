@@ -3,8 +3,8 @@
 use UTILS::Admin;
 
 my $cgi = CGI->new();
-my $session = CGI::Session->new($cgi);
-my $admin = UTILS::Admin->new(undef, $cgi, {Directory => '/tmp'});
+my $session = CGI::Session->new(undef, $cgi, {Directory => '/tmp'});
+my $admin = UTILS::Admin->new;
 my $cookie = $cgi->cookie(CGISESSID => $session->id);
 $admin->init($session, $cgi);
 
