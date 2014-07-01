@@ -1,10 +1,11 @@
-#!/usr/bin/perl -w
+#!/usr/bin/perl
 
-use strict;
-use warnings;
 use UTILS::Admin;
 
 my $admin = UTILS::Admin->new;
+if($session->param("~logged-in")){
+    print $session->header(-location => "login.cgi", cookie => $cookie);
+}
 my %input = ();
 read(STDIN, my $buffer, $ENV{'CONTENT_LENGTH'});
 if(!length($buffer)){ 

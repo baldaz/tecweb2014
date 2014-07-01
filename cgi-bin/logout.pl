@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-use strict;
-use warnings;
 use UTILS::Admin;
 
 my $cgi = CGI->new;
