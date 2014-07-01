@@ -27,24 +27,12 @@ body{
     margin: auto;
     text-align: center
 }
-input:hover, input:focus, textarea:hover, textarea:focus {
-    -webkit-box-shadow: 0px 0px 8px #888;
-    -moz-box-shadow: 0px 0px 8px #888;
-    box-shadow: 0px 0px 8px #888;
-    outline:none;
-    text-indent: 0.3em
-}
-.group {
-    display: inline-block
-}
 .admin-frm {
-    line-height: 24px;
-    display: inline;
+    text-align:left;
+    line-height: 20px;
     padding: 1.2em
 }
-.admin-frm input, .admin-frm label {
-    display: block;
-    text-align: left
+.admin-frm input {
     background: #f6f6f6;
     padding: 2px;
     color: #333;
@@ -53,7 +41,65 @@ input:hover, input:focus, textarea:hover, textarea:focus {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px
+}    
+.admin-frm fieldset {
+    border: none;
+    border-top: 1px solid #333;
+    text-align: left;
+    font-weight: 600;
+    font-style: italic;
+    color: #333;
+    text-shadow: 0px 1px 1px #d4d4d4
 }
+.admin-frm textarea {
+    width: 50%;
+    height: 10em;
+    text-align: left
+    background: #f6f6f6;
+    padding: 2px;
+    color: #333;
+    text-shadow: 0px 1px 1px #d4d4d4;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px
+}
+.admin-frm input, .admin-frm label {
+    float: left;
+    margin-right: 1em;
+    width: 6.25em
+}
+.group {
+    display: block
+}
+input:hover, input:focus, textarea:hover, textarea:focus {
+    -webkit-box-shadow: 0px 0px 8px #888;
+    -moz-box-shadow: 0px 0px 8px #888;
+    box-shadow: 0px 0px 8px #888;
+    outline:none;
+    text-indent: 0.3em
+}
+/*
+.admin-frm {
+    line-height: 20px;
+/*    display: inline-block;*/
+/*    padding: 1.2em
+}*//*
+.admin-frm .group label {
+    width: 6.25em;
+/*    float:left*/
+/*}/*
+.admin-frm input, .admin-frm label {
+/*    display: block;*/
+/*    text-align: left
+    background: #f6f6f6;
+    padding: 2px;
+    color: #333;
+    outline: none;
+    text-shadow: 0px 1px 1px #d4d4d4;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px
+}*//*
 .admin-frm input[type="submit"]{
 	 margin-top:0.5em;
 }
@@ -77,7 +123,7 @@ input:hover, input:focus, textarea:hover, textarea:focus {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px
-}
+}*/
 #adlogin {
     background: rgba(0, 0, 110, 0.1);
     line-height: 24px;
@@ -86,7 +132,7 @@ input:hover, input:focus, textarea:hover, textarea:focus {
     top: 50%;
     left: 50%;
     margin-top: -10%;
-    margin-left: -15%;
+    margin-left: -10%;
     height: 20%;
     width: 20%;
 	 min-height:10em;
@@ -136,11 +182,11 @@ input:hover, input:focus, textarea:hover, textarea:focus {
     font-style: italic;
     color: #333;
     text-shadow: 0px 1px 1px #d4d4d4
-}
+}/*
 .formgroup, label {
     font-size:0.9em;
     display:block
-}
+}*/
 #nav ul {
     display: inline;
     list-style: none
