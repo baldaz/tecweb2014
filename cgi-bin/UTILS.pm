@@ -91,7 +91,6 @@ my $_table_prenotazioni = sub {
     }	
     my $wrapped_body = tbody($body);
     $table .= thead(Tr(th({scope => 'col'}, ['ORARIO', @it_days])));
-    $table .= tfoot();
     $table .= $wrapped_body;
     $table = table({class => 'table simple', summary => 'Prenotazione dei campi per la settimana selezionata'}, $table);
     return $table;

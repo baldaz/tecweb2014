@@ -13,7 +13,7 @@ p {
     font-size:0.75em;
 }
 body{
-    background: #EEE8AA;
+    background: #d7edff;
     background: -webkit-linear-gradient(to top, #d7edff 0%, #ffffff 80%) fixed;
     background: -moz-linear-gradient(to top, #d7edff 0%, #ffffff 80%) fixed;
     background: -o-linear-gradient(to top, #d7edff 0%, #ffffff 80%) fixed;
@@ -274,10 +274,10 @@ span.bold{
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
     -moz-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
     box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
-}
+}/*
 ::-webkit-scrollbar-thumb:window-inactive {
     background: rgba(0,0,0,0.4); 
-}
+}*/
 ::-webkit-input-placeholder {
    font-size:0.9em;
    padding-left:5px;
