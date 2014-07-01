@@ -8,12 +8,12 @@
   <impianto>
     <disciplina>Calciotto</disciplina>
     <campi>2</campi>
-    <src>../images/campo_calcetto.jpg</src>
+    <src>../images/campo_calciotto.jpg</src>
   </impianto>
   <impianto>
     <disciplina>Pallavolo</disciplina>
     <campi>2</campi>
-    <src>../images/campo_calcetto.jpg</src>
+    <src>../images/campo_volley.jpg</src>
   </impianto>
   <impianto>
     <disciplina>Tennis</disciplina>
@@ -23,6 +23,6 @@
   <impianto>
     <disciplina>Beach Volley</disciplina>
     <campi>1</campi>
-    <src>../images/campo_calcetto.jpg</src>
+    <src>../images/campo_beach_volley.jpg</src>
   </impianto>
 </impianti>
