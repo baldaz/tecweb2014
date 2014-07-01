@@ -1,11 +1,11 @@
-﻿/*var i = 0;
+﻿var i = 0;
 var src = ['../images/campo-tennis.jpg', '../images/campo_calcetto.jpg', '../images/seagal-3.jpg', '../images/fitness.jpg'];
 setInterval(function(){
-    $("#ft").attr('src', src[i]);
+    $("#splash").attr('src', src[i]);
     i++;
     if(i == src.length) i = 0;
 }, 5000);
-
+/*
 $("#telefono").keydown(function(event){
     if((event.which < 47 || event.which > 57) && event.which !=8 && event.which != 9 && event.which != 46){
 	event.preventDefault();
