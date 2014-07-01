@@ -575,14 +575,9 @@ span.riep_pren{
 }
 
 /************* FINE AREA PERSONALE ***************/
-
-/* transition content non usata in fine
-#tables {
-    margin-top: 1em;
-    height: 18em;
-    overflow: hidden;
-    -webkit-transition: height 500ms ease;
-    -moz-transition:    height 500ms ease;
-    -o-transition:      height 500ms ease;
-    transition:         height 500ms ease
-} */
+.skip {
+    position: absolute;
+    top: auto;
+    left: -10000px;
+    overflow: hidden
+}
