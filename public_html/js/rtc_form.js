@@ -23,7 +23,6 @@ $("#telefono").keydown(function(event){
 });
 */
 $(document).ready(function(){$(".p_field").change(function(){
-<<<<<<< HEAD
     var disc, date;
     var giorno = $("#giorno").val();
     var mese = $("#mese").val();
@@ -45,8 +44,8 @@ $(document).ready(function(){$(".p_field").change(function(){
     };
 
     if(giorno > mesi[mese]){
-	$("#tables").html("<div class='errore'>Errore data, ricontrollare il giorno(Dog)</div>");
-=======
+	$("#tables").html("<div class='errore'>Errore data, ricontrollare il giorno(Dog)</div>");}
+	else{
 /*    var disciplina, date;
     var fase=$("#fase").val();
     if (undefined != fase ){
@@ -91,6 +90,4 @@ document.getElementById('tables').addEventListener('click', function() {
 <<<<<<< HEAD
 }, false );			   */ 
 });
-=======
-}, false );			    });
->>>>>>> c5ab22f96463dee5d3fa7ef805948dfaded70c38
+
