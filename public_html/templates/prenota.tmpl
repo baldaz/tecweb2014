@@ -11,9 +11,10 @@
   </div>
   <div id="content">
     <tmpl_if name = "is_logged">
-      <form method="post" action="user_jobs.pl" onsubmit="return validate()" name="form" class="prenfrm" >
+    <h2>Prenotazioni</h2>
+      <form method="post" action="user_jobs.pl" onsubmit="return validate()" name="pform" id="pform" class="prenfrm" >
 	<fieldset>
-	  <legend><h2>PRENOTAZIONE</h2></legend>
+	  <legend>Dati prenotazione</legend>
 	  <div class="formgroup">
 	    <label for="disciplina">Disciplina</label>
 	    <select id="disciplina" name="disciplina" class="p_field">
@@ -38,7 +39,7 @@
 	    </select>
 	  </div>
 	  <div class="datagroup">
-	    <label for="data">Giorno:</label> 
+	    <label for="giorno">Giorno:</label> 
        <select id="giorno" name="giorno" class="p_field">
 	    <option value="1">1</option>
 	    <option value="2">2</option>
@@ -106,26 +107,28 @@
 	</fieldset>
       </form>
       <tmpl_else>
-<!--	<div class="centered">-->
 	  <p>
 	    Area personale, per accedervi bisogna essere loggati, se non sei ancora registrato fallo ora.
 	  </p>
 	  <p>
-	    <a href="load.cgi?page=registrazione"><input type="button" value="registrati ora" class="button" /></a>
+	    <a href="load.cgi?page=registrazione" title="Registrati ora"><input type="button" value="Registrati ora" class="button" /></a>
 	  </p>
-<!--	</div>-->
     </tmpl_if>
     <div id="tables">
       <tmpl_if name = "show">
 	<tmpl_if name = "test">
-	  SUCCESSDOG!
-	  <tmpl_var name = "campo">
+	<p>
+	  Prenotazione effettuata con successo al campo 
+	  <tmpl_var name = "campo"> !
+	  </p>
 	<tmpl_else>
-	  FALLIMENDOG!
+	<p>
+	  Non e' stato possibile completare l'operazione, il campo richiesto secondo gli orari e la data selezionati e' gia' stato prenotato.
+	  </p>
 	  <tmpl_var name = "table">
 	</tmpl_if>
       </tmpl_if>
     </div>
   </div>
-  <script language="javascript" type="text/javascript" src="../js/rtc_form.js"></script>
+  <script type="text/javascript" src="../js/rtc_form.js"></script>
   <tmpl_include name = "footer.tmpl">

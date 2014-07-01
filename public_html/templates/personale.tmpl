@@ -23,7 +23,7 @@
       </p>
       <h2>Riepilogo prenotazioni</h2>
       <tmpl_if name = "has_pren">
-	<table summary="" class="table table-corsi">
+	<table summary="Riepilogo delle prenotazioni effettuate" class="table table-corsi">
 	  <caption>Prenotazioni effettuate</caption>
 	  <thead>
 	    <tr>
@@ -43,7 +43,7 @@
 		<td><tmpl_var name = "data"></td>
 		<td><tmpl_var name = "ora"></td>
 		<td><tmpl_var name = "campo"></td>
-		<td><a href="delete_prenotation.pl?disciplina=<tmpl_var escape=html name=discipline>&campo=<tmpl_var escape=html name=campo>&data=<tmpl_var escape=html name=data>&ora=<tmpl_var escape=html name=ora>" class="remove"> Elimina</a></a></td>
+		<td><a href="delete_prenotation.pl?disciplina=<tmpl_var escape=html name=discipline>&amp;campo=<tmpl_var escape=html name=campo>&amp;data=<tmpl_var escape=html name=data>&amp;ora=<tmpl_var escape=html name=ora>" class="remove"> Elimina</a></td>
 	      </tr>
 	    </tmpl_loop>
 	  </tbody>

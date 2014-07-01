@@ -4,7 +4,7 @@ use UTILS::UserService;
 
 my $cgi = CGI->new();
 my $utils = UTILS::UserService->new();
-my $page = $cgi->param('page') || 'home';
+my $page = $cgi->param('page') || $cgi->param('pagep') || 'home';
 my $today = $utils->_today;
 my %sess_params = $utils->session_params($cgi);
     
@@ -204,7 +204,7 @@ sub prenota {
     my %params = (
 	title     => 'Centro sportivo - Prenota',
 	page      => 'prenota',
-	path      => '<a href="load.cgi?page=prenotazioni">Prenotazioni</a> >> Prenota',
+	path      => '<a href="load.cgi?page=prenotazioni">Prenotazioni</a> &gt;&gt; Prenota',
 	is_logged => $sess_params{is_logged},
 	LOGIN     => $sess_params{is_logged},
 	USER      => $sess_params{profile},

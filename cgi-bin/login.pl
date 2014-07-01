@@ -1,14 +1,12 @@
-#!/usr/bin/perl -w
+#!/usr/bin/perl
 
-use strict;
-use warnings;
 use UTILS::Admin;
 
 my $admin = UTILS::Admin->new;
 my $cgi = CGI->new();
 my $page = $cgi->param("page") || 'home';
 $page = "load.cgi?page=".$page; 
-my $user = $cgi->param("username") || '';
+my $user = $cgi->param("lg-email") || '';
 my $passwd = $cgi->param("passwd") || '';
 my $session = CGI::Session->new(undef, $cgi, {Directory => '/tmp'});
 

@@ -2,7 +2,7 @@
 <div id="nav">
   <ul>
     <li><a href="load.cgi?page=home">Home</a></li>
-    <li><a href="load.cgi?page=impianti">Gli Impianti</a><li>
+    <li><a href="load.cgi?page=impianti">Gli Impianti</a></li>
     <li><a href="load.cgi?page=corsi">Fitness e corsi</a></li>
     <li><a id="active">Contatti</a></li>
     <li><a href="load.cgi?page=prenotazioni">Prenotazioni</a></li>
@@ -15,7 +15,7 @@
     <p>
       Indirizzo, mappa?
     </p>
-    <form class="prenfrm" action="" method="post" name="contattaci" onsubmit="return validate_contact()" >
+    <form class="prenfrm" action="" method="post" name="contattaci" onsubmit="return validate_contact()" id="contattaci" >
       <fieldset>
 	<legend>Contattaci</legend>
 	<div class="formgroup">
@@ -23,11 +23,12 @@
 	  <input type="text" name="email" id="email" value="<tmpl_var escape = html name = email>"/>
 	</div>
 	<div class="formgroup">
-	  <label for="message">Message:</label>
-	  <textarea name="message" id="message"></textarea>
+	  <label for="message">Messaggio:</label>
+	  <textarea name="message" id="message" cols="50"></textarea>
 	</div>
 	<div class="formgroup">
-	  <input type="submit" value="submit" class="button" />
+	  <input type="reset" value="Resetta" class="button" />
+	  <input type="submit" value="Invia" class="button" />
 	</div>
       </fieldset>
     </form>

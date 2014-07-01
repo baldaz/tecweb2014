@@ -10,6 +10,7 @@
     </ul>
   </div>
   <div id="content">
+  <h2>Registrazione</h2>
     <tmpl_if name = "has_account">
       <p>
 	Esiste già un account corrispondente a questa e-mail
@@ -20,32 +21,33 @@
 	    Complimenti! Registrazione avvenuta con successo!
 	  </p>
 	  <tmpl_else>
-	    <form class="prenfrm" action="registra.pl" method="post" onsubmit="return validate(1)" name="form" >
+	    <form class="prenfrm" action="registra.pl" method="post" onsubmit="return validate(1)" name="formreg" id="formreg">
 	      <fieldset>
 		<legend>Dati registrazione</legend>
 		<div class="formgroup">
 		  <label for="nome">Nome:</label>
-		  <input type="text" name="nome" id="nome" placeholder="insert name" value="<tmpl_var escape = html name = r_name>"/>
+		  <input type="text" name="nome" id="nome" placeholder="inserire nome" value="<tmpl_var escape = html name = r_name>"/>
 		</div>
 		<div class="formgroup">
 		  <label for="cognome">Cognome:</label> 
-		  <input type="text" name="cognome" id="cognome" value="<tmpl_var escape = html name = r_surname>" placeholder="insert surname" /> 
+		  <input type="text" name="cognome" id="cognome" value="<tmpl_var escape = html name = r_surname>" placeholder="inserire cognome" /> 
 		</div>
 		<div class="formgroup">
 		  <label for="telefono">Telefono:</label> 
-		  <input type="text" name="telefono" id="telefono" value="<tmpl_var escape = html name = r_tel>" placeholder="insert tel" />  
+		  <input type="text" name="telefono" id="telefono" value="<tmpl_var escape = html name = r_tel>" placeholder="inserire telefono" />  
 		</div>
 		<div class="formgroup">
 		  <label for="email">Email:</label>
-		  <input type="text" name="email" id="email" value='<tmpl_var escape = html name = r_mail>' placeholder="insert email" />
+		  <input type="text" name="email" id="email" value='<tmpl_var escape = html name = r_mail>' placeholder="inserire email" />
 		</div>
 		<div class="formgroup">
 		  <label for="password">Password:</label>
-		  <input type="password" name="password" id="password" value="" placeholder="insert password" />
+		  <input type="password" name="password" id="password" value="" placeholder="inserire passowrd" />
 		</div>
 		<div class="formgroup">
 		  <input type="hidden" name="_cmd" id="_cmd" value="reg" />
-		  <input type="submit" value="sign up" class="button" />
+		  <input type="reset" value="resetta" class="button" />
+		  <input type="submit" value="Conferma" class="button" />
 		</div>
 	      </fieldset>
 	    </form>

@@ -2,7 +2,7 @@
 <div id="nav">
   <ul>
     <li><a href="load.cgi?page=home">Home</a></li>
-    <li><a href="load.cgi?page=impianti">Gli Impianti</a><li>
+    <li><a href="load.cgi?page=impianti">Gli Impianti</a></li>
     <li><a href="load.cgi?page=corsi">Fitness e corsi</a></li>
     <li><a href="load.cgi?page=contatti">Contatti</a></li>
     <li><a id="active">Prenotazioni</a></li>
@@ -12,9 +12,10 @@
 <div id="content">
   <div class="form-container">
     <h2>Prenotazioni campo</h2>
-    <form method="GET" id="form" name="form" class="prenfrm" action="" onsubmit="return validate()">
-      <input type="hidden" id="page" name="page" value="prenotazioni">
+    <form method="get" id="form" name="form" class="prenfrm" action="" onsubmit="return validate()">
       <fieldset>
+      <legend>Dati prenotazione</legend>
+	<input type="hidden" id="pagep" name="pagep" value="prenotazioni" /> 
 	<div class="formgroup">
 	  <label for="disciplina">Disciplina</label>
 	  <select id="disciplina" name="disciplina" class="p_field">
@@ -27,7 +28,6 @@
 	</div>
 	<div class="datagroup">
 	  <label for="giorno">Giorno</label>
-<!--	  <input type="date" name="data" id="data" value="" class="p_field"> -->
           <select id="giorno" name="giorno" class="p_field">
 	    <option value="1">1</option>
 	    <option value="2">2</option>
@@ -89,7 +89,7 @@
 	</div>
 	<div class="formgroup">
 	  <input type="submit" value="Visualizza" class="button" />
-	  <a href="load.cgi?page=prenota"><input type="button" value="Nuova prenotazione" class="button" /></a>
+	  <a href="load.cgi?page=prenota" title="Nuova prenotazione"><input type="button" value="Nuova prenotazione" class="button" /></a>
 	</div>
       </fieldset>
     </form>
@@ -99,5 +99,5 @@
     </div>
   </div>
 </div>
-<script language="javascript" type="text/javascript" src="../js/rtc_form.js"></script>
+<script type="text/javascript" src="../js/rtc_form.js"></script>
 <tmpl_include name = "footer.tmpl">

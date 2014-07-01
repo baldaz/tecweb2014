@@ -11,13 +11,13 @@ function validateCourse(){
 
 function validateLogin(){
     var errors = new Array();
-    var list = new Array('username', 'passwd');
-    var username = document.forms["login"]["username"].value;
-    var password = document.forms["login"]["passwd"].value;
+    var list = new Array('lg-email', 'passwd');
+    var username = document.forms["loginfrm"]["lg-email"].value;
+    var password = document.forms["loginfrm"]["passwd"].value;
     var patt=/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     if(!patt.test(username)) {
-	errors.push("username");
+	errors.push("lg-email");
     }
     if(password.length < 1) {
 	errors.push("passwd");

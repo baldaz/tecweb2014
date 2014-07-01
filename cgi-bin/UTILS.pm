@@ -65,11 +65,11 @@ my $_table_prenotazioni = sub {
     my $body;
     $class = 'green' unless @hash; # non definito
     $class = 'green' if scalar(@hash) == 0; # definizione hash con 0 elementi    
-    my $table = caption(h6('Prenotazioni per la settimana del '.$builder->dmy('-').' campo '.$campo.' '.$disciplina));
+    my $table = caption('Prenotazioni per la settimana del '.$builder->dmy('-').' campo '.$campo.' '.$disciplina);
     my @it_days = $self->$_italian_days($builder);   
     for my $i(16..23){
 	$body.='<tr>
-                 <th scope="row">'.$i.':00 </th>';
+                 <th scope="row"><time>'.$i.':00</time></th>';
 	my $control = $p_day->clone();
 	for(0..6){
 	    for my $j (0..$#hash){
@@ -84,7 +84,7 @@ my $_table_prenotazioni = sub {
 		}
 		else{ $class = 'green'; $fill = 'libero';}
 	    }
-	    $body.=" <td class=$class>$fill</td>";
+	    $body.=" <td class='$class'>$fill</td>";
 	    $control->add(days => 1);
 	}
 	$body.= ' </tr>';
@@ -93,7 +93,7 @@ my $_table_prenotazioni = sub {
     $table .= thead(Tr(th({scope => 'col'}, ['ORARIO', @it_days])));
     $table .= tfoot();
     $table .= $wrapped_body;
-    $table = table({class => 'table simple', summary => ''}, $table);
+    $table = table({class => 'table simple', summary => 'Prenotazione dei campi per la settimana selezionata'}, $table);
     return $table;
 };
 
