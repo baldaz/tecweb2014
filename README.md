@@ -96,3 +96,8 @@
 - Area amministrativa.
 - Templating
 - Considerare HTML::Restrict per il controllo URL/forms, strip html semplice
+- 
+
+
+relazione scrivere time e placeholder falbackano alla grande
+fare i test senza style e senza immagini
