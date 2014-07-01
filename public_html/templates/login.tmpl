@@ -1,4 +1,4 @@
-﻿<form action="login.pl" method="post" onsubmit="return validateLogin()" name="loginfrm" id="loginfrm" >
+﻿<form action="login.pl" method="post" onsubmit="return validateLogin()" id="loginfrm" >
   <fieldset>
     <legend>Area personale</legend>
     <div class="formgroup">
@@ -17,5 +17,5 @@
   </fieldset>
 </form>
 <tmpl_if name = "attempt">
-    <div class="errore">Username e/o password errati</div>
+    <div class="errore">E-mail e/o password errati</div>
 </tmpl_if>

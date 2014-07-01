@@ -199,7 +199,6 @@ body{
     margin: .2em;
     font-size: 0.580em
 }
-
 #content{
     width:60%;
     float:left;
@@ -235,8 +234,8 @@ span.bold{
 #content span p{
     text-align:justify
 }
-#content span ul{
-    margin-left:35%
+.arti li{
+    margin-left: 35%
 }
 #content img{
     margin-top:1em;
@@ -311,6 +310,7 @@ textarea{
     background:rgba(7,58,120,0.3);
     border-radius:5px;
     margin-top:0.3em;
+    margin-bottom: 1em;
     padding:0.1em;
     text-indent:0.4em;
     color:#000;
@@ -497,6 +497,7 @@ input, select {	/*input generici (login, contattaci, prenota, registrati)*/
     background-color:#042e4f;
     color: #D9EEFF;
     width:45%;
+    margin-bottom: 1em;
     font-size:0.9em;
     cursor:pointer
 }

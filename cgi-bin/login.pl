@@ -11,7 +11,6 @@ my $passwd = $cgi->param("passwd") || '';
 my $session = CGI::Session->new(undef, $cgi, {Directory => '/tmp'});
 
 if (my $profile = $admin->load_profile($user, $passwd)){
-#    $session = CGI::Session->new();
     $session->param("~profile", $user);
     $session->param("~logged-in", 1);
     $session->clear(["~login-trials"]);
