@@ -220,9 +220,8 @@ sub prenota {
 	LOGIN     => $sess_params{is_logged},
 	USER      => $sess_params{profile},
 	attempt   => $sess_params{attempt},
-	SHOW_TBL  => 0,
-	TBL       => 0,
-	test      => 1,
+	show      => 0,
+	test      => 0,
 	);
     $utils->dispatcher('prenota', %params);
 }

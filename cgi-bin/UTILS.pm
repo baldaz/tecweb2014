@@ -17,7 +17,7 @@ use Encode;
 $ENV{HTML_TEMPLATE_ROOT} = "../public_html/templates";
 
 # protette
-
+=pod
 my $_get = sub {
     my $self = shift;
     my ($node, $name) = @_;
@@ -31,14 +31,13 @@ my $_get = sub {
     }
     return $value;
 };
-
+=cut
 my $_text = sub {
     my $self = shift;
     my (@data) = @_;
     my @ret = map { $_->textContent } @data;
     return @ret;
 };
-
 
 my $_italian_days = sub {
     my ($self, $start_dt) = @_;
@@ -257,12 +256,8 @@ sub dispatcher {
 	$template->param($_ => $params{$_});
     }	
     my @loop_news = $self->getNews;
-    foreach(@loop_news){
-	delete $_->{N_ID};
-	#decode('utf8', $_->{N_CONTENT});
-    }
+    delete $_->{N_ID} foreach(@loop_news);
     $template->param(NEWS => \@loop_news);
-#    HTML::Template->config(utf8 => 1);
     print "Content-Type: text/html\n\n", $template->output;
 }
 
@@ -315,13 +310,6 @@ sub send_email {
     $smtp->quit;
 }
 
-sub trim {
-    my $string = shift;
-    $string =~ s/^\s+//;
-    $string =~ s/\s+$//;
-    return $string;
-}
-
 sub validate {
     my ($self, $date) = @_;
     my %months = (
@@ -346,4 +334,5 @@ sub validate {
     }
     else{ return 1;}
 }
+
 1;

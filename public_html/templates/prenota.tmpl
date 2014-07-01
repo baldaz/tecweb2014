@@ -117,16 +117,15 @@
 <!--	</div>-->
     </tmpl_if>
     <div id="tables">
-    <TMPL_IF NAME="SHOW_TBL">
-      <TMPL_IF NAME="TBL">
-	<TMPL_IF NAME="TEST">
+      <tmpl_if name = "show">
+	<tmpl_if name = "test">
 	  SUCCESSDOG!
-	  <TMPL_ELSE>
-	    FALLIMENDOG!
-	    <TMPL_VAR NAME=TABLE>
-	</TMPL_IF>
-      </TMPL_IF>
-    </TMPL_IF>
+	  <tmpl_var name = "campo">
+	<tmpl_else>
+	  FALLIMENDOG!
+	  <tmpl_var name = "table">
+	</tmpl_if>
+      </tmpl_if>
     </div>
   </div>
   <script language="javascript" type="text/javascript" src="../js/rtc_form.js"></script>
