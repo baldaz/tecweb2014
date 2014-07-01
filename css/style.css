@@ -355,6 +355,20 @@ input:focus{
 /*********************** fine login form *********************/
 
 /*********************** form prenotazioni ******************/
+.datagroup{
+	 width:100%;
+}
+.prenfrm .datagroup label,.prenfrm .datagroup select{
+	 float:left;
+}
+.prenfrm .datagroup select{
+	 width:20%;
+	 /*margin-right:1%;*/
+}
+.prenfrm .datagroup label{		/*da rifare*/
+	 font-size:0.8em;
+	 width:/*3.2em*/10%;
+}
 .prenfrm {
     width: 70%;
     text-align:center
