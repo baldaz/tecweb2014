@@ -6,7 +6,6 @@ my $cgi = CGI->new();
 my $utils = UTILS::UserService->new();
 my $page = $cgi->param('page') || 'home';
 my $today = $utils->_today;
-my $description = $utils->getDesc($page);
 my %sess_params = $utils->session_params($cgi);
     
 my %routes = (
@@ -25,7 +24,6 @@ if( grep { $page eq $_} keys %routes){
     $routes{$page}->($cgi);
 }
 else {
-    $description = $utils->getDesc('home');
     $routes{'home'}->($cgi);
 }
 
@@ -35,7 +33,6 @@ sub index {
 	title   => 'Centro sportivo',
 	page    => 'home',
 	path    => 'Home',
-	desc    => $description,
 	LOGIN   => $sess_params{is_logged},
 	USER    => $sess_params{profile},
 	attempt => $sess_params{attempt}
@@ -47,18 +44,11 @@ sub index {
 sub impianti {
     my $cgi = shift;
     my @discipline = ('Calcetto', 'Calciotto', 'Tennis', 'Pallavolo', 'Beach Volley');
-    # estraggo il numero di campi
     my @d_param = map { $utils->getFields($_) } @discipline;
-#    my @img = $utils->getImg;
-#    my @loop_img = ();
-
-#    push @loop_img, {src => $_} foreach(@img); # push hash anonimi per generazione immagini
-
     my %params = (
 	title => 'Centro sportivo - Impianti',
 	page        => 'impianti',
 	path        => 'Impianti',
-#	imm_campi   => \@loop_img,
 	n_calcetto  => $d_param[0],
 	n_calciotto => $d_param[1],
 	n_tennis    => $d_param[2],
@@ -109,7 +99,6 @@ sub contatti {
 sub prenotazioni {
     my $cgi = shift;
     my $disciplina = $cgi->param('disciplina') || 'Calcetto';
-#    my $data = $cgi->param('data') || $today;
     my ($giorno, $mese, $anno) = ($cgi->param('giorno') || $today->day(), $cgi->param('mese') || $today->month(), $cgi->param('anno') || $today->year());
     my $data = $anno."-".$mese."-".$giorno;
     $data = $today->ymd("-") if $data eq '';

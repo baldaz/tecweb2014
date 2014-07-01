@@ -158,6 +158,7 @@ sub getFields {
 
 # estrae il perscorsi delle immagini degli impianti dal file xml
 # deprecabile
+=pod
 sub getImg {
     my $self = shift;
     my $xml = $self->load_xml('../data/impianti.xml');
@@ -176,7 +177,7 @@ sub getDesc {
 #    @ret_desc = $self->_$text(@ret_desc);
 #    my $ret_descr.= join( '', @ret_desc );
 }
-
+=cut
 sub getWeek {
     my ($self, $discipline, $campo, $p_date) = @_;
     my $xmldoc = $self->load_xml('../data/prenotazioni.xml');

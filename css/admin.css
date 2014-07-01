@@ -14,28 +14,37 @@ body{
     text-shadow: 0px 1px 1px #d4d4d4
 }
 #header {
-    padding: 1.2em 0em;
-/*    background: rgba(0,0,0,0.2);
-    position: relative;
-    width: 95%;
-    height: 10%;
-    margin: auto*/
+    padding: 1.2em 0em
 }
 #content {
     width: 100%;
-	 min-width:320px;
+    min-height: 280px;
+    min-width:320px;
     margin: auto;
     text-align: center
+}
+input[type="submit"], input[type="reset"] {
+    padding: 0.8em;
+    margin: 1em 0.3em;
+    border: 1px solid #dcdcdc;
+    color: #555;
+    text-shadow: 1px 1px 0px #ffffff;
+    font-weight: 700;
+    cursor: pointer;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px
 }
 .admin-frm {
     text-align:left;
     line-height: 20px;
     padding: 1.2em
 }
-.admin-frm input {
-    background: #f6f6f6;
+.admin-frm input[type="text"], .admin-frm input[type="password"] {
     padding: 2px;
+    border: 1px solid #d4d4d4;
     color: #333;
+    width: 20%
     outline: none;
     text-shadow: 0px 1px 1px #d4d4d4;
     -webkit-border-radius: 5px;
@@ -54,22 +63,24 @@ body{
 .admin-frm textarea {
     width: 50%;
     height: 10em;
-    text-align: left
-    background: #f6f6f6;
+    text-align: left;
     padding: 2px;
     color: #333;
+    border: 1px solid #d4d4d4;
+    outline: none;
+    resize: none;
     text-shadow: 0px 1px 1px #d4d4d4;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px
 }
-.admin-frm input, .admin-frm label {
-    float: left;
-    margin-right: 1em;
-    width: 6.25em
-}
-.group {
-    display: block
+.admin-frm input[type="text"], .admin-frm label {
+    display:block;
+    margin: 0.2em;
+    font-weight: 600;
+    font-style: italic;
+    text-shadow: 0px 1px 1px #d4d4d4;
+    color: #333
 }
 input:hover, input:focus, textarea:hover, textarea:focus {
     -webkit-box-shadow: 0px 0px 8px #888;
@@ -78,52 +89,6 @@ input:hover, input:focus, textarea:hover, textarea:focus {
     outline:none;
     text-indent: 0.3em
 }
-/*
-.admin-frm {
-    line-height: 20px;
-/*    display: inline-block;*/
-/*    padding: 1.2em
-}*//*
-.admin-frm .group label {
-    width: 6.25em;
-/*    float:left*/
-/*}/*
-.admin-frm input, .admin-frm label {
-/*    display: block;*/
-/*    text-align: left
-    background: #f6f6f6;
-    padding: 2px;
-    color: #333;
-    outline: none;
-    text-shadow: 0px 1px 1px #d4d4d4;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px
-}*//*
-.admin-frm input[type="submit"]{
-	 margin-top:0.5em;
-}
-.admin-frm fieldset {
-    border: none;
-    border-top: 1px solid #333;
-    text-align: left;
-    font-weight: 600;
-    font-style: italic;
-    color: #333;
-    text-shadow: 0px 1px 1px #d4d4d4
-}
-.admin-frm textarea {
-    width: 50%;
-    height: 10em;
-    text-align: left
-    background: #f6f6f6;
-    padding: 2px;
-    color: #333;
-    text-shadow: 0px 1px 1px #d4d4d4;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px
-}*/
 #adlogin {
     background: rgba(0, 0, 110, 0.1);
     line-height: 24px;
@@ -135,8 +100,8 @@ input:hover, input:focus, textarea:hover, textarea:focus {
     margin-left: -10%;
     height: 20%;
     width: 20%;
-	 min-height:10em;
-	 min-width:10em;
+    min-height:10em;
+    min-width:10em;
     padding: 1em;
     border: 1px solid #ccc;
     -webkit-border-radius: 1em;
@@ -150,7 +115,7 @@ input:hover, input:focus, textarea:hover, textarea:focus {
     border: none
 }
 #adlogin input[type="text"], #adlogin input[type="password"], #adlogin input[type="submit"] {
-	 display:block;
+    display:block;
     background: #f6f6f6;
     padding: 2px;
     margin-bottom: 3%;
@@ -162,12 +127,11 @@ input:hover, input:focus, textarea:hover, textarea:focus {
     border-radius: 5px;
 }
 #adlogin input[type="text"], #adlogin input[type="password"]{
-	 width:80%;
+    width:80%;
 }
 #adlogin input[type="submit"] {
-	 padding:1%;
+    padding:1%;
 }
-
 #adlogin label {
     text-align: left;
     float:left;
@@ -182,11 +146,7 @@ input:hover, input:focus, textarea:hover, textarea:focus {
     font-style: italic;
     color: #333;
     text-shadow: 0px 1px 1px #d4d4d4
-}/*
-.formgroup, label {
-    font-size:0.9em;
-    display:block
-}*/
+}
 #nav ul {
     display: inline;
     list-style: none
@@ -194,18 +154,9 @@ input:hover, input:focus, textarea:hover, textarea:focus {
 #nav ul li {
     display: inline
 }
-/*
-button {
-    cursor: pointer;
-    border-radius: 10px;
-    padding: 10px
-}
-a {
-    text-decoration: none
-}*/
 #nav a {
-    -moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
     -webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
+    -moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
     box-shadow: inset 0px 1px 0px 0px #ffffff;
     background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
     background: -moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
@@ -215,7 +166,7 @@ a {
     border-radius: 6px;
     border: 1px solid #dcdcdc;
     display: inline-block;
-    color: #777777;
+    color: #555;
     font-family: arial;
     font-size: 15px;
     font-weight: bold;
@@ -239,10 +190,6 @@ a {
     top:1px
 }
 #nav a.here {
- /*   background: url('../images/home.png');
-    background-position: center top;
-    background-size: 100%;
-    background-repeat: no-repeat*/
     background: #f4f4f4;
 }
 .table {
@@ -277,4 +224,3 @@ a {
     background-size: 16%;
     background-repeat: no-repeat
 }
-
