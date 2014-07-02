@@ -1,7 +1,5 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-xmlns="www.prenotazioni.it" 
-targetNamespace="www.prenotazioni.it" 
-elementFormDefault="unqualified">
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 <xs:element name="dati">
 	<xs:element name="prenotazioni">
 		<xs:complexType>

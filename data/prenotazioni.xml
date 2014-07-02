@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<p:dati xmlns="www.prenotazioni.it" xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance" xmlns:p="www.prenotazioni.it" xs:schemaLocation="www.prenotazioni.it prenotanti_schema.xs">
+<dati xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="prenotanti_schema.xs" >
+<!--<p:dati xmlns="www.prenotazioni.it" xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance" xmlns:p="www.prenotazioni.it" xs:schemaLocation="www.prenotazioni.it prenotanti_schema.xs">-->
   <prenotazioni>
     
     <prenotante>
@@ -11,4 +12,4 @@
     </prenotante>
 
   </prenotazioni>
-</p:dati>
+</dati>
