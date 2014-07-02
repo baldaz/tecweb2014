@@ -262,12 +262,17 @@ sub dispatcher {
 }
 
 sub dispatch_error {
-    my ($self, $code, $desc) = @_;
+    my ($self, $code, $desc, $is_logged, $profile) = @_;
     my %params = (
+	title    => 'Errore '.$code,
+	page     => 'error',
+	path     => 'Errore '. $code,
+	LOGIN    => $is_logged,
+	USER     => $profile,
 	err_code => $code,
 	err_desc => $desc
 	);
-    $self->dispatcher($code, %params);
+    $self->dispatcher('error', %params);
 }
 
 sub select_field {
@@ -292,7 +297,7 @@ sub select_field {
     else{ $ret = -1; }
     return $ret;
 }
-
+=pod
 sub send_email {
     my ($self, $subject, $from, $to, $message) = @_;
     my $dt = DateTime->now;
@@ -301,38 +306,15 @@ sub send_email {
 			      Timeout => 30,
 			      Debug   => 1,
 	);
+    $smtp->mail($ENV{USER} . "\@studenti.math.unipd.it");
+    $smtp->to($ENV{USER} . "\@studenti.math.unipd.it");
     $smtp->datasend("Date: ".DateTime::Format::Mail->format_datetime( $dt )."\n");
     $smtp->datasend("Subject: $subject\n");
     $smtp->datasend("From: $from\n");
-    $smtp->datasend("To: $to\n\n");
+    $smtp->datasend("To: <".$ENV{USER} . "\@studenti.math.unipd.it>\n");
     $smtp->datasend($message);
     $smtp->dataend();
     $smtp->quit;
 }
-
-sub validate {
-    my ($self, $date) = @_;
-    my %months = (
-	'1'  => '31', 
-	'2'  => '28',
-	'3'  => '31',
-	'4'  => '30',
-	'5'  => '31',
-	'6'  => '30',
-	'7'  => '31',
-	'8'  => '31',
-	'9'  => '30',
-	'10' => '31',
-	'11' => '30',
-	'12' => '31'
-	);
-    my @dt = split('-', $date);
-
-    if($dt[2] > $months{$dt[1]}){
-	$self->dispatch_error('400', 'Formato data errato');
-	return 0;
-    }
-    else{ return 1;}
-}
-
+=cut
 1;

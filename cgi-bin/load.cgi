@@ -102,7 +102,7 @@ sub prenotazioni {
     my ($giorno, $mese, $anno) = ($cgi->param('giorno') || $today->day(), $cgi->param('mese') || $today->month(), $cgi->param('anno') || $today->year());
     my $data = $anno."-".$mese."-".$giorno;
     $data = $today->ymd("-") if $data eq '';
-    $utils->validate($data);
+    $utils->validate($data, $sess_params{is_logged}, $sess_params{profile});
     my @discipline = ('Calcetto', 'Calciotto', 'Pallavolo', 'Beach Volley', 'Tennis'); 
     $disciplina = $discipline[0] unless grep { $_ eq $disciplina } @discipline; # sanity check
     my $nr_campi = $utils->getFields($disciplina);

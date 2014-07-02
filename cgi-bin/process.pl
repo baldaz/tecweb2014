@@ -3,16 +3,12 @@
 use UTILS::Admin;
 
 my $admin = UTILS::Admin->new;
-my $session = CGI::Session->load();
-if($session->param("~logged-in")){
-    print $session->header(-location => "login.cgi", cookie => $cookie);
-}
 my %input = ();
 read(STDIN, my $buffer, $ENV{'CONTENT_LENGTH'});
 if(!length($buffer)){ 
     my %err = (
 	err_code => '404',
-	err_desc => 'Nessun argomento inserito'
+	err_desc => 'Nessun argomento inserito'.$buffer
 	);
     $admin->dispatch('error', %err);
 }
@@ -33,8 +29,6 @@ else{
 	'add_n'      => 'news:new:add:news',
 	'edit_c'     => 'corsi:corso:edit:courses',
 	'edit_n'     => 'news:new:edit:news',
-	'update'     => 'update:update:edit:update_n',
-	'clear_logs' => 'logs:log:delete:clear_logs'
 	);
     
     $input{'namespace'} = $action{$input{'formfor'}};

@@ -78,4 +78,43 @@ sub validate_tel {
     else{ return 0; }
 }
 
+sub success {
+    my ($self, $page, $is_logged, $profile) = @_;
+    my %params = (
+	title  => 'Successo',
+	page   => 'successo',
+	path   => $page,
+	LOGIN  => $is_logged,
+	USER   => $profile,
+	page   => $page
+	);
+    $self->dispatcher('successo', %params);
+}
+
+sub validate {
+    my ($self, $date, $is_logged, $profile) = @_;
+    my %months = (
+	'1'  => '31', 
+	'2'  => '28',
+	'3'  => '31',
+	'4'  => '30',
+	'5'  => '31',
+	'6'  => '30',
+	'7'  => '31',
+	'8'  => '31',
+	'9'  => '30',
+	'10' => '31',
+	'11' => '30',
+	'12' => '31'
+	);
+    my @dt = split('-', $date);
+
+    if($dt[2] > $months{$dt[1]}){
+	$self->dispatch_error('400', 'Formato data errato', $is_logged, $profile);
+	return 0;
+    }
+    else{ return 1;}
+}
+
+
 1;
