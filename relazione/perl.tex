@@ -109,4 +109,8 @@ Da \texttt{load.cgi} attraverso l'oggetto \texttt{\$utils} e la dispatch table v
    }
 \end{verbatim}
 }
+
+\subsection{Sistema di prenotazioni}
+Il sistema di prenotazione dei campi, previa autenticazione, è stato implementato mediante la funzione \texttt{book} all'interno di \texttt{userjobs.pl} che non fa altro che controllare la presenza o meno tra le altre prenotazione all'interno del file \texttt{prenotazioni.xml} di una corrispondenza tra l'orario, la data, il campo, la disciplina ed infine l'utente inseriti attraverso il form di prenotazione (vengono richiesti solo data ora e disciplina, i restanti campi vengono riempiti direttamente dalle credenziali dell'utente loggato); in caso di riscontro positivo, la funzione \texttt{select\_field} contenuta in \texttt{UTILS.pm} si occupa di selezionare il primo campo disponibile che non sia già occupato, in caso di fallimento, la prenotazione fallisce in quanto per l'orario, la data, il giorno e la disciplina non rimangono campi disponibili.
+
 Ogni input e' stato validato oltre che lato client via javascript, anche lato server, utilizzando funzioni di validazione appositamente create, in modo da garantire procedure di login, registrazione, prenotazione e modifica prive di spiacevoli errori.
