@@ -9,19 +9,19 @@ function validateCourse(){
     
     var prezzo = /^[1-9][0-9]{0,2}(?:\.?[0-9]{3}){0,3}(,[0-9]{2})?.\€/;
     if(nome.length < 1) {
-	error.push("nome");
+	errors.push("nome");
     }
     if(!prezzo.test(mensile)){
-	error.push("mensile");
+	errors.push("mensile");
     }
     if(!prezzo.test(trimestrale)){
-	error.push("trimestrale");
+	errors.push("trimestrale");
     }
     if(!prezzo.test(semestrale)){
-	error.push("semestrale");
+	errors.push("semestrale");
     }
     if(!prezzo.test(annuale)){
-	error.push("annuale");
+	errors.push("annuale");
     }
     if(Object.keys(errors).length > 0){
 	reportErrors(errors, 'content', list);
