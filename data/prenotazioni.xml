@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<p:dati xmlns="www.prenotazioni.it" xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance" xmlns:p="www.prenotazioni.it" xs:schemaLocation="www.prenotazioni.it prenotanti_schema.xs">
+<dati xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="prenotanti_schema.xs">
   <prenotazioni>
     
     <prenotante>
@@ -9,6 +9,12 @@
       <data>2014-06-30</data>
       <ora>16:00</ora>
     </prenotante>
-
+    <prenotante>
+      <email>admin@admin.ad</email>
+      <disciplina>Calcetto</disciplina>
+      <campo>1</campo>
+      <data>2014-07-10</data>
+      <ora>16:00</ora>
+    </prenotante>
   </prenotazioni>
-</p:dati>
+</dati>

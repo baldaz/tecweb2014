@@ -33,18 +33,22 @@ sub book {
     my $cgi = shift;
     my $today = $service->_today();
     my($disciplina, $giorno, $mese, $anno, $ora) = 
-	($cgi->param('disciplina'), $cgi->param('giorno'), $cgi->param('mese'), $cgi->param('anno'), $cgi->param('ora'));
-    my $data = $anno."-".$mese."-".$giorno;
+	($cgi->param("disciplina"), $cgi->param("giorno"), $cgi->param("mese"), $cgi->param("anno"), $cgi->param("ora"));
+    my $dt = DateTime->new(day => $giorno, month => $mese, year => $anno);
+    my $data = $dt->ymd('-');
     $data = $today->ymd("-") if $data eq '';
-    $service->validate($data, $sess_params{is_logged}, $sess_params{profile});
-    my $campo = $service->select_field($disciplina, $data, $ora);
-    my $parser = XML::LibXML->new();
-    my $xml = $parser->parse_file("../data/prenotazioni.xml");
-    my ($show, $table, $tbl, $test);
+    if(!$service->validate($data, $sess_params{is_logged}, $sess_params{profile})){
+	$utils->dispatch_error('400', 'Formato data errato', $is_logged, $profile);
+    }
+    else{
+	my $campo = $service->select_field($disciplina, $data, $ora);
+	my $parser = XML::LibXML->new();
+	my $xml = $parser->parse_file("../data/prenotazioni.xml");
+	my ($show, $table, $tbl, $test);
 
-    if($campo != -1){
-	my $new_element = 
-	    "
+	if($campo != -1){
+	    my $new_element = 
+		"
     <prenotante>
       <email>".$sess_params{profile}."</email>
       <disciplina>".$disciplina."</disciplina>
@@ -53,35 +57,36 @@ sub book {
       <ora>".$ora."</ora>
     </prenotante>
     ";
-	
-	my $pren = $xml->getElementsByTagName('prenotazioni')->[0];
-	my $chunk = $parser->parse_balanced_chunk($new_element);
-	$pren->appendChild($chunk);
-	open(OUT, ">../data/prenotazioni.xml");
-	print OUT $xml->toString; 
-	close OUT;
-	$test = 1;
-	$show = 1;
-    }
-    else{
-	$test = 0;
-	$show = 1;
-	$table = $service->getWeek($disciplina, $campo, $data);
-    }
+	    
+	    my $pren = $xml->getElementsByTagName('prenotazioni')->[0];
+	    my $chunk = $parser->parse_balanced_chunk($new_element);
+	    $pren->appendChild($chunk);
+	    open(OUT, ">../data/prenotazioni.xml");
+	    print OUT $xml->toString; 
+	    close OUT;
+	    $test = 1;
+	    $show = 1;
+	}
+	else{
+	    $test = 0;
+	    $show = 1;
+	}
 
-    my %params = (
-	LOGIN => $sess_params{is_logged},
-	USER =>  $sess_params{profile},
-	page => 'prenota',
-	path => '<a href="load.cgi?page=prenotazioni">Prenotazioni</a> &gt;&gt; Prenota',
-	is_logged => $sess_params{is_logged},
-	show     => $show,
-	test     => $test,
-	campo    => $campo,
-	table    => $table,
-	);
+	my %params = (
+	    LOGIN => $sess_params{is_logged},
+	    USER =>  $sess_params{profile},
+	    page => 'prenota',
+	    path => '<a href="load.cgi?page=prenotazioni">Prenotazioni</a> &gt;&gt; Prenota',
+	    is_logged => $sess_params{is_logged},
+	    show     => $show,
+	    test     => $test,
+	    campo    => $campo,
+	    data     => $data,
+	    table    => $table,
+	    );
     
-    $service->dispatcher('prenota', %params);
+	$service->dispatcher('prenota', %params);
+    }
 }
 
 sub register {

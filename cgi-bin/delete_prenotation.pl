@@ -18,12 +18,12 @@ my $parser = XML::LibXML->new();
 my $path = '../data/prenotazioni.xml';
 my $xml = $parser->parse_file($path);
 my $root = $xml->getDocumentElement();
-my $xpath = "//p:prenotante[p:email='$user' and p:disciplina='$disciplina' and p:data='$data' and p:ora='$ora']";
+my $xpath = "//prenotante[email='$user' and disciplina='$disciplina' and data='$data' and ora='$ora']";
 if($root->exists($xpath)){
     $token = $root->findnodes($xpath)->get_node(1);
     $token->unbindNode();
 }
-open(OUT, ">$path") || die "error $!";
-print OUT $xml->toString || die $!; 
+open(OUT, ">$path");
+print OUT $xml->toString; 
 close OUT;
 print $cgi->header(-location => 'load.cgi?page=personale');

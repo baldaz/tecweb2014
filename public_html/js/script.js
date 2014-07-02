@@ -7,7 +7,7 @@ function validateCourse(){
     var semestrale = document.getElementById('semestrale').value;
     var annuale = document.getElementById('annuale').value;
     
-    var prezzo = /^[1-9][0-9]{0,2}(?:\.?[0-9]{3}){0,3}(,[0-9]{2})?.\€/;
+    var prezzo = /(\d+).\€/;
     if(nome.length < 1) {
 	errors.push("nome");
     }
@@ -22,6 +22,30 @@ function validateCourse(){
     }
     if(!prezzo.test(annuale)){
 	errors.push("annuale");
+    }
+    if(Object.keys(errors).length > 0){
+	reportErrors(errors, 'prezzi', list);
+	return false;
+    }
+    return true;
+}
+
+function validateNews(){
+    var errors = new Array();
+    var list = new Array('titolo', 'data', 'contenuto');
+    var titolo = document.getElementById('titolo').value;
+    var data = document.getElementById('data').value;
+    var contenuto = document.getElementById('contenuto').value;
+    var data_patt = /^(0[1-9]|[12][0-9]|3[01])[- \/.](0[1-9]|1[012])[- \/.](19|20)\d\d$/;
+    
+    if(titolo.length < 1){
+	errors.push("titolo");
+    }
+    if(!data_patt.test(data)){
+	errors.push("data");
+    }
+    if(contenuto.length < 1){
+	errors.push("contenuto");
     }
     if(Object.keys(errors).length > 0){
 	reportErrors(errors, 'content', list);

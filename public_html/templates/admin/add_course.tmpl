@@ -7,36 +7,37 @@
     </ul>
   </div>
   <div id="content">
+  <p>Compilare il form secondo formato 'valore - €' nei campi mensile, trimestrale, semestrale, annuale, (es: 120 €)</p>
     <form action="process.pl" method="post" class="admin-frm" onsubmit="return validateCourse()" >
-      <fieldset>
+      <fieldset id="prezzi">
 	<legend>Aggiungi corso</legend>
 	<div>
-	  <label for="titolo">Nome:</label>
+	  <label for="titolo">Nome</label>
 	  <input type="text" id="nome" name="nome" />
-	  <label for="mensile">Mensile:</label>
+	  <label for="mensile">Mensile</label>
 	  <input type="text" id="mensile" name="mensile" />
-	  <label for="trimestrale">Trimestrale:</label>
+	  <label for="trimestrale">Trimestrale</label>
 	  <input type="text" id="trimestrale" name="trimestrale" />
-	  <label for="semestrale">Semestrale:</label>
+	  <label for="semestrale">Semestrale</label>
 	  <input type="text" id="semestrale" name="semestrale" />
-	  <label for="annuale">Annuale:</label>
+	  <label for="annuale">Annuale</label>
 	  <input type="text" id="annuale" name="annuale" />
       </fieldset>
-      <fieldset>
+      <fieldset id="orari">
 	<legend>Orari</legend>
-	<label for="lun">Lun:</label>
+	<label for="lun">Lunedi</label>
 	<input type="text" id="lun" name="lun" />
-	<label for="mar">Mar:</label>
+	<label for="mar">Martedi</label>
 	<input type="text" id="mar" name="mar" />
-	<label for="mer">Mer:</label>
+	<label for="mer">Mercoledi</label>
 	<input type="text" id="mer" name="mer" />
-	<label for="gio">Gio:</label>
+	<label for="gio">Giovedi</label>
 	<input type="text" id="gio" name="gio" />
-	<label for="ven">Ven:</label>
+	<label for="ven">Venerdi</label>
 	<input type="text" id="ven" name="ven" />
-	<label for="sab">Sab:</label>
+	<label for="sab">Sabato</label>
 	<input type="text" id="sab" name="sab" />
-	<label for="dom">Dom:</label>
+	<label for="dom">Domenica</label>
 	<input type="text" id="dom" name="dom" />
 	<input type="hidden" id="formfor" name="formfor" value="add_c" />
       </div>

@@ -7,19 +7,22 @@
     </ul>
   </div>
   <div id="content">
-    <form action="process.pl" method="post" class="admin-frm">
+    <form action="process.pl" method="post" class="admin-frm" onsubmit="return validateNews()" >
       <fieldset>
+      <div>
 	<legend>Modifica notizia</legend>
-	<label for="id">ID:</label>
+	<label for="id">ID</label>
 	<input type="text" id="id" name="id" value="<tmpl_var escape = html name = id>" />
-	<label for="titolo">Titolo:</label>
+	<label for="titolo">Titolo</label>
 	<input type="text" id="titolo" name="titolo" value="<tmpl_var escape = html name = n_title>"/>
-	<label for="data">Data:</label>
+	<label for="data">Data (dd-mm-aaa)</label>
 	<input type="text" id="data" name="data" value="<tmpl_var escape = html name = n_date>"/>
-	<label for="contenuto">Contenuto:</label>
-	<input type="textarea" id="contenuto" name="contenuto" value="<tmpl_var escape = html name = n_content>"/>
+	<label for="contenuto">Contenuto</label>
+	<textarea id="contenuto" name="contenuto" ><tmpl_var escape = html name = n_content></textarea>
 	<input type="hidden" id="formfor" name="formfor" value="edit_n" />
-	<input type="submit" id="submit" value="submit">
+	</div>
+	<input type="reset" id="reset" value="Resetta" />
+	<input type="submit" id="submit" value="Aggiorna" />
       </fieldset>
     </form> 
   </div>
