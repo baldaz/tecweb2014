@@ -135,8 +135,8 @@ sub getNews {
 sub getFields {
     my ($self, $disciplina) = @_;
     my $xml = $self->load_xml('../data/impianti.xml');
-    $xml->documentElement->setNamespace("www.impianti.it","i");
-    my $ret = $xml->findvalue("//i:impianto[i:disciplina='$disciplina']/i:campi");
+#    $xml->documentElement->setNamespace("www.impianti.it","i");
+    my $ret = $xml->findvalue("//impianto[disciplina='$disciplina']/campi");
     return $ret;
 }
 
