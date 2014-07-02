@@ -105,19 +105,19 @@ sub add_resource {
 	$token->appendChild($chunk); # fare un $token->lastChild ed estrarre l'id, inserire ++id nel nuovo nodo
     }
     elsif($action eq 'edit'){
-	if($root->exists($element."[\@id=$id]")){
+	if($root->exists($element."[\@id='$id']")){
 	    $token = $root->findnodes($element."[\@id='$id']")->get_node(1);
-	    $token->replaceChild($chunk, $token) || die $!;
+	    $token->replaceChild($chunk, $token) || die "err";
 	}
-	else { die $!; }	# condizione eliminabile
+	else { die "errrore"; }	# condizione eliminabile
     }
     elsif($action eq 'delete'){
 	$token = $root->findnodes($element."[\@id='$id']")->get_node(1);
 	$token->unbindNode();
     }
-    else { die $!; }		# lanciare errore
+    else { die "errrrore"; }		# lanciare errore
     open(OUT, ">$path") || die "error $!";
-    print OUT $xml->toString || die $!; 
+    print OUT $xml->toString || die "ERRORE $!"; 
     close OUT;
     print CGI::header(-location => "admin.cgi?screen=$from");
 }

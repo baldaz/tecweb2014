@@ -25,7 +25,16 @@ my %routes = (
     'del_course'       => \&del_course
     );
 
-$routes{$screen}->();
+if(!exists $routes{$screen}){
+    my %params = (
+	err_code => '404',
+	err_desc => 'Operazione non consentita'
+	);
+    $admin->dispatch('error', %params);
+}
+else{
+    $routes{$screen}->();
+}
 
 sub index {
     my %params = ();
@@ -142,7 +151,7 @@ sub del_course {
     }
     else{
 	%params = (
-	    'namespace' => 'corsi:corso:delete:corsi',
+	    'namespace' => 'corsi:corso:delete:courses',
 	    'id'        => $id
 	    );
 	$admin->add_resource(%params);

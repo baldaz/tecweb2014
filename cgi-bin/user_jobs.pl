@@ -21,9 +21,13 @@ my %job = (
 if($cgi->request_method eq 'GET'){
     print $cgi->redirect(-location => 'load.cgi?page=home');
 }
-my $cmd = $cgi->param('_cmd');	# lanciare pagina 404
-
-$job{$cmd}->($cgi);
+my $cmd = $cgi->param('_cmd');
+if(!exists $job{$cmd}){
+    $service->dispatch_error('404', 'Comando inesistente', $sess_params{is_logged}, $sess_params{profile});
+}
+else{
+    $job{$cmd}->($cgi);
+}
 
 sub book {
     my $cgi = shift;
@@ -32,7 +36,7 @@ sub book {
 	($cgi->param('disciplina'), $cgi->param('giorno'), $cgi->param('mese'), $cgi->param('anno'), $cgi->param('ora'));
     my $data = $anno."-".$mese."-".$giorno;
     $data = $today->ymd("-") if $data eq '';
-    $service->validate($data);
+    $service->validate($data, $sess_params{is_logged}, $sess_params{profile});
     my $campo = $service->select_field($disciplina, $data, $ora);
     my $parser = XML::LibXML->new();
     my $xml = $parser->parse_file("../data/prenotazioni.xml");
@@ -52,10 +56,7 @@ sub book {
 	
 	my $pren = $xml->getElementsByTagName('prenotazioni')->[0];
 	my $chunk = $parser->parse_balanced_chunk($new_element);
-    
-	$pren->appendChild($chunk);	# appendo il nuovo appena creato
-	# $prenotazioni[0]->appendChild($chunk);
-    
+	$pren->appendChild($chunk);
 	open(OUT, ">../data/prenotazioni.xml");
 	print OUT $xml->toString; 
 	close OUT;
@@ -72,7 +73,7 @@ sub book {
 	LOGIN => $sess_params{is_logged},
 	USER =>  $sess_params{profile},
 	page => 'prenota',
-	path => '<a href="load.cgi?page=prenotazioni">Prenotazioni</a> >> Prenota',
+	path => '<a href="load.cgi?page=prenotazioni">Prenotazioni</a> &gt;&gt; Prenota',
 	is_logged => $sess_params{is_logged},
 	show     => $show,
 	test     => $test,
@@ -110,11 +111,10 @@ sub register {
     </profilo>
     ";
 	
-	my $pren = $xml->getElementsByTagName('profili')->[0];
+	my $reg = $xml->getElementsByTagName('profili')->[0];
 	my $chunk = $parser->parse_balanced_chunk($new_element);
 	
-	$pren->appendChild($chunk);	# appendo il nuovo appena creato
-# $prenotazioni[0]->appendChild($chunk);
+	$reg->appendChild($chunk);
 	
 	open(OUT, ">$file");
 	print OUT $xml->toString; 
@@ -151,9 +151,8 @@ sub mod_data {
 	$password = $xml->findnodes("//profilo[username='$email']/password")->[0]->textContent;
     }
     else{
-	print "Content-type: text/html\n\nerrore";
+	$service->dispatch_error('404', 'Utente non trovato', $sess_params{is_logged}, $sess_params{profile});
 	return;
-	# 404
     }
     my $token = $xml->getElementsByTagName('profili')->[0];
     my $node = "
@@ -167,12 +166,12 @@ sub mod_data {
 ";
     my $chunk = $parser->parse_balanced_chunk($node);
     $token = $root->findnodes("//profilo[username='$email']")->get_node(1);
-    $token->replaceChild($chunk, $token) || die $!;
+    $token->replaceChild($chunk, $token);
 
-    open(OUT, ">../data/profili.xml") || die $!;
-    print OUT $xml->toString || die $!;
+    open(OUT, ">../data/profili.xml");
+    print OUT $xml->toString;
     close OUT;
-    print "Content-type: text/html\n\nOperazione riuscita\n";
+    $service->success('edit_personal', $sess_params{is_logged}, $sess_params{profile});
 }
 
 sub mod_pwd {
@@ -182,15 +181,18 @@ sub mod_pwd {
     my $xml = $parser->parse_file('../data/profili.xml');
     my $root = $xml->getDocumentElement();
     unless($root->exists("//profilo[username='$sess_params{profile}' and password='$old_pwd']")){
-	# error 404;
+	$service->dispatch_error('404', 'Utente non trovato', $sess_params{is_logged}, $sess_params{profile});
+	return;
     }
     my ($node) = $root->findnodes("//profilo[username='$sess_params{profile}' and password='$old_pwd']/password");
     $node->removeChildNodes();
     $node->appendText($new_pwd);
-    open(OUT, ">../data/profili.xml") || die $!;
-    print OUT $xml->toString || die $!;
+    open(OUT, ">../data/profili.xml");
+    print OUT $xml->toString;
     close OUT;
+    $service->success('edit_personal', $sess_params{is_logged}, $sess_params{profile});
 }
 
 sub send_mail {
+    print $cgi->header(-location => 'load.cgi?page=contatti');
 }

@@ -17,7 +17,7 @@
     <p>
       Indirizzo, mappa?
     </p>
-    <form class="prenfrm" action="" method="post" onsubmit="return validate_contact()" id="contattaci" >
+    <form class="prenfrm" action="user_jobs.pl" method="post" onsubmit="return validate_contact()" id="contattaci" >
       <fieldset>
 	<legend>Contattaci</legend>
 	<div class="formgroup">
@@ -29,6 +29,7 @@
 	  <textarea name="message" id="message" cols="50" rows="30"></textarea>
 	</div>
 	<div class="formgroup">
+	  <input type="hidden" id="_cmd" name="_cmd" value="send" />
 	  <input type="reset" value="Resetta" class="button" />
 	  <input type="submit" value="Invia" class="button" />
 	</div>
