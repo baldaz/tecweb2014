@@ -2,16 +2,16 @@
   <a href="#content" class="skip" tabindex="1">Salta a contenuto</a>
   <div id="nav">
     <ul>
-      <li><a href="load.cgi?page=home" tabindex="3">Home</a></li>
-      <li><a href="load.cgi?page=impianti" tabindex="4">Gli Impianti</a></li>
-      <li><a href="load.cgi?page=corsi" tabindex="5">Fitness e corsi</a></li> 
-      <li><a href="load.cgi?page=contatti" tabindex="6">Contatti</a></li>
-      <li><a href="load.cgi?page=prenotazioni" tabindex="7">Prenotazioni</a></li>
+      <li><a href="load.cgi?page=home">Home</a></li>
+      <li><a href="load.cgi?page=impianti">Gli Impianti</a></li>
+      <li><a href="load.cgi?page=corsi">Fitness e corsi</a></li> 
+      <li><a href="load.cgi?page=contatti">Contatti</a></li>
+      <li><a href="load.cgi?page=prenotazioni">Prenotazioni</a></li>
       <li><a id="active">Area Personale</a></li>
     </ul>
   </div>
   <div id="content">
-  <a href="#login" class="skip" tabindex="8">Salta a login</a>
+  <a href="#login" class="skip" tabindex="2">Salta a login</a>
   <h2>Registrazione</h2>
     <tmpl_if name = "has_account">
       <p>
@@ -27,24 +27,24 @@
 	      <fieldset>
 		<legend>Dati registrazione</legend>
 		<div class="formgroup">
-		  <label for="nome">Nome:</label>
-		  <input type="text" name="nome" id="nome" placeholder="inserire nome" tabindex="9" value="<tmpl_var escape = html name = r_name>"/>
+		  <label for="nome">Nome*</label>
+		  <input type="text" name="nome" id="nome" placeholder="inserire nome" value="<tmpl_var escape = html name = r_name>"/>
 		</div>
 		<div class="formgroup">
-		  <label for="cognome">Cognome:</label> 
-		  <input type="text" name="cognome" id="cognome" tabindex="10" value="<tmpl_var escape = html name = r_surname>" placeholder="inserire cognome" /> 
+		  <label for="cognome">Cognome*</label> 
+		  <input type="text" name="cognome" id="cognome" value="<tmpl_var escape = html name = r_surname>" placeholder="inserire cognome" /> 
 		</div>
 		<div class="formgroup">
-		  <label for="telefono">Telefono:</label> 
-		  <input type="text" name="telefono" id="telefono" tabindex="11" value="<tmpl_var escape = html name = r_tel>" placeholder="inserire telefono" />  
+		  <label for="telefono">Telefono*</label> 
+		  <input type="text" name="telefono" id="telefono" value="<tmpl_var escape = html name = r_tel>" placeholder="inserire telefono" />  
 		</div>
 		<div class="formgroup">
-		  <label for="email">Email:</label>
-		  <input type="text" name="email" id="email" tabindex="12" value='<tmpl_var escape = html name = r_mail>' placeholder="inserire email" />
+		  <label for="email">Email*</label>
+		  <input type="text" name="email" id="email" value='<tmpl_var escape = html name = r_mail>' placeholder="inserire email" />
 		</div>
 		<div class="formgroup">
-		  <label for="password">Password:</label>
-		  <input type="password" name="password" id="password" tabindex="13" value="" placeholder="inserire password" />
+		  <label for="password">Password*</label>
+		  <input type="password" name="password" id="password" value="" placeholder="inserire password" />
 		</div>
 		<div class="formgroup">
 		  <input type="hidden" name="_cmd" id="_cmd" value="reg" />
@@ -53,6 +53,9 @@
 		</div>
 	      </fieldset>
 	    </form>
+	    <p>
+	      * indica i campi obbligatori
+	    </p>
 	    <tmpl_if name = "error">
 	      <div class="errore">Errore nel form</div>
 	    </tmpl_if>

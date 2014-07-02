@@ -3,6 +3,7 @@
 use UTILS::Admin;
 
 my $admin = UTILS::Admin->new;
+my $session = CGI::Session->load();
 if($session->param("~logged-in")){
     print $session->header(-location => "login.cgi", cookie => $cookie);
 }

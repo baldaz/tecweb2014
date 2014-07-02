@@ -1,19 +1,19 @@
 function validateCourse(){
     var errors = new Array();
     var list = new Array('nome', 'Mensile', 'Trimestrale', 'Semestrale', 'Annuale');
-    var nome = document.forms["courses"]["nome"].value;
-    var mensile = document.forms["courses"]["mensile"].value;
-    var trimestrale = document.forms["courses"]["trimestrale"].value;
-    var semestrale = document.forms["courses"]["semestrale"].value;
-    var annuale = document.forms["courses"]["annuale"].value;
+    var nome = document.getElementById('nome').value;
+    var mensile = document.getElementById('mensile').value;
+    var trimestrale = document.getElementById('trimestrale').value;
+    var semestrale = document.getElementById('semestrale').value;
+    var annuale = document.getElementById('annuale').value;
     
 }
 
 function validateLogin(){
     var errors = new Array();
     var list = new Array('lg-email', 'passwd');
-    var username = document.forms["loginfrm"]["lg-email"].value;
-    var password = document.forms["loginfrm"]["passwd"].value;
+    var username = document.getElementById('lg-email').value;
+    var password = document.getElementById('passwd').value;
     var patt=/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     if(!patt.test(username)) {
@@ -32,8 +32,8 @@ function validateLogin(){
 function validate_contact(){
     var errors = new Array();
     var list = new Array('email', 'message');
-    var email = document.forms["contattaci"]["email"].value;
-    var message = document.forms["contattaci"]["message"].value;
+    var email = document.getElementById('email').value;
+    var message = document.getElementById('message').value;
     var patt = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     if(!patt.test(email)){
@@ -52,8 +52,8 @@ function validate_contact(){
 function validate_pwd_change(){
     var errors = new Array();
     var list = new Array('vpassword', 'password');
-    var vpwd = document.forms["pwd_change"]["vpassword"].value;
-    var opwd = document.forms["pwd_change"]["password"].value;
+    var vpwd = document.getElementById('vpassword').value;
+    var opwd = document.getElementById('password').value;
 
     if(vpwd.length < 6){
 	errors.push("vpassword");
@@ -71,12 +71,12 @@ function validate_pwd_change(){
 function validate(bip){
     var errors = new Array();
     var list = new Array('nome', 'cognome', 'email', 'telefono');
-    var name = document.forms["form"]["nome"].value;
-    var surn = document.forms["form"]["cognome"].value;
-    var mail = document.forms["form"]["email"].value;
-    var tel  = document.forms["form"]["telefono"].value;
+    var name = document.getElementById('nome').value;
+    var surn = document.getElementById('cognome').value;
+    var mail = document.getElementById('email').value;
+    var tel  = document.getElementById('telefono').value;
     if(bip){
-	var pwd  = document.forms["form"]["password"].value;
+	var pwd  = document.getElementById('password').value;
 	list.push("password");
     }
     if(name.length<1){
@@ -128,11 +128,3 @@ function reportErrors(errors, parentNode, EList){
 function isInPage(node) {
     return (node === document.body) ? false : document.body.contains(node);
 }
-/*
-function get_cookie() {
-    if(document.cookie.length > 0){
-	return document.cookie;
-    }
-    else 
-}
-*/
