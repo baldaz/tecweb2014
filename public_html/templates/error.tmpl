@@ -1,4 +1,5 @@
 <tmpl_include name = "header.tmpl">
+	<a href="#content" class="skip" tabindex="1">Salta a contenuto</a>
   <div id="nav">
     <ul>
       <li><a href="load.cgi?page=home">Home</a></li>
@@ -10,6 +11,7 @@
     </ul>
   </div>
   <div id="content">
+	 <a href="#login" class="skip" tabindex="2">Salta a login</a>
     <h2>Errore <tmpl_var name = "err_code"></h2>
     <tmpl_var name = "err_desc">
   </div>
