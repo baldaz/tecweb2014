@@ -29,7 +29,7 @@ $(".p_field").change(function(){
     };
 
     if(giorno > mesi[mese]){
-	$("#tables").html("<div class='errore'>Errore data, ricontrollare il giorno(Dog)</div>");
+	$("#tables").html("<div class='errore'>Errore data, ricontrollare il giorno</div>");
     }
     else{
 	$.ajax({

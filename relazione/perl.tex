@@ -5,33 +5,39 @@
 Trattandosi di un sito con una buona quantità di contenuti dinamici, è stato studiato un approccio quanto più modularizzato possibile, in modo da garantire maggior chiarezza e manutenibilità, una sorta di \textit{pattern MVC}, dove le \textit{view} sono rappresentate da templates (\texttt{.tmpl}) raccolti in una directory completamente separata dal codice, modelli e controller sono contenuti in 3 file contenenti inoltre le funzioni principali necessarie al popolamento dinamico del sito, si è quindi resa necessaria la suddivisione di esse in una gerarchia formata da tre moduli:
 
 \begin{itemize}
-
-  \item \texttt{UTILS} classe padre principale, raccoglie le funzioni di uso generale per il funzionamento e la popolazione delle varie pagine, caricamento ed interfaccia dei vari database XML (Model)
-  \item \texttt{UTILS::Admin} classe figlio di UTILS, raccoglie le funzioni strettamente necessarie al backend dell'applicazione, funzionalità di login e mantenimento delle sessioni
-  \item \texttt{UTILS::UserService} classe figlio di UTILS, raccoglie le funzioni necessarie al compimento delle operazioni strettamente legate all'utente (e.g CRUD delle proprie generalità), prenotazione risorse
-
+  \item \texttt{UTILS}: classe padre principale, raccoglie le funzioni di uso generale per il funzionamento e la popolazione delle varie pagine, caricamento ed interfaccia dei vari database XML (Model)
+  \item \texttt{UTILS::Admin}: classe figlio di UTILS, raccoglie le funzioni strettamente necessarie al backend dell'applicazione, funzionalità di login e mantenimento delle sessioni
+  \item \texttt{UTILS::UserService}: classe figlio di UTILS, raccoglie le funzioni necessarie al compimento delle operazioni strettamente legate all'utente (e.g CRUD delle proprie generalità), prenotazione risorse
 \end{itemize}
 
+La directory \textit{cgi-bin} contiene solo ed esclusivamente script e moduli \textit{perl}, mediante la variabile \$ENV\{HTML\_TEMPLATE\_ROOT\} = "../public\_html/templates"; e' stato possibile mantenere i \textit{templates} in una directory separata (\textit{public\_html/templates/}.
+
+I principali moduli utilizzati sono:
+
+\begin{itemize}
+  \item \texttt{CGI}: modulo per la gestione dei parametri input degli script \textit{CGI}
+  \item \texttt{CGI::Session}: modulo utilizzato per la gestione delle sessione e lo scambio di dati fra pagine
+  \item \texttt{HTML::Template}: modulo per la gestione dei contenuti statici e la popolazione dei contenuti dinamici 
+  \item \texttt{XML::LibXML}: modulo per la gestione e l'interfacciamento dei file xml utilizzati per la raccolta delle informazioni e risorse
+  \item \texttt{DateTime}: modulo utilizzato nella gestione delle prenotazioni, facilita la manipolazioni delle date e timestamp
 \end{itemize}
-Alcune funzioni all'interno di questi moduli sono state ``privatizzate'', in quanto funzioni di utilità non direttamente finalizzate all'utilizzo da parte dell'utente (e.g. creazione scheletro tabelle, calcolo e conversione dei giorni della settimana etc.). 
+
+Alcune funzioni all'interno di questi moduli sono state ``privatizzate'', in quanto funzioni di utilità non direttamente finalizzate all'utilizzo da parte dell'utente (e.g. creazione scheletro tabelle, calcolo e conversione dei giorni della settimana etc.). Esse sono state implementate come \texttt{subroutine} anonime assegnate a variabili, in modo che possano essere richiamate solo all' interno dei moduli in cui sono dichiarate; nella fattispecie, e' stata utilizzata una funzione protetta per la creazione delle tabelle di prenotazione dinamiche. 
 In particolare ognuno di questi moduli fa da appoggio a rispettivi script utilizzati per effettuare le varie operazione per mezzo di dispatch tables, che consentono di risparmiare un gran numero di operazioni ridondanti e di automatizzare il piu possibile le operazioni da eseguire, aumentando inoltre la separazione tra codice e contenuto, avvicinandosi ad un approccio MVC:
 
 \begin{itemize}
 
-  \item \texttt{load.cgi} si appoggia ad \texttt{UTILS} ed è il motore di popolamento principale del sito, ogni pagina accessibile è generata e popolata da questo script, per mezzo di dispatch tables
-  \item \texttt{admin.cgi} si appoggia ad \texttt{UTILS::Admin}, controparte backend di \texttt{load.cgi}, ogni pagina della parte amministrativa è generata da questo script
-  \item \texttt{process.pl} script necessario alle basilari operazioni di modifica/popolamento risorse/pagine (CRUD)
-  \item \texttt{user\_jobs.pl} controparte frontend di \texttt{process.pl}, tutte le operazioni che l'utente può effettuare sono gestite da questo codice
-
+  \item \texttt{load.cgi}: si appoggia ad \texttt{UTILS} ed è il motore di popolamento principale del sito, ogni pagina accessibile è generata e popolata da questo script, per mezzo di dispatch tables
+  \item \texttt{admin.cgi}: si appoggia ad \texttt{UTILS::Admin}, controparte backend di \texttt{load.cgi}, ogni pagina della parte amministrativa è generata da questo script
+  \item \texttt{process.pl}: script necessario alle basilari operazioni di modifica/popolamento risorse/pagine (CRUD)
+  \item \texttt{user\_jobs.pl}: controparte frontend di \texttt{process.pl}, tutte le operazioni che l'utente può effettuare sono gestite da questo codice
 \end{itemize}
+
 Vi sono infine \texttt{login.pl}, \texttt{login.cgi} e \texttt{logout.pl}, piccoli script atti solo all'autenticazione dell'utente, \textit{frontend} e \textit{backend} ed alla chiusura di eventuali sessioni aperte.
 \texttt{vbooked.pl} è infine lo script utilizzato per visualizzare le tabelle di prenotazione via AJAX senza il bisogno di effettuare \textit{refresh} della pagina.
 
 
 \subsection{Sistema di popolamento templates}
-
-Ogni \textit{route} richiama il \textit{dispatcher} da \texttt{UTILS} e passa un \textit{hash} contenente i parametri necessari al popolamento del template richiamato, che inoltre possiede lo stesso nome della \textit{route} appunto.
-Da \texttt{load.cgi} attraverso l'oggetto \texttt{\$utils} e la dispatch table viene automaticamente richiamato e popolato il template corretto:
 
 Ogni \textit{route} richiama il \textit{dispatcher} da \texttt{UTILS} e passa un \textit{hash} contenente i parametri necessari al popolamento del template richiamato, che inoltre possiede lo stesso nome della \textit{route} appunto.\newline
 Da \texttt{load.cgi} attraverso l'oggetto \texttt{\$utils} e la dispatch table viene automaticamente richiamato e popolato il template corretto: \newline \newline
@@ -69,15 +75,15 @@ Da \texttt{load.cgi} attraverso l'oggetto \texttt{\$utils} e la dispatch table v
      my @loop_prices = $utils->list_prices;
      my @loop_scheduling = $utils->list_scheduling;
      my %params = (
-	title => 'Centro sportivo - Corsi',
-	page      => 'corsi',
-	path      => 'Corsi',
-	courses_price => \@loop_prices,
-	courses_scheduling => \@loop_scheduling,
-	LOGIN     => $sess_params{is_logged},
-	USER      => $sess_params{profile},
-	attempt   => $sess_params{attempt}
-	);
+        title => 'Centro sportivo - Corsi',
+        page      => 'corsi',
+        path      => 'Corsi',
+        courses_price => \@loop_prices,
+        courses_scheduling => \@loop_scheduling,
+        LOGIN     => $sess_params{is_logged},
+        USER      => $sess_params{profile},
+        attempt   => $sess_params{attempt}
+        );
      $utils->dispatcher('corsi', %params);
    }
 \end{verbatim}
@@ -103,4 +109,4 @@ Da \texttt{load.cgi} attraverso l'oggetto \texttt{\$utils} e la dispatch table v
    }
 \end{verbatim}
 }
- Le funzioni protette sono state dichiarate come \texttt{subroutine} anonime assegnate a variabili, in modo che possano essere richiamate solo all' interno
+Ogni input e' stato validato oltre che lato client via javascript, anche lato server, utilizzando funzioni di validazione appositamente create, in modo da garantire procedure di login, registrazione, prenotazione e modifica prive di spiacevoli errori.
