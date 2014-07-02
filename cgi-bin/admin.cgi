@@ -4,16 +4,22 @@ use UTILS::Admin;
 
 my $cgi = CGI->new();
 my $session = CGI::Session->load($cgi) or die "Errore";
-
+#my $session = CGI::Session->load;
 unless ($session->param("~logged-in")){
     print $session->header(-type => 'text/html', -location => 'login.cgi');
 }
-
 my $screen = $cgi->param('screen') || 'index';
 my $id = $cgi->param('id') || '1';
+if($id !~ /^(\d)+$/){
+    my %params = (
+	err_code => '404',
+	err_desc => 'Non corrisponde alcuna risorsa all\' ID inserito'
+	);
+    $admin->dispatch('error', %params);
+}
 my $admin = UTILS::Admin->new;
-
 my %routes = (
+    'login'            => \&login,
     'index'            => \&index,
     'news'             => \&news,
     'add_news'         => \&add_news,
@@ -90,9 +96,7 @@ sub del_news {
 	    'namespace' => 'news:new:delete:news',
 	    'id'        => $id
 	    );
-	$admin->add_resource(%params);
-	#news();
-	#$cgi->header(location => 'admin.cgi?screen=news');
+	$admin->_resource(%params);
     }
 }
 
@@ -154,6 +158,6 @@ sub del_course {
 	    'namespace' => 'corsi:corso:delete:courses',
 	    'id'        => $id
 	    );
-	$admin->add_resource(%params);
+	$admin->_resource(%params);
     }
 }

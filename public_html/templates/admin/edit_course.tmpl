@@ -7,40 +7,42 @@
     </ul>
   </div>
   <div id="content">
-    <form action="process.pl" method="post"  class="admin-frm">
+  <p>Compilare il form secondo formato 'valore - €' nei campi mensile, trimestrale, semestrale, annuale, (es: 120 €)</p> 
+    <form action="process.pl" method="post"  class="admin-frm" onsubmit="return validateCourse()" >
       <fieldset>
 	<legend>Modifica corso</legend>
-	<label for="id">ID:</label>
+	<label for="id">ID</label>
 	<input type="text" id="id" name="id" value="<tmpl_var escape = html name = id>" />
-	<label for="nome">Nome:</label>
+	<label for="nome">Nome</label>
 	<input type="text" id="nome" name="nome" value="<tmpl_var escape = html name = c_name>" />
-	<label for="mensile">Mensile:</label>
+	<label for="mensile">Mensile </label>
 	<input type="text" id="mensile" name="mensile" value="<tmpl_var escape = html name = c_monthly>"/>
-	<label for="trimestrale">Trimestrale:</label>
+	<label for="trimestrale">Trimestrale</label>
 	<input type="text" id="trimestrale" name="trimestrale" value="<tmpl_var escape = html name = c_trimestral>"/>
-	<label for="semestrale">Semestrale:</label>
+	<label for="semestrale">Semestrale</label>
 	<input type="text" id="semestrale" name="semestrale" value="<tmpl_var escape = html name = c_semestral>"/>
-	<label for="annuale">Annuale:</label>
+	<label for="annuale">Annuale</label>
 	<input type="text" id="annuale" name="annuale" value="<tmpl_var escape = html name = c_annual>" />
       </fieldset>
       <fieldset>
 	<legend>Orari</legend>
-	<label for="lun">Lun:</label>
+	<label for="lun">Lunedi</label>
 	<input type="text" id="lun" name="lun" value="<tmpl_var escape = html name = c_lun>" />
-	<label for="mar">Mar:</label>
+	<label for="mar">Martedi</label>
 	<input type="text" id="mar" name="mar" value="<tmpl_var escape = html name = c_mar>" />
-	<label for="mer">Mer:</label>
+	<label for="mer">Mercoledi</label>
 	<input type="text" id="mer" name="mer" value="<tmpl_var escape = html name = c_mer>" />
-	<label for="gio">Gio:</label>
+	<label for="gio">Giovedi</label>
 	<input type="text" id="gio" name="gio" value="<tmpl_var escape = html name = c_gio>" />
-	<label for="ven">Ven:</label>
+	<label for="ven">Venerdi</label>
 	<input type="text" id="ven" name="ven" value="<tmpl_var escape = html name = c_ven>" />
-	<label for="sab">Sab:</label>
+	<label for="sab">Sabato</label>
 	<input type="text" id="sab" name="sab" value="<tmpl_var escape = html name = c_sab>" />
-	<label for="dom">Dom:</label>
+	<label for="dom">Domenica</label>
 	<input type="text" id="dom" name="dom" value="<tmpl_var escape = html name = c_dom>" />
 	<input type="hidden" id="formfor" name="formfor" value="edit_c" />
-	<input type="submit" id="submit" value="submit">
+	<input type="reset" id="reset" name="reset" value="Resetta" />
+	<input type="submit" id="submit" value="Aggiorna" />
       </fieldset>
     </form> 
   </div>

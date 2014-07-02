@@ -48,12 +48,12 @@ sub get_prenotations {
     my ($self, $user) = @_;
     my $xml = $self->load_xml('../data/prenotazioni.xml');
     my @loop_prens = ();
-    if($xml->getDocumentElement->exists("//p:prenotante[p:email='$user']")){
-	my @prenotations = $xml->findnodes("//p:prenotante[p:email='$user']");
-	@loop_prens = map {{discipline => $prenotations[0]->findnodes("//p:prenotante[p:email='$user']/p:disciplina")->get_node($_)->textContent, 
-			    data       => $prenotations[0]->findnodes("//p:prenotante[p:email='$user']/p:data")->get_node($_)->textContent,
-			    ora        => $prenotations[0]->findnodes("//p:prenotante[p:email='$user']/p:ora")->get_node($_)->textContent, 
-			    campo      => $prenotations[0]->findnodes("//p:prenotante[p:email='$user']/p:campo")->get_node($_)->textContent
+    if($xml->getDocumentElement->exists("//prenotante[email='$user']")){
+	my @prenotations = $xml->findnodes("//prenotante[email='$user']");
+	@loop_prens = map {{discipline => $prenotations[0]->findnodes("//prenotante[email='$user']/disciplina")->get_node($_)->textContent, 
+			    data       => $prenotations[0]->findnodes("//prenotante[email='$user']/data")->get_node($_)->textContent,
+			    ora        => $prenotations[0]->findnodes("//prenotante[email='$user']/ora")->get_node($_)->textContent, 
+			    campo      => $prenotations[0]->findnodes("//prenotante[email='$user']/campo")->get_node($_)->textContent
 	    }} 1..@prenotations;
     }
     else {
@@ -94,27 +94,25 @@ sub success {
 sub validate {
     my ($self, $date, $is_logged, $profile) = @_;
     my %months = (
-	'1'  => '31', 
-	'2'  => '28',
-	'3'  => '31',
-	'4'  => '30',
-	'5'  => '31',
-	'6'  => '30',
-	'7'  => '31',
-	'8'  => '31',
-	'9'  => '30',
-	'10' => '31',
-	'11' => '30',
-	'12' => '31'
+	'01'  => 31, 
+	'02'  => 28,
+	'03'  => 31,
+	'04'  => 30,
+	'05'  => 31,
+	'06'  => 30,
+	'07'  => 31,
+	'08'  => 31,
+	'09'  => 30,
+	'10' => 31,
+	'11' => 30,
+	'12' => 31
 	);
     my @dt = split('-', $date);
 
     if($dt[2] > $months{$dt[1]}){
-	$self->dispatch_error('400', 'Formato data errato', $is_logged, $profile);
 	return 0;
     }
     else{ return 1;}
 }
-
 
 1;

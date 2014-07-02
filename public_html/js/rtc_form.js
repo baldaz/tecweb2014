@@ -1,43 +1,28 @@
-﻿var i = 0;
-var src = ['../images/campo-tennis.jpg', '../images/campo_calcetto.jpg', '../images/seagal-3.jpg', '../images/fitness.jpg'];
+﻿$(document).ready(function(){
+var i = 0;
+    var src = ['../images/piscina.jpg', '../images/tennis.jpg', '../images/entrata_centro.jpg'];
 setInterval(function(){
     $("#splash").attr('src', src[i]);
     i++;
     if(i == src.length) i = 0;
-}, 5000);
-/*
-$("#telefono").keydown(function(event){
-    if((event.which < 47 || event.which > 57) && event.which !=8 && event.which != 9 && event.which != 46){
-	event.preventDefault();
-	var error = $("<span class='errore'>Inserire numeri</span>");
-	if(!$(".errore").length){
-	    $(this).after(error);
-	    setTimeout(function() {
-		$(".errore").remove();
-	    }, 2000);
-	}
-    }
-    else{
-	$(".errore").remove();
-    }
-});
-*/
-$(document).ready(function(){$(".p_field").change(function(){
+}, 6000);
+
+$(".p_field").change(function(){
     var disc, date;
     var giorno = $("#giorno").val();
     var mese = $("#mese").val();
     disc = $("#disciplina").val();
     date = $("#anno").val() + "-" + $("#mese").val() + "-" + $("#giorno").val();
     var mesi = {
-	1:31,
-	2:28,
-	3:31,
-	4:30,
-	5:31,
-	6:30,
-	7:31,
-	8:31,
-	9:30,
+	01:31,
+	02:28,
+	03:31,
+	04:30,
+	05:31,
+	06:30,
+	07:31,
+	08:31,
+	09:30,
 	10:31,
 	11:30,
 	12:31,

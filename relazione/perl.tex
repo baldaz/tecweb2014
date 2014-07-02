@@ -11,6 +11,8 @@ Trattandosi di un sito con una buona quantità di contenuti dinamici, è stato s
   \item \texttt{UTILS::UserService} classe figlio di UTILS, raccoglie le funzioni necessarie al compimento delle operazioni strettamente legate all'utente (e.g CRUD delle proprie generalità), prenotazione risorse
 
 \end{itemize}
+
+\end{itemize}
 Alcune funzioni all'interno di questi moduli sono state ``privatizzate'', in quanto funzioni di utilità non direttamente finalizzate all'utilizzo da parte dell'utente (e.g. creazione scheletro tabelle, calcolo e conversione dei giorni della settimana etc.). 
 In particolare ognuno di questi moduli fa da appoggio a rispettivi script utilizzati per effettuare le varie operazione per mezzo di dispatch tables, che consentono di risparmiare un gran numero di operazioni ridondanti e di automatizzare il piu possibile le operazioni da eseguire, aumentando inoltre la separazione tra codice e contenuto, avvicinandosi ad un approccio MVC:
 
@@ -28,8 +30,12 @@ Vi sono infine \texttt{login.pl}, \texttt{login.cgi} e \texttt{logout.pl}, picco
 
 \subsection{Sistema di popolamento templates}
 
+Ogni \textit{route} richiama il \textit{dispatcher} da \texttt{UTILS} e passa un \textit{hash} contenente i parametri necessari al popolamento del template richiamato, che inoltre possiede lo stesso nome della \textit{route} appunto.
+Da \texttt{load.cgi} attraverso l'oggetto \texttt{\$utils} e la dispatch table viene automaticamente richiamato e popolato il template corretto:
+
 Ogni \textit{route} richiama il \textit{dispatcher} da \texttt{UTILS} e passa un \textit{hash} contenente i parametri necessari al popolamento del template richiamato, che inoltre possiede lo stesso nome della \textit{route} appunto.\newline
 Da \texttt{load.cgi} attraverso l'oggetto \texttt{\$utils} e la dispatch table viene automaticamente richiamato e popolato il template corretto: \newline \newline
+
 \small{\textit{Dispatch table} all'interno di \texttt{load.cgi}:}
 
 
@@ -97,3 +103,4 @@ Da \texttt{load.cgi} attraverso l'oggetto \texttt{\$utils} e la dispatch table v
    }
 \end{verbatim}
 }
+ Le funzioni protette sono state dichiarate come \texttt{subroutine} anonime assegnate a variabili, in modo che possano essere richiamate solo all' interno

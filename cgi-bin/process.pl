@@ -16,7 +16,7 @@ read(STDIN, my $buffer, $ENV{'CONTENT_LENGTH'});
 if(!length($buffer)){ 
     my %err = (
 	err_code => '404',
-	err_desc => 'Nessun argomento inserito'.$buffer
+	err_desc => 'Nessun argomento inserito',
 	);
     $admin->dispatch('error', %err);
 }
@@ -39,6 +39,13 @@ else{
 	'edit_n'     => 'news:new:edit:news',
 	);
     
+    if(!exists $action{$input{'formfor'}}){
+	my %err = (
+	    err_code => '400',
+	    err_desc => 'Operazione non consentita'
+	    );
+	$admin->dispatch('error', %err);
+    }
     $input{'namespace'} = $action{$input{'formfor'}};
-    $admin->add_resource(%input);
+    $admin->_resource(%input);
 }

@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/usr/bin/perl
 
 use UTILS::UserService;
 
@@ -100,29 +100,39 @@ sub prenotazioni {
     my $cgi = shift;
     my $disciplina = $cgi->param('disciplina') || 'Calcetto';
     my ($giorno, $mese, $anno) = ($cgi->param('giorno') || $today->day(), $cgi->param('mese') || $today->month(), $cgi->param('anno') || $today->year());
+    if(length($giorno) == 1){
+	$giorno = "0".$giorno;
+    }
+    if(length($mese) == 1){
+	$mese = "0".$mese;
+    }
     my $data = $anno."-".$mese."-".$giorno;
     $data = $today->ymd("-") if $data eq '';
-    $utils->validate($data, $sess_params{is_logged}, $sess_params{profile});
-    my @discipline = ('Calcetto', 'Calciotto', 'Pallavolo', 'Beach Volley', 'Tennis'); 
-    $disciplina = $discipline[0] unless grep { $_ eq $disciplina } @discipline; # sanity check
-    my $nr_campi = $utils->getFields($disciplina);
-    $nr_campi = 2 if not defined $nr_campi;
-    my $table = "<h3>Tabelle prenotazione:</h3>";
-    for(1..$nr_campi){
-	$table.= $utils->getWeek($disciplina, $_, $data);
+    if(!$utils->validate($data, $sess_params{is_logged}, $sess_params{profile})){
+	$utils->dispatch_error('400', 'Formato data errato', $is_logged, $profile);
     }
-    $table = Encode::decode('utf8', $table);
-    my %params = (
-	title   => 'Centro sportivo - Prenotazioni',
-	page    => 'prenotazioni',
-	path    => 'Prenotazioni',
-	LOGIN   => $sess_params{is_logged},
-	USER    => $sess_params{profile},
-	attempt => $sess_params{attempt},
-	TABLE   => $table
-    );
+    else{
+	my @discipline = ('Calcetto', 'Calciotto', 'Pallavolo', 'Beach Volley', 'Tennis'); 
+	$disciplina = $discipline[0] unless grep { $_ eq $disciplina } @discipline; # sanity check
+	my $nr_campi = $utils->getFields($disciplina);
+	$nr_campi = 2 if not defined $nr_campi;
+	my $table = "<h3>Tabelle prenotazione:</h3>";
+	for(1..$nr_campi){
+	    $table.= $utils->getWeek($disciplina, $_, $data);
+	}
+	$table = Encode::decode('utf8', $table);
+	my %params = (
+	    title   => 'Centro sportivo - Prenotazioni',
+	    page    => 'prenotazioni',
+	    path    => 'Prenotazioni',
+	    LOGIN   => $sess_params{is_logged},
+	    USER    => $sess_params{profile},
+	    attempt => $sess_params{attempt},
+	    TABLE   => $table
+	    );
 
-    $utils->dispatcher('prenotazioni', %params);
+	$utils->dispatcher('prenotazioni', %params);
+    }
 }
 
 sub registrazione {

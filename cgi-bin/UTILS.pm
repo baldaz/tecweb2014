@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/usr/bin/perl
 
 package UTILS;
 
@@ -11,27 +11,12 @@ use CGI::Session qw/-ip-match/;
 use DateTime;
 use Date::Parse;
 use HTML::Template;
-use Net::SMTP;
 use Encode;
 
 $ENV{HTML_TEMPLATE_ROOT} = "../public_html/templates";
 
-# protette
-=pod
-my $_get = sub {
-    my $self = shift;
-    my ($node, $name) = @_;
+# protette per uso interno
 
-    my $value = "(Element $name not found)";
-    my @targets = $node->getElementsByTagName($name);
-    
-    if (@targets) {
-	my $target = $targets[0];
-	$value = $target->textContent;
-    }
-    return $value;
-};
-=cut
 my $_text = sub {
     my $self = shift;
     my (@data) = @_;
@@ -55,6 +40,8 @@ my $_italian_days = sub {
     push(@it_days, $day_names{$start_dt->add(days => 1)->day_name()}." ".$start_dt->day()) for 0..5;
     return @it_days;
 };
+
+# costruisce la tabella delle prenotazioni
 
 my $_table_prenotazioni = sub {
     my ($self, $p_day, $campo, $disciplina, @hash) = @_;
@@ -96,6 +83,8 @@ my $_table_prenotazioni = sub {
     return $table;
 };
 
+#costruttore
+
 sub new {
     my $class = shift;
     my $self = bless {
@@ -114,13 +103,11 @@ sub load_xml {
 
 # controllo prenotazione su file xml
 
-sub checkform {
+sub check_prenotation {
     my($self, $disciplina, $campo, $data, $ora) = @_;
     $self->load_xml('../data/prenotazioni.xml');
     my $root = $self->load_xml->getDocumentElement;
-    $self->load_xml->documentElement->setNamespace("www.prenotazioni.it", "p");
-    #controllo se esiste un match (prenotazione gia' presa)
-    my $ret = $root->exists("//p:prenotante[p:disciplina='$disciplina' and p:data='$data' and p:ora='$ora' and p:campo='$campo']/p:nome");
+    my $ret = $root->exists("//prenotante[disciplina='$disciplina' and data='$data' and ora='$ora' and campo='$campo']/nome");
     return $ret;
 }
 
@@ -135,8 +122,6 @@ sub _today {
 sub getNews {
     my $self = shift;
     my $xml = $self->load_xml('../data/news.xml');
-#    $xml->documentElement->setNamespace("www.news.it","n");
-#    my $root = $xml->getDocumentElement;
     my @news = $xml->findnodes("//new");
     my @loop_news = map {{N_TITLE   => $_->findvalue("titolo"),
 	                  N_CONTENT => $_->findvalue("contenuto"),
@@ -150,39 +135,17 @@ sub getNews {
 sub getFields {
     my ($self, $disciplina) = @_;
     my $xml = $self->load_xml('../data/impianti.xml');
-    $xml->documentElement->setNamespace("www.impianti.it","i");
-    my $ret = $xml->findvalue("//i:impianto[i:disciplina='$disciplina']/i:campi");
+#    $xml->documentElement->setNamespace("www.impianti.it","i");
+    my $ret = $xml->findvalue("//impianto[disciplina='$disciplina']/campi");
     return $ret;
 }
 
-# estrae il perscorsi delle immagini degli impianti dal file xml
-# deprecabile
-=pod
-sub getImg {
-    my $self = shift;
-    my $xml = $self->load_xml('../data/impianti.xml');
-    $xml->documentElement->setNamespace("www.impianti.it","i");
-    my @ret_img = $xml->findnodes("//i:impianto/i:src");
-    return $self->$_text(@ret_img);
-}
-
-# estrae la descrizione di una data sezione dal file xml
- 
-sub getDesc {
-    my ($self, $nome) = @_;
-    my $xml = $self->load_xml('../data/sezioni.xml');
-    $xml->documentElement->setNamespace("www.sezioni.it","s");
-    my $ret_desc = $xml->findvalue("//s:sezione[\@nome='$nome']/s:contenuto");
-#    @ret_desc = $self->_$text(@ret_desc);
-#    my $ret_descr.= join( '', @ret_desc );
-}
-=cut
 sub getWeek {
     my ($self, $discipline, $campo, $p_date) = @_;
     my $xmldoc = $self->load_xml('../data/prenotazioni.xml');
     my $root = $xmldoc->getDocumentElement;
-    $xmldoc->documentElement->setNamespace("www.prenotazioni.it", "p");
-    my @dates = $root->findnodes("//p:prenotante[p:disciplina='$discipline' and p:campo='$campo']/p:data");
+#    $xmldoc->documentElement->setNamespace("www.prenotazioni.it", "p");
+    my @dates = $root->findnodes("//prenotante[disciplina='$discipline' and campo='$campo']/data");
 
     @dates = $self->$_text(@dates);
 
@@ -209,12 +172,11 @@ sub getWeek {
     my %seen;
     $seen{$_}++ for @ret_date;
     @ret_date = keys %seen;	#trova le chiavi uniche nell'array
-#    @ret_date = grep { ++$seen{$_} < 2 } @ret_date;
     my @hash = ();
     my @time = ();
 
     for my $i (0..$#ret_date){
-	@time = $root->findnodes("//p:prenotante[p:disciplina='$discipline' and p:campo='$campo' and p:data='$ret_date[$i]']/p:ora");
+	@time = $root->findnodes("//prenotante[disciplina='$discipline' and campo='$campo' and data='$ret_date[$i]']/ora");
 	$hash[$i]{date} = $ret_date[$i];
 	@time = $self->$_text(@time);
 	$hash[$i]{time} = join(" - ", @time);
@@ -228,7 +190,6 @@ sub getWeek {
 sub list_prices {
     my $self = shift;
     my $xml = $self->load_xml('../data/corsi.xml');
-#    $xml->documentElement->setNamespace("www.news.it","n");
     my @courses = $xml->findnodes("//corso");
     my @loop_courses = map {{c_name => $_->findvalue("nome"), c_mon => $_->findvalue("mensile"),
 			     c_tri => $_->findvalue("trimestrale"), c_sem => $_->findvalue("semestrale"),
@@ -279,8 +240,7 @@ sub select_field {
     my ($self, $disciplina, $data, $ora) = @_;
     my $xml = $self->load_xml('../data/prenotazioni.xml');
     my $root = $xml->getDocumentElement;
-    $xml->documentElement->setNamespace("www.prenotazioni.it", "p");
-    my @fields = $root->findnodes("//p:prenotante[p:disciplina='$disciplina' and p:data='$data' and p:ora='$ora']/p:campo");
+    my @fields = $root->findnodes("//prenotante[disciplina='$disciplina' and data='$data' and ora='$ora']/campo");
     @fields = $self->$_text(@fields);
     my $count = $self->getFields($disciplina);
     my %b_fields = map {$_ => 1} @fields;
@@ -288,7 +248,7 @@ sub select_field {
     my $ret;
     if(@f_fields){
 	foreach my $field(@f_fields){
-	    if(!$self->checkform($disciplina, $field, $data, $ora)){
+	    if(!$self->check_prenotation($disciplina, $field, $data, $ora)){
 		$ret = $field;
 		last;
 	    }

@@ -5,7 +5,9 @@ use parent 'UTILS';
 
 $ENV{HTML_TEMPLATE_ROOT} = "../public_html/templates/admin";
 
-my $_get_path = sub {		    # da spostare su UTILS, e fare inheritance
+# metodi protetti per uso interno
+
+my $_get_path = sub {		 
     my $self = shift;
     return "../data/".shift.".xml";
 };
@@ -47,7 +49,11 @@ my $_build_node = sub {
     return $node;
 };
 
+# costruttore 
+
 sub new { bless {}, shift }
+
+# inizializza la session e controlla le credenziali
 
 sub init {
     my ($self, $session, $cgi) = @_;
@@ -55,10 +61,8 @@ sub init {
 	$session->expire(720);
 	return 1;  # se già loggato posso uscire
     }
-    
-    my $user = $cgi->param("username") or return;
-    my $passwd = $cgi->param("passwd") or return;
-    
+    my $user = $cgi->param("username") || '';
+    my $passwd = $cgi->param("passwd") || '';    
     if (my $profile = $self->load_profile($user, $passwd)){
 	$session->param("~profile", $profile);
 	$session->param("~logged-in", 1);
@@ -66,26 +70,25 @@ sub init {
 	$session->expire(720);
 	return 1;
     }
-
-    # a questo punto le credenziali sono errate
-
     my $trials = $session->param("~login-trials") || 0;
     return $session->param("~login-trials", ++$trials);
 }
+
+# controlla le credenziali 
 
 sub load_profile {
     my ($self, $user, $passwd) = @_;
     my $profiles_xml = $self->load_xml('../data/profili.xml');
     my $root = $profiles_xml->getDocumentElement;
-    my $ret = $root->exists("//profilo[username='$user' and password='$passwd']");
-    if($ret){
+    if($root->exists("//profilo[username='$user' and password='$passwd']")){
 	return $user;
     }
-    
     return undef;
 }
 
-sub add_resource {
+# processa la risorsa richiesta in base ai criteri contenuti nei parametri
+
+sub _resource {
     my $self = shift;
     my %stash = @_;
     my ($suffix, $element, $action, $from) = split (/:/, $stash{'namespace'});
@@ -102,20 +105,32 @@ sub add_resource {
     my $token = $xml->getElementsByTagName($suffix)->[0];
     my $chunk = $parser->parse_balanced_chunk($ret);
     if($action eq 'add'){
-	$token->appendChild($chunk); # fare un $token->lastChild ed estrarre l'id, inserire ++id nel nuovo nodo
+	$token->appendChild($chunk); 
     }
     elsif($action eq 'edit'){
 	if($root->exists($element."[\@id='$id']")){
 	    $token = $root->findnodes($element."[\@id='$id']")->get_node(1);
-	    $token->replaceChild($chunk, $token) || die "err";
+	    $token->replaceChild($chunk, $token);
 	}
-	else { die "errrore"; }	# condizione eliminabile
+	else {
+	    my %params = (
+		err_code => '404',
+		err_desc => 'Non corrisponde alcuna risorsa all\' ID inserito'
+		);
+	    $admin->dispatch('error', %params);
+	}
     }
     elsif($action eq 'delete'){
 	$token = $root->findnodes($element."[\@id='$id']")->get_node(1);
 	$token->unbindNode();
     }
-    else { die "errrrore"; }		# lanciare errore
+    else { 
+	my %params = (
+	    err_code => '400',
+	    err_desc => 'Operazione non consentita'
+	    );
+	$admin->dispatch('error', %params); 
+    }		
     open(OUT, ">$path") || die "error $!";
     print OUT $xml->toString || die "ERRORE $!"; 
     close OUT;
