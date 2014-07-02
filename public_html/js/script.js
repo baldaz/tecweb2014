@@ -7,6 +7,27 @@ function validateCourse(){
     var semestrale = document.getElementById('semestrale').value;
     var annuale = document.getElementById('annuale').value;
     
+    var prezzo = /^[1-9][0-9]{0,2}(?:\.?[0-9]{3}){0,3}(,[0-9]{2})?.\€/;
+    if(nome.length < 1) {
+	error.push("nome");
+    }
+    if(!prezzo.test(mensile)){
+	error.push("mensile");
+    }
+    if(!prezzo.test(trimestrale)){
+	error.push("trimestrale");
+    }
+    if(!prezzo.test(semestrale)){
+	error.push("semestrale");
+    }
+    if(!prezzo.test(annuale)){
+	error.push("annuale");
+    }
+    if(Object.keys(errors).length > 0){
+	reportErrors(errors, 'content', list);
+	return false;
+    }
+    return true;
 }
 
 function validateLogin(){

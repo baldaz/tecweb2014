@@ -22,7 +22,7 @@ if($cgi->request_method eq 'GET'){
     print $cgi->redirect(-location => 'load.cgi?page=home');
 }
 my $cmd = $cgi->param('_cmd');
-if(grep { $_ eq $cmd } keys %jobs){
+if(!exists $job{$cmd}){
     $service->dispatch_error('404', 'Comando inesistente', $sess_params{is_logged}, $sess_params{profile});
 }
 else{

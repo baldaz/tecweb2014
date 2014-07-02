@@ -297,24 +297,5 @@ sub select_field {
     else{ $ret = -1; }
     return $ret;
 }
-=pod
-sub send_email {
-    my ($self, $subject, $from, $to, $message) = @_;
-    my $dt = DateTime->now;
-    my $smtp = Net::SMTP->new('smtp.studenti.math.unipd.it',
-			      Hello   => 'studenti.math.unipd.it',
-			      Timeout => 30,
-			      Debug   => 1,
-	);
-    $smtp->mail($ENV{USER} . "\@studenti.math.unipd.it");
-    $smtp->to($ENV{USER} . "\@studenti.math.unipd.it");
-    $smtp->datasend("Date: ".DateTime::Format::Mail->format_datetime( $dt )."\n");
-    $smtp->datasend("Subject: $subject\n");
-    $smtp->datasend("From: $from\n");
-    $smtp->datasend("To: <".$ENV{USER} . "\@studenti.math.unipd.it>\n");
-    $smtp->datasend($message);
-    $smtp->dataend();
-    $smtp->quit;
-}
-=cut
+
 1;

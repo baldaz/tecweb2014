@@ -3,6 +3,14 @@
 use UTILS::Admin;
 
 my $admin = UTILS::Admin->new;
+=pod
+my $cgi = CGI->new();
+my $session = CGI::Session->load($cgi) or die "Errore";
+
+unless ($session->param("~logged-in")){
+    print $session->header(-type => 'text/html', -location => 'login.cgi');
+}
+=cut
 my %input = ();
 read(STDIN, my $buffer, $ENV{'CONTENT_LENGTH'});
 if(!length($buffer)){ 
