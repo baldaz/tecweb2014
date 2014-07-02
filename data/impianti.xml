@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<impianti xmlns="www.impianti.it" xs:noNamespaceSchemaLocation="impianti.xs">
+<impianti xmlns:xs="www.impianti.it" xs:noNamespaceSchemaLocation="impianti.xs">
   <impianto>
     <disciplina>Calcetto</disciplina>
     <campi>3</campi>
