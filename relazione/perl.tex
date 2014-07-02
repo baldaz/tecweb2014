@@ -11,7 +11,8 @@ Trattandosi di un sito con una buona quantità di contenuti dinamici, è stato s
   \item \texttt{UTILS::UserService} classe figlio di UTILS, raccoglie le funzioni necessarie al compimento delle operazioni strettamente legate all'utente (e.g CRUD delle proprie generalità), prenotazione risorse
 
 \end{itemize}
-\leavevmode \\
+
+\end{itemize}
 Alcune funzioni all'interno di questi moduli sono state ``privatizzate'', in quanto funzioni di utilità non direttamente finalizzate all'utilizzo da parte dell'utente (e.g. creazione scheletro tabelle, calcolo e conversione dei giorni della settimana etc.). 
 In particolare ognuno di questi moduli fa da appoggio a rispettivi script utilizzati per effettuare le varie operazione per mezzo di dispatch tables, che consentono di risparmiare un gran numero di operazioni ridondanti e di automatizzare il piu possibile le operazioni da eseguire, aumentando inoltre la separazione tra codice e contenuto, avvicinandosi ad un approccio MVC:
 
@@ -23,7 +24,6 @@ In particolare ognuno di questi moduli fa da appoggio a rispettivi script utiliz
   \item \texttt{user\_jobs.pl} controparte frontend di \texttt{process.pl}, tutte le operazioni che l'utente può effettuare sono gestite da questo codice
 
 \end{itemize}
-\leavevmode \\
 Vi sono infine \texttt{login.pl}, \texttt{login.cgi} e \texttt{logout.pl}, piccoli script atti solo all'autenticazione dell'utente, \textit{frontend} e \textit{backend} ed alla chiusura di eventuali sessioni aperte.
 \texttt{vbooked.pl} è infine lo script utilizzato per visualizzare le tabelle di prenotazione via AJAX senza il bisogno di effettuare \textit{refresh} della pagina.
 
@@ -31,10 +31,11 @@ Vi sono infine \texttt{login.pl}, \texttt{login.cgi} e \texttt{logout.pl}, picco
 \subsection{Sistema di popolamento templates}
 
 Ogni \textit{route} richiama il \textit{dispatcher} da \texttt{UTILS} e passa un \textit{hash} contenente i parametri necessari al popolamento del template richiamato, che inoltre possiede lo stesso nome della \textit{route} appunto.
-\leavevmode \\
 Da \texttt{load.cgi} attraverso l'oggetto \texttt{\$utils} e la dispatch table viene automaticamente richiamato e popolato il template corretto:
-\leavevmode \\
-\leavevmode \\
+
+Ogni \textit{route} richiama il \textit{dispatcher} da \texttt{UTILS} e passa un \textit{hash} contenente i parametri necessari al popolamento del template richiamato, che inoltre possiede lo stesso nome della \textit{route} appunto.\newline
+Da \texttt{load.cgi} attraverso l'oggetto \texttt{\$utils} e la dispatch table viene automaticamente richiamato e popolato il template corretto: \newline \newline
+
 \small{\textit{Dispatch table} all'interno di \texttt{load.cgi}:}
 
 
@@ -81,7 +82,6 @@ Da \texttt{load.cgi} attraverso l'oggetto \texttt{\$utils} e la dispatch table v
    }
 \end{verbatim}
 }
-\leavevmode \\
 \small{Funzione \texttt{dispatcher} all'interno di \texttt{UTILS.pm}, avendo per convenzione \texttt{\$route} il nome del template a cui la route è associata, esso viene richiamato e popolato con i parametri contenuti in \texttt{\%params} settati nella funzione \texttt{corsi} in \texttt{load.cgi}:}
  
 \scriptsize{

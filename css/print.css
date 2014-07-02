@@ -1,7 +1,3 @@
-@import url("corsi.css");
-@import url("impianti.css");
-@import url("prenotazioni.css");
-
 * {
     border: 0 none;
     padding: 0;
@@ -9,37 +5,51 @@
     font-family: Copperplate, "Copperplate Gothic Light", fantasy;
     word-wrap:break-word;
 }
-
 #header{
 	text-align:center;
 	margin-bottom:1em;
 	width: 100%;
 }
-
 #path{
 	display:none;
 }
-
 #nav {
 	display:none;
 }
-
+#login{
+	display:none;
+}
 #content{
 	width:100%;	
+	text-align:left;
+	margin-bottom:2em;
 }
-#content img{
-	display:block;
-	margin: 0 auto;
-	margin-bottom: 1em;
-}
-
 #news_container{
-	display:none;
-	/*width:100%;
+	margin-bottom:2em;
+	width:100%;
 	page-break-inside:avoid;
-	list-style-type:none;*/
+	list-style-type:none;
 }
-
+#news ul li{
+	margin-bottom:1em;
+}
 #footer{
+	/*display:none;*/
+}
+table{
+	text-align:left;
+	width:80%;
+	margin-left:10%;
+}
+.skip{
+	display:none
+}
+/***Gli Impianti***/
+#content #images img{
+	display:inline;
+	width:9cm;
+}
+/***Contatti***/
+#content .form-container form{
 	display:none;
 }
