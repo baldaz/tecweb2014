@@ -77,10 +77,6 @@ sub load_profile {
     my ($self, $user, $passwd) = @_;
     my $profiles_xml = $self->load_xml('../data/profili.xml');
     my $root = $profiles_xml->getDocumentElement;
-#    $profiles_xml->documentElement->setNamespace("www.profili.it", "p");
-				# controllo se esiste un match (profilo esistente) 
-#    my $key = 'tecweb2014';
-#    my $enc_pwd = crypt($key, $passwd);
     my $ret = $root->exists("//profilo[username='$user' and password='$passwd']");
     if($ret){
 	return $user;

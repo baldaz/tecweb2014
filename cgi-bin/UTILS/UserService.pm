@@ -23,6 +23,7 @@ sub session_params {
 	$params{is_logged} = 0;
 	if($session->param("~login-trials")){
 	    $params{attempt} = 1;
+	    $session->param("~login-trials", 0);
 	}
     }
     return %params;
