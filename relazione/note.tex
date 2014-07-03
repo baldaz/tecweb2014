@@ -9,3 +9,4 @@ La parte amministrativa e' rudimentale e un po' scarna sempre per la mancanza di
 Abbiamo deciso di separare la parte amministrativa dal sito per scelte di sicurezza (\textit{information hiding}).
 Nel nostro sito l'utilizzo di \texttt{javascript} e' limitato alla validazione dei dati nei vari form e al sistema di visualizzazione delle tabelle di prenotazione senza bisogno di refresh (\texttt{AJAX}).\newline
 Sono stati effettuati i test nel caso venga disabilitato \texttt{javascript} nel sito, come fallback ci sono controlli lato server via \texttt{Perl} e un button per il refresh della pagina per la visualizzazione delle tabelle di prenotazione sempre via \texttt{Perl}.\newline 
+Come "database" per le prenotazioni per i profili e tutto cio' che serviva immagazzinare abbiamo usato dei file \texttt{XML}, in tali files non abbiamo inserito i namespace tuttavia sono provvisti di \textit{schema} e sono stati validati online. 
