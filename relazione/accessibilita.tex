@@ -39,12 +39,12 @@ poiche' con Jaws e NVDA la lettura risulta essere 'giusta' mentre con ChromeVox 
 \paragraph{Total Validator}
 Abbiamo usato Total Validator per la validazione del nostro sito visto le sue regole stringenti e conformi agli standard WCAG 2.0 AAA. Due errori sono stati riscontrati e non corretti per le motivazioni sottostanti:
 \begin{itemize}
-	\item Attributo \<time\> non supportato
-	\item Attributo \<placeholder\> non supportato
+	\item Attributo time non supportato
+	\item Attributo placeholder non supportato
 \end{itemize}
 Entrambi i tag appena riportati sono stati introdotti in \texttt{HTML5} e percio' non conformi, tuttavia abbiamo deciso di non eliminarli dal sito poiche' entrambi hanno un azione di fallback elegante poiche' quando un browser non supporta \texttt{placeholder} semplicemente o non c'e' testo (placeholder text) nella \texttt{textbox} o il testo e' semplicemente nero.
-L'attributo \texttt{time} lo abbiamo lasciato poiche' visualmente non risulta visibile all'utente tuttavia screenreader quali Jaws e NVDA leggono le informazioni interne a \<time\> \</time\> nel modo giusto. 
-Esempio "ore \<time\>18:00\</time\>" viene letto 'ore diciotto e zero zero' mentre "ore 18:00" viene letto 'ore diciotto duepunti zero zero' o su alcuni screen reader 'ore milleottocento'.
+L'attributo \texttt{time} lo abbiamo lasciato poiche' visualmente non risulta visibile all'utente tuttavia screenreader quali Jaws e NVDA leggono le informazioni interne a time /time nel modo giusto. 
+Esempio "ore time 18:00 /time" viene letto "ore diciotto e zero zero" mentre "ore 18:00" viene letto "ore diciotto duepunti zero zero" o su alcuni screen reader ore "milleottocento".
 Per questi motivi abbiamo deciso di lasciare questi tag all'interno nel nostro sito.
 
 \subsection{Accessibilita' parte amministrativa}
