@@ -3,7 +3,7 @@
 use UTILS::UserService;
 
 my $cgi = CGI->new();
-my $utils = UTILS::UserService->new();
+my $utils = UTILS::UserService->new(); #oggetto userservice, funzioni di utilita' e dispatching
 my $page = $cgi->param('page') || $cgi->param('pagep') || 'home';
 my $today = $utils->_today;
 my %sess_params = $utils->session_params($cgi);

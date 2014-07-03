@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dati xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="prenotanti_schema.xs" >
-<!--<p:dati xmlns="www.prenotazioni.it" xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance" xmlns:p="www.prenotazioni.it" xs:schemaLocation="www.prenotazioni.it prenotanti_schema.xs">-->
+<dati xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="prenotanti_schema.xs">
   <prenotazioni>
     
     <prenotante>
@@ -17,5 +16,69 @@
       <data>2014-07-10</data>
       <ora>16:00</ora>
     </prenotante>
-  </prenotazioni>
+  
+    <prenotante>
+      <email>admin@ciccipanze.csw</email>
+      <disciplina>Calcetto</disciplina>
+      <campo>1</campo>
+      <data>2014-06-09</data>
+      <ora>16:00</ora>
+    </prenotante>
+    
+    <prenotante>
+      <email>admin@ciccipanze.csw</email>
+      <disciplina>Beach Volley</disciplina>
+      <campo>1</campo>
+      <data>2014-07-20</data>
+      <ora>20:00</ora>
+    </prenotante>
+    
+    <prenotante>
+      <email>admin@ciccipanze.csw</email>
+      <disciplina>Calcetto</disciplina>
+      <campo>1</campo>
+      <data>2014-07-20</data>
+      <ora>16:00</ora>
+    </prenotante>
+    
+    <prenotante>
+      <email>admin@ciccipanze.csw</email>
+      <disciplina>Calcetto</disciplina>
+      <campo>2</campo>
+      <data>2014-07-20</data>
+      <ora>16:00</ora>
+    </prenotante>
+    
+    <prenotante>
+      <email>admin@ciccipanze.csw</email>
+      <disciplina>Calcetto</disciplina>
+      <campo>1</campo>
+      <data>2014-01-01</data>
+      <ora>20:00</ora>
+    </prenotante>
+    
+    <prenotante>
+      <email>admin@ciccipanze.csw</email>
+      <disciplina>Tennis</disciplina>
+      <campo>1</campo>
+      <data>2014-07-15</data>
+      <ora>16:00</ora>
+    </prenotante>
+    
+    <prenotante>
+      <email>admin@ciccipanze.csw</email>
+      <disciplina>Tennis</disciplina>
+      <campo>2</campo>
+      <data>2014-07-15</data>
+      <ora>16:00</ora>
+    </prenotante>
+    
+    <prenotante>
+      <email>admin@ciccipanze.csw</email>
+      <disciplina>Calciotto</disciplina>
+      <campo>1</campo>
+      <data>2014-07-10</data>
+      <ora>21:00</ora>
+    </prenotante>
+    </prenotazioni>
 </dati>

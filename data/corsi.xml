@@ -1,83 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<corsi xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="corsi.xs" >
-  <corso id="1">
-    <nome>Sala Fitness</nome>
-    <mensile>60€</mensile>
-    <trimestrale>150€</trimestrale>
-    <semestrale>280€</semestrale>
-    <annuale>500€</annuale>
-	<orari>
-		<lun>20:00 - 22:00</lun>
-		<mar></mar>
-		<mer></mer>
-		<gio>21:00 - 22:30</gio>
-		<ven></ven>
-		<sab></sab>
-		<dom></dom>
-	</orari>
-  </corso>
-  <corso id="2">
-    <nome>Yoga</nome>
-    <mensile>60€</mensile>
-    <trimestrale>150€</trimestrale>
-    <semestrale>280€</semestrale>
-    <annuale>500€</annuale>
-	<orari>
-		<lun>20:00 - 22:00</lun>
-		<mar></mar>
-		<mer></mer>
-		<gio>21:00 - 22:30</gio>
-		<ven></ven>
-		<sab></sab>
-		<dom></dom>
-	</orari>
-  </corso>
-  <corso id="3">
-    <nome>Pilates</nome>
-    <mensile>60€</mensile>
-    <trimestrale>150€</trimestrale>
-    <semestrale>280€</semestrale>
-    <annuale>500€</annuale>
-	<orari>
-		<lun>20:00 - 22:00</lun>
-		<mar></mar>
-		<mer></mer>
-		<gio>21:00 - 22:30</gio>
-		<ven></ven>
-		<sab></sab>
-		<dom></dom>
-	</orari>
-  </corso>
-  <corso id="4">
-    <nome>Cross Fit</nome>
-    <mensile>60€</mensile>
-    <trimestrale>150€</trimestrale>
-    <semestrale>280€</semestrale>
-    <annuale>500€</annuale>
-	<orari>
-		<lun>20:00 - 22:00</lun>
-		<mar></mar>
-		<mer></mer>
-		<gio>21:00 - 22:30</gio>
-		<ven></ven>
-		<sab></sab>
-		<dom></dom>
-	</orari>
-  </corso>
-  <corso id="5">
-    <nome>Fit Boxe</nome>
-    <mensile>60€</mensile>
-    <trimestrale>150€</trimestrale>
-    <semestrale>280€</semestrale>
-    <annuale>500€</annuale>
-	<orari>
-		<lun>20:00 - 22:00</lun>
-		<mar></mar>
-		<mer></mer>
-		<gio>21:00 - 22:30</gio>
-		<ven></ven>
-		<sab></sab>
-		<dom></dom>
-	</orari>
-  </corso>
+<corsi xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="corsi.xs">
+  	<corso id="1">
+		<nome>Sala Fitness</nome>
+		<mensile>60€</mensile>
+		<trimestrale>150€</trimestrale>
+		<semestrale>280€</semestrale>
+		<annuale>500€</annuale>
+		<orari>
+			<lun>20:00 - 22:00</lun>
+			<mar/>
+			<mer>20:00 - 22:00</mer>
+			<gio>21:00 - 22:30</gio>
+			<ven/>
+			<sab>15:30-17:30</sab>
+			<dom/>
+		</orari>
+	</corso>
+
+  	<corso id="2">
+		<nome>Yoga</nome>
+		<mensile>60€</mensile>
+		<trimestrale>150€</trimestrale>
+		<semestrale>280€</semestrale>
+		<annuale>500€</annuale>
+		<orari>
+			<lun>20:00 - 22:00</lun>
+			<mar/>
+			<mer>21:00 - 22:30</mer>
+			<gio/>
+			<ven>21:00 - 22:30</ven>
+			<sab/>
+			<dom>16:00 - 18:00</dom>
+		</orari>
+	</corso>
+
+  	<corso id="3">
+		<nome>Pilates</nome>
+		<mensile>60€</mensile>
+		<trimestrale>150€</trimestrale>
+		<semestrale>280€</semestrale>
+		<annuale>500€</annuale>
+		<orari>
+			<lun>20:00 - 22:00</lun>
+			<mar/>
+			<mer>17:30 - 19:00</mer>
+			<gio/>
+			<ven>21:00 - 22:30</ven>
+			<sab/>
+			<dom>16:00-18:00</dom>
+		</orari>
+	</corso>
+
+  	<corso id="4">
+		<nome>Cross Fit</nome>
+		<mensile>60€</mensile>
+		<trimestrale>150€</trimestrale>
+		<semestrale>280€</semestrale>
+		<annuale>500€</annuale>
+		<orari>
+			<lun>20:00 - 22:00</lun>
+			<mar/>
+			<mer/>
+			<gio>21:00 - 22:30</gio>
+			<ven/>
+			<sab>15:30 - 17:30</sab>
+			<dom/>
+		</orari>
+	</corso>
+
+  	<corso id="5">
+		<nome>Fit Boxe</nome>
+		<mensile>60€</mensile>
+		<trimestrale>150€</trimestrale>
+		<semestrale>280€</semestrale>
+		<annuale>500€</annuale>
+		<orari>
+			<lun/>
+			<mar>20:00 - 22:00</mar>
+			<mer/>
+			<gio>21:00 - 22:30</gio>
+			<ven>17:30 - 19:30</ven>
+			<sab/>
+			<dom>16:00 - 18:00</dom>
+		</orari>
+	</corso>
+
+	<corso id="6">
+		<nome>AcquaGym</nome>
+		<mensile>45 €</mensile>
+		<trimestrale>115 €</trimestrale>
+		<semestrale>200 €</semestrale>
+		<annuale>350 €</annuale>
+		<orari>
+			<lun>19:30 - 21:30</lun>
+			<mar/>
+			<mer>17:30 - 19:00</mer>
+			<gio/>
+			<ven/>
+			<sab>15:30-17:30</sab>
+			<dom/>
+		</orari>
+	</corso>
 </corsi>

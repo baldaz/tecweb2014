@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <profili xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance">
   <profilo>
-    <username>admin@admin.ad</username>
+    <username>admin@ciccipanze.csw</username>
     <password>admin</password>
-    <nome>AmministratoreDog</nome>
-    <cognome>Dog</cognome>
+    <nome>AmministratoreCSW</nome>
+    <cognome>AmministratoreCSW</cognome>
     <telefono>0123456789</telefono>
   </profilo>
 </profili>
