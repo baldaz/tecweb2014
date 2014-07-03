@@ -1,13 +1,13 @@
-﻿$(document).ready(function(){
+﻿$(document).ready(function(){  //slideshow homepage
 var i = 0;
     var src = ['../images/piscina.jpg', '../images/tennis.jpg', '../images/entrata_centro.jpg'];
 setInterval(function(){
     $("#splash").attr('src', src[i]);
     i++;
     if(i == src.length) i = 0;
-}, 6000);
+}, 4500);
 
-$(".p_field").change(function(){
+$(".p_field").change(function(){ //ajax prenotazioni
     var disc, date;
     var giorno = $("#giorno").val();
     var mese = $("#mese").val();
@@ -35,7 +35,6 @@ $(".p_field").change(function(){
 	$.ajax({
 	    type: "POST",
 	    url: "vbooked.pl",
-	    //	data: "disciplina=" + disciplina + "&data=" + date,
 	    data: {disciplina: disc, data: date},
 	    error: function(request) { 
 		alert("Errore nella visualizzazione, ricontrollare che l' inserimento dei campi data e disciplina rispetti il formato richiesto.");
