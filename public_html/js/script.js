@@ -100,10 +100,10 @@ function validate_pwd_change(){
     var vpwd = document.getElementById('vpassword').value;
     var opwd = document.getElementById('password').value;
 
-    if(vpwd.length < 6){
+    if(vpwd.length < 1){
 	errors.push("vpassword");
     }
-    if(opwd.length < 6){
+    if(opwd.length < 1){
 	errors.push("password");
     }
     if(Object.keys(errors).length > 0){

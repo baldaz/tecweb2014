@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <news xmlns:xs="http://wwww.w3.org/2001/XMLSchema-instance">
-    <new id="1">
-      <titolo>Primo</titolo>
-      <data>2014-06-04</data>
-      <contenuto>Ciaooo</contenuto>
-    </new>
-    <new id="2">
-      <titolo>Secondo</titolo>
-      <data>2014-06-04</data>
-      <contenuto>Ciaooo</contenuto>
-    </new>
-    <new id="3">
-      <titolo>Terzo</titolo>
-      <data>2014-06-04</data>
-      <contenuto>Ciaooo</contenuto>
-    </new>
+    	<new id="1">
+		<titolo>Sconti Mondiali</titolo>
+		<data>01-06-2014</data>
+		<contenuto>Durante tutto il periodo dei mondiali di calcio offriamo il 40% di sconto sulle prenotazioni su tutti gli impianti disponibili. Vi aspettiamo!</contenuto>
+	</new>
+
+    	<new id="2">
+		<titolo>Apertura</titolo>
+		<data>20-05-2014</data>
+		<contenuto>In onore dell' apertura di questo grande centro sportivo faremo un buffet dalle 18:00 alle 23:00, con ingresso in piscina gratuito e tutti gli impianti a disposizione. Vi aspettiamo!</contenuto>
+	</new>
+
+    
 </news>
