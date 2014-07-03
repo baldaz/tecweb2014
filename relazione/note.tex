@@ -1,0 +1,11 @@
+\section{Note e difficolta' riscontrate}
+\subsection{Difficolta'}
+Il problema piu' grosso che abbiamo avuto e' stato il fatto di dover completare il progetto in due membri anziche' tre.
+Alcune feature come ad esempio una traduzione in inglese sono state tralasciate per via del elevato carico di lavoro.\newline
+Un iniziale scelta dello schema di colori nel layout ha creato problemi nella parte di accessibilita' e siamo stati costretti a cambiarlo.
+
+\subsection{Note}
+La parte amministrativa e' rudimentale e un po' scarna sempre per la mancanza di tempo, abbiamo pensato di fare solo una validazione tramite Javascript in questa sezione poiche' si presume che l'amministratore del sito sia informato a dovere e abbia un idea giusta del contenuto che andra' a mettere nel proprio sito (ad esempio nei corsi evitare di sovrascrivere gli orari in qualche giorno e' sua responsabilita').\newline
+Abbiamo deciso di separare la parte amministrativa dal sito per scelte di sicurezza (\textit{information hiding}).
+Nel nostro sito l'utilizzo di \texttt{javascript} e' limitato alla validazione dei dati nei vari form e al sistema di visualizzazione delle tabelle di prenotazione senza bisogno di refresh (\texttt{AJAX}).\newline
+Sono stati effettuati i test nel caso venga disabilitato \texttt{javascript} nel sito, come fallback ci sono controlli lato server via \texttt{Perl} e un button per il refresh della pagina per la visualizzazione delle tabelle di prenotazione sempre via \texttt{Perl}.\newline 
